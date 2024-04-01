@@ -2,7 +2,7 @@ from saci.modeling import CPV
 from saci.modeling.device import TelemetryHigh, ControllerHigh, MultiCopterMotorHigh, MultiCopterMotorAlgo
 from saci.modeling.state import GlobalState
 
-from .vuln import MavlinkVuln01
+from ..vulns.mavlink_mitm_vuln import MavlinkVuln01
 
 
 class MavlinkCPV(CPV):
