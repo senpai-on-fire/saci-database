@@ -1,6 +1,6 @@
 from saci.modeling import Vulnerability
 from saci.modeling.device import TelemetryHigh, TelemetryAlgorithmic, Device
-from saci.modeling.communication import AuthenticatedCommunication
+from saci.modeling.communication import AuthenticatedCommunication, ExternalInput
 
 
 class MavlinkVuln01(Vulnerability):
@@ -9,7 +9,7 @@ class MavlinkVuln01(Vulnerability):
             # TODO: how do you describe that it can occur in both Algorithmic and High telemetry?
             component=TelemetryAlgorithmic,
             # TODO: how to express input/output constraints
-            _input=AuthenticatedCommunication(),
+            _input=AuthenticatedCommunication(src=ExternalInput()),
             output=AuthenticatedCommunication(),
         )
 
