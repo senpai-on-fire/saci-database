@@ -43,3 +43,4 @@ class MavlinkCPV(CPV):
                 return False
             elif isinstance(component, ControllerHigh) and not component.powered:
                 return False
+        return True
