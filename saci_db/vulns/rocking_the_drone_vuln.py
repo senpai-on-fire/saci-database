@@ -1,9 +1,9 @@
-from saci.modeling import Vulnerability
+from saci.modeling import BaseVulnerability
 from saci.modeling.device import GyroscopeHigh, GyroscopeSource, GyroscopeAlgorithmic, Device
 from saci.modeling.communication import BaseCommunication
 
 
-class RockingDronesVuln(Vulnerability):
+class RockingDronesVuln(BaseVulnerability):
     def __init__(self):
         super().__init__(
             component=GyroscopeAlgorithmic,

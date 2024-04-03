@@ -1,4 +1,4 @@
-from saci.modeling import Vulnerability, PublicSecretVulnerability
+from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import TelemetryHigh, TelemetryAlgorithmic, Device
 from saci.modeling.communication import AuthenticatedCommunication, ExternalInput
 
