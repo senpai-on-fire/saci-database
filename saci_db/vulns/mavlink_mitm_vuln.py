@@ -1,9 +1,9 @@
-from saci.modeling import Vulnerability
+from saci.modeling import Vulnerability, PublicSecretVulnerability
 from saci.modeling.device import TelemetryHigh, TelemetryAlgorithmic, Device
 from saci.modeling.communication import AuthenticatedCommunication, ExternalInput
 
 
-class MavlinkVuln01(Vulnerability):
+class MavlinkVuln01(PublicSecretVulnerability):
     def __init__(self):
         super().__init__(
             # TODO: how do you describe that it can occur in both Algorithmic and High telemetry?
