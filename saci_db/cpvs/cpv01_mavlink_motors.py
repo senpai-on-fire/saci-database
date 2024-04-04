@@ -23,6 +23,7 @@ class MavlinkCPV(CPV):
 
         # We want the motor to be powered, but to be doing nothing. This can be described as neither
         # having lift, pitch, or yaw.
+
         gms = MultiCopterMotorAlgo()
         gms.conditions = [
             gms.v["yaw"] == 0,
@@ -30,6 +31,13 @@ class MavlinkCPV(CPV):
             gms.v["lift"] == 0,
         ]
         self.goal_motor_state = gms
+
+    def is_possible_path(self, path: List[Type[ComponentBase]]):
+        required_components = [MultiCopterMotorHigh, TelemetryHigh, ControllerHigh]
+        for required in required_components:
+            if not required_components in path:
+                return False
+        return True
 
     def in_goal_state(self, state: GlobalState):
         for component in state.components:
