@@ -1,5 +1,5 @@
 from saci.modeling import BaseVulnerability
-from saci.modeling.device import GPSReceiver, GPSReceiverAlgorithm, Device
+from saci.modeling.device import GPSReceiver, Device
 from saci.modeling.communication import UnauthenticatedCommunication
 
 class GPSSpoofingVuln01(BaseVulnerability):
@@ -15,7 +15,7 @@ class GPSSpoofingVuln01(BaseVulnerability):
     def exists(self, device: Device) -> bool:
         for comp in device.components:
             # Check if the device uses GPS for navigation and if the GPS signals are not authenticated
-            if isinstance(comp, GPSReceiver) and comp.is_spoofable:
+            if isinstance(comp, GPSReceiver) and not comp.authenticated:
                 return True
 
         return False

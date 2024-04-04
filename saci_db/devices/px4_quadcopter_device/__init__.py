@@ -1,5 +1,6 @@
 import networkx as nx
 from saci.modeling.device import Device, MultiCopterMotorHigh, MultiCopterMotorAlgo, ComponentHigh
+from saci.modeling.state import GlobalState
 
 from .gcs_telemetry import GCSTelemetryHigh, GCSTelemetryAlgo
 from .px4_controller import PX4ControllerHigh
@@ -24,3 +25,7 @@ class PX4Quadcopter(Device):
             },
             state=state,
         )
+
+    def update_state(self, state: GlobalState) -> GlobalState:
+        pass
+
