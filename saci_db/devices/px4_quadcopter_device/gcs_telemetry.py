@@ -8,7 +8,7 @@ class GCSTelemetryHigh(TelemetryHigh):
 
 
 class GCSTelemetryAlgo(TelemetryAlgorithmic):
-    def __init__(self, system_id):
+    def __init__(self, system_id=None):
         super().__init__(name="gcs_telemetry_algo")
         self.system_id = system_id
 

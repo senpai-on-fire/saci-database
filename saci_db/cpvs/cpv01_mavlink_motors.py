@@ -1,6 +1,9 @@
+from typing import List, Type
+
 from saci.modeling import CPV
 from saci.modeling.device import TelemetryHigh, ControllerHigh, MultiCopterMotorHigh, MultiCopterMotorAlgo
 from saci.modeling.state import GlobalState
+from saci.modeling.device import CyberComponentBase
 
 from ..vulns.mavlink_mitm_vuln import MavlinkVuln01
 
@@ -32,10 +35,10 @@ class MavlinkCPV(CPV):
         ]
         self.goal_motor_state = gms
 
-    def is_possible_path(self, path: List[Type[ComponentBase]]):
+    def is_possible_path(self, path: List[Type[CyberComponentBase]]):
         required_components = [MultiCopterMotorHigh, TelemetryHigh, ControllerHigh]
         for required in required_components:
-            if not required_components in path:
+            if not any(map(lambda p: isinstance(p, required), path)):
                 return False
         return True
 

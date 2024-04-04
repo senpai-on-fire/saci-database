@@ -1,5 +1,5 @@
 import networkx as nx
-from saci.modeling.device import Device, MultiCopterMotorHigh, MultiCopterMotorAlgo, ComponentHigh
+from saci.modeling.device import Device, MultiCopterMotorHigh, MultiCopterMotorAlgo, CyberComponentHigh
 from saci.modeling.state import GlobalState
 
 from .gcs_telemetry import GCSTelemetryHigh, GCSTelemetryAlgo
@@ -18,7 +18,7 @@ class PX4Quadcopter(Device):
                 MultiCopterMotorAlgo
             ],
             component_graphs={
-                ComponentHigh: nx.from_edgelist([
+                CyberComponentHigh: nx.from_edgelist([
                     (GCSTelemetryHigh, PX4ControllerHigh),
                     (PX4ControllerHigh, MultiCopterMotorHigh),
                 ], create_using=nx.DiGraph),
