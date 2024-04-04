@@ -4,7 +4,7 @@ from saci.modeling.device import (GPSReceiver, ControllerHigh,
                                   MultiCopterMotorHigh, MultiCopterMotorAlgo)
 from saci.modeling.state import GlobalState
 
-from examples.cpv02_gps_spoofing.gps_spoofing_vuln import GPSSpoofingVuln01
+from saci_db.vulns.gps_spoofing_vuln import GPSSpoofingVuln01
 
 
 class GPSCPV(CPV):
