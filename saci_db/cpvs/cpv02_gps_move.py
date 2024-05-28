@@ -8,17 +8,19 @@ from saci_db.vulns.gps_spoofing_vuln import GPSSpoofingVuln01
 
 
 class GPSCPV(CPV):
+    NAME = "The GPS Spoofing CPV 01"
+
     def __init__(self):
         gps_vuln = GPSSpoofingVuln01()
         super().__init__(
             required_components=[
                 gps_vuln.component,
-                CameraHigh,
-                LocalizerHigh,
-                LocalizerAlgorithm,
-                ControllerHigh,
-                MultiCopterMotorHigh,
-                MultiCopterMotorAlgo,
+                CameraHigh(),
+                LocalizerHigh(),
+                LocalizerAlgorithm(),
+                ControllerHigh(),
+                MultiCopterMotorHigh(),
+                MultiCopterMotorAlgo(),
             ],
             entry_component=GPSReceiver(powered=True),
             vulnerabilities=[gps_vuln]

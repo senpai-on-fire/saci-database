@@ -1,20 +1,21 @@
 import os
 
-from clorm import Predicate, ConstantStr
-from clorm.clingo import Control
+from clorm import Predicate
 
 from saci.modeling import PublicSecretVulnerability
-from saci.modeling.device import TelemetryHigh, TelemetryAlgorithmic, Device
+from saci.modeling.device import TelemetryHigh, TelemetryAlgorithmic, Telemetry, Device
 from saci.modeling.communication import AuthenticatedCommunication, ExternalInput
+
 
 class SiK_Attack(Predicate):
     time: int
 
-class SiKCPSV(PublicSecretVulnerability):
+
+class SiKAuthVuln01(PublicSecretVulnerability):
     def __init__(self):
         super().__init__(
             # TODO: how do you describe that it can occur in both Algorithmic and High telemetry?
-            component=TelemetryAlgorithmic,
+            component=Telemetry(name="Sik Telemetry"),
             # TODO: how to express input/output constraints
             _input=AuthenticatedCommunication(src=ExternalInput()),
             output=AuthenticatedCommunication(),

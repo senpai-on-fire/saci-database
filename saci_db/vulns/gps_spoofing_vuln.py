@@ -5,7 +5,7 @@ from saci.modeling.communication import UnauthenticatedCommunication
 class GPSSpoofingVuln01(BaseVulnerability):
     def __init__(self):
         super().__init__(
-            component=GPSReceiver,
+            component=GPSReceiver(),
             # Input here would be the unauthenticated, spoofed GPS signals
             _input=UnauthenticatedCommunication(),
             # Output would be erroneous navigation decisions based on spoofed signals

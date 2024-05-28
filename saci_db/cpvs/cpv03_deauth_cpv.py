@@ -1,17 +1,21 @@
 '''''
 '''''
-from saci.modeling import CPV, WiFiDeauthVuln
+from saci.modeling import CPV
 from saci.modeling.device import TelemetryHigh, ControllerHigh, Device
 from saci.modeling.state import GlobalState
+from saci_db.vulns.deauth_vuln import WiFiDeauthVuln
+
 
 class WiFiDeauthDosCPV(CPV):
+    NAME = "WiFi Deauthentication DOS attack"
+
     def __init__(self):
         wifi_deauth_vuln = WiFiDeauthVuln()
         super().__init__(
             required_components=[
                 wifi_deauth_vuln.component,
-                TelemetryHigh,
-                ControllerHigh,
+                TelemetryHigh(),
+                ControllerHigh(),
             ],
             entry_component=TelemetryHigh(powered=True),
             vulnerabilities=[wifi_deauth_vuln]
@@ -32,4 +36,3 @@ class WiFiDeauthDosCPV(CPV):
                 if component.powered and not component.connected:
                     return True
         return False
-

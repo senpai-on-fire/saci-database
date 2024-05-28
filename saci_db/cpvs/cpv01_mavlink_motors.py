@@ -5,23 +5,31 @@ from saci.modeling.device import TelemetryHigh, ControllerHigh, MultiCopterMotor
 from saci.modeling.state import GlobalState
 from saci.modeling.device import CyberComponentBase
 
+from ..devices.px4_quadcopter_device import GCSTelemetry
 from ..vulns.mavlink_mitm_vuln import MavlinkVuln01
+from ..vulns.sik_vuln import SiKAuthVuln01
 
 
 class MavlinkCPV(CPV):
+
+    NAME = "The Mavlink CPV"
+
+    sik_auth_vuln = SiKAuthVuln01()
+    mavlink_vuln = MavlinkVuln01()
+
     def __init__(self):
-        mavlink_vuln = MavlinkVuln01()
         super().__init__(
             required_components=[
-                mavlink_vuln.component,
-                TelemetryHigh,
-                ControllerHigh,
-                MultiCopterMotorHigh,
-                MultiCopterMotorAlgo,
+                GCSTelemetry(),
+                self.sik_auth_vuln.component,
+                self.mavlink_vuln.component,
+                ControllerHigh(),
+                MultiCopterMotorHigh(),
+                MultiCopterMotorAlgo(),
             ],
             # TODO: how to describe what kind of input is needed
             entry_component=TelemetryHigh(powered=True),
-            vulnerabilities=[mavlink_vuln]
+            vulnerabilities=[self.sik_auth_vuln, self.mavlink_vuln]
         )
 
         # We want the motor to be powered, but to be doing nothing. This can be described as neither

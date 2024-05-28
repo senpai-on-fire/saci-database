@@ -7,11 +7,11 @@ from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import Device, TelemetryHigh
 from saci.modeling.communication import UnauthenticatedCommunication
 
-class WifiDeauthVuln(PublicSecretVulnerability):
+class WiFiDeauthVuln(PublicSecretVulnerability):
     def __init__(self):
         super().__init__(
             # Assuming that TelemetryHigh can represent a WiFi component
-            component=TelemetryHigh,  
+            component=TelemetryHigh(),
             # The input to a deauth attack is unauthenticated 
             _input=UnauthenticatedCommunication(),
             # The output is the disconnection 

@@ -10,7 +10,7 @@ class IcmpFloodAttack(PublicSecretVulnerability):
     def __init__(self):
         super().__init__(
             # Assuming that TelemetryHigh can represent a network component
-            component=TelemetryHigh,
+            component=TelemetryHigh(),
             # The input to an ICMP flood attack is unauthenticated
             _input=UnauthenticatedCommunication(),
             # The output is network disruption due to the unauthenticated ICMP flood

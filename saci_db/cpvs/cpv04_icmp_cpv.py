@@ -1,6 +1,7 @@
-from saci.modeling import CPV, IcmpFloodVuln
+from saci.modeling import CPV
 from saci.modeling.device import NetworkComponent, ControllerHigh, Device
 from saci.modeling.state import GlobalState
+from saci_db.vulns.icmp_vuln import IcmpFloodVuln
 
 # Define the CPV for the ICMP Flood Attack
 class IcmpFloodCPV(CPV):

@@ -5,7 +5,7 @@ from clorm import Predicate, IntegerField
 from saci.modeling.device import Device, MultiCopterMotorHigh, MultiCopterMotorAlgo, CyberComponentHigh
 from saci.modeling.state import GlobalState
 
-from .gcs_telemetry import GCSTelemetryHigh, GCSTelemetryAlgo
+from .gcs_telemetry import GCSTelemetryHigh, GCSTelemetryAlgo, GCSTelemetry
 from .px4_controller import PX4ControllerHigh
 
 class Drone_Crash(Predicate):
@@ -18,8 +18,7 @@ class PX4Quadcopter(Device):
         super().__init__(
             name="px4_quadcopter_device",
             components=[
-                GCSTelemetryHigh,
-                GCSTelemetryAlgo,
+                GCSTelemetry,
                 PX4ControllerHigh,
                 MultiCopterMotorHigh,
                 MultiCopterMotorAlgo

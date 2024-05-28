@@ -1,5 +1,6 @@
 from saci.modeling.communication import AuthenticatedCommunication
-from saci.modeling.device import TelemetryHigh, TelemetryAlgorithmic
+from saci.modeling.device import TelemetryHigh, TelemetryAlgorithmic, Telemetry, CyberComponentSourceCode, CyberComponentBinary
+from saci.modeling.device.component.cyber.cyber_abstraction_level import CyberAbstractionLevel
 
 
 class GCSTelemetryHigh(TelemetryHigh):
@@ -15,3 +16,12 @@ class GCSTelemetryAlgo(TelemetryAlgorithmic):
     def accepts_communication(self, communication: AuthenticatedCommunication) -> bool:
         if communication.identifier == self.system_id:
             return True
+
+
+class GCSTelemetry(Telemetry):
+    ABSTRACTIONS = {
+        CyberAbstractionLevel.HIGH: GCSTelemetryHigh,
+        CyberAbstractionLevel.ALGORITHMIC: GCSTelemetryAlgo,
+        CyberAbstractionLevel.SOURCE: CyberComponentSourceCode,
+        CyberAbstractionLevel.BINARY: CyberComponentBinary,
+    }
