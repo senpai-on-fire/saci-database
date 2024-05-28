@@ -1,6 +1,6 @@
 import os
 
-from clorm import Predicate
+from clorm import Predicate, IntegerField
 
 from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import TelemetryHigh, TelemetryAlgorithmic, Telemetry, Device
@@ -8,7 +8,7 @@ from saci.modeling.communication import AuthenticatedCommunication, ExternalInpu
 
 
 class SiK_Attack(Predicate):
-    time: int
+    time = IntegerField()
 
 
 class SiKAuthVuln01(PublicSecretVulnerability):
@@ -19,8 +19,8 @@ class SiKAuthVuln01(PublicSecretVulnerability):
             # TODO: how to express input/output constraints
             _input=AuthenticatedCommunication(src=ExternalInput()),
             output=AuthenticatedCommunication(),
-            attack_ASP=[SiK_Attack],
-            rulefile=os.path.join(os.path.realpath(__file__), 'sik.lp')
+            attack_ASP=SiK_Attack,
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'sik.lp')
         )
 
     def exists(self, device: Device) -> bool:
