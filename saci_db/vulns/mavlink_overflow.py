@@ -5,7 +5,7 @@ from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import TelemetryHigh, TelemetryAlgorithmic, Device
 from saci.modeling.communication import AuthenticatedCommunication, ExternalInput
 
-class Attack_CPSV_Mavlink(Predicate):
+class Attack_CPSV_Overflow(Predicate):
     time = IntegerField()
 
 class MavlinkVuln01(PublicSecretVulnerability):
@@ -16,8 +16,8 @@ class MavlinkVuln01(PublicSecretVulnerability):
             # TODO: how to express input/output constraints
             _input=AuthenticatedCommunication(src=ExternalInput()),
             output=AuthenticatedCommunication(),
-            attack_ASP=Attack_CPSV_Mavlink,
-            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'mavlink_mitm.lp')
+            attack_ASP=Attack_CPSV_Overflow,
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'mavlink_overflow.lp')
         )
 
     def exists(self, device: Device) -> bool:
