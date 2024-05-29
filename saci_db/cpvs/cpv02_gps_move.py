@@ -1,7 +1,9 @@
+from typing import List, Type
+
 from saci.modeling import CPV
 from saci.modeling.device import (GPSReceiver, ControllerHigh, 
                                   CameraHigh, LocalizerHigh, LocalizerAlgorithm,
-                                  MultiCopterMotorHigh, MultiCopterMotorAlgo)
+                                  MultiCopterMotorHigh, MultiCopterMotorAlgo, CyberComponentBase)
 from saci.modeling.state import GlobalState
 
 from saci_db.vulns.gps_spoofing_vuln import GPSSpoofingVuln01
@@ -33,6 +35,13 @@ class GPSCPV(CPV):
         self.goal_state = LocalizerAlgorithm()
         # TODO: How to describe the target location?
         self.goal_state.conditions = [0.0, 0.0, 10.0]
+
+    def is_possible_path(self, path: List[Type[CyberComponentBase]]):
+        required_components = [MultiCopterMotorHigh, GPSReceiver, ControllerHigh]
+        for required in required_components:
+            if not any(map(lambda p: isinstance(p, required), path)):
+                return False
+        return True
 
     def in_goal_state(self, state: GlobalState):
         for component in state.components:

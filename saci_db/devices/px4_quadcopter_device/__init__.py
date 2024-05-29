@@ -2,7 +2,7 @@ import os
 import networkx as nx
 from clorm import Predicate, IntegerField
 
-from saci.modeling.device import Device, MultiCopterMotorHigh, MultiCopterMotorAlgo, CyberComponentHigh
+from saci.modeling.device import Device, MultiCopterMotorHigh, MultiCopterMotorAlgo, CyberComponentHigh, MultiCopterMotor
 from saci.modeling.state import GlobalState
 
 from .gcs_telemetry import GCSTelemetryHigh, GCSTelemetryAlgo, GCSTelemetry
@@ -21,7 +21,7 @@ class PX4Quadcopter(Device):
         sik = SikRadio()
         mavlink = Mavlink()
         px4_cont = PX4ControllerHigh()
-        motor = MultiCopterMotorHigh()
+        motor = MultiCopterMotor()
 
         components = [
             gcs, sik, mavlink, px4_cont, motor,
