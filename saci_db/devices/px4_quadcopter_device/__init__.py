@@ -7,7 +7,7 @@ from saci.modeling.state import GlobalState
 
 from .gcs_telemetry import GCSTelemetryHigh, GCSTelemetryAlgo, GCSTelemetry
 from saci.modeling.device import Telemetry, SikRadio, Mavlink
-from .px4_controller import PX4ControllerHigh
+from .px4_controller import PX4Controller
 
 class Drone_Crash(Predicate):
     time = IntegerField()
@@ -20,7 +20,7 @@ class PX4Quadcopter(Device):
         gcs = GCSTelemetry(has_external_input=True)
         sik = SikRadio()
         mavlink = Mavlink()
-        px4_cont = PX4ControllerHigh()
+        px4_cont = PX4Controller()
         motor = MultiCopterMotor()
 
         components = [

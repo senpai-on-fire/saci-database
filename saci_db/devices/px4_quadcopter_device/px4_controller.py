@@ -1,8 +1,6 @@
-from saci.modeling.device import ControllerHigh
+from saci.modeling.device import ControllerHigh, Controller
 
 
-class PX4ControllerHigh(ControllerHigh):
+class PX4Controller(Controller):
     def __init__(self):
-        super().__init__(name="px4_controller_high")
-
-
+        super().__init__(name="PX4 Controller")
