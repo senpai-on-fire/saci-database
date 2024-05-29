@@ -24,7 +24,8 @@ class MavlinkVuln01(PublicSecretVulnerability):
         for comp in device.components:
             # if it's the Mavlink protocol we don't need to do any symbolic check since
             # we are already aware that it's vulnerable to this attack
-            if isinstance(comp, TelemetryHigh) and comp.protocol_name == "mavlink":
+            # if isinstance(comp, TelemetryHigh) and comp.protocol_name == "mavlink":
+            if type(comp) is type(self.component):
                 return True
 
             # check to see if we can achieve the following scenario:

@@ -62,3 +62,9 @@ state_motor(T+1, Speed) :- output_controller_setmotorvalue(T, Speed), time(T).
 
 % output_controller_setmotorvalue(T+1, Y) : speed(Y) :- action_gcs_setvalue(T, X), speed(X).
 output_controller_setmotorvalue(T+1, Y) :- action_gcs_setvalue(T, X), speed(X), X != 100, Y = X.
+
+% Ultimate goal
+#maximize{ 1, T: drone_crash(T) }.
+#minimize{ 1, T : attack_cpsv_mavlink(T) }.
+#minimize{ 1, T : attack_cpsv_overflow(T) }.
+

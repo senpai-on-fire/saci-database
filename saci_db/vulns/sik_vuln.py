@@ -25,5 +25,6 @@ class SiKAuthVuln01(PublicSecretVulnerability):
 
     def exists(self, device: Device) -> bool:
         for comp in device.components:
-            if isinstance(comp, TelemetryHigh) and comp.protocol_name == "sik":
+            #if isinstance(comp, TelemetryHigh) and comp.protocol_name == "sik":
+            if type(comp) is type(self.component):
                 return True
