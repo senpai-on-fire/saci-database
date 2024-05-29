@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import TelemetryHigh, ControllerHigh, MultiCopterMotorHigh, MultiCopterMotorAlgo
+from saci.modeling.device import Telemetry, ControllerHigh, MultiCopterMotorHigh, MultiCopterMotorAlgo
 from saci.modeling.state import GlobalState
 from saci.modeling.device import CyberComponentBase
 
@@ -28,7 +28,7 @@ class MavlinkCPV(CPV):
                 MultiCopterMotorAlgo(),
             ],
             # TODO: how to describe what kind of input is needed
-            entry_component=TelemetryHigh(powered=True),
+            entry_component=GCSTelemetry(),
             vulnerabilities=[self.sik_auth_vuln, self.mavlink_vuln]
         )
 
@@ -44,7 +44,7 @@ class MavlinkCPV(CPV):
         self.goal_motor_state = gms
 
     def is_possible_path(self, path: List[Type[CyberComponentBase]]):
-        required_components = [MultiCopterMotorHigh, TelemetryHigh, ControllerHigh]
+        required_components = [MultiCopterMotorHigh, Telemetry, ControllerHigh]
         for required in required_components:
             if not any(map(lambda p: isinstance(p, required), path)):
                 return False
@@ -58,7 +58,7 @@ class MavlinkCPV(CPV):
             elif isinstance(component, MultiCopterMotorAlgo):
                 if component != self.goal_motor_state:
                     return False
-            elif isinstance(component, TelemetryHigh) and not component.powered:
+            elif isinstance(component, Telemetry) and not component.powered:
                 return False
             elif isinstance(component, ControllerHigh) and not component.powered:
                 return False

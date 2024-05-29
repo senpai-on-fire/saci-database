@@ -2,7 +2,7 @@ import os
 from clorm import Predicate, IntegerField
 
 from saci.modeling import PublicSecretVulnerability
-from saci.modeling.device import TelemetryHigh, TelemetryAlgorithmic, Telemetry, Device
+from saci.modeling.device import TelemetryHigh, TelemetryAlgorithmic, Telemetry, Device, Mavlink
 from saci.modeling.communication import AuthenticatedCommunication, ExternalInput
 
 class Attack_CPSV_Mavlink(Predicate):
@@ -12,7 +12,7 @@ class MavlinkVuln01(PublicSecretVulnerability):
     def __init__(self):
         super().__init__(
             # TODO: how do you describe that it can occur in both Algorithmic and High telemetry?
-            component=Telemetry(name="PX4 Mavlink Telemetry"),
+            component=Mavlink(),
             # TODO: how to express input/output constraints
             _input=AuthenticatedCommunication(src=ExternalInput()),
             output=AuthenticatedCommunication(),

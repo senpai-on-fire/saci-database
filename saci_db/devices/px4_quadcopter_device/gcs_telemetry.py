@@ -19,9 +19,12 @@ class GCSTelemetryAlgo(TelemetryAlgorithmic):
 
 
 class GCSTelemetry(Telemetry):
-    ABSTRACTIONS = {
-        CyberAbstractionLevel.HIGH: GCSTelemetryHigh,
-        CyberAbstractionLevel.ALGORITHMIC: GCSTelemetryAlgo,
-        CyberAbstractionLevel.SOURCE: CyberComponentSourceCode,
-        CyberAbstractionLevel.BINARY: CyberComponentBinary,
-    }
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.ABSTRACTIONS = {
+            CyberAbstractionLevel.HIGH: GCSTelemetryHigh(),
+            CyberAbstractionLevel.ALGORITHMIC: GCSTelemetryAlgo(),
+            CyberAbstractionLevel.SOURCE: CyberComponentSourceCode(),
+            CyberAbstractionLevel.BINARY: CyberComponentBinary(),
+        }
