@@ -16,7 +16,7 @@ state_drone_takeoff(1).
 %% Finally we can simulate or directly test on a machine
 
 %%%% If we uncomment this rule, we will forbidden directly setting speed to 0 while flying.
-% :- action_gcs_setvalue(T, 0), state_drone_takeoff(T), time(T).
+:- action_gcs_setvalue(T, 0), state_drone_takeoff(T), time(T).
 
 
 % NOTE: The actions need to be concretized by the CPSV

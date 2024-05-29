@@ -19,6 +19,7 @@ class MavlinkVuln01(PublicSecretVulnerability):
             attack_ASP=Attack_CPSV_Mavlink,
             rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'mavlink_mitm.lp')
         )
+        self.input = "launch a Mavlink MITM attack"
 
     def exists(self, device: Device) -> bool:
         for comp in device.components:
