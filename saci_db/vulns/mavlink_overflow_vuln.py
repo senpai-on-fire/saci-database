@@ -19,7 +19,7 @@ class MavlinkOverflow(PublicSecretVulnerability):
             attack_ASP=Attack_CPSV_Overflow,
             rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'mavlink_overflow.lp')
         )
-        self.input = "overflow the mavlink protocal"
+        self.input = "overflow the mavlink protocol"
 
     def exists(self, device: Device) -> bool:
         for comp in device.components:

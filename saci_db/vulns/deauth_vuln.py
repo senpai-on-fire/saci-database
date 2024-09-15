@@ -1,7 +1,7 @@
 '''''
-Modeling the deathentication attack https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8658279
+Modeling the deauthentication attack https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8658279
 Actual impacts: The CX-10W fell out of the sky, Parrot AR performed an emergency landing procedure.
-The modeled imapct is: emergency landing procedure after the disconnection. 
+The modeled impact is: emergency landing procedure after the disconnection. 
 '''''
 from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import Device, TelemetryHigh
