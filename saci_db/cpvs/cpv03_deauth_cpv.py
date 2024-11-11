@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import TelemetryHigh, ControllerHigh, Device, CyberComponentBase
+from saci.modeling.device import TelemetryHigh, ControllerHigh, Device, CyberComponentBase, Wifi, Controller
 from saci.modeling.state import GlobalState
 from saci_db.vulns.deauth_vuln import WiFiDeauthVuln
 
@@ -22,7 +22,7 @@ class WiFiDeauthDosCPV(CPV):
         )
 
     def is_possible_path(self, path: List[Type[CyberComponentBase]]):
-        required_components = [WiFiDeauthVuln, ControllerHigh]
+        required_components = [Wifi, Controller]
         for required in required_components:
             if not any(map(lambda p: isinstance(p, required), path)):
                 return False
