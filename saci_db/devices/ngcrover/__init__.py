@@ -29,7 +29,7 @@ class NGCRover(Device):
         # part of the firmware on the R4 is converting angle to PWM for servo
         # r4 -> r3 over CAN
         motor = MotorHigh()
-        steering = SteeringHigh()
+        self.steering = steering = SteeringHigh()
         uno_r3 = ControllerHigh()
 
         components = [
@@ -37,7 +37,7 @@ class NGCRover(Device):
         ]
 
         super().__init__(
-            name="px4_quadcopter_device",
+            name="ngc_rover",
             components=components,
             component_graph=nx.from_edgelist([
                 (wifi, uno_r4),
@@ -49,8 +49,18 @@ class NGCRover(Device):
             ],
                 create_using=nx.DiGraph),
             state=state,
+            options=("has_aps",),
         )
 
     def update_state(self, state: GlobalState) -> GlobalState:
         pass
 
+    def get_option(self, name):
+        match name:
+            case "has_aps":
+                return self.steering.has_aps
+
+    def set_option(self, name, value):
+        match name:
+            case "has_aps":
+                self.steering.has_aps = value
