@@ -12,4 +12,4 @@ for (_, module_name, _) in iter_modules([package_dir]):
     for attribute_name in dir(module):
         attr = getattr(module, attribute_name)
         if isinstance(attr, type) and issubclass(attr, Device):
-            devices["ingested/" + attr.__name__] = attr()
+            devices["ingested/" + module_name] = attr()
