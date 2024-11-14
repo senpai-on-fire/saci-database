@@ -3,8 +3,9 @@ import os.path
 from clorm import Predicate
 
 from saci.modeling import PublicSecretVulnerability
-from saci.modeling.device import Device, TelemetryHigh
+from saci.modeling.device import Device, TelemetryHigh, Telemetry
 from saci.modeling.communication import UnauthenticatedCommunication, AuthenticatedCommunication
+from saci.modeling.device.wifi import Wifi
 
 
 class KnownCredsPred(Predicate):
@@ -14,7 +15,7 @@ class WifiKnownCredsVuln(PublicSecretVulnerability):
     def __init__(self):
         super().__init__(
             # Assuming that TelemetryHigh can represent a WiFi component
-            component=TelemetryHigh(),
+            component=Wifi(),
             # The input to a deauth attack is unauthenticated 
             _input=UnauthenticatedCommunication(),
             # The output is the disconnection 
@@ -28,6 +29,8 @@ class WifiKnownCredsVuln(PublicSecretVulnerability):
             # Check if the component uses WiFi and is either unprotected or using WPA2 encryption
             if isinstance(comp, TelemetryHigh) and comp.protocol_name == "wifi":
                 # TODO: check to see if we actually know the creds...
+                return True
+            if isinstance(comp, Wifi):
                 return True
         return False
 

@@ -3,7 +3,7 @@ from typing import List, Type
 from saci.modeling import CPV
 from saci.modeling.device import (ControllerHigh, CameraHigh,
                                   MultiCopterMotorHigh, MultiCopterMotorAlgo, CyberComponentBase, TelemetryHigh,
-                                  MotorHigh)
+                                  MotorHigh, Controller, Motor)
 from saci.modeling.device.motor.steering import SteeringHigh
 from saci.modeling.state import GlobalState
 from saci_db.vulns.knowncreds import WifiKnownCredsVuln
@@ -19,8 +19,8 @@ class WebStopCPV(CPV):
         super().__init__(
             required_components=[
                 known_creds.component,
-                ControllerHigh(),
-                MotorHigh(),
+                Controller(),
+                Motor(),
             ],
             entry_component=known_creds.component,
             vulnerabilities=[known_creds]
