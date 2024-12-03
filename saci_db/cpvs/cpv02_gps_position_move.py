@@ -6,14 +6,14 @@ from saci.modeling.device import (GPSReceiver, ControllerHigh,
                                   MultiCopterMotorHigh, MultiCopterMotorAlgo, CyberComponentBase)
 from saci.modeling.state import GlobalState
 
-from saci_db.vulns.gps_spoofing_vuln import GPSSpoofingVuln01
+from saci_db.vulns.gps_spoofing_vuln import GPSSpoofingVuln
 
 
 class GPSCPV(CPV):
-    NAME = "The GPS Spoofing CPV 01"
+    NAME = "The GPS Spoofing CPV"
 
     def __init__(self):
-        gps_vuln = GPSSpoofingVuln01()
+        gps_vuln = GPSSpoofingVuln()
         super().__init__(
             required_components=[
                 gps_vuln.component,

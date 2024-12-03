@@ -26,7 +26,7 @@ class WeakDataIntegrityVuln(BaseVulnerability):
     def exists(self, device: Device) -> bool:
         for comp in device.components:
             # Check if the component is a controller and whether it uses an integrity checking mechanism (e.g., EKF fusion)
-            if isinstance(comp, ControllerHigh) and (comp.integrity_check == None):
+            if isinstance(comp, ControllerHigh) and (comp.has_integrity_check == False):
                 # TODO: what should we further check?
                 return True
         return False

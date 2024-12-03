@@ -5,7 +5,7 @@ from saci.modeling.device import (ControllerHigh, CyberComponentBase, TelemetryH
 from saci.modeling.device.motor.steering import SteeringHigh, Steering
 from saci.modeling.state import GlobalState
 from saci_db.vulns.knowncreds import WifiKnownCredsVuln
-from saci_db.vulns.weak_authentication_vuln import WeakAuthenticationVuln
+from saci_db.vulns.weak_interface_auth_vuln import WeakInterfaceAuthVuln
 from saci_db.vulns.noaps import NoAPSVuln
 
 
@@ -14,7 +14,7 @@ class RollOverCPV(CPV):
 
     def __init__(self):
         known_creds = WifiKnownCredsVuln()
-        weak_authentication = WeakAuthenticationVuln()
+        weak_authentication = WeakInterfaceAuthVuln()
         no_aps = NoAPSVuln()
         super().__init__(
             required_components=[
