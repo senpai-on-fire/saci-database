@@ -9,6 +9,7 @@ from saci.modeling.state import GlobalState
 from saci_db.vulns.compass_spoofing import CompassSpoofingVuln
 from saci_db.vulns.weak_data_integrity_vuln import WeakDataIntegrityVuln
 
+from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.magnetic_attack_signal import MagneticAttackSignal
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
@@ -39,8 +40,12 @@ class CompassInterferenceCPV(CPV):
                 "CPSController": "Moving",
                 "Operating mode": "Mission",},
 
-            attack_vectors = [MagneticAttackSignal(src='magnet', dst=CompassSpoofingVuln().component)], 
             attack_requirements = "Powerful magnet with adequate shapes and dimensions",
+            attack_vectors = [BaseAttackVector(name="magnetic interference", 
+                                               signal=MagneticAttackSignal(src='magnet', dst=CompassSpoofingVuln().component, modality="magnetic"),
+                                               required_access_level="physical",
+                                               configuration={"duration": "permanant"},
+                                                )],  
             attack_impacts = [BaseAttackImpact(category='Loss of control',
                                                description='CPS drives in circles without stopping')],
 
