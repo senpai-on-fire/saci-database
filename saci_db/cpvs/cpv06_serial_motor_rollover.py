@@ -1,13 +1,11 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import (ControllerHigh, CameraHigh,
-                                  MultiCopterMotorHigh, MultiCopterMotorAlgo, CyberComponentBase, TelemetryHigh,
-                                  Controller)
+from saci.modeling.device import (ControllerHigh, CyberComponentBase, TelemetryHigh, Controller)
 from saci.modeling.device.motor.steering import SteeringHigh, Steering
 from saci.modeling.state import GlobalState
 from saci_db.vulns.knowncreds import WifiKnownCredsVuln
-
+from saci_db.vulns.weak_authentication_vuln import WeakAuthenticationVuln
 from saci_db.vulns.noaps import NoAPSVuln
 
 
@@ -16,6 +14,7 @@ class RollOverCPV(CPV):
 
     def __init__(self):
         known_creds = WifiKnownCredsVuln()
+        weak_authentication = WeakAuthenticationVuln()
         no_aps = NoAPSVuln()
         super().__init__(
             required_components=[
@@ -24,7 +23,7 @@ class RollOverCPV(CPV):
                 Steering(),
             ],
             entry_component=TelemetryHigh(),
-            vulnerabilities=[known_creds, no_aps]
+            vulnerabilities=[known_creds, weak_authentication, no_aps]
         )
 
     def is_possible_path(self, path: List[CyberComponentBase]):
