@@ -7,7 +7,7 @@ from saci.modeling.device.motor.steering import Steering
 from saci.modeling.state import GlobalState
 
 from saci_db.vulns.compass_spoofing import CompassSpoofingVuln
-from saci_db.vulns.weak_data_integrity_vuln import WeakDataIntegrityVuln
+from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.magnetic_attack_signal import MagneticAttackSignal
@@ -27,7 +27,7 @@ class CompassInterferenceCPV(CPV):
             entry_component=CompassSensor(),
             exit_component=Motor(),
             
-            vulnerabilities=[CompassSpoofingVuln(), WeakDataIntegrityVuln()],
+            vulnerabilities=[CompassSpoofingVuln(), ControllerIntegrityVuln],
 
             goals = [],
 
