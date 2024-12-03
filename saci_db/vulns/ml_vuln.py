@@ -1,3 +1,7 @@
+import os.path
+
+from clorm import Predicate
+
 '''''
 Modeling the adversarial examples attack
 The modeled imapct is: attackers can control the output of DNN models
@@ -5,6 +9,9 @@ The modeled imapct is: attackers can control the output of DNN models
 from saci.modeling import BaseVulnerability
 from saci.modeling.device import Device, ObjectTracking
 from saci.modeling.communication import AuthenticatedCommunication
+
+class DeepNeuralNetworkPred(Predicate):
+    pass
 
 class DeepNeuralNetworkVuln(BaseVulnerability):
     def __init__(self):
@@ -15,6 +22,8 @@ class DeepNeuralNetworkVuln(BaseVulnerability):
             _input=AuthenticatedCommunication(),
             # The output is the disconnection 
             output=AuthenticatedCommunication(),
+            attack_ASP=DeepNeuralNetworkPred,
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'deepneuralnetwork.lp')
         )
 
     def exists(self, device: Device) -> bool:

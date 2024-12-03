@@ -1,3 +1,7 @@
+import os.path
+
+from clorm import Predicate
+
 '''''
 Modeling the deauthentication attack https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8658279
 Actual impacts: The CX-10W fell out of the sky, Parrot AR performed an emergency landing procedure.
@@ -6,6 +10,9 @@ The modeled impact is: emergency landing procedure after the disconnection.
 from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import Device, TelemetryHigh
 from saci.modeling.communication import UnauthenticatedCommunication
+
+class WiFiDeauthPred(Predicate):
+    pass
 
 class WiFiDeauthVuln(PublicSecretVulnerability):
     def __init__(self):
@@ -16,6 +23,8 @@ class WiFiDeauthVuln(PublicSecretVulnerability):
             _input=UnauthenticatedCommunication(),
             # The output is the disconnection 
             output=UnauthenticatedCommunication(),
+            attack_ASP=WiFiDeauthPred,
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'wifideauth.lp')
         )
 
 def exists(self, device: Device) -> bool:

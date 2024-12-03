@@ -6,25 +6,25 @@ from saci.modeling.vulnerability import BaseVulnerability
 from saci.modeling.device import Device, TelemetryHigh
 from saci.modeling.communication import UnauthenticatedCommunication
 
-class WeakAuthenticationPred(Predicate):
+class WeakInterfaceAuthPred(Predicate):
     pass
 
-class WeakAuthenticationVuln(BaseVulnerability):
+class WeakInterfaceAuthVuln(BaseVulnerability):
     def __init__(self):
         super().__init__(
-            # Assuming that TelemetryHigh can represent a communication component 
+            # Assuming that TelemetryHigh can represent a communication component (WIFI or Serial)
             component=TelemetryHigh(),
-            # The serial input command is unauthenticated 
+            # The serial/wireless input is unauthenticated 
             _input=UnauthenticatedCommunication(),
-            # The output is another unauthenticated serial data
+            # The serial/wireless output is also unauthenticated
             output=UnauthenticatedCommunication(),
-            attack_ASP=WeakAuthenticationPred,
-            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'weakauthentication.lp')
+            attack_ASP=WeakInterfaceAuthPred,
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'weakinterfaceauth.lp')
         )
 
     def exists(self, device: Device) -> bool:
         for comp in device.components:
-            # Check if the component is either a WIFI or Serial Telemetry and whether it uses vulnerable communication protocols
+            # Check if the component is either a WIFI/Serial Telemetry and whether it uses vulnerable communication protocols
             if isinstance(comp, TelemetryHigh):
                 if comp.type == "WiFi_Telemetry" and (comp.protocol_name == "WPA" or comp.protocol_name == "WEP"):
                     return True

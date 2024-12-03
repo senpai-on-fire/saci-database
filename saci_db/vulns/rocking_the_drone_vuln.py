@@ -1,7 +1,10 @@
+import os.path
+
+from clorm import Predicate
+
 from saci.modeling import BaseVulnerability
 from saci.modeling.device import GyroscopeHWPackage, GyroscopeHWTechnology, GyroscopeHWCircuit, Device
 from saci.modeling.communication import BaseCommunication
-
 
 class RockingDronesVuln(BaseVulnerability):
     def __init__(self):

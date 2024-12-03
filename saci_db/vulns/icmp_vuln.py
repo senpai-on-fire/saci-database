@@ -1,3 +1,7 @@
+import os.path
+
+from clorm import Predicate
+
 '''
 Modeling the ICMP attack from https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8425627&tag=1
 Impact: drone may enter emergency mode that is unspecified in the paper. 
@@ -5,6 +9,9 @@ Impact: drone may enter emergency mode that is unspecified in the paper.
 from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import Device, TelemetryHigh
 from saci.modeling.communication import UnauthenticatedCommunication
+
+class IcmpFloodPred(Predicate):
+    pass
 
 class IcmpFloodAttack(PublicSecretVulnerability):
     def __init__(self):
@@ -15,6 +22,8 @@ class IcmpFloodAttack(PublicSecretVulnerability):
             _input=UnauthenticatedCommunication(),
             # The output is network disruption due to the unauthenticated ICMP flood
             output=UnauthenticatedCommunication(),
+            attack_ASP=IcmpFloodPred,
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icmpflood.lp')
         )
 
     def exists(self, device: Device) -> bool:
