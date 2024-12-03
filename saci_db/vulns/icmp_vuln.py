@@ -13,7 +13,7 @@ from saci.modeling.communication import UnauthenticatedCommunication
 class IcmpFloodPred(Predicate):
     pass
 
-class IcmpFloodAttack(PublicSecretVulnerability):
+class IcmpFloodVuln(PublicSecretVulnerability):
     def __init__(self):
         super().__init__(
             # Assuming that TelemetryHigh can represent a network component
