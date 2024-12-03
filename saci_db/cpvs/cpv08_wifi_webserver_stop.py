@@ -1,5 +1,4 @@
 from typing import List, Type
-
 from saci.modeling import CPV
 from saci.modeling.device import (ControllerHigh, CameraHigh,
                                   MultiCopterMotorHigh, MultiCopterMotorAlgo, CyberComponentBase, TelemetryHigh,
@@ -24,6 +23,26 @@ class WebStopCPV(CPV):
             ],
             entry_component=known_creds.component,
             vulnerabilities=[known_creds]
+            initial_conditions={
+                "Position": "Any",
+                "Heading": "Any",
+                "Speed": "Any",
+                "Environment": "Any",
+                "Software state (RemoteController)": "On",
+                "Software state (CPSController)": "Moving",
+                "Operating mode": "???"
+            },
+            attack_requirements=[
+                "Attacker computer.",
+                "Hardcoded credentials"
+            ],
+            exploit_steps=[
+                "Connect to rover Wi-Fi using hardcoded credentials",
+                "Attacker issue a long HTTP GET request (at least 26,000 characters) to the webserver address",
+                "The CPS was attacked, and the operator found that the CPS could not be stopped."
+            ],
+            associated_files=[],
+            reference_urls=["https://github.com/senpai-on-fire/NGC1B-rover-CPVs/blob/main/CPV003/HII-NGP1AROV1ARR03-CPV003-20240828.docx"]
         )
 
     def is_possible_path(self, path: List[CyberComponentBase]):

@@ -24,26 +24,25 @@ class WiFiDeauthDosCPV(CPV):
             initial_conditions={
                 "Position": "Any",
                 "Heading": "Any",
-                "Speed": "Idle",
+                "Speed": "Any",
                 "Environment": "Any",
-                "Software state": "On",
-                "CPS": "moving",
-                "CPS mode": "mission",
-                "Operator Supervision": "Any"
+                "Software state (RemoteController)": "On",
+                "Software state (CPSController)": "Moving",
+                "Operating mode": "???"
             },
             attack_requirements=[
                 "Attacker computer",
-                "Frmware for the Renesas RA4M1 processor on the Arduino Uno R4 to retrieve hard coded credentials."
+                "Firmware for the Renesas RA4M1 processor on the Arduino Uno R4 to retrieve hard coded credentials."
             ],
             exploit_steps=[
-                "Connect to Wi-Fi network with SSID “FuelSource Wifi” and using hardcoded credentials “C6H12O612345”",
-                "Using a web browser, navigate to http://192.168.4.1/",
-                "check the mission has not been completed yet",
-                "On attacker computer, click the “Stop” button before mission has completed",
-                "observe the CPS stops moving"
+                "connect to Wi-Fi network with SSID “FuelSource Wifi” and using hardcoded credentials “C6H12O612345”",
+                "using a web browser, navigate to http://192.168.4.1/",
+                "Observe that the cps remains idle",
+                "click either of the drive buttons",
+                "Ensure the rover begins to drive"
             ],
             associated_files=[],
-            reference_urls=["https://github.com/senpai-on-fire/NGC1B-rover-CPVs/blob/main/CPV010/HII-NGP1AROV1ARR03-CPV010-20240911.docx"]
+            reference_urls=["https://github.com/senpai-on-fire/NGC1B-rover-CPVs/blob/main/CPV009/HII-NGP1AROV1ARR03-CPV009-20240911.docx"]
         )
 
     def is_possible_path(self, path: List[Type[CyberComponentBase]]):
