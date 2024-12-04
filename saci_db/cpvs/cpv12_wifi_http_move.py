@@ -1,31 +1,33 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import TelemetryHigh, ControllerHigh, CyberComponentBase, Wifi, Controller, Motor, WebClientHigh
-from saci.modeling.state import GlobalState
-from saci_db.vulns.deauth_vuln import WiFiDeauthVuln
+from saci.modeling.device import CyberComponentBase, Wifi, Controller, Motor, WebServer
 
 from saci.modeling.attack.serial_attack_signal import SerialAttackSignal 
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci_db.vulns.deauth_vuln import WeakApplicationAuthVuln
+from saci_db.vulns.knowncreds import WifiKnownCredsVuln
+from saci.modeling.communication import ExternalInput
+from saci_db.vulns.weak_application_auth_vuln import WeakApplicationAuthVuln
+
+
 
 class WebMovCPV(CPV):
     NAME = "The Move-via-the-web CPV"
 
     def __init__(self):
-        http_request_injection_vuln = WeakApplicationAuthVuln()
         super().__init__(
             required_components=[
                 Wifi(),
-                http_request_injection_vuln.component,
                 WebServer(),
                 Controller(),
                 Motor(),
             ],
-            entry_component=TelemetryHigh(powered=True),
-            exist_component= Motor()
-            vulnerabilities=[wifi_deauth_vuln],
+            entry_component=Wifi(),
+            exist_component= Motor(),
+
+            vulnerabilities=[WifiKnownCredsVuln(), WeakApplicationAuthVuln()],
             initial_conditions={
                 "Position": "Any",
                 "Heading": "Any",
@@ -40,7 +42,7 @@ class WebMovCPV(CPV):
                 "Firmware for the Renesas RA4M1 processor on the Arduino Uno R4 to retrieve hard coded credentials."
             ],
             attack_vectors = [BaseAttackVector(name="Move button", 
-                                               signal=PacketAttackSignal(src=ExternalInput(), dst= http_request_injection_vuln.component, modality="network"),
+                                               signal=PacketAttackSignal(src=ExternalInput(), dst= WeakApplicationAuthVuln().component, modality="network"),
                                                required_access_level="proximity",
                                                configuration={"duration": "permanant"},
                                                 )],  
@@ -59,7 +61,7 @@ class WebMovCPV(CPV):
         )
 
     def is_possible_path(self, path: List[Type[CyberComponentBase]]):
-        required_components = [Wifi, Controller, WebClientHigh, Motor]
+        required_components = [Wifi, WebServer, Controller, Motor]
         for required in required_components:
             if not any(map(lambda p: isinstance(p, required), path)):
                 return False

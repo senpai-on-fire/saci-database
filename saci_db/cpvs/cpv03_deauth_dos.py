@@ -1,13 +1,11 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import Telemetry, Controller, CyberComponentBase, Wifi, Controller, Motor, WebServer
-from saci.modeling.state import GlobalState
+from saci.modeling.device import Controller, Wifi, Controller, Motor, WebServer, CyberComponentBase
 from saci_db.vulns.deauth_vuln import WiFiDeauthVuln
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
-from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 
 
@@ -16,10 +14,8 @@ class WiFiDeauthDosCPV(CPV):
     NAME = "WiFi Deauthentication DOS attack CPV"
 
     def __init__(self):
-        wifi_deauth_vuln = WiFiDeauthVuln()
         super().__init__(
             required_components=[
-                wifi_deauth_vuln.component,
                 Wifi(),
                 WebServer(),
                 Controller(),
@@ -28,7 +24,7 @@ class WiFiDeauthDosCPV(CPV):
             entry_component = Wifi(),
             exit_component = Motor(),
 
-            vulnerabilities =[wifi_deauth_vuln],
+            vulnerabilities =[WiFiDeauthVuln()],
 
             initial_conditions ={
                 "Position": "Any",
@@ -48,7 +44,7 @@ class WiFiDeauthDosCPV(CPV):
             ],
 
             attack_vectors = [BaseAttackVector(name="deauthenticate Wifi client", 
-                                               signal=PacketAttackSignal(src=ExternalInput(), dst=Wifi(), modality="network"),
+                                               signal=PacketAttackSignal(src=ExternalInput(), dst=WiFiDeauthVuln().component, modality="network"),
                                                required_access_level="proximity",
                                                #  aireplay-ng -0 0 -a [BSSID] [interface_name]
                                                configuration={“BSSID”:“FuelSource Wifi”,“interface_name”:“wireless”,“other args”:“-0 0 -a”},

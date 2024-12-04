@@ -1,10 +1,9 @@
 from typing import List, Type
 from saci.modeling import CPV
-from saci.modeling.device import (CyberComponentBase, Controller, Wifi, Motor)
-
+from saci.modeling.device import Controller, Wifi, Controller, Motor, WebServer, CyberComponentBase
 from saci.modeling.state import GlobalState
-from saci_db.vulns.knowncreds import WifiKnownCredsVuln, HttpBufferOverflowVuln, WeakApplicationAuthVuln
-
+from saci_db.vulns.knowncreds import WifiKnownCredsVuln
+from saci_db.vulns.weak_application_auth_vuln import WeakApplicationAuthVuln
 from saci.modeling.communication import ExternalInput
 
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
@@ -15,25 +14,24 @@ from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci_db.vulns.noaps import NoAPSVuln
 
 
-class WebStopCPV(CPV):
+class WebCrashCPV(CPV):
    
-    NAME = "The Stop via the Web CPV"
+    NAME = "The Crash via the Web CPV"
 
     def __init__(self):
 
-        http_overflow_vuln = WeakApplicationAuthVuln()
         super().__init__(
             required_components=[
                 Wifi(),
-                http_overflow_vuln.component,
                 WebServer(),
                 Controller(),
                 Motor(),
             ],
+
             entry_component=Wifi(),
             exit_component=Motor(),
 
-            vulnerabilities=[WifiKnownCredsVuln(),http_overflow_vuln]
+            vulnerabilities=[WifiKnownCredsVuln(),WeakApplicationAuthVuln()]
 
             initial_conditions={
                 "Position": "Any",
@@ -48,7 +46,7 @@ class WebStopCPV(CPV):
             attack_requirements=["Attacker computer.","Hardcoded credentials"],
             attack_vectors = [BaseAttackVector(name="long HTTP requests", 
                                                # the external input will be the long http request from the attacker's web client
-                                               signal=PacketAttackSignal(src=ExternalInput(), dst=http_overflow_vuln.component, modality="network"),
+                                               signal=PacketAttackSignal(src=ExternalInput(), dst=WeakApplicationAuthVuln().component, modality="network"),
                                                required_access_level="proximity",
                                                configuration={"duration": "permanant"},
                                                 )],  
