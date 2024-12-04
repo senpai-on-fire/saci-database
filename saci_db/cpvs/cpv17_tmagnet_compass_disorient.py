@@ -15,7 +15,7 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 from saci.modeling.communication import ExternalInput
 
-class CompassInterferenceCPV(CPV):
+class TemporaryCompassSpoofingCPV(CPV):
     
     NAME = "The Temporary Magnet-on-the-compass-DoS CPV"
     

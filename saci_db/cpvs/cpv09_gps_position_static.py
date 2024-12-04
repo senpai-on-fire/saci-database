@@ -3,8 +3,8 @@ from typing import List
 from saci.modeling.device import CyberComponentBase, Controller, GPSReceiver, Motor
 from saci.modeling import CPV
 
-from ..vulns.gps_spoofing_vuln import GPSSpoofingVuln
-from ..vulns.controller_integerity_vuln import ControllerIntegrityVuln
+from saci_db.vulns.gps_spoofing_vuln import GPSSpoofingVuln
+from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 from saci.modeling.communication import ExternalInput
 from saci.modeling.state import GlobalState
 
@@ -13,7 +13,7 @@ from saci.modeling.attack.gps_attack_signal import GPSAttackSignal
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 
-class GPSPositionStatic(CPV):
+class GPSPositionStaticCPV(CPV):
     
     NAME = "The GPS Position Static CPV"
     

@@ -13,7 +13,7 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 from saci.modeling.state import GlobalState
 
-class WebMovCPV(CPV):
+class WebMoveCPV(CPV):
     
     NAME = "The Move-via-the-web CPV"
 
@@ -26,7 +26,7 @@ class WebMovCPV(CPV):
                 Motor(),
             ],
             entry_component=Wifi(),
-            exist_component= Motor(),
+            exit_component= Motor(),
 
             vulnerabilities=[WifiKnownCredsVuln(), WeakApplicationAuthVuln()],
             initial_conditions={
@@ -47,7 +47,7 @@ class WebMovCPV(CPV):
                                                required_access_level="Proximity",
                                                configuration={"duration": "permanent"},
                                                 )],  
-            attack_impact = [BaseAttackImpact(category='Manipulation of control.',
+            attack_impacts = [BaseAttackImpact(category='Manipulation of control.',
                                                description='The CPS starts driving without the operator control')],
 
             exploit_steps=[
@@ -62,8 +62,7 @@ class WebMovCPV(CPV):
         )
 
     def is_possible_path(self, path: List[Type[CyberComponentBase]]):
-        required_components = [Wifi, WebServer, Controller, Motor]
-        for required in required_components:
+        for required in self.required_components:
             if not any(map(lambda p: isinstance(p, required), path)):
                 return False
         return True

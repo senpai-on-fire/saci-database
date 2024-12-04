@@ -48,7 +48,7 @@ class WebCrashCPV(CPV):
                                                required_access_level="Proximity",
                                                configuration={"duration": "permanent"},
                                                 )],  
-            attack_impact = [BaseAttackImpact(category='Loss of control',
+            attack_impacts = [BaseAttackImpact(category='Loss of control',
                                                description='The user can not stop the CPS while driving')],
 
             exploit_steps=[

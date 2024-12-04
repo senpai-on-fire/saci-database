@@ -50,7 +50,7 @@ class WiFiDeauthDosCPV(CPV):
                                                #  aireplay-ng -0 0 -a [BSSID] [interface_name]
                                                configuration={"BSSID":"FuelSource Wifi","interface_name":"wireless","other args":"-0 0 -a"},
                                                 )],
-            attack_impact = [BaseAttackImpact(category='Denial of control',
+            attack_impacts = [BaseAttackImpact(category='Denial of control',
                                                description='The user can not stop the CPS')],
             exploit_steps=[
                 "Set the Wi-Fi card into monitor mode and find the BSSID and channel number for the CPS's Wi-Fi network.",

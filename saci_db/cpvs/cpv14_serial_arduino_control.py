@@ -12,7 +12,7 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 from saci.modeling.communication import ExternalInput
 
-class SerialArduinoControl(CPV):
+class SerialArduinoControlCPV(CPV):
     
     NAME = "The Serial Arduino Control CPV"
     

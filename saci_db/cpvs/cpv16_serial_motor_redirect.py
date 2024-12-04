@@ -34,7 +34,7 @@ class RedirectCPV(CPV):
 
             goals = [],
 
-            intial_conditions={
+            initial_conditions={
                 "Position": "Any",
                 "Heading": "Any",
                 "Speed": "Any",

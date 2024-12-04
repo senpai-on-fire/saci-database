@@ -24,7 +24,7 @@ class GPSCPV(CPV):
                 MultiCopterMotorHigh(),
                 MultiCopterMotorAlgo(),
             ],
-            entry_component=GPSReceiver(powered=True),
+            entry_component=GPSReceiver(),
             vulnerabilities=[gps_vuln]
         )
 

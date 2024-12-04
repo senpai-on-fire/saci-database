@@ -6,14 +6,13 @@ from saci.modeling.device import CyberComponentBase, Wifi, Controller, Motor, We
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
-from saci_db.vulns.deauth_vuln import WeakApplicationAuthVuln
 from saci_db.vulns.knowncreds import WifiKnownCredsVuln
 from saci.modeling.communication import ExternalInput
 from saci_db.vulns.weak_application_auth_vuln import WeakApplicationAuthVuln
 
 from saci.modeling.state import GlobalState
 
-class WebStopPV(CPV):
+class WebStopCPV(CPV):
     
     NAME = "The Stop-via-the-web CPV"
 
@@ -26,7 +25,7 @@ class WebStopPV(CPV):
                 Motor(),
             ],
             entry_component=Wifi(),
-            exist_component= Motor(),
+            exit_component= Motor(),
 
             vulnerabilities=[WifiKnownCredsVuln(), WeakApplicationAuthVuln()],
             initial_conditions={
@@ -44,7 +43,7 @@ class WebStopPV(CPV):
                                                required_access_level="Proximity",
                                                configuration={"duration": "permanent"},
                                                 )],  
-            attack_impact = [BaseAttackImpact(category='Manipulation of control.',
+            attack_impacts = [BaseAttackImpact(category='Manipulation of control.',
                                                description='The CPS stop without the operator input')],
 
             exploit_steps=[

@@ -3,9 +3,9 @@ from typing import List
 from saci.modeling.device import CyberComponentBase, Controller, GPSReceiver, Motor
 from saci.modeling import CPV
 
-from ..vulns.gps_spoofing_vuln import GPSSpoofingVuln
-from ..vulns.controller_integerity_vuln import ControllerIntegrityVuln
-from ..vulns.lack_authentification import LackAuthenticationVuln
+from saci_db.vulns.gps_spoofing_vuln import GPSSpoofingVuln
+from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
+from saci_db.vulns.lack_serial_authentification import LackSerialAuthenticationVuln
 
 from saci.modeling.communication import ExternalInput
 
@@ -15,7 +15,7 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 from saci.modeling.state import GlobalState
 
-class GPSPositionLoop(CPV):
+class GPSPositionLoopCPV(CPV):
     
     NAME = "The GPS Position Dead Loop CPV"
     
@@ -34,7 +34,7 @@ class GPSPositionLoop(CPV):
             
             vulnerabilities=[GPSSpoofingVuln(), 
                              ControllerIntegrityVuln(), 
-                             LackAuthenticationVuln()],
+                             LackSerialAuthenticationVuln()],
             
             goals=[],
             
@@ -52,7 +52,7 @@ class GPSPositionLoop(CPV):
             # TODO: Modulate the access level and configuration
             attack_requirements = ["GPS Spoof device (e.g., HackRF SDR)"],
             attack_vectors= [BaseAttackVector(name="GPS Spoofing Signal", 
-                                               signal=GPSAttackSignal(src=ExternalInput(), dst=GPSSpoofingVuln().component, modality="gps_signal"),
+                                               signal=GPSAttackSignal(src=ExternalInput(), dst=GPSReceiver()),
                                                required_access_level="Physical",
                                                configuration={"duration": "permanent"},
                                                 )],
