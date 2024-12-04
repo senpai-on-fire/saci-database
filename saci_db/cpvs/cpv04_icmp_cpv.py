@@ -1,6 +1,6 @@
 from typing import List, Type
 
-from saci.modeling.device.component import CyberComponentBase, Telemetry
+from saci.modeling.device import Telemetry
 
 from saci.modeling import CPV
 from saci.modeling.device import Controller, Device
