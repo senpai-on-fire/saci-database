@@ -1,26 +1,27 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import TelemetryHigh, ControllerHigh, Device, CyberComponentBase, Wifi, Controller, Motor, WebClientHigh
+from saci.modeling.device import TelemetryHigh, ControllerHigh, CyberComponentBase, Wifi, Controller, Motor, WebClientHigh
 from saci.modeling.state import GlobalState
 from saci_db.vulns.deauth_vuln import WiFiDeauthVuln
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
+from saci_db.vulns.deauth_vuln import WeakApplicationAuthVuln
 
-
-class WiFiDeauthDosCPV(CPV):
-    NAME = ""
+class WebMovCPV(CPV):
+    NAME = "The Move-via-the-web CPV"
 
     def __init__(self):
-        wifi_deauth_vuln = WiFiDeauthVuln()
+        http_request_injection_vuln = WeakApplicationAuthVuln()
         super().__init__(
             required_components=[
-                wifi_deauth_vuln.component,
-                TelemetryHigh(),
-                ControllerHigh(),
-                WebClientHigh(),
-                Motor()
+                Wifi(),
+                http_request_injection_vuln.component,
+                WebServer(),
+                Controller(),
+                Motor(),
             ],
             entry_component=TelemetryHigh(powered=True),
+            exist_component= Motor()
             vulnerabilities=[wifi_deauth_vuln],
             initial_conditions={
                 "Position": "Any",
@@ -28,15 +29,15 @@ class WiFiDeauthDosCPV(CPV):
                 "Speed": "Any",
                 "Environment": "Any",
                 "Software state (RemoteController)": "On",
-                "Software state (CPSController)": "Moving",
-                "Operating mode": "???"
+                "Software state (CPSController)": "Idle",
+                "Operating mode": "Manual"
             },
             attack_requirements=[
                 "Attacker computer",
                 "Firmware for the Renesas RA4M1 processor on the Arduino Uno R4 to retrieve hard coded credentials."
             ],
             attack_vectors = [BaseAttackVector(name="Move button", 
-                                               signal=PacketAttackSignal(src=ExternalInput(), dst=wifi_deauth_vuln.component, modality="network"),
+                                               signal=PacketAttackSignal(src=ExternalInput(), dst= http_request_injection_vuln.component, modality="network"),
                                                required_access_level="proximity",
                                                configuration={"duration": "permanant"},
                                                 )],  
@@ -60,21 +61,3 @@ class WiFiDeauthDosCPV(CPV):
             if not any(map(lambda p: isinstance(p, required), path)):
                 return False
         return True
-
-    def in_goal_state(self, state: GlobalState):
-        # The goal state is now defined as a mission failure due to DoS on TelemetryHigh and ControllerHigh
-        telemetry_dos = self.is_component_dos(state, TelemetryHigh)
-        controller_dos = self.is_component_dos(state, ControllerHigh)
-        webclient_dos = self.is_component_dos(state, WebClientHigh) 
-        motor_dos = self.is_component_dos(state, Motor)
-
-        # Mission failure occurs if both TelemetryHigh and ControllerHigh experience DoS
-        return telemetry_dos and controller_dos and webclient_dos and motor_dos
-
-    def is_component_dos(self, state: GlobalState, component_type):
-        # Check if a component of type component_type is experiencing a DoS
-        for component in state.components:
-            if isinstance(component, component_type):
-                if component.powered and not component.connected:
-                    return True
-        return False
