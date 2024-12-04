@@ -2,6 +2,7 @@ from typing import List
 from saci.modeling.device import CyberComponentBase, Controller, Motor, OpticalFlowSensor
 from saci.modeling import CPV
 from saci_db.vulns.optical_flow_vuln import OpticalFlowSpoofingVuln
+from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 from saci.modeling.communication import ExternalInput
 from saci.modeling.state import GlobalState
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
@@ -23,7 +24,7 @@ class ProjectorOpticalFlowCPV(CPV):
             entry_component=OpticalFlowSensor(),
             exit_component=Motor(),
             
-            vulnerabilities=[OpticalFlowSpoofingVuln()],
+            vulnerabilities=[OpticalFlowSpoofingVuln(), ControllerIntegrityVuln()],
             
             goals=[],
             
