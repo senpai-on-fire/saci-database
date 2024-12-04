@@ -33,25 +33,41 @@ class NGCRover(Device):
 
         components = [wifi, webserver, gps, compass, uno_r4, serial, uno_r3, esc, steering, motor,]
 
+        # Create the graph with edge list
+        component_graph = nx.from_edgelist([
+            (wifi, webserver),
+            (webserver, uno_r4),
+            (gps, uno_r4),
+            (compass, uno_r4),
+            (serial, uno_r4),
+            (serial, uno_r3),
+            (uno_r4, uno_r3),
+            (uno_r3, esc),    
+            (uno_r3, steering),
+            (esc, motor),
+            (steering, motor),
+        ], create_using=nx.DiGraph)
+
+        # Set node attributes with a dictionary
+        entry_points = {
+            wifi: True,  # wifi is an entry point
+            webserver: False,
+            uno_r4: False,
+            gps: True,
+            compass: True,
+            serial: True,
+            uno_r3: False,
+            esc: False,
+            steering: False,
+            motor: False
+        }
+        nx.set_node_attributes(component_graph, entry_points, 'is_entry')
+
         super().__init__(
-            name="ngc_rover",
-            components=components,
-            component_graph=nx.from_edgelist([
-                (wifi, webserver),
-                (webserver, uno_r4),
-                (gps, uno_r4),
-                (compass, uno_r4),
-                (serial, uno_r4),
-                (serial, uno_r3),
-                (uno_r4, uno_r3),
-                (uno_r3, esc),    
-                (uno_r3, steering),
-                (esc, motor),
-                (steering, motor),
-            ],
-                create_using=nx.DiGraph),
-            state=state,
-            #options=("has_aps",),
+        name="ngc_rover",
+        components=components,
+        component_graph=component_graph,
+        state=state,
         )
 
     def update_state(self, state: GlobalState) -> GlobalState:
