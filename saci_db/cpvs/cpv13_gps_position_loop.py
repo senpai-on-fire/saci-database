@@ -41,7 +41,7 @@ class GPSPositionLoop(CPV):
                 "Speed": "Any", 
                 "Environment": "Any", 
                 "RemoteController": "On", 
-                "CPSController": "Moving",
+                "CPSController": "Idle",
                 "Operating mode": "Any",
             },
             
