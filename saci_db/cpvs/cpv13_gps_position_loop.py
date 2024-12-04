@@ -7,10 +7,13 @@ from ..vulns.gps_spoofing_vuln import GPSSpoofingVuln
 from ..vulns.controller_integerity_vuln import ControllerIntegrityVuln
 from ..vulns.lack_authentification import LackAuthenticationVuln
 
+from saci.modeling.communication import ExternalInput
+
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.gps_attack_signal import GPSAttackSignal
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
+from saci.modeling.state import GlobalState
 
 class GPSPositionLoop(CPV):
     
@@ -47,9 +50,9 @@ class GPSPositionLoop(CPV):
             
             # TODO: We also want to specify the signal data
             # TODO: Modulate the access level and configuration
-            attack_requirements = "GPS Spoof device (e.g., HackRF SDR)",
+            attack_requirements = ["GPS Spoof device (e.g., HackRF SDR)"],
             attack_vectors= [BaseAttackVector(name="GPS Spoofing Signal", 
-                                               signal=GPSAttackSignal(src='Software-Defined Radio', dst=GPSSpoofingVuln().component, modality="gps"),
+                                               signal=GPSAttackSignal(src=ExternalInput(), dst=GPSSpoofingVuln().component, modality="gps_signal"),
                                                required_access_level="physical",
                                                configuration={"duration": "permanant"},
                                                 )],
@@ -57,17 +60,11 @@ class GPSPositionLoop(CPV):
                                               description='The CPS’s behavior can be altered in unintended ways, such as stopping mid-sequence, moving intermittently, or executing a sequence not commanded by the operator')],
             
             exploit_steps = [
-                "1. Power on the CPS.",
-                "2. Configure the HackRF device and replace the GPS antenna.",
-                "3. Transmit the spoofed GPS signal using specific commands.",
-                "4. Connect the Arduino Uno R4 to a computer via USB.",
-                "5. Open a terminal emulator or use provided scripts to send commands.",
-                "6. Input specific commands:",
-                "    - 77: Initiates a pre-programmed driving sequence.",
-                "    - 66: Interrupts the sequence, stopping the rover.",
-                "    - 55: Causes intermittent movements with brief motor engagements.",
-                "7. Observe the corresponding effects on the CPS."
-            ],
+                "Configure the HackRF device and replace the GPS antenna.",
+                "Transmit the spoofed GPS signal using specific commands.",
+                "Connect the RemoteController to a computer via USB.",
+                "Open a terminal emulator or use provided scripts to send commands.",
+                "Input specific control commands"],
             
             associated_files = [],
             reference_urls = ["https://github.com/senpai-on-fire/NGC1B-rover-CPVs/tree/main/CPV013"],
@@ -78,3 +75,7 @@ class GPSPositionLoop(CPV):
             if not any(map(lambda p: isinstance(p, required), path)):
                 return False
         return True
+    
+    def in_goal_state(self, state: GlobalState):
+        # TODO?
+        pass

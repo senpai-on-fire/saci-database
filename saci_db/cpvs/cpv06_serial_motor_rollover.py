@@ -1,10 +1,16 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import (Controller, ESC, Motor, Serial)
-from saci.modeling.device.motor import Motors
+from saci.modeling.device import (Controller, ESC, Serial)
+from saci.modeling.device.motor import Motor
 from saci.modeling.state import GlobalState
 from saci_db.vulns.serial_spoofing_vuln import SerialSpoofingVuln
+from saci.modeling.device.component import CyberComponentBase
+
+from saci.modeling.attack.serial_attack_signal import SerialAttackSignal 
+from saci.modeling.attack.base_attack_vector import BaseAttackVector
+from saci.modeling.attack.base_attack_impact import BaseAttackImpact
+
 from saci_db.vulns.noaps import NoAPSVuln
 
 
@@ -16,15 +22,16 @@ class RollOverCPV(CPV):
         no_aps = NoAPSVuln()
         super().__init__(
             required_components=[
-                serial_vuln.component,
+                Serial(),
                 Controller(),
                 ESC(),
-                Motors(),
+                Motor(),
             ],
-            entry_component=serial_vuln.component,
+
+            entry_component=Serial(),
             exit_component=Motor(),
 
-            vulnerabilities=[serial_vuln, no_aps]
+            vulnerabilities=[serial_vuln, no_aps],
 
             goals = [],
 
@@ -40,18 +47,19 @@ class RollOverCPV(CPV):
 
             attack_vectors = [BaseAttackVector(name='Serial_DSHOT_3D_MODE_ON',
                                                src='unauthorized entity',
-                                               signal=SerialAttackSignal(src='unauthorized entity', dst=entry_component, data='10'),
+                                               signal=SerialAttackSignal(src='unauthorized entity', dst=Serial(), data='10'),
                                                dst=Controller(),
                                                configuration={'repetition': '6'},
-                                               required_access_level='physical direct',
+                                               required_access_level='physical',
                                                ),
                               BaseAttackVector(name='Serial_DSHOT_CMD_SAVE_SETTINGS',
                                                src='unauthorized entity',
-                                               signal=SerialAttackSignal(src='unauthorized entity', dst=entry_component, data='12'),
+                                               signal=SerialAttackSignal(src='unauthorized entity', dst=Serial(), data='12'),
                                                dst=Controller(),
-                                               configuration={'repetition': '6', 'repetition_window','35'},
-                                               required_access_level='physical direct',
+                                               configuration={'repetition': '6', 'repetition_window':'35'},
+                                               required_access_level='physical',
                                                ),],
+
             attack_requirements = ['computer', 'USB-C cable'],
             attack_impacts = [BaseAttackImpact(category='Loss of Safety',
                                                description='The CPS device will move excessively fast'),
@@ -59,11 +67,11 @@ class RollOverCPV(CPV):
                                              description='The CPS device will rollover')],
             
             exploit_steps=[
-                "1. Open a terminal emulator and connect to the serial device exposed by the CPS device. You may need root access.",
-                "2. In the idle state, you should observe floating point outputs from the compass. If you do not, the retry the previous step.",
-                "3. With the CPS device in idle state, enter the number 10 six times into the terminal. This corresponds to DSHOT_3D_MODE_ON.",
-                "4. With the rover in idle state, enter the number 12 six times. This corresponds to the DSHOT_CMD_SAVE_SETTINGS.",
-                "5. Restart the CPS device and control from the web interface.",
+                "Open a terminal emulator and connect to the serial device exposed by the CPS device. You may need root access.",
+                "In the idle state, you should observe floating point outputs from the compass. If you do not, the retry the previous step.",
+                "With the CPS device in idle state, enter the number 10 six times into the terminal. This corresponds to DSHOT_3D_MODE_ON.",
+                "With the rover in idle state, enter the number 12 six times. This corresponds to the DSHOT_CMD_SAVE_SETTINGS.",
+                "Restart the CPS device and control from the web interface.",
             ],
 
             associated_files = [],
@@ -71,8 +79,7 @@ class RollOverCPV(CPV):
         )
 
     def is_possible_path(self, path: List[CyberComponentBase]):
-        required_components = [Serial, Controller, ESC, Motor]
-        for required in required_components:
+        for required in self.required_components:
             if not any(map(lambda p: isinstance(p, required), path)):
                 return False
         return True

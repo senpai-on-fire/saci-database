@@ -1,3 +1,7 @@
+from typing import List, Type
+
+from saci.modeling.device.component import CyberComponentBase
+
 from saci.modeling import CPV
 from saci.modeling.device import ControllerHigh, Device
 from saci.modeling.state import GlobalState
@@ -16,6 +20,13 @@ class IcmpFloodCPV(CPV):
             entry_component=icmp_flood_vuln.component,
             vulnerabilities=[icmp_flood_vuln]
         )
+
+    def is_possible_path(self, path: List[Type[CyberComponentBase]]):
+        required_components = [IcmpFloodVuln().component, ControllerHigh]
+        for required in required_components:
+            if not any(map(lambda p: isinstance(p, required), path)):
+                return False
+        return True
 
     def in_goal_state(self, state: GlobalState):
         # The goal state is the network component being overwhelmed by ICMP traffic
