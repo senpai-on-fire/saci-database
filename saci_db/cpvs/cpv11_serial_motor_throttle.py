@@ -6,7 +6,6 @@ from saci.modeling.device.motor import Motor
 from saci.modeling.state import GlobalState
 
 from saci_db.vulns.lack_serial_authentification import LackSerialAuthenticationVuln
-from saci_db.vulns.noaps import NoAPSVuln
 
 from saci.modeling.communication import ExternalInput
 
@@ -19,7 +18,6 @@ class ThrottleCPV(CPV):
 
     def __init__(self):
         serial_vuln = LackSerialAuthenticationVuln() #Use the LackofAuthentication Class
-        no_aps = NoAPSVuln()
         super().__init__(
             required_components=[
                 Serial(),
@@ -30,7 +28,7 @@ class ThrottleCPV(CPV):
             entry_component=Serial(),
             exit_component=Motor(),
 
-            vulnerabilities=[serial_vuln, no_aps],
+            vulnerabilities=[serial_vuln,],
 
             goals = [],
 

@@ -19,7 +19,6 @@ class RedirectCPV(CPV):
 
     def __init__(self):
         serial_vuln = LackSerialAuthenticationVuln() 
-        no_aps = NoAPSVuln()
         super().__init__(
             required_components=[
                 Serial(),
@@ -30,7 +29,7 @@ class RedirectCPV(CPV):
             entry_component=Serial(),
             exit_component=Motor(),
 
-            vulnerabilities=[serial_vuln, no_aps],
+            vulnerabilities=[serial_vuln,],
 
             goals = [],
 
