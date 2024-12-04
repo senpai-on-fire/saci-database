@@ -9,6 +9,7 @@ from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.gps_attack_signal import GPSAttackSignal
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
+from saci.modeling.communication import ExternalInput
 
 class SerialArduinoControl(CPV):
     
@@ -34,22 +35,21 @@ class SerialArduinoControl(CPV):
                 "Speed": "Any", 
                 "Environment": "Any", 
                 "RemoteController": "On", 
-                "CPSController": "Moving or Idle",
+                "CPSController": ["Moving, Idle"],
                 "Operating mode": "Any",
             },
             
-            attack_requirements = "Attacker computer and USB-C cable",
-            attack_vectors= [BaseAttackVector(name="USB Connection", 
-                                               signal=GPSAttackSignal(src='Attacker\s Computer', dst=LackAuthenticationVuln().component, modality="serial"),
+            attack_requirements = ["Computer", "USB-C cable"],
+            attack_vectors= [BaseAttackVector(name="Serial spoofing via USB", 
+                                               signal=GPSAttackSignal(src=ExternalInput(), dst=LackAuthenticationVuln().component, modality="serial commands"),
                                                required_access_level="physical",
                                                configuration={"duration": "one-time"},
                                                 )],
             attack_impacts= [BaseAttackImpact(category='Control Manipulation',
                                               description='The CPS’s behavior can be altered in unintended ways, such as stopping mid-sequence, moving intermittently, or executing a sequence not commanded by the operator')],
             
-            exploit_steps = [
-                "1. Power on the CPS.",
-                "2. Configure the HackRF device and replace the GPS antenna.",
+            exploit_steps = [ # Check with Sh the steps
+                "Configure the HackRF device and replace the GPS antenna.",
                 "3. Transmit the spoofed GPS signal using specific commands.",
                 "4. Connect the Arduino Uno R4 to a computer via USB.",
                 "5. Open a terminal emulator or use provided scripts to send commands.",
