@@ -19,7 +19,7 @@ class CompassSpoofingVuln(BaseVulnerability):
             # Output would be erroneous navigation decisions based on spoofed compass signals (because of faulty heading data)
             output=UnauthenticatedCommunication(),
             attack_ASP=CompassSpoofingPred,
-            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'compassspoofing.lp')
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'compass_spoofing.lp')
         )
 
     def exists(self, device: Device) -> bool:

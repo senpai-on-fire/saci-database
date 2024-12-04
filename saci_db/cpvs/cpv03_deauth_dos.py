@@ -6,8 +6,9 @@ from saci_db.vulns.deauth_vuln import WiFiDeauthVuln
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
+from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
-
+from saci.modeling.state import GlobalState
 
 class WiFiDeauthDosCPV(CPV):
     
@@ -44,10 +45,10 @@ class WiFiDeauthDosCPV(CPV):
             ],
 
             attack_vectors = [BaseAttackVector(name="deauthenticate Wifi client", 
-                                               signal=PacketAttackSignal(src=ExternalInput(), dst=WiFiDeauthVuln().component, modality="network"),
+                                               signal=PacketAttackSignal(src=ExternalInput(), dst=Wifi()),
                                                required_access_level="proximity",
                                                #  aireplay-ng -0 0 -a [BSSID] [interface_name]
-                                               configuration={“BSSID”:“FuelSource Wifi”,“interface_name”:“wireless”,“other args”:“-0 0 -a”},
+                                               configuration={"BSSID":"FuelSource Wifi","interface_name":"wireless","other args":"-0 0 -a"},
                                                 )],
             attack_impact = [BaseAttackImpact(category='Denial of control',
                                                description='The user can not stop the CPS')],

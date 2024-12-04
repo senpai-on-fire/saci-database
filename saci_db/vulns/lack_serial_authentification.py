@@ -2,20 +2,20 @@ import os.path
 from clorm import Predicate
 
 from saci.modeling import BaseVulnerability
-from saci.modeling.device import Device, SerialAlgorithmic, WifiAlgorithmic
+from saci.modeling.device import Device, Serial
 from saci.modeling.communication import UnauthenticatedCommunication
 
-class LackAuthenticationPred(Predicate):
+class LackSerialAuthenticationPred(Predicate):
     pass
 
-class LackAuthenticationVuln(BaseVulnerability):
+class LackSerialAuthenticationVuln(BaseVulnerability):
     def __init__(self):
         super().__init__(
-            component=SerialAlgorithmic(),
+            component=Serial(),
             _input=UnauthenticatedCommunication(),
             output=UnauthenticatedCommunication(),
-            attack_ASP=LackAuthenticationPred,
-            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'lack_authentication.lp')
+            attack_ASP=LackSerialAuthenticationPred,
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'lack_serial_authentication.lp')
         )
 
     def exists(self, device: Device) -> bool:
