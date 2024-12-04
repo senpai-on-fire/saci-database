@@ -11,8 +11,6 @@ from saci.modeling.attack.serial_attack_signal import SerialAttackSignal
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
-from saci_db.vulns.noaps import NoAPSVuln
-
 from saci.modeling.communication import ExternalInput
 
 class RollOverCPV(CPV):
@@ -20,7 +18,6 @@ class RollOverCPV(CPV):
 
     def __init__(self):
         serial_vuln = LackSerialAuthenticationVuln()
-        no_aps = NoAPSVuln()
         super().__init__(
             required_components=[
                 Serial(),
@@ -32,7 +29,7 @@ class RollOverCPV(CPV):
             entry_component=Serial(),
             exit_component=Motor(),
 
-            vulnerabilities=[serial_vuln, no_aps],
+            vulnerabilities=[serial_vuln],
 
             goals = [],
 
