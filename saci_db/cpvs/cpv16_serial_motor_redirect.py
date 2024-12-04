@@ -18,7 +18,7 @@ class RedirectCPV(CPV):
     NAME = "The redirect-the-rover CPV"
 
     def __init__(self):
-        serial_vuln = LackSerialAuthenticationVuln() #Use the LackofAuthentication Class
+        serial_vuln = LackSerialAuthenticationVuln() 
         no_aps = NoAPSVuln()
         super().__init__(
             required_components=[
@@ -46,6 +46,7 @@ class RedirectCPV(CPV):
 
             attack_vectors = [BaseAttackVector(name='Serial_DSHOT_CMD_SPIN_DIRECTION_1',
                                                signal=SerialAttackSignal(src=ExternalInput(), dst=Serial(), data='7'),
+                                               configuration={'repetition': '6'},
                                                required_access_level='Physical',
                                                ),
                             BaseAttackVector(name='Serial_DSHOT_CMD_SPIN_DIRECTION_2',
