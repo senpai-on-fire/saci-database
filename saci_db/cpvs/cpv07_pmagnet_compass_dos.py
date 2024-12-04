@@ -13,9 +13,11 @@ from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.magnetic_attack_signal import MagneticAttackSignal
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
+from saci.modeling.communication import ExternalInput
+
 class CompassInterferenceCPV(CPV):
     
-    NAME = "The magnet-on-the-compass-DoS CPV"
+    NAME = "The permanent Magnet-on-the-compass-DoS CPV"
     
     def __init__(self):
         super().__init__(
@@ -40,11 +42,11 @@ class CompassInterferenceCPV(CPV):
                 "CPSController": "Moving",
                 "Operating mode": "Mission",},
 
-            attack_requirements = "Powerful magnet with adequate shapes and dimensions",
-            attack_vectors = [BaseAttackVector(name="magnetic interference", 
-                                               signal=MagneticAttackSignal(src='magnet', dst=CompassSpoofingVuln().component, modality="magnetic"),
-                                               required_access_level="physical",
-                                               configuration={"duration": "permanant"},
+            attack_requirements = ["Magnet with adequate shapes and dimensions"],
+            attack_vectors = [BaseAttackVector(name="Magnetic interference", 
+                                               signal=MagneticAttackSignal(src=ExternalInput(), dst=CompassSensor()),
+                                               required_access_level="Physical",
+                                               configuration={"duration": "permanent"},
                                                 )],  
             attack_impacts = [BaseAttackImpact(category='Loss of control',
                                                description='CPS drives in circles without stopping')],

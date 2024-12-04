@@ -4,7 +4,7 @@ from saci.modeling import CPV
 from saci.modeling.device import (Controller, ESC, Serial)
 from saci.modeling.device.motor import Motor
 from saci.modeling.state import GlobalState
-from saci_db.vulns.serial_spoofing_vuln import SerialSpoofingVuln
+from saci_db.vulns.lack_serial_authentification import LackSerialAuthenticationVuln
 from saci.modeling.device.component import CyberComponentBase
 
 from saci.modeling.attack.serial_attack_signal import SerialAttackSignal 
@@ -13,12 +13,13 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 from saci_db.vulns.noaps import NoAPSVuln
 
+from saci.modeling.communication import ExternalInput
 
 class RollOverCPV(CPV):
     NAME = "The roll-the-rover-over CPV"
 
     def __init__(self):
-        serial_vuln = SerialSpoofingVuln() #Use the LackofAuthentication Class
+        serial_vuln = LackSerialAuthenticationVuln()
         no_aps = NoAPSVuln()
         super().__init__(
             required_components=[
@@ -46,24 +47,20 @@ class RollOverCPV(CPV):
             },
 
             attack_vectors = [BaseAttackVector(name='Serial_DSHOT_3D_MODE_ON',
-                                               src='unauthorized entity',
-                                               signal=SerialAttackSignal(src='unauthorized entity', dst=Serial(), data='10'),
-                                               dst=Controller(),
+                                               signal=SerialAttackSignal(src=ExternalInput(), dst=Serial(), data='10'),
                                                configuration={'repetition': '6'},
-                                               required_access_level='physical',
+                                               required_access_level='Physical',
                                                ),
                               BaseAttackVector(name='Serial_DSHOT_CMD_SAVE_SETTINGS',
-                                               src='unauthorized entity',
-                                               signal=SerialAttackSignal(src='unauthorized entity', dst=Serial(), data='12'),
-                                               dst=Controller(),
+                                               signal=SerialAttackSignal(src=ExternalInput(), dst=Serial(), data='12'),
                                                configuration={'repetition': '6', 'repetition_window':'35'},
-                                               required_access_level='physical',
+                                               required_access_level='Physical',
                                                ),],
 
-            attack_requirements = ['computer', 'USB-C cable'],
+            attack_requirements = ['Computer', 'USB-C cable'],
             attack_impacts = [BaseAttackImpact(category='Loss of Safety',
                                                description='The CPS device will move excessively fast'),
-                            BaseAttackImpact(category='Damage to Property',
+                              BaseAttackImpact(category='Damage to Property',
                                              description='The CPS device will rollover')],
             
             exploit_steps=[

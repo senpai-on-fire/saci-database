@@ -25,7 +25,7 @@ class WiFiDeauthVuln(PublicSecretVulnerability):
             # The output is the disconnection 
             output=UnauthenticatedCommunication(),
             attack_ASP=WiFiDeauthPred,
-            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'wifideauth.lp')
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'wifi_deauth.lp')
         )
 
 def exists(self, device: Device) -> bool:

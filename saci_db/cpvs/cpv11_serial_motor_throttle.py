@@ -4,7 +4,8 @@ from saci.modeling import CPV
 from saci.modeling.device import (CyberComponentBase, Controller, ESC, Serial)
 from saci.modeling.device.motor import Motor
 from saci.modeling.state import GlobalState
-from saci_db.vulns.serial_spoofing_vuln import SerialSpoofingVuln
+
+from saci_db.vulns.lack_serial_authentification import LackSerialAuthenticationVuln
 from saci_db.vulns.noaps import NoAPSVuln
 
 from saci.modeling.communication import ExternalInput
@@ -17,7 +18,7 @@ class ThrottleCPV(CPV):
     NAME = "The throttle-the-rover CPV"
 
     def __init__(self):
-        serial_vuln = SerialSpoofingVuln() #Use the LackofAuthentication Class
+        serial_vuln = LackSerialAuthenticationVuln() #Use the LackofAuthentication Class
         no_aps = NoAPSVuln()
         super().__init__(
             required_components=[
@@ -44,12 +45,10 @@ class ThrottleCPV(CPV):
             },
 
             attack_vectors = [BaseAttackVector(name='Serial_DSHOT_Command',
-                                               src='Unauthorized entity',
-                                               signal=SerialAttackSignal(src=ExternalInput(), dst=Serial(), data='any'),#data excludes values 55, 66, 77
-                                               dst=Controller(),
-                                               required_access_level='physical',
+                                               signal=SerialAttackSignal(src=ExternalInput(), dst=Serial(), data='any'), #data excludes values 55, 66, 77
+                                               required_access_level='Physical',
                                                )],
-            attack_requirements = ['computer', 'USB-C cable'],
+            attack_requirements = ['Computer', 'USB-C cable'],
             attack_impacts = [BaseAttackImpact(category='Manipulation of Control',
                                                description='The serial commands cause CPS device to start moving/driving')],
             

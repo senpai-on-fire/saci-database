@@ -45,8 +45,8 @@ class WebCrashCPV(CPV):
             attack_vectors = [BaseAttackVector(name="Long HTTP GET requests", 
                                                # the external input will be the long http request from the attacker's web client
                                                signal=PacketAttackSignal(src=ExternalInput(), dst=Wifi()),
-                                               required_access_level="proximity",
-                                               configuration={"duration": "permanant"},
+                                               required_access_level="Proximity",
+                                               configuration={"duration": "permanent"},
                                                 )],  
             attack_impact = [BaseAttackImpact(category='Loss of control',
                                                description='The user can not stop the CPS while driving')],

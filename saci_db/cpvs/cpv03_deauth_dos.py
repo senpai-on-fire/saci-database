@@ -46,7 +46,7 @@ class WiFiDeauthDosCPV(CPV):
 
             attack_vectors = [BaseAttackVector(name="deauthenticate Wifi client", 
                                                signal=PacketAttackSignal(src=ExternalInput(), dst=Wifi()),
-                                               required_access_level="proximity",
+                                               required_access_level="Proximity",
                                                #  aireplay-ng -0 0 -a [BSSID] [interface_name]
                                                configuration={"BSSID":"FuelSource Wifi","interface_name":"wireless","other args":"-0 0 -a"},
                                                 )],

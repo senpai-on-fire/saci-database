@@ -42,10 +42,10 @@ class WebMovCPV(CPV):
                 "Attacker computer",
                 "Firmware for the Renesas RA4M1 processor on the Arduino Uno R4 to retrieve hard coded credentials."
             ],
-            attack_vectors = [BaseAttackVector(name="Move button", 
+            attack_vectors = [BaseAttackVector(name="Move Button Manipulation", 
                                                signal=PacketAttackSignal(src=ExternalInput(), dst=Wifi()),
-                                               required_access_level="proximity",
-                                               configuration={"duration": "permanant"},
+                                               required_access_level="Proximity",
+                                               configuration={"duration": "permanent"},
                                                 )],  
             attack_impact = [BaseAttackImpact(category='Manipulation of control.',
                                                description='The CPS starts driving without the operator control')],

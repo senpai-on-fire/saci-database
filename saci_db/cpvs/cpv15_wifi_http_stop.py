@@ -39,10 +39,10 @@ class WebStopPV(CPV):
                 "Operating mode": "Mission"
             },
             attack_requirements=["Computer","Hardcoded credentials"],
-            attack_vectors = [BaseAttackVector(name="Stop button", 
+            attack_vectors = [BaseAttackVector(name="Stop Button Manipulation", 
                                                signal=PacketAttackSignal(src=ExternalInput(), dst=Wifi()),
-                                               required_access_level="proximity",
-                                               configuration={"duration": "permanant"},
+                                               required_access_level="Proximity",
+                                               configuration={"duration": "permanent"},
                                                 )],  
             attack_impact = [BaseAttackImpact(category='Manipulation of control.',
                                                description='The CPS stop without the operator input')],

@@ -23,7 +23,7 @@ class IcmpFloodVuln(PublicSecretVulnerability):
             # The output is network disruption due to the unauthenticated ICMP flood
             output=UnauthenticatedCommunication(),
             attack_ASP=IcmpFloodPred,
-            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icmpflood.lp')
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icmp_flood.lp')
         )
 
     def exists(self, device: Device) -> bool:

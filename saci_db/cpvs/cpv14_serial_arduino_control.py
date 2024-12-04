@@ -2,8 +2,9 @@ from typing import List
 
 from saci.modeling.device import CyberComponentBase, Controller, Serial, Motor
 from saci.modeling import CPV
+from saci.modeling.state import GlobalState
 
-from ..vulns.lack_authentification import LackAuthenticationVuln
+from saci_db.vulns.lack_serial_authentification import LackSerialAuthenticationVuln
 
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.gps_attack_signal import GPSAttackSignal
@@ -25,7 +26,7 @@ class SerialArduinoControl(CPV):
             entry_component=Controller(),
             exit_component=Motor(),
             
-            vulnerabilities=[LackAuthenticationVuln()],
+            vulnerabilities=[LackSerialAuthenticationVuln],
             
             goals=[],
             
@@ -40,9 +41,9 @@ class SerialArduinoControl(CPV):
             },
             
             attack_requirements = ["Computer", "USB-C cable"],
-            attack_vectors= [BaseAttackVector(name="Serial spoofing via USB", 
-                                               signal=GPSAttackSignal(src=ExternalInput(), dst=LackAuthenticationVuln().component, modality="serial commands"),
-                                               required_access_level="physical",
+            attack_vectors= [BaseAttackVector(name="Serial spoofing Signal", 
+                                               signal=GPSAttackSignal(src=ExternalInput(), dst=Serial()),
+                                               required_access_level="Physical",
                                                configuration={"duration": "one-time"},
                                                 )],
             attack_impacts= [BaseAttackImpact(category='Control Manipulation',
@@ -69,3 +70,7 @@ class SerialArduinoControl(CPV):
             if not any(map(lambda p: isinstance(p, required), path)):
                 return False
         return True
+    
+    def in_goal_state(self, state: GlobalState):
+        # TODO?
+        pass
