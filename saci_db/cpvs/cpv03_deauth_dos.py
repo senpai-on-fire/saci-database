@@ -18,7 +18,7 @@ class WiFiDeauthDosCPV(CPV):
         super().__init__(
             required_components=[
                 wifi_deauth_vuln.component,
-                Telemetry(),
+                Wifi(),
                 WebServer(),
                 Controller(),
                 Motor()
