@@ -35,7 +35,7 @@ class WiFiDeauthDosCPV(CPV):
                 "Attacker computer",
                 "Firmware for the Renesas RA4M1 processor on the Arduino Uno R4 to retrieve hard coded credentials."
             ],
-            attack_vectors = [BaseAttackVector(name="deauthenticate Wifi client", 
+            attack_vectors = [BaseAttackVector(name="Move button", 
                                                signal=PacketAttackSignal(src=ExternalInput(), dst=wifi_deauth_vuln.component, modality="network"),
                                                required_access_level="proximity",
                                                configuration={"duration": "permanant"},
