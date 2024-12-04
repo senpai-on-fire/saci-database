@@ -44,7 +44,6 @@ class NGCRover(Device):
             (uno_r3, esc),    
             (uno_r3, steering),
             (esc, motor),
-            (steering, motor),
         ], create_using=nx.DiGraph)
 
         entry_points = {

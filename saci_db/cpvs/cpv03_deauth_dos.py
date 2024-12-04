@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import Controller, Wifi, Controller, Motor, WebServer, CyberComponentBase
+from saci.modeling.device import Controller, Wifi, Controller, Motor, WebServer, ESC
 from saci_db.vulns.deauth_vuln import WiFiDeauthVuln
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
@@ -20,6 +20,8 @@ class WiFiDeauthDosCPV(CPV):
                 Wifi(),
                 WebServer(),
                 Controller(),
+                Controller(),
+                ESC(),
                 Motor(),
             ],
             entry_component = Wifi(),
@@ -60,13 +62,6 @@ class WiFiDeauthDosCPV(CPV):
             associated_files=[],
             reference_urls=["https://github.com/senpai-on-fire/NGC1B-rover-CPVs/blob/main/CPV001"]
         )
-
-
-    def is_possible_path(self, path: List[Type[CyberComponentBase]]):
-        for required in self.required_components:
-            if not any(map(lambda p: isinstance(p, required), path)):
-                return False
-        return True
     
     def in_goal_state(self, state: GlobalState):
         # TODO?

@@ -42,12 +42,6 @@ class MavlinkCPV(CPV):
         ]
         self.goal_motor_state = gms.conditions
 
-    def is_possible_path(self, path: List[Type[CyberComponentBase]]):
-        for required in self.required_components:
-            if not any(map(lambda p: isinstance(p, required), path)):
-                return False
-        return True
-
     def in_goal_state(self, state: GlobalState):
         for component in state.components:
             if isinstance(component, MultiCopterMotor):

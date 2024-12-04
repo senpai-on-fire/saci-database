@@ -24,8 +24,8 @@ class TemporaryCompassSpoofingCPV(CPV):
             required_components=[
                 CompassSensor(),
                 Controller(),
-                Steering(),
-                Motor(),],
+                Controller(),
+                Steering(),],
             entry_component=CompassSensor(),
             exit_component=Motor(),
             
@@ -66,12 +66,6 @@ class TemporaryCompassSpoofingCPV(CPV):
             associated_files = [],
             reference_urls = ["https://github.com/senpai-on-fire/NGC1B-rover-CPVs/tree/main/CPV007"],
         )
-
-    def is_possible_path(self, path: List[CyberComponentBase]):
-        for required in self.required_components:
-            if not any(map(lambda p: isinstance(p, required), path)):
-                return False
-        return True
 
     def in_goal_state(self, state: GlobalState):
         # TODO?

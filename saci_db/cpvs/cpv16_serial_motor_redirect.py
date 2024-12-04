@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import (CyberComponentBase, Controller, ESC, Motor, Serial)
+from saci.modeling.device import (CyberComponentBase, Controller, ESC, Motor, Serial, ESC)
 from saci.modeling.device.motor import Motor
 from saci.modeling.state import GlobalState
 
@@ -22,6 +22,7 @@ class RedirectCPV(CPV):
         super().__init__(
             required_components=[
                 Serial(),
+                Controller(),
                 Controller(),
                 ESC(),
                 Motor(),
@@ -78,12 +79,6 @@ class RedirectCPV(CPV):
             associated_files = [],
             reference_urls = ["https://github.com/senpai-on-fire/NGC1B-rover-CPVs/tree/main/CPV0011"],
         )
-
-    def is_possible_path(self, path: List[CyberComponentBase]):
-        for required in self.required_components:
-            if not any(map(lambda p: isinstance(p, required), path)):
-                return False
-        return True
 
     def in_goal_state(self, state: GlobalState):
         # TODO?

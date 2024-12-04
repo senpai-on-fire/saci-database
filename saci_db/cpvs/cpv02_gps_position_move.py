@@ -73,11 +73,6 @@ class GPSCPV(CPV):
         # TODO: Enhanced representation of the attacker's goal
         self.goal_state = []
 
-    def is_possible_path(self, path: List[Type[CyberComponentBase]]) -> bool:
-        for required in self.required_components:
-            if not any(map(lambda p: isinstance(p, required), path)):
-                return False
-        return True
-
+        
     def in_goal_state(self, state: GlobalState) -> bool:
         pass

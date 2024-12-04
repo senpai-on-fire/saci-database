@@ -29,13 +29,6 @@ class ObjectTrackCPV(CPV):
         # we can compare with the initial one or simply check if the width and height are close to 0
         self.goal_state_conditions = [0.0, 0.0]
 
-    def is_possible_path(self, path: List[Type[CyberComponentBase]]):
-        required_components = [CameraHigh, ControllerHigh, ObjectTracking]
-        for required in required_components:
-            if not any(map(lambda p: isinstance(p, required), path)):
-                return False
-        return True
-
     def in_goal_state(self, state: GlobalState):
         for component in state.components:
             # the width and height are close to 0
