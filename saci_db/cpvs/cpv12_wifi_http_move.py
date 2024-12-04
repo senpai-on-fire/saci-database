@@ -4,6 +4,9 @@ from saci.modeling import CPV
 from saci.modeling.device import TelemetryHigh, ControllerHigh, CyberComponentBase, Wifi, Controller, Motor, WebClientHigh
 from saci.modeling.state import GlobalState
 from saci_db.vulns.deauth_vuln import WiFiDeauthVuln
+
+from saci.modeling.attack.serial_attack_signal import SerialAttackSignal 
+from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci_db.vulns.deauth_vuln import WeakApplicationAuthVuln
 
