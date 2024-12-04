@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import CyberComponentBase, Wifi, Controller, Motor, WebServer
+from saci.modeling.device import CyberComponentBase, Wifi, Controller, Motor, WebServer, ESC
 
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
@@ -22,6 +22,8 @@ class WebStopCPV(CPV):
                 Wifi(),
                 WebServer(),
                 Controller(),
+                Controller(),
+                ESC(),
                 Motor(),
             ],
             entry_component=Wifi(),
@@ -57,12 +59,6 @@ class WebStopCPV(CPV):
             reference_urls=["https://github.com/senpai-on-fire/NGC1B-rover-CPVs/blob/main/CPV009/HII-NGP1AROV1ARR03-CPV009-20240911.docx"]
         )
 
-    def is_possible_path(self, path: List[Type[CyberComponentBase]]):
-        for required in self.required_components:
-            if not any(map(lambda p: isinstance(p, required), path)):
-                return False
-        return True
-    
     def in_goal_state(self, state: GlobalState):
         # TODO?
         pass

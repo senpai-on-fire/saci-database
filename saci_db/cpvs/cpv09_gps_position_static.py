@@ -1,6 +1,6 @@
 from typing import List
 
-from saci.modeling.device import CyberComponentBase, Controller, GPSReceiver, Motor
+from saci.modeling.device import CyberComponentBase, Controller, GPSReceiver, Motor, ESC
 from saci.modeling import CPV
 
 from saci_db.vulns.gps_spoofing_vuln import GPSSpoofingVuln
@@ -22,6 +22,8 @@ class GPSPositionStaticCPV(CPV):
             required_components=[
                 GPSReceiver(),
                 Controller(),
+                Controller(),
+                ESC(),
                 Motor(),
             ],
             entry_component=GPSReceiver(),
@@ -59,12 +61,6 @@ class GPSPositionStaticCPV(CPV):
             reference_urls = ["https://github.com/senpai-on-fire/NGC1B-rover-CPVs/tree/main/CPV007"],
         )
         
-    def is_possible_path(self, path: List[CyberComponentBase]):
-        for required in self.required_components:
-            if not any(map(lambda p: isinstance(p, required), path)):
-                return False
-        return True
-    
     def in_goal_state(self, state: GlobalState):
         # TODO?
         pass
