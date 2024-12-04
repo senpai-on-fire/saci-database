@@ -7,7 +7,6 @@ from .cpv06_serial_motor_rollover import RollOverCPV
 from .cpv07_pmagnet_compass_dos import PermanentCompassSpoofingCPV
 from .cpv08_wifi_webserver_crash import WebCrashCPV
 from .cpv09_gps_position_static import GPSPositionStaticCPV
-from .cpv10_serial_motor_tone import *
 from .cpv11_serial_motor_throttle import ThrottleCPV
 from .cpv12_wifi_http_move import WebMoveCPV
 from .cpv13_gps_position_loop import GPSPositionLoopCPV

@@ -68,8 +68,7 @@ class TemporaryCompassSpoofingCPV(CPV):
         )
 
     def is_possible_path(self, path: List[CyberComponentBase]):
-        required_components = [CompassSensor, Controller, Steering, Motor]
-        for required in required_components:
+        for required in self.required_components:
             if not any(map(lambda p: isinstance(p, required), path)):
                 return False
         return True
