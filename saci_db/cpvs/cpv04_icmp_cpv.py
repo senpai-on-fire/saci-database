@@ -9,6 +9,9 @@ from saci_db.vulns.icmp_vuln import IcmpFloodVuln
 
 # Define the CPV for the ICMP Flood Attack
 class IcmpFloodCPV(CPV):
+
+    NAME = "The ICMP Flooding CPV"
+
     def __init__(self):
         icmp_flood_vuln = IcmpFloodVuln()
         super().__init__(
