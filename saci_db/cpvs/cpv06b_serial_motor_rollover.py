@@ -9,7 +9,7 @@ from saci_db.vulns.noaps import NoAPSVuln
 
 
 class RollOverCPV(CPV):
-    NAME = "The roll-the-rover-over CPV"
+    NAME = "The Rollover CPV"
 
     def __init__(self):
         serial_vuln = SerialSpoofingVuln() #Use the LackofAuthentication Class
@@ -30,7 +30,7 @@ class RollOverCPV(CPV):
 
             intial_conditions={
                 "Position": "Any",
-                "Heading": "Any",
+                "Heading": "Any", #Change to changing
                 "Speed": "Any",
                 "Environment": "Any",
                 "RemoteController": "On",
@@ -54,9 +54,7 @@ class RollOverCPV(CPV):
                                                ),],
             attack_requirements = ['computer', 'USB-C cable'],
             attack_impacts = [BaseAttackImpact(category='Loss of Safety',
-                                               description='The CPS device will move excessively fast'),
-                            BaseAttackImpact(category='Damage to Property',
-                                             description='The CPS device will rollover')],
+                                               description='The CPS device will move excessively fast')],
             
             exploit_steps=[
                 "1. Open a terminal emulator and connect to the serial device exposed by the CPS device. You may need root access.",
