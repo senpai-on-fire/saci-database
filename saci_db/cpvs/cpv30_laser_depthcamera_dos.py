@@ -59,10 +59,10 @@ class DepthCameraDoSCPV(CPV):
         )
 
     def is_possible_path(self, path):
-        return all(
-            any(isinstance(comp, required) for comp in path)
-            for required in self.required_components
-        )
+        for required in self.required_components:
+            if not any(map(lambda p: isinstance(p, required), path)):
+                return False
+        return True
 
     def in_goal_state(self, state):
         pass

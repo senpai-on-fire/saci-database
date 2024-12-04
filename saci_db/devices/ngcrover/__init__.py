@@ -39,7 +39,6 @@ class NGCRover(Device):
             (gps, uno_r4),
             (compass, uno_r4),
             (serial, uno_r4),
-            (serial, uno_r3),
             (uno_r4, uno_r3),
             (uno_r3, esc),    
             (uno_r3, steering),
