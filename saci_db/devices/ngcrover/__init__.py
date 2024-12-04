@@ -33,7 +33,6 @@ class NGCRover(Device):
 
         components = [wifi, webserver, gps, compass, uno_r4, serial, uno_r3, esc, steering, motor,]
 
-        # Create the graph with edge list
         component_graph = nx.from_edgelist([
             (wifi, webserver),
             (webserver, uno_r4),
@@ -48,9 +47,8 @@ class NGCRover(Device):
             (steering, motor),
         ], create_using=nx.DiGraph)
 
-        # Set node attributes with a dictionary
         entry_points = {
-            wifi: True,  # wifi is an entry point
+            wifi: True, 
             webserver: False,
             uno_r4: False,
             gps: True,
