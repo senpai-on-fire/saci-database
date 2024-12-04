@@ -43,8 +43,9 @@ class WiFiDeauthDosCPV(CPV):
             attack_vectors = [BaseAttackVector(name="deauthenticate Wifi client", 
                                                signal=PacketAttackSignal(src=ExternalInput(), dst=wifi_deauth_vuln.component, modality="network"),
                                                required_access_level="proximity",
-                                               configuration={"duration": "permanant"},
-                                                )],  
+                                               #  aireplay-ng -0 0 -a [BSSID] [interface_name]
+                                               configuration={“BSSID”:“FuelSource Wifi”,“interface_name”:“wireless”,“other args”:“-0 0 -a”},
+                                                )],
             attack_impact = [BaseAttackImpact(category='Denial of control',
                                                description='The user can not stop the CPS')],
             exploit_steps=[
