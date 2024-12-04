@@ -35,12 +35,20 @@ class WiFiDeauthDosCPV(CPV):
                 "Attacker computer",
                 "Frmware for the Renesas RA4M1 processor on the Arduino Uno R4 to retrieve hard coded credentials."
             ],
+            attack_vectors = [BaseAttackVector(name="deauthenticate Wifi client", 
+                                               signal=PacketAttackSignal(src=ExternalInput(), dst=wifi_deauth_vuln.component, modality="network"),
+                                               required_access_level="proximity",
+                                               configuration={"duration": "permanant"},
+                                                )],  
+            attack_impact = [BaseAttackImpact(category='Loss of control',
+                                               description='CPS drives in circles without stopping')],
+
             exploit_steps=[
-                "Connect to Wi-Fi network with SSID “FuelSource Wifi” and using hardcoded credentials “C6H12O612345”",
-                "Using a web browser, navigate to http://192.168.4.1/",
-                "check the mission has not been completed yet",
-                "On attacker computer, click the “Stop” button before mission has completed",
-                "observe the CPS stops moving"
+                "1. Connect to Wi-Fi network with SSID “FuelSource Wifi” and using hardcoded credentials “C6H12O612345”",
+                "2. Using a web browser, navigate to http://192.168.4.1/",
+                "3. check the mission has not been completed yet",
+                "4. On attacker computer, click the “Stop” button before mission has completed",
+                "5. observe the CPS stops moving"
             ],
             associated_files=[],
             reference_urls=["https://github.com/senpai-on-fire/NGC1B-rover-CPVs/blob/main/CPV010/HII-NGP1AROV1ARR03-CPV010-20240911.docx"]

@@ -6,6 +6,7 @@ from saci.modeling.device import (ControllerHigh, CameraHigh,
 from saci.modeling.device.motor.steering import SteeringHigh
 from saci.modeling.state import GlobalState
 from saci_db.vulns.knowncreds import WifiKnownCredsVuln
+from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 from saci_db.vulns.noaps import NoAPSVuln
 
@@ -36,10 +37,18 @@ class WebStopCPV(CPV):
                 "Attacker computer.",
                 "Hardcoded credentials"
             ],
+            attack_vectors = [BaseAttackVector(name="long HTTP requests", 
+                                               signal=PacketAttackSignal(src=ExternalInput(), dst=wifi_deauth_vuln.component, modality="network"),
+                                               required_access_level="proximity",
+                                               configuration={"duration": "permanant"},
+                                                )],  
+            attack_impact = [BaseAttackImpact(category='Loss of control',
+                                               description='The user can not stop the CPS while driving')],
+
             exploit_steps=[
-                "Connect to rover Wi-Fi using hardcoded credentials",
-                "Attacker issue a long HTTP GET request (at least 26,000 characters) to the webserver address",
-                "The CPS was attacked, and the operator found that the CPS could not be stopped."
+                "1. Connect to rover Wi-Fi using hardcoded credentials",
+                "2. Attacker issue a long HTTP GET request (at least 26,000 characters) to the webserver address",
+                "3. The CPS was attacked, and the operator found that the CPS could not be stopped."
             ],
             associated_files=[],
             reference_urls=["https://github.com/senpai-on-fire/NGC1B-rover-CPVs/blob/main/CPV003/HII-NGP1AROV1ARR03-CPV003-20240828.docx"]

@@ -6,6 +6,8 @@ from saci.modeling.state import GlobalState
 from saci_db.vulns.deauth_vuln import WiFiDeauthVuln
 from saci.modeling.communication import AuthenticatedCommunication, ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
+from saci.modeling.attack.base_attack_impact import BaseAttackImpact
+
 
 
 class WiFiDeauthDosCPV(CPV):
@@ -43,9 +45,11 @@ class WiFiDeauthDosCPV(CPV):
                                                required_access_level="proximity",
                                                configuration={"duration": "permanant"},
                                                 )],  
+            attack_impact = [BaseAttackImpact(category='Denial of control',
+                                               description='The user can not stop the CPS')],
             exploit_steps=[
-                "set the Wi-Fi card into monitor mode and find the BSSID and channel number for the CPS's Wi-Fi network.",
-                "The attacker sends a deauthentication packet to the control computer."
+                "1. set the Wi-Fi card into monitor mode and find the BSSID and channel number for the CPS's Wi-Fi network.",
+                "2. The attacker sends a deauthentication packet to the control computer."
                 ],
             associated_files=[],
             reference_urls=["https://github.com/senpai-on-fire/NGC1B-rover-CPVs/blob/main/CPV001/HII-NGP1AROV1ARR03-CPV001-20240828.docx"]
