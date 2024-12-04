@@ -1,48 +1,83 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import (GPSReceiver, ControllerHigh, 
-                                  CameraHigh, LocalizerHigh, LocalizerAlgorithm,
-                                  MultiCopterMotorHigh, MultiCopterMotorAlgo, CyberComponentBase)
+from saci.modeling.device import (
+    GPSReceiver,
+    Controller,
+    MultiCopterMotor,
+    CyberComponentBase,
+)
+from saci.modeling.communication import ExternalInput
 from saci.modeling.state import GlobalState
 
-from saci_db.vulns.gps_spoofing_vuln import GPSSpoofingVuln
+from saci.modeling.attack.base_attack_vector import BaseAttackVector
+from saci.modeling.attack.gps_attack_signal import GPSAttackSignal
+from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
+from saci_db.vulns.gps_spoofing_vuln import GPSSpoofingVuln
+from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
 class GPSCPV(CPV):
     NAME = "The GPS Spoofing CPV"
 
     def __init__(self):
-        gps_vuln = GPSSpoofingVuln()
         super().__init__(
             required_components=[
-                gps_vuln.component,
-                CameraHigh(),
-                LocalizerHigh(),
-                LocalizerAlgorithm(),
-                ControllerHigh(),
-                MultiCopterMotorHigh(),
-                MultiCopterMotorAlgo(),
+                GPSReceiver(),
+                Controller(),
+                MultiCopterMotor(),
             ],
             entry_component=GPSReceiver(),
-            vulnerabilities=[gps_vuln]
+            vulnerabilities=[GPSSpoofingVuln(), ControllerIntegrityVuln()],
+            goals=[],
+            initial_conditions={
+                "Position": "Any",
+                "Heading": "Any",
+                "Speed": "Stationary or Moving",
+                "Environment": "Open Field or Urban Area",
+                "RemoteController": "Active",
+                "CPSController": "Active",
+                # TODO: only in stabilization mode?
+                "Operating mode": "Any",
+            },
+            attack_requirements=[
+                "GPS signal jammer or spoofer (e.g., HackRF SDR)",
+                "Line of sight to the drone",
+                "Minimal environmental interference",
+            ],
+            attack_vectors= [BaseAttackVector(name="GPS Spoofing Signal", 
+                                               signal=GPSAttackSignal(src=ExternalInput(), dst=GPSSpoofingVuln().component, modality="gps_signals"),
+                                               required_access_level="Physical",
+                                               configuration={"duration": "permanent"},
+                                                )],
+            attack_impacts=[
+                BaseAttackImpact(
+                    category="Control Manipulation",
+                    description=(
+                        "The attacker manipulates the GPS signal to create "
+                        "erroneous localization, causing the drone to deviate from its intended path."
+                    ),
+                ),
+            ],
+            exploit_steps=[
+                "Deploy GPS spoofer near the target's vicinity.",
+                "Send modified GPS signals targeting the drone's receiver.",
+                "Observe the manipulated localization output.",
+                "Guide the drone off its intended trajectory or into dangerous zones."
+            ],
+            associated_files=[],
+            reference_urls=[
+                "https://www.usenix.org/conference/usenixsecurity22/presentation/zhou-ce",
+            ],
         )
+        # TODO: Enhanced representation of the attacker's goal
+        self.goal_state = []
 
-        # The goal_motor_state is redefined to represent the attacker's target localization state,
-        # which involves incorrect localization due to GPS spoofing.
-        # This condition needs to reflect the goal state that the attacker is targeting, 
-        # possibly leading the drone to an unintended location.
-        self.goal_state = LocalizerAlgorithm()
-        # TODO: How to describe the target location?
-        self.goal_state.conditions = [0.0, 0.0, 10.0]
-
-    def is_possible_path(self, path: List[Type[CyberComponentBase]]):
+    def is_possible_path(self, path: List[Type[CyberComponentBase]]) -> bool:
         for required in self.required_components:
             if not any(map(lambda p: isinstance(p, required), path)):
                 return False
         return True
 
-    def in_goal_state(self, state: GlobalState):
-        for component in state.components:
-            if isinstance(component, LocalizerAlgorithm) and component.position() == self.goal_state.conditions:
-                return True
+    def in_goal_state(self, state: GlobalState) -> bool:
+        pass
