@@ -19,6 +19,7 @@ class PX4Quadcopter(Device):
         gcs = GCSTelemetry(has_external_input=True)
         sik = SikRadio()
         mavlink = Mavlink()
+        #icmp = ICMP()
         gps = GPSReceiver() # sends NMEA messages to R4 over serial
         px4_cont = PX4Controller()
         esc = ESC()
@@ -29,9 +30,9 @@ class PX4Quadcopter(Device):
         component_graph=nx.from_edgelist([
             (gcs, sik),
             (gcs, mavlink),
-            (sik, mavlink),
-            (gcs, px4_cont),
+            #(gcs, icmp),
             (gps, px4_cont),
+            (sik, px4_cont),
             (mavlink, px4_cont),
             (px4_cont, esc),
             (esc, motor),

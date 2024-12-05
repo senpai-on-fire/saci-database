@@ -17,6 +17,8 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci_db.vulns.gps_spoofing_vuln import GPSSpoofingVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
+from saci_db.devices.px4_quadcopter_device import PX4Controller
+
 class GPSCPV(CPV):
     NAME = "The GPS Spoofing CPV"
 
@@ -24,7 +26,7 @@ class GPSCPV(CPV):
         super().__init__(
             required_components=[
                 GPSReceiver(),
-                Controller(),
+                PX4Controller(),
                 MultiCopterMotor(),
             ],
             entry_component=GPSReceiver(),
