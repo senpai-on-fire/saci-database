@@ -3,7 +3,7 @@ from typing import List, Type
 
 from saci.modeling import CPV
 from saci.modeling.device import Controller, Wifi, Controller, ESC, CyberComponentBase
-#from saci_db.vulns.icmp_vuln import IcmpFloodVuln
+from saci_db.vulns.icmp_vuln import IcmpFloodVuln
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
@@ -32,7 +32,7 @@ class ICMPFloodingCPV(CPV):
             entry_component = Wifi(),
             exit_component = MultiCopterMotor(),
 
-            vulnerabilities =[LackWifiAuthenticationVuln()],
+            vulnerabilities =[LackWifiAuthenticationVuln(),IcmpFloodVuln()],
 
             initial_conditions ={
                 "Position": "Any",

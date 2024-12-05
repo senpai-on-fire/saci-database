@@ -2,12 +2,8 @@ import os.path
 
 from clorm import Predicate
 
-'''
-Modeling the ICMP attack from https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8425627&tag=1
-Impact: drone may enter emergency mode that is unspecified in the paper. 
-'''
 from saci.modeling import PublicSecretVulnerability
-from saci.modeling.device import Device, Telemetry
+from saci.modeling.device import Device, Telemetry, ICMP
 from saci.modeling.communication import UnauthenticatedCommunication
 
 class IcmpFloodPred(Predicate):
@@ -17,7 +13,7 @@ class IcmpFloodVuln(PublicSecretVulnerability):
     def __init__(self):
         super().__init__(
             # Assuming that TelemetryHigh can represent a network component
-            component=Telemetry(),
+            component=ICMP(),
             # The input to an ICMP flood attack is unauthenticated
             _input=UnauthenticatedCommunication(),
             # The output is network disruption due to the unauthenticated ICMP flood
