@@ -1,14 +1,18 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import Controller, Wifi, Controller, Motor, CyberComponentBase
+from saci.modeling.device import Controller, Wifi, Controller, CyberComponentBase, Mavlink, ESC
 from saci_db.vulns.wifi_lack_auth_vuln import LackWifiAuthenticationVuln
 from ..vulns.mavlink_mitm_vuln import MavlinkVuln01
 from saci.modeling.communication import ExternalInput
 
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
-from saci.modeling.attack.base_attack_impact import BaseAttackImpac
+from saci.modeling.attack.base_attack_impact import BaseAttackImpact
+
+from saci_db.devices.px4_quadcopter_device import GCSTelemetry, PX4Controller
+from saci.modeling.device import MultiCopterMotor
+from saci.modeling.state import GlobalState
 
 class MavlinkDisarmCPV(CPV):
     
@@ -17,12 +21,14 @@ class MavlinkDisarmCPV(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
-                Wifi(),
-                Controller(),
-                Motor(),
+                GCSTelemetry(),
+                Mavlink(),
+                PX4Controller(),
+                ESC(),
+                MultiCopterMotor()
             ],
-            entry_component = Wifi(),
-            exit_component = Motor(),
+            entry_component = GCSTelemetry(),
+            exit_component = MultiCopterMotor(),
 
             vulnerabilities =[LackWifiAuthenticationVuln(), MavlinkVuln01()],
 
@@ -61,12 +67,6 @@ class MavlinkDisarmCPV(CPV):
             reference_urls=["add alink the video we have"]
         )
 
-
-    def is_possible_path(self, path: List[Type[CyberComponentBase]]):
-        for required in self.required_components:
-            if not any(map(lambda p: isinstance(p, required), path)):
-                return False
-        return True
     
     def in_goal_state(self, state: GlobalState):
         # TODO?

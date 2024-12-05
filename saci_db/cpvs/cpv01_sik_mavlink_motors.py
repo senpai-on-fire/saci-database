@@ -1,14 +1,13 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import Telemetry, Controller, ControllerHigh, MultiCopterMotor, MultiCopterMotorAlgo
+from saci.modeling.device import Telemetry, Controller, ControllerHigh, MultiCopterMotor, MultiCopterMotorAlgo, SikRadio, Mavlink, ESC
 from saci.modeling.state import GlobalState
-from saci.modeling.device import CyberComponentBase
 
-from ..devices.px4_quadcopter_device import GCSTelemetry
-from ..vulns.mavlink_mitm_vuln import MavlinkVuln01
-from ..vulns.sik_vuln import SiKAuthVuln01
+from saci_db.vulns.mavlink_mitm_vuln import MavlinkVuln01
+from saci_db.vulns.sik_vuln import SiKAuthVuln01
 
+from saci_db.devices.px4_quadcopter_device import GCSTelemetry, PX4Controller
 
 class MavlinkCPV(CPV):
 
@@ -21,14 +20,29 @@ class MavlinkCPV(CPV):
         super().__init__(
             required_components=[
                 GCSTelemetry(),
-                self.sik_auth_vuln.component,
-                self.mavlink_vuln.component,
-                Controller(),
+                SikRadio(),
+                Mavlink(),
+                PX4Controller(),
+                ESC(),
                 MultiCopterMotor(),
             ],
-            # TODO: how to describe what kind of input is needed
-            entry_component=GCSTelemetry(),
-            vulnerabilities=[self.sik_auth_vuln, self.mavlink_vuln]
+        
+        # TODO: how to describe what kind of input is needed
+        entry_component = GCSTelemetry(),
+        exit_component = [self.sik_auth_vuln, self.mavlink_vuln],
+
+        initial_conditions = [],
+        attack_requirements = [],
+
+        attack_vectors = [],
+
+        attack_impacts = [],
+
+        exploit_steps = [],
+
+        associated_files=[],
+
+        reference_urls=["add alink the video we have"],
         )
 
         # We want the motor to be powered, but to be doing nothing. This can be described as neither
@@ -41,6 +55,8 @@ class MavlinkCPV(CPV):
             gms.v["lift"] == 0,
         ]
         self.goal_motor_state = gms.conditions
+
+        
 
     def in_goal_state(self, state: GlobalState):
         for component in state.components:
