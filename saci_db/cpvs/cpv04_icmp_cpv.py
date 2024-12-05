@@ -2,7 +2,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import Controller, Wifi, Controller, Motor
+from saci.modeling.device import Controller, Wifi, Controller, ESC, CyberComponentBase
 #from saci_db.vulns.icmp_vuln import IcmpFloodVuln
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
@@ -12,6 +12,8 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci.modeling.state import GlobalState
 from saci_db.vulns.wifi_lack_auth_vuln import LackWifiAuthenticationVuln
 
+from saci.modeling.device import MultiCopterMotor
+from saci_db.devices.px4_quadcopter_device import GCSTelemetry, PX4Controller
 
 #This is to model the attack in the ARDrone drone as described by the referenced paper,
 
@@ -22,13 +24,13 @@ class ICMPFloodingCPV(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
-                Wifi(),
-                Controller(),
-                Controller(),
-                Motor(),
+                GCSTelemetry(),
+                PX4Controller(),
+                ESC(),
+                MultiCopterMotor(),
             ],
             entry_component = Wifi(),
-            exit_component = Motor(),
+            exit_component = MultiCopterMotor(),
 
             vulnerabilities =[LackWifiAuthenticationVuln()],
 

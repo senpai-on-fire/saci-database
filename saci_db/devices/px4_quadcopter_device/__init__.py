@@ -1,12 +1,11 @@
 import os
 import networkx as nx
 from clorm import Predicate, IntegerField
-
-from saci.modeling.device import Device, MultiCopterMotorHigh, MultiCopterMotorAlgo, CyberComponentHigh, MultiCopterMotor
 from saci.modeling.state import GlobalState
 
-from .gcs_telemetry import GCSTelemetryHigh, GCSTelemetryAlgo, GCSTelemetry
-from saci.modeling.device import Telemetry, SikRadio, Mavlink
+from .gcs_telemetry import GCSTelemetry
+from saci.modeling.device import Device, MultiCopterMotor, ESC, SikRadio, Mavlink, GPSReceiver
+
 from .px4_controller import PX4Controller
 
 class Drone_Crash(Predicate):
@@ -20,21 +19,28 @@ class PX4Quadcopter(Device):
         gcs = GCSTelemetry(has_external_input=True)
         sik = SikRadio()
         mavlink = Mavlink()
+        gps = GPSReceiver() # sends NMEA messages to R4 over serial
         px4_cont = PX4Controller()
+        esc = ESC()
         motor = MultiCopterMotor()
 
         components = [gcs, sik, mavlink, px4_cont, motor,]
 
         component_graph=nx.from_edgelist([
             (gcs, sik),
+            (gcs, mavlink),
             (sik, mavlink),
+            (gcs, px4_cont),
+            (gps, px4_cont),
             (mavlink, px4_cont),
-            (px4_cont, motor),
+            (px4_cont, esc),
+            (esc, motor),
         ],
         create_using=nx.DiGraph)
 
         entry_points = {
             gcs: True, 
+            gps: True,
             sik: False,
             mavlink: False,
             px4_cont: False,

@@ -1,7 +1,7 @@
-from .cpv01_mavlink_motors import MavlinkCPV
+from .cpv01_sik_mavlink_motors import MavlinkCPV
 from .cpv02_gps_position_move import GPSCPV
 from .cpv03_deauth_dos import WiFiDeauthDosCPV
-from .cpv04_icmp_cpv import IcmpFloodCPV
+from .cpv04_icmp_cpv import ICMPFloodingCPV
 # from .cpv05_adv_ml_untrack import ObjectTrackCPV
 from .cpv06_serial_motor_rollover import RollOverCPV
 from .cpv07_pmagnet_compass_dos import PermanentCompassSpoofingCPV
@@ -15,11 +15,15 @@ from .cpv15_wifi_http_stop import WebStopCPV
 from .cpv16_serial_motor_redirect import RedirectCPV
 from .cpv17_tmagnet_compass_disorient import TemporaryCompassSpoofingCPV
 
+from .cpv32_deauth_quad_dos import WiFiDeauthQuadDosCPV
+from .cpv33_wifi_mavlink_disarm import MavlinkDisarmCPV
+
 CPVS = [
     MavlinkCPV(),
     GPSCPV(),
+    GPSPositionStaticCPV(),
     WiFiDeauthDosCPV(),
-    IcmpFloodCPV(),
+    ICMPFloodingCPV(),
     # ObjectTrackCPV(),
     RollOverCPV(),
     PermanentCompassSpoofingCPV(),
@@ -31,4 +35,6 @@ CPVS = [
     WebStopCPV(),
     RedirectCPV(),
     TemporaryCompassSpoofingCPV(),
+    WiFiDeauthQuadDosCPV(),
+    MavlinkDisarmCPV(),
 ]
