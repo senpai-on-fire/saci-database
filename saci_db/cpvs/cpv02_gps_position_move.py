@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import (GPSReceiver, MultiCopterMotor)
+from saci.modeling.device import (GPSReceiver, ESC, MultiCopterMotor)
 from saci.modeling.communication import ExternalInput
 from saci.modeling.state import GlobalState
 
@@ -22,6 +22,7 @@ class GPSCPV(CPV):
             required_components=[
                 GPSReceiver(),
                 PX4Controller(),
+                ESC(),
                 MultiCopterMotor(),
             ],
             entry_component=GPSReceiver(),

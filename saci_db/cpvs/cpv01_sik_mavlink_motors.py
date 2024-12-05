@@ -7,7 +7,7 @@ from saci.modeling.state import GlobalState
 from saci_db.vulns.mavlink_mitm_vuln import MavlinkVuln01
 from saci_db.vulns.sik_vuln import SiKAuthVuln01
 
-from saci_db.devices.px4_quadcopter_device import GCSTelemetry, PX4Controller
+from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 class MavlinkCPV(CPV):
 
@@ -19,7 +19,6 @@ class MavlinkCPV(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
-                GCSTelemetry(),
                 SikRadio(),
                 Mavlink(),
                 PX4Controller(),
@@ -28,7 +27,7 @@ class MavlinkCPV(CPV):
             ],
         
         # TODO: how to describe what kind of input is needed
-        entry_component = GCSTelemetry(),
+        entry_component = SikRadio(),
         exit_component = MultiCopterMotor(),
 
         vulnerabilities=[self.sik_auth_vuln, self.mavlink_vuln],

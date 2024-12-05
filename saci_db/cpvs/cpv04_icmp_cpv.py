@@ -13,7 +13,7 @@ from saci.modeling.state import GlobalState
 from saci_db.vulns.wifi_lack_auth_vuln import LackWifiAuthenticationVuln
 
 from saci.modeling.device import MultiCopterMotor
-from saci_db.devices.px4_quadcopter_device import GCSTelemetry, PX4Controller
+from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 #This is to model the attack in the ARDrone drone as described by the referenced paper,
 
@@ -24,13 +24,12 @@ class ICMPFloodingCPV(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
-                GCSTelemetry(),
                 ICMP(),
                 PX4Controller(),
                 ESC(),
                 MultiCopterMotor(),
             ],
-            entry_component = GCSTelemetry(),
+            entry_component = ICMP(),
             exit_component = MultiCopterMotor(),
 
             vulnerabilities =[LackWifiAuthenticationVuln(),IcmpFloodVuln()],
@@ -52,7 +51,7 @@ class ICMPFloodingCPV(CPV):
             ],
 
             attack_vectors = [BaseAttackVector(name="ICMP flooding attack", 
-                                               signal=PacketAttackSignal(src=ExternalInput(), dst=GCSTelemetry()),
+                                               signal=PacketAttackSignal(src=ExternalInput(), dst=ICMP(),),
                                                required_access_level="Proximity",
                                                configuration={"protocol":"UDP","port":"5556"},
                                                 )],

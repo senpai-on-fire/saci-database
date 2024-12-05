@@ -4,7 +4,7 @@ from clorm import Predicate, IntegerField
 from saci.modeling.state import GlobalState
 
 from .gcs_telemetry import GCSTelemetry
-from saci.modeling.device import Device, MultiCopterMotor, ESC, SikRadio, Mavlink, GPSReceiver, ICMP, Camera, DNN, DepthCamera, OpticalFlowSensor
+from saci.modeling.device import Device, MultiCopterMotor, ESC, SikRadio, Mavlink, GPSReceiver, ICMP, Camera, DNN, DepthCamera, OpticalFlowSensor, Wifi
 
 from .px4_controller import PX4Controller
 
@@ -16,10 +16,11 @@ class PX4Quadcopter(Device):
     description = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'device.lp')
     def __init__(self, state=None):
 
-        gcs = GCSTelemetry(has_external_input=True)
+        gcs = GCSTelemetry()
         sik = SikRadio()
         mavlink = Mavlink()
         icmp = ICMP()
+        wifi = Wifi()
         
         gps = GPSReceiver()
         camera = Camera()
@@ -31,15 +32,14 @@ class PX4Quadcopter(Device):
         esc = ESC()
         motor = MultiCopterMotor()
 
-        components = [gcs, sik, mavlink, icmp, gps, camera, dnn, depth_camera, optical_camera, px4_cont, esc, motor,]
+        components = [gcs, sik, mavlink, icmp, wifi, gps, camera, dnn, depth_camera, optical_camera, px4_cont, esc, motor,]
 
         component_graph=nx.from_edgelist([
-            (gcs, sik),
+            (sik, mavlink),
             (gcs, mavlink),
-            (gcs, icmp),
-            (sik, px4_cont),
             (mavlink, px4_cont),
             (icmp, px4_cont),
+            (wifi, px4_cont),
             (gps, px4_cont),
             (camera, dnn), 
             (dnn, px4_cont),
@@ -50,13 +50,12 @@ class PX4Quadcopter(Device):
         ],
         create_using=nx.DiGraph)
 
-        components = [gcs, sik, mavlink, icmp, gps, camera, dnn, depth_camera, optical_camera, px4_cont, esc, motor,]
-
         entry_points = {
-            gcs: True, 
-            sik: False,
+            gcs: True,
+            sik: True,
             mavlink: False,
-            icmp: False,
+            icmp: True,
+            wifi: True,
             gps: True,
             camera: True,
             dnn: False,

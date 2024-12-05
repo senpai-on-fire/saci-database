@@ -1,14 +1,14 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import Controller, MultiCopterMotor, ESC, CyberComponentBase
+from saci.modeling.device import MultiCopterMotor, ESC, Wifi
 from saci_db.vulns.deauth_vuln import WiFiDeauthVuln
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
-from saci_db.devices.px4_quadcopter_device import GCSTelemetry, PX4Controller
+from saci_db.devices.px4_quadcopter_device import PX4Controller
 from saci.modeling.state import GlobalState
 
 #This is to model the attack in the CX-10W drone as described by the referenced paper,
@@ -21,12 +21,12 @@ class WiFiDeauthQuadDosCPV(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
-                GCSTelemetry(),
+                Wifi(),
                 PX4Controller(),
                 ESC(),
                 MultiCopterMotor(),
             ],
-            entry_component = GCSTelemetry(),
+            entry_component = Wifi(),
             exit_component = MultiCopterMotor(),
 
             vulnerabilities =[WiFiDeauthVuln()],
@@ -49,7 +49,7 @@ class WiFiDeauthQuadDosCPV(CPV):
             ],
 
             attack_vectors = [BaseAttackVector(name="deauthenticate Wifi client", 
-                                               signal=PacketAttackSignal(src=ExternalInput(), dst=GCSTelemetry()),
+                                               signal=PacketAttackSignal(src=ExternalInput(), dst=Wifi(),),
                                                required_access_level="Proximity",
                                                #  aireplay-ng -0 0 -a [BSSID] [interface_name]
                                                configuration={"BSSID":"CPS's accsess point","interface_name":"wireless","other args":"-0 0 -a"},
