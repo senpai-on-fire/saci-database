@@ -25,7 +25,7 @@ class SerialArduinoControlCPV(CPV):
                 ESC(),
                 Motor(),
             ],
-            entry_component=Controller(),
+            entry_component=Serial(),
             exit_component=Motor(),
             
             vulnerabilities=[LackSerialAuthenticationVuln],

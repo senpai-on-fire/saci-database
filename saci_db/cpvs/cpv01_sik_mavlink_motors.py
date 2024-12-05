@@ -29,7 +29,9 @@ class MavlinkCPV(CPV):
         
         # TODO: how to describe what kind of input is needed
         entry_component = GCSTelemetry(),
-        exit_component = [self.sik_auth_vuln, self.mavlink_vuln],
+        exit_component = MultiCopterMotor(),
+
+        vulnerabilities=[self.sik_auth_vuln, self.mavlink_vuln],
 
         initial_conditions = [],
         attack_requirements = [],

@@ -42,7 +42,7 @@ class OverheatingCPV(CPV):
             },
 
             attack_vectors = [BaseAttackVector(name='Serial_duty_speed_up',
-                                               signal=SerialAttackSignal(src=ExternalInput(), dst=ESC(), data='set duty_spup 100'),
+                                               signal=SerialAttackSignal(src=ExternalInput(), dst=Serial(), data='set duty_spup 100'),
                                                required_access_level='Physical',
                                                ),],
 

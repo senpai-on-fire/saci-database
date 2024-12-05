@@ -2,11 +2,9 @@ from typing import List, Type
 
 from saci.modeling import CPV
 from saci.modeling.device import (
-    DNN,
+    ESC, DNN,
     Camera,
-    MultiCopterMotorHigh,
-    MultiCopterMotorAlgo,
-    CyberComponentBase,
+    MultiCopterMotor,
 )
 from saci.modeling.communication import ExternalInput
 from saci.modeling.state import GlobalState
@@ -28,11 +26,11 @@ class ObjectTrackCPV(CPV):
                 Camera(),
                 DNN(),
                 PX4Controller(),
-                MultiCopterMotorHigh(),
-                MultiCopterMotorAlgo(),
+                ESC(),
+                MultiCopterMotor(),
             ],
             entry_component=Camera(),
-            exit_component=MultiCopterMotorHigh(),
+            exit_component=MultiCopterMotor(),
             vulnerabilities=[ml_vuln],
             goals=[],
             initial_conditions={
@@ -57,7 +55,7 @@ class ObjectTrackCPV(CPV):
                         modality="image",
                     ),
                     required_access_level="Remote",
-                    configuration={"duration": "transient"},
+                    configuration={"duration": "Transient"},
                 )
             ],
             attack_impacts=[
@@ -79,12 +77,6 @@ class ObjectTrackCPV(CPV):
         )
         # TODO: Attacker's goal state represented as the distorted object bounding box
         self.goal_state_conditions = {"bounding_box": [0.0, 0.0]}
-
-    def is_possible_path(self, path: List[Type[CyberComponentBase]]) -> bool:
-        for required in self.required_components:
-            if not any(map(lambda p: isinstance(p, required), path)):
-                return False
-        return True
 
     def in_goal_state(self, state: GlobalState) -> bool:
         pass

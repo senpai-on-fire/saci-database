@@ -1,11 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import (
-    GPSReceiver,
-    MultiCopterMotor,
-    CyberComponentBase,
-)
+from saci.modeling.device import (GPSReceiver, MultiCopterMotor)
 from saci.modeling.communication import ExternalInput
 from saci.modeling.state import GlobalState
 
@@ -15,8 +11,6 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 from saci_db.vulns.gps_spoofing_vuln import GPSSpoofingVuln
 from saci_db.vulns.px4_controller_integerity_vuln import PX4ControllerIntegrityVuln
-
-from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 from saci_db.devices.px4_quadcopter_device import PX4Controller
 
@@ -31,6 +25,7 @@ class GPSCPV(CPV):
                 MultiCopterMotor(),
             ],
             entry_component=GPSReceiver(),
+            exit_component=MultiCopterMotor(),
             vulnerabilities=[GPSSpoofingVuln(), PX4ControllerIntegrityVuln()],
             goals=[],
             initial_conditions={
@@ -46,9 +41,9 @@ class GPSCPV(CPV):
             attack_requirements=[
                 "GPS signal jammer or spoofer (e.g., HackRF SDR)"],
             attack_vectors= [BaseAttackVector(name="GPS Spoofing Signal", 
-                                               signal=GPSAttackSignal(src=ExternalInput(), dst=GPSSpoofingVuln().component, modality="gps_signals"),
+                                               signal=GPSAttackSignal(src=ExternalInput(), dst=GPSReceiver(), modality="gps_signals"),
                                                required_access_level="Remote",
-                                               configuration={"duration": "permanent"},
+                                               configuration={"duration": "Permanent"},
                                                 )],
             attack_impacts=[
                 BaseAttackImpact(

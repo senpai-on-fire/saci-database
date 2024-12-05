@@ -2,7 +2,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import Controller, Wifi, Controller, ESC, CyberComponentBase
+from saci.modeling.device import Wifi, ESC, ICMP
 from saci_db.vulns.icmp_vuln import IcmpFloodVuln
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
@@ -25,11 +25,12 @@ class ICMPFloodingCPV(CPV):
         super().__init__(
             required_components=[
                 GCSTelemetry(),
+                ICMP(),
                 PX4Controller(),
                 ESC(),
                 MultiCopterMotor(),
             ],
-            entry_component = Wifi(),
+            entry_component = GCSTelemetry(),
             exit_component = MultiCopterMotor(),
 
             vulnerabilities =[LackWifiAuthenticationVuln(),IcmpFloodVuln()],
@@ -51,7 +52,7 @@ class ICMPFloodingCPV(CPV):
             ],
 
             attack_vectors = [BaseAttackVector(name="ICMP flooding attack", 
-                                               signal=PacketAttackSignal(src=ExternalInput(), dst=Wifi()),
+                                               signal=PacketAttackSignal(src=ExternalInput(), dst=GCSTelemetry()),
                                                required_access_level="Proximity",
                                                configuration={"protocol":"UDP","port":"5556"},
                                                 )],

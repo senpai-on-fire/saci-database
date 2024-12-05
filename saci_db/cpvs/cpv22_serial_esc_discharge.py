@@ -43,7 +43,7 @@ class DischargeCPV(CPV):
             },
 
             attack_vectors = [BaseAttackVector(name='Serial_Prot_Cells',
-                                               signal=SerialAttackSignal(src=ExternalInput(), dst=ESC(), data='set prot_cells 1'),
+                                               signal=SerialAttackSignal(src=ExternalInput(), dst=Serial(), data='set prot_cells 1'),
                                                required_access_level='Physical',
                                                ),],
 

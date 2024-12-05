@@ -12,8 +12,8 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 from saci.modeling.communication import ExternalInput
 
-class OverflowCPV(CPV):
-    NAME = "The Buffer Overflow CPV"
+class ESCExeccmdCPV(CPV):
+    NAME = "The ESC execcmd CPV"
 
     def __init__(self):
         serial_vuln = LackSerialAuthenticationVuln()
@@ -41,9 +41,9 @@ class OverflowCPV(CPV):
                 "Operating mode": "Any",
             },
 
-            attack_vectors = [BaseAttackVector(name='Serial_ASCII_Characters',
-                                               signal=SerialAttackSignal(src=ExternalInput(), dst=ESC(), data='ASCII Characters'),
-                                               configuration={'length': '1025'},
+            attack_vectors = [BaseAttackVector(name='Serial_get_info',
+                                               signal=SerialAttackSignal(src=ExternalInput(), dst=Serial(), data='info'),
+                                               configuration={'repetitions': '1025'}, #Confirm minimin repetitions necessary for attack to manifest
                                                required_access_level='Physical',
                                                ),],
 
@@ -57,7 +57,7 @@ class OverflowCPV(CPV):
             ],
 
             associated_files = [],
-            reference_urls = ["https://github.com/senpai-on-fire/NGC1B-rover-CPVs/tree/main/CPV006"],
+            reference_urls = ["https://github.com/senpai-on-fire/NGC1B-rover-CPVs/tree/main/CPV007"],
         )
 
 

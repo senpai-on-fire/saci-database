@@ -1,5 +1,5 @@
 from saci.modeling import CPV
-from saci.modeling.device import CyberComponentBase, DepthCamera, MultiCopterMotor
+from saci.modeling.device import CyberComponentBase, ESC, DepthCamera, MultiCopterMotor
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.image_attack_signal import ImageAttackSignal
@@ -16,6 +16,7 @@ class DepthCameraDoSCPV(CPV):
             required_components=[
                 DepthCamera(),
                 PX4Controller(),
+                ESC(),
                 MultiCopterMotor(),
             ],
             entry_component=DepthCamera(),
@@ -59,12 +60,6 @@ class DepthCameraDoSCPV(CPV):
             associated_files=[],
             reference_urls=["https://www.usenix.org/system/files/sec22-zhou-ce.pdf"],
         )
-
-    def is_possible_path(self, path):
-        for required in self.required_components:
-            if not any(map(lambda p: isinstance(p, required), path)):
-                return False
-        return True
 
     def in_goal_state(self, state):
         pass

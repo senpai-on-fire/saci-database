@@ -1,5 +1,5 @@
 from typing import List
-from saci.modeling.device import CyberComponentBase, Motor, OpticalFlowSensor, MultiCopterMotor
+from saci.modeling.device import CyberComponentBase, ESC, Motor, OpticalFlowSensor, MultiCopterMotor
 from saci_db.devices.px4_quadcopter_device import PX4Controller
 from saci.modeling import CPV
 from saci_db.vulns.optical_flow_vuln import OpticalFlowSpoofingVuln
@@ -20,10 +20,11 @@ class ProjectorOpticalFlowCPV(CPV):
             required_components=[
                 OpticalFlowSensor(),
                 PX4Controller(),
+                ESC(),
                 MultiCopterMotor(),
             ],
             entry_component=OpticalFlowSensor(),
-            exit_component=Motor(),
+            exit_component=MultiCopterMotor(),
             
             vulnerabilities=[OpticalFlowSpoofingVuln(), PX4ControllerIntegrityVuln()],
             
@@ -49,7 +50,7 @@ class ProjectorOpticalFlowCPV(CPV):
                         modality="image",
                     ),
                     required_access_level="Physical",
-                    configuration={"duration": "permanent"},
+                    configuration={"duration": "Permanent"},
                 )
             ],
             attack_impacts=[
@@ -70,11 +71,5 @@ class ProjectorOpticalFlowCPV(CPV):
             reference_urls=["https://www.usenix.org/system/files/conference/woot16/woot16-paper-davidson.pdf"],
         )
         
-    def is_possible_path(self, path: List[CyberComponentBase]):
-        for required in self.required_components:
-            if not any(map(lambda p: isinstance(p, required), path)):
-                return False
-        return True
-    
     def in_goal_state(self, state: GlobalState):
         pass

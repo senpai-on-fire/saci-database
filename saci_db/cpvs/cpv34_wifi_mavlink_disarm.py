@@ -50,7 +50,7 @@ class MavlinkDisarmCPV(CPV):
             ],
 
             attack_vectors = [BaseAttackVector(name="command injection", 
-                                               signal=PacketAttackSignal(src=ExternalInput(), dst=Wifi()),
+                                               signal=PacketAttackSignal(src=ExternalInput(), dst=GCSTelemetry()),
                                                required_access_level="Proximity",
                                                configuration={"protocol":"UDP","port":"14550","command":"disarm"},
                                                 )],
