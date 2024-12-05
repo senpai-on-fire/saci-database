@@ -20,6 +20,6 @@ class OpticalFlowSpoofingVuln(BaseVulnerability):
 
     def exists(self, device: Device) -> bool:
         for comp in device.components:
-            if isinstance(comp, OpticalFlowSensor) and comp.uses_corner_detection():
+            if isinstance(comp, OpticalFlowSensor) and comp.uses_corner_detection() and comp.enabled():
                 return True
         return False

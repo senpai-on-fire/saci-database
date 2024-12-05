@@ -3,7 +3,6 @@ from typing import List, Type
 from saci.modeling import CPV
 from saci.modeling.device import (
     GPSReceiver,
-    Controller,
     MultiCopterMotor,
     CyberComponentBase,
 )
@@ -15,7 +14,9 @@ from saci.modeling.attack.gps_attack_signal import GPSAttackSignal
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 from saci_db.vulns.gps_spoofing_vuln import GPSSpoofingVuln
-from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
+from saci_db.vulns.px4_controller_integerity_vuln import PX4ControllerIntegrityVuln
+
+from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 from saci_db.devices.px4_quadcopter_device import PX4Controller
 
@@ -30,34 +31,30 @@ class GPSCPV(CPV):
                 MultiCopterMotor(),
             ],
             entry_component=GPSReceiver(),
-            vulnerabilities=[GPSSpoofingVuln(), ControllerIntegrityVuln()],
+            vulnerabilities=[GPSSpoofingVuln(), PX4ControllerIntegrityVuln()],
             goals=[],
             initial_conditions={
                 "Position": "Any",
                 "Heading": "Any",
-                "Speed": "Stationary or Moving",
+                "Speed": "None",
                 "Environment": "Open Field or Urban Area",
                 "RemoteController": "Active",
                 "CPSController": "Active",
-                # TODO: only in stabilization mode?
+                # TODO: stabilization machanism when moving?
                 "Operating mode": "Any",
             },
             attack_requirements=[
-                "GPS signal jammer or spoofer (e.g., HackRF SDR)",
-                "Line of sight to the drone",
-                "Minimal environmental interference",
-            ],
+                "GPS signal jammer or spoofer (e.g., HackRF SDR)"],
             attack_vectors= [BaseAttackVector(name="GPS Spoofing Signal", 
                                                signal=GPSAttackSignal(src=ExternalInput(), dst=GPSSpoofingVuln().component, modality="gps_signals"),
-                                               required_access_level="Physical",
+                                               required_access_level="Remote",
                                                configuration={"duration": "permanent"},
                                                 )],
             attack_impacts=[
                 BaseAttackImpact(
                     category="Control Manipulation",
                     description=(
-                        "The attacker manipulates the GPS signal to create "
-                        "erroneous localization, causing the drone to deviate from its intended path."
+                        "The attacker manipulates the GPS signal to create erroneous localization, causing the drone to deviate from its intended path."
                     ),
                 ),
             ],

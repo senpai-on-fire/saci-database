@@ -1,10 +1,12 @@
 from saci.modeling import CPV
-from saci.modeling.device import CyberComponentBase, DepthCamera, Controller, Motor
+from saci.modeling.device import CyberComponentBase, DepthCamera, MultiCopterMotor
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.image_attack_signal import ImageAttackSignal
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci_db.vulns.depth_camera_vuln import DepthCameraSpoofingVuln
+
+from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 class DepthCameraDoSCPV(CPV):
     NAME = "Depth Camera Laser DoS CPV"
@@ -13,11 +15,11 @@ class DepthCameraDoSCPV(CPV):
         super().__init__(
             required_components=[
                 DepthCamera(),
-                Controller(),
-                Motor(),
+                PX4Controller(),
+                MultiCopterMotor(),
             ],
             entry_component=DepthCamera(),
-            exit_component=Motor(),
+            exit_component=MultiCopterMotor(),
             vulnerabilities=[DepthCameraSpoofingVuln()],
             goals=[],
             initial_conditions={

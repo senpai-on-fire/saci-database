@@ -48,7 +48,7 @@ class GPSPositionStaticCPV(CPV):
             attack_requirements = ["GPS Spoof device (e.g., HackRF SDR)"],
             attack_vectors= [BaseAttackVector(name="GPS Spoofing Signal", 
                                                signal=GPSAttackSignal(src=ExternalInput(), dst=GPSSpoofingVuln().component, modality="gps_signals"),
-                                               required_access_level="Physical",
+                                               required_access_level="Remote",
                                                configuration={"duration": "permanent"},
                                                 )],
             attack_impacts= [BaseAttackImpact(category='Loss of control',

@@ -20,6 +20,6 @@ class DepthCameraSpoofingVuln(BaseVulnerability):
 
     def exists(self, device: Device) -> bool:
         for comp in device.components:
-            if isinstance(comp, DepthCamera) and comp.supports_stereo_vision():
+            if isinstance(comp, DepthCamera) and comp.supports_stereo_vision() and comp.enabled():
                 return True
         return False

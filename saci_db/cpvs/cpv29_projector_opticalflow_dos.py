@@ -1,8 +1,9 @@
 from typing import List
-from saci.modeling.device import CyberComponentBase, Controller, Motor, OpticalFlowSensor
+from saci.modeling.device import CyberComponentBase, Motor, OpticalFlowSensor, MultiCopterMotor
+from saci_db.devices.px4_quadcopter_device import PX4Controller
 from saci.modeling import CPV
 from saci_db.vulns.optical_flow_vuln import OpticalFlowSpoofingVuln
-from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
+from saci_db.vulns.px4_controller_integerity_vuln import PX4ControllerIntegrityVuln
 from saci.modeling.communication import ExternalInput
 from saci.modeling.state import GlobalState
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
@@ -18,13 +19,13 @@ class ProjectorOpticalFlowCPV(CPV):
         super().__init__(
             required_components=[
                 OpticalFlowSensor(),
-                Controller(),
-                Motor(),
+                PX4Controller(),
+                MultiCopterMotor(),
             ],
             entry_component=OpticalFlowSensor(),
             exit_component=Motor(),
             
-            vulnerabilities=[OpticalFlowSpoofingVuln(), ControllerIntegrityVuln()],
+            vulnerabilities=[OpticalFlowSpoofingVuln(), PX4ControllerIntegrityVuln()],
             
             goals=[],
             
@@ -34,8 +35,8 @@ class ProjectorOpticalFlowCPV(CPV):
                 "Speed": "None",
                 "Environment": "Any",
                 "RemoteController": "On",
-                "CPSController": "Hovering",
-                "Operating mode": "Stabilization",
+                "CPSController": "None",
+                "Operating mode": "Hold",
             },
             
             attack_requirements=["Projector or Laser-based spoofing device"],

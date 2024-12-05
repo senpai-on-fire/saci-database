@@ -2,9 +2,8 @@ from typing import List, Type
 
 from saci.modeling import CPV
 from saci.modeling.device import (
-    ControllerHigh,
     DNN,
-    CameraHigh,
+    Camera,
     MultiCopterMotorHigh,
     MultiCopterMotorAlgo,
     CyberComponentBase,
@@ -17,6 +16,8 @@ from saci.modeling.attack.image_attack_signal import ImageAttackSignal
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci_db.vulns.ml_vuln import DeepNeuralNetworkVuln
 
+from saci_db.devices.px4_quadcopter_device import PX4Controller
+
 class ObjectTrackCPV(CPV):
     NAME = "The Object Tracking CPV"
 
@@ -24,13 +25,13 @@ class ObjectTrackCPV(CPV):
         ml_vuln = DeepNeuralNetworkVuln()
         super().__init__(
             required_components=[
-                CameraHigh(),
-                ControllerHigh(),
+                Camera(),
+                DNN(),
+                PX4Controller(),
                 MultiCopterMotorHigh(),
                 MultiCopterMotorAlgo(),
-                DNN(),
             ],
-            entry_component=CameraHigh(),
+            entry_component=Camera(),
             exit_component=MultiCopterMotorHigh(),
             vulnerabilities=[ml_vuln],
             goals=[],
