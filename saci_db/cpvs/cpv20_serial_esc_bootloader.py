@@ -11,7 +11,7 @@ from saci.modeling.state import GlobalState
 
 class ESCBootloaderCPV(CPV):
     
-    NAME = "Serial ESC Bootloader CPV"
+    NAME = "The ESC Bootloader CPV"
 
     def __init__(self):
         super().__init__(
@@ -42,7 +42,7 @@ class ESCBootloaderCPV(CPV):
                 "knowledge of programming protocols."
             ],
 
-            attack_vectors = [BaseAttackVector(name="debug signals", 
+            attack_vectors = [BaseAttackVector(name="Debug Commands Injection", 
                                                signal=SerialAttackSignal(src=ExternalInput(), dst=Debug()),
                                                required_access_level="Physical",
                                                 )],

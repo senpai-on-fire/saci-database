@@ -11,7 +11,7 @@ from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 class MavlinkCPV(CPV):
 
-    NAME = "The Mavlink CPV"
+    NAME = "The Mavlink and SiK Radio CPV"
 
     sik_auth_vuln = SiKAuthVuln01()
     mavlink_vuln = MavlinkVuln01()

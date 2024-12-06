@@ -12,7 +12,7 @@ from saci.modeling.state import GlobalState
 
 class SMBusBatteryShutdownCPV(CPV):
     
-    NAME = "SMBus Battery Shutdown CPV"
+    NAME = "The Battery Shutdown via SMBus CPV"
 
     def __init__(self):
         super().__init__(
@@ -41,7 +41,7 @@ class SMBusBatteryShutdownCPV(CPV):
                 "TI EV2400 EVM Interface board"
             ],
 
-            attack_vectors = [BaseAttackVector(name="SMBus shutdown command", 
+            attack_vectors = [BaseAttackVector(name="SMBus Shutdown Command Injection", 
                                                signal=SerialAttackSignal(src=ExternalInput(), dst=SMBus()),
                                                required_access_level="Physical",
                                                 )],

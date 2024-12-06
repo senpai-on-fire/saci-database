@@ -43,7 +43,7 @@ class SerialArduinoControlCPV(CPV):
             },
             
             attack_requirements = ["Computer", "USB-C cable"],
-            attack_vectors= [BaseAttackVector(name="Serial spoofing Signal", 
+            attack_vectors= [BaseAttackVector(name="Serial Arduino Commands Injection", 
                                                signal=GPSAttackSignal(src=ExternalInput(), dst=Serial()),
                                                required_access_level="Physical",
                                                configuration={"duration": "one-time"},

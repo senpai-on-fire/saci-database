@@ -41,7 +41,7 @@ class GPSCPV(CPV):
             },
             attack_requirements=[
                 "GPS signal jammer or spoofer (e.g., HackRF SDR)"],
-            attack_vectors= [BaseAttackVector(name="GPS Spoofing Signal", 
+            attack_vectors= [BaseAttackVector(name="GPS Spoofing Signals Injection", 
                                                signal=GPSAttackSignal(src=ExternalInput(), dst=GPSReceiver(), modality="gps_signals"),
                                                required_access_level="Remote",
                                                configuration={"duration": "Permanent"},

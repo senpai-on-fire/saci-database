@@ -15,7 +15,7 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 class GPSPositionStaticCPV(CPV):
     
-    NAME = "The GPS Position Static CPV"
+    NAME = "The GPS Static Position CPV"
     
     def __init__(self):
         super().__init__(
@@ -46,7 +46,7 @@ class GPSPositionStaticCPV(CPV):
             # TODO: We also want to specify the signal data
             # TODO: Modulate the access level and configuration
             attack_requirements = ["GPS Spoof device (e.g., HackRF SDR)"],
-            attack_vectors= [BaseAttackVector(name="GPS Spoofing Signal", 
+            attack_vectors= [BaseAttackVector(name="GPS Spoofing Signals Injection", 
                                                signal=GPSAttackSignal(src=ExternalInput(), dst=GPSSpoofingVuln().component, modality="gps_signals"),
                                                required_access_level="Remote",
                                                configuration={"duration": "permanent"},

@@ -13,7 +13,7 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci.modeling.communication import ExternalInput
 
 class DischargeCPV(CPV):
-    NAME = "The Unlimited Discharge CPV"
+    NAME = "The Keep Battery Discharging BCPV"
 
     def __init__(self):
         serial_vuln = LackSerialAuthenticationVuln()
@@ -42,7 +42,7 @@ class DischargeCPV(CPV):
                 "Operating mode": "Any",
             },
 
-            attack_vectors = [BaseAttackVector(name='Serial_Prot_Cells',
+            attack_vectors = [BaseAttackVector(name='Serial Prot_Cells Discharge Command Injection',
                                                signal=SerialAttackSignal(src=ExternalInput(), dst=Serial(), data='set prot_cells 1'),
                                                required_access_level='Physical',
                                                ),],

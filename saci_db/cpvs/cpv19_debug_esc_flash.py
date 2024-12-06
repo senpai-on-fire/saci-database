@@ -11,7 +11,7 @@ from saci.modeling.state import GlobalState
 
 class ESCFlashCPV(CPV):
     
-    NAME = "Debug ESC Flash CPV"
+    NAME = "The ESC Flash CPV"
 
     def __init__(self):
         super().__init__(
@@ -40,7 +40,7 @@ class ESCFlashCPV(CPV):
                 "script used to attack"
             ],
 
-            attack_vectors = [BaseAttackVector(name="sarial signal", 
+            attack_vectors = [BaseAttackVector(name="Debug Commands Injection", 
                                                signal=SerialAttackSignal(src=ExternalInput(), dst=Debug(), data = "specific sequence of bytes"), # command: need to check what the specific sequence of bytes is
                                                required_access_level="Physical",
                                                 )],

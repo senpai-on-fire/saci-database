@@ -43,7 +43,7 @@ class ProjectorOpticalFlowCPV(CPV):
             attack_requirements=["Projector or Laser-based spoofing device"],
             attack_vectors=[
                 BaseAttackVector(
-                    name="Optical Flow Spoofing Signal",
+                    name="Optical Flow Spoofing Signal Injection",
                     signal=ImageAttackSignal(
                         src=ExternalInput(),
                         dst=OpticalFlowSpoofingVuln().component,

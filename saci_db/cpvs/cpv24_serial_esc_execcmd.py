@@ -13,7 +13,7 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci.modeling.communication import ExternalInput
 
 class ESCExeccmdCPV(CPV):
-    NAME = "The ESC execcmd CPV"
+    NAME = "The ESC Execcmd CPV"
 
     def __init__(self):
         serial_vuln = LackSerialAuthenticationVuln()
@@ -41,7 +41,7 @@ class ESCExeccmdCPV(CPV):
                 "Operating mode": "Any",
             },
 
-            attack_vectors = [BaseAttackVector(name='Serial_get_info',
+            attack_vectors = [BaseAttackVector(name='Serial Get_Info Exec Command Injection',
                                                signal=SerialAttackSignal(src=ExternalInput(), dst=Serial(), data='info'),
                                                configuration={'repetitions': '1025'}, #Confirm minimin repetitions necessary for attack to manifest
                                                required_access_level='Physical',

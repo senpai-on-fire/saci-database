@@ -14,7 +14,7 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci.modeling.communication import ExternalInput
 
 class RollOverCPV(CPV):
-    NAME = "The roll-the-rover-over CPV"
+    NAME = "The Roll-the-Rover-Over CPV"
 
     def __init__(self):
         serial_vuln = LackSerialAuthenticationVuln()
@@ -44,12 +44,12 @@ class RollOverCPV(CPV):
                 "Operating mode": "Any",
             },
 
-            attack_vectors = [BaseAttackVector(name='Serial_DSHOT_3D_MODE_ON',
+            attack_vectors = [BaseAttackVector(name='Serial DSHOT_3D_MODE_ON Commands Injection',
                                                signal=SerialAttackSignal(src=ExternalInput(), dst=Serial(), data='10'),
                                                configuration={'repetition': '6'},
                                                required_access_level='Physical',
                                                ),
-                              BaseAttackVector(name='Serial_DSHOT_CMD_SAVE_SETTINGS',
+                              BaseAttackVector(name='Serial DSHOT_CMD_SAVE_SETTINGS Commands Injection',
                                                signal=SerialAttackSignal(src=ExternalInput(), dst=Serial(), data='12'),
                                                configuration={'repetition': '6', 'repetition_window':'35'},
                                                required_access_level='Physical',

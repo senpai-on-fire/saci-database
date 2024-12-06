@@ -11,7 +11,7 @@ from saci.modeling.state import GlobalState
 
 class ESCResetCPV(CPV):
     
-    NAME = "Serial ESC Reset CPV"
+    NAME = "The ESC Reset CPV"
 
     def __init__(self):
         super().__init__(
@@ -40,7 +40,7 @@ class ESCResetCPV(CPV):
                 "Terminal Emulator Software"
             ],
 
-            attack_vectors = [BaseAttackVector(name="Serial interface command injection", 
+            attack_vectors = [BaseAttackVector(name="Serial Reset Command Injection", 
                                                signal=SerialAttackSignal(src=ExternalInput(), dst=Serial()),
                                                required_access_level="Physical",
                                                 )],

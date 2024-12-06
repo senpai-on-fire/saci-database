@@ -12,7 +12,7 @@ from saci.modeling.state import GlobalState
 
 class WiFiDeauthDosCPV(CPV):
     
-    NAME = "WiFi Deauthentication DOS attack CPV"
+    NAME = "The WiFi Deauthentication CPV"
 
     def __init__(self):
         super().__init__(
@@ -46,7 +46,7 @@ class WiFiDeauthDosCPV(CPV):
                 "WIFI Credentials"
             ],
 
-            attack_vectors = [BaseAttackVector(name="deauthenticate Wifi client", 
+            attack_vectors = [BaseAttackVector(name="Deauthentification Wifi Packets Injection", 
                                                signal=PacketAttackSignal(src=ExternalInput(), dst=Wifi()),
                                                required_access_level="Proximity",
                                                #  aireplay-ng -0 0 -a [BSSID] [interface_name]

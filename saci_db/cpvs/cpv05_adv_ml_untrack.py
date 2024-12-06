@@ -17,7 +17,7 @@ from saci_db.vulns.ml_vuln import DeepNeuralNetworkVuln
 from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 class ObjectTrackCPV(CPV):
-    NAME = "The Object Tracking CPV"
+    NAME = "The Object Untracking CPV"
 
     def __init__(self):
         ml_vuln = DeepNeuralNetworkVuln()

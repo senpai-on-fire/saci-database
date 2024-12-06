@@ -19,7 +19,7 @@ from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 class ICMPFloodingCPV(CPV):
     
-    NAME = "ICMP flooding attack CPV"
+    NAME = "ICMP Flooding CPV"
 
     def __init__(self):
         super().__init__(
@@ -50,7 +50,7 @@ class ICMPFloodingCPV(CPV):
                 "Aircrack-ng software",
             ],
 
-            attack_vectors = [BaseAttackVector(name="ICMP flooding attack", 
+            attack_vectors = [BaseAttackVector(name="ICMP Packets Injection", 
                                                signal=PacketAttackSignal(src=ExternalInput(), dst=ICMP(),),
                                                required_access_level="Proximity",
                                                configuration={"protocol":"UDP","port":"5556"},

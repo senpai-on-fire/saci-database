@@ -14,7 +14,7 @@ from saci.modeling.state import GlobalState
 
 class WebStopCPV(CPV):
     
-    NAME = "The Stop-via-the-web CPV"
+    NAME = "The Stop-via-the-Web CPV"
 
     def __init__(self):
         super().__init__(
@@ -40,7 +40,7 @@ class WebStopCPV(CPV):
                 "Operating mode": "Mission"
             },
             attack_requirements=["Computer","Hardcoded credentials"],
-            attack_vectors = [BaseAttackVector(name="Stop Button Manipulation", 
+            attack_vectors = [BaseAttackVector(name="Stop Button Manipulation via HTTP Requests Injection", 
                                                signal=PacketAttackSignal(src=ExternalInput(), dst=Wifi()),
                                                required_access_level="Proximity",
                                                configuration={"duration": "permanent"},

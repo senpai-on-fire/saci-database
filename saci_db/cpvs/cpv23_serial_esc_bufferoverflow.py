@@ -13,7 +13,7 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci.modeling.communication import ExternalInput
 
 class OverflowCPV(CPV):
-    NAME = "The Buffer Overflow CPV"
+    NAME = "The ESC Buffer Overflow CPV"
 
     def __init__(self):
         serial_vuln = LackSerialAuthenticationVuln()
@@ -41,7 +41,7 @@ class OverflowCPV(CPV):
                 "Operating mode": "Any",
             },
 
-            attack_vectors = [BaseAttackVector(name='Serial_ASCII_Characters',
+            attack_vectors = [BaseAttackVector(name='Serial ASCII_Characters Command Injection',
                                                signal=SerialAttackSignal(src=ExternalInput(), dst=Serial(), data='ASCII Characters'),
                                                configuration={'length': '1025'},
                                                required_access_level='Physical',

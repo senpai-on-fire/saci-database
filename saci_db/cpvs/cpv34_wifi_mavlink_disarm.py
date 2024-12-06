@@ -16,7 +16,7 @@ from saci.modeling.state import GlobalState
 
 class MavlinkDisarmCPV(CPV):
     
-    NAME = "Mavlink Disram attack CPV"
+    NAME = "Mavlink Disram CPV"
 
     def __init__(self):
         super().__init__(
@@ -48,7 +48,7 @@ class MavlinkDisarmCPV(CPV):
                 "mavproxy",
             ],
 
-            attack_vectors = [BaseAttackVector(name="command injection", 
+            attack_vectors = [BaseAttackVector(name="MavLink Packets Injection", 
                                                signal=PacketAttackSignal(src=ExternalInput(), dst=GCSTelemetry()),
                                                required_access_level="Proximity",
                                                configuration={"protocol":"UDP","port":"14550","command":"disarm"},

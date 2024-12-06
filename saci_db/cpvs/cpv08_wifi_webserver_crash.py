@@ -14,7 +14,7 @@ from saci.modeling.state import GlobalState
 
 class WebCrashCPV(CPV):
    
-    NAME = "The Crash-via-the-web CPV"
+    NAME = "The Crash-via-Web CPV"
 
     def __init__(self):
 
@@ -44,7 +44,7 @@ class WebCrashCPV(CPV):
             },
 
             attack_requirements=["Computer","Hardcoded credentials"],
-            attack_vectors = [BaseAttackVector(name="Long HTTP GET requests", 
+            attack_vectors = [BaseAttackVector(name="Long HTTP GET Requests Injection", 
                                                # the external input will be the long http request from the attacker's web client
                                                signal=PacketAttackSignal(src=ExternalInput(), dst=Wifi()),
                                                required_access_level="Proximity",

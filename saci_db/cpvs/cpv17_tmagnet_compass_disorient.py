@@ -17,7 +17,7 @@ from saci.modeling.communication import ExternalInput
 
 class TemporaryCompassSpoofingCPV(CPV):
     
-    NAME = "The Temporary Magnet-on-the-compass-DoS CPV"
+    NAME = "The Temporary Magnet-on-Compass CPV"
     
     def __init__(self):
         super().__init__(
@@ -43,7 +43,7 @@ class TemporaryCompassSpoofingCPV(CPV):
                 "Operating mode": "Mission",},
 
             attack_requirements = ["Magnet with adequate shapes and dimensions"],
-            attack_vectors = [BaseAttackVector(name="Magnetic Interference", 
+            attack_vectors = [BaseAttackVector(name="Magnetic Signals Interference", 
                                                signal=MagneticAttackSignal(src=ExternalInput(), dst=CompassSensor()),
                                                required_access_level="Physical",
                                                configuration={"duration": "10 sec"},

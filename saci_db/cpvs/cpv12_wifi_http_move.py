@@ -15,7 +15,7 @@ from saci.modeling.state import GlobalState
 
 class WebMoveCPV(CPV):
     
-    NAME = "The Move-via-the-web CPV"
+    NAME = "The Move-via-the-Web CPV"
 
     def __init__(self):
         super().__init__(
@@ -44,7 +44,7 @@ class WebMoveCPV(CPV):
                 "Attacker computer",
                 "Firmware for the Renesas RA4M1 processor on the Arduino Uno R4 to retrieve hard coded credentials."
             ],
-            attack_vectors = [BaseAttackVector(name="Move Button Manipulation", 
+            attack_vectors = [BaseAttackVector(name="Move Button Manipulation via HTTP Requests Injection", 
                                                signal=PacketAttackSignal(src=ExternalInput(), dst=Wifi()),
                                                required_access_level="Proximity",
                                                configuration={"duration": "permanent"},

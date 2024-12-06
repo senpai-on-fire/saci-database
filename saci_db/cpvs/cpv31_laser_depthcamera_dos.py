@@ -9,7 +9,7 @@ from saci_db.vulns.depth_camera_vuln import DepthCameraSpoofingVuln
 from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 class DepthCameraDoSCPV(CPV):
-    NAME = "Depth Camera Laser DoS CPV"
+    NAME = "The Depth Camera Laser DoS CPV"
 
     def __init__(self):
         super().__init__(

@@ -15,7 +15,7 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci.modeling.communication import ExternalInput
 
 class RedirectCPV(CPV):
-    NAME = "The redirect-the-rover CPV"
+    NAME = "The Redirect-the-Rover CPV"
 
     def __init__(self):
         serial_vuln = LackSerialAuthenticationVuln() 
@@ -44,17 +44,17 @@ class RedirectCPV(CPV):
                 "Operating mode": "Any",
             },
 
-            attack_vectors = [BaseAttackVector(name='Serial_DSHOT_CMD_SPIN_DIRECTION_1',
+            attack_vectors = [BaseAttackVector(name='Serial DSHOT_CMD_SPIN_DIRECTION_1 Command Injection',
                                                signal=SerialAttackSignal(src=ExternalInput(), dst=Serial(), data='7'),
                                                configuration={'repetition': '6'},
                                                required_access_level='Physical',
                                                ),
-                            BaseAttackVector(name='Serial_DSHOT_CMD_SPIN_DIRECTION_2',
+                            BaseAttackVector(name='Serial DSHOT_CMD_SPIN_DIRECTION_2 Command Injection',
                                                signal=SerialAttackSignal(src=ExternalInput(), dst=Serial(), data='8'),
                                                configuration={'repetition': '6'},
                                                required_access_level='Physical',
                                                ),
-                            BaseAttackVector(name='Serial_CMD_SAVE_SETTINGS',
+                            BaseAttackVector(name='Serial CMD_SAVE_SETTINGS Command Injection',
                                                signal=SerialAttackSignal(src=ExternalInput(), dst=Serial(), data='12'),
                                                configuration={'repetition': '6'},
                                                required_access_level='Physical',

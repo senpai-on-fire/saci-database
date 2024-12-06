@@ -14,7 +14,7 @@ from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 class ThrottleCPV(CPV):
-    NAME = "The throttle-the-rover CPV"
+    NAME = "The Throttle-the-Rover CPV"
 
     def __init__(self):
         serial_vuln = LackSerialAuthenticationVuln() #Use the LackofAuthentication Class
@@ -43,7 +43,7 @@ class ThrottleCPV(CPV):
                 "Operating mode": "Any",
             },
 
-            attack_vectors = [BaseAttackVector(name='Serial_DSHOT_Command',
+            attack_vectors = [BaseAttackVector(name='Serial DSHOT Command Injection',
                                                signal=SerialAttackSignal(src=ExternalInput(), dst=Serial(), data='any'), #data excludes values 55, 66, 77
                                                required_access_level='Physical',
                                                )],

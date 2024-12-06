@@ -53,7 +53,7 @@ class GPSPositionLoopCPV(CPV):
             # TODO: We also want to specify the signal data
             # TODO: Modulate the access level and configuration
             attack_requirements = ["GPS Spoof device (e.g., HackRF SDR)"],
-            attack_vectors= [BaseAttackVector(name="GPS Spoofing Signal", 
+            attack_vectors= [BaseAttackVector(name="GPS Spoofing Signal Injection", 
                                                signal=GPSAttackSignal(src=ExternalInput(), dst=GPSReceiver()),
                                                required_access_level="Remote",
                                                configuration={"duration": "permanent"},
