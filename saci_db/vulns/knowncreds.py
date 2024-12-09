@@ -21,7 +21,7 @@ class WifiKnownCredsVuln(PublicSecretVulnerability):
             # The output is the disconnection 
             output=AuthenticatedCommunication(),
             attack_ASP=KnownCredsPred,
-            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'knowncreds.lp')
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'known_creds.lp')
         )
 
     def exists(self, device: Device) -> bool:

@@ -5,7 +5,7 @@ from clorm import Predicate
 from saci.modeling import PublicSecretVulnerability, BaseVulnerability
 from saci.modeling.device import Device, TelemetryHigh
 from saci.modeling.communication import UnauthenticatedCommunication, AuthenticatedCommunication
-from saci.modeling.device.motor.steering import SteeringHigh
+from saci.modeling.device.motor.steering import Steering
 
 class NoAPSPred(Predicate):
     pass
@@ -13,7 +13,7 @@ class NoAPSPred(Predicate):
 class NoAPSVuln(BaseVulnerability):
     def __init__(self):
         super().__init__(
-            component=SteeringHigh(),
+            component=Steering(),
             # The input is...?
             _input=UnauthenticatedCommunication(),
             # The output is...?
@@ -23,6 +23,6 @@ class NoAPSVuln(BaseVulnerability):
         )
 
     def exists(self, device: Device) -> bool:
-        return any(isinstance(comp, SteeringHigh) and not comp.has_aps for comp in device.components)
+        return any(isinstance(comp, Steering) and not comp.has_aps for comp in device.components)
 
 

@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../NGC1B-rover-CPVs"
+		},
+		{
+			"path": "../../../Greensight1A-esc-CPVs"
+		},
+		{
+			"path": "../../../SACI"
+		},
+		{
+			"path": "../../../HII_Data"
+		},
+		{
+			"path": "../../../hii-blueprints"
+		}
+	],
+	"settings": {}
+}
