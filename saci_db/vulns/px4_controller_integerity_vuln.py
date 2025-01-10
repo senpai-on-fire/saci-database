@@ -28,6 +28,6 @@ class PX4ControllerIntegrityVuln(BaseVulnerability):
         for comp in device.components:
             if isinstance(comp, PX4Controller) and comp.operating_mode in [OperationMode.MISSION, OperationMode.AUTONOMOUS]:
                 # Check if the controller relies on a single vulnerable sensor
-                if not comp.has_integrity_check:
+                if not comp.parameters['has_integrity_check']:
                     return True
         return False
