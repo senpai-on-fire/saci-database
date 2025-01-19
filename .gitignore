@@ -161,3 +161,6 @@ cython_debug/
 
 # Don't add the ingested devices... should probably store these elsewhere anyway
 saci_db/devices/ingested/*/*
+
+# Ignore the .DS_Store file
+.DS_Store
