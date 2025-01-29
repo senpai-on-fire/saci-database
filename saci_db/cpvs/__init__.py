@@ -1,4 +1,4 @@
-from .cpv010_serial_motor_tone import *
+from .cpv010_depthcamera_spoofing_classic import *
 from .cpv011_serial_motor_throttle import *
 from .cpv012_wifi_http_move import *
 from .cpv013_gps_spoofing_loop import *
@@ -21,7 +21,7 @@ from .cpv028_acoustic_spoofing_magnetometer import *
 from .cpv029_airflow_barometer_spoofing import *
 from .cpv002_gps_spoofing_move import *
 from .cpv030_projector_opticalflow_spoofing import *
-from .cpv031_laser_depthcamera_spoofing import *
+from .cpv031_depthcamera_spoofing_ml import *
 from .cpv032_emi_motor_block import *
 from .cpv033_wifi_deauth_quad import *
 from .cpv034_wifi_mavlink_disarm import *
@@ -90,7 +90,8 @@ CPVS = [
     AcousticSpoofingMagnetometerCPV(),
     BarometricSensorSpoofingCPV(),
     ProjectorOpticalFlowCPV(),
-    DepthCameraDoSCPV(),
+    MLDepthEstimationAttackCPV(),
+    ClassicDepthEstimationAttackCPV(),
     EMIMotorBlockCPV(),
     WiFiDeauthQuadDosCPV(),
     MavlinkDisarmCPV(),

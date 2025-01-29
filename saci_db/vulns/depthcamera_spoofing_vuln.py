@@ -1,6 +1,6 @@
 import os.path
 from clorm import Predicate
-from saci.modeling import SpoofingtVulnerability
+from saci.modeling import SpoofingVulnerability
 from saci.modeling.device import Device
 from saci.modeling.device.sensor.depth_camera import DepthCamera
 from saci.modeling.communication import AuthenticatedCommunication, ExternalInput
@@ -9,7 +9,7 @@ from saci.modeling.communication import AuthenticatedCommunication, ExternalInpu
 class DepthCameraSpoofingPred(Predicate):
     pass
 
-class DepthCameraSpoofingVuln(SpoofingtVulnerability):
+class DepthCameraSpoofingVuln(SpoofingVulnerability):
     def __init__(self):
         super().__init__(
             # The DepthCamera component is vulnerable to spoofing attacks

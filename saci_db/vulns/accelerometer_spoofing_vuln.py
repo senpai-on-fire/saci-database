@@ -3,7 +3,7 @@ import os.path
 from clorm import Predicate
 
 from saci.modeling import BaseVulnerability
-from saci.modeling import SpoofingtVulnerability
+from saci.modeling import SpoofingVulnerability
 from saci.modeling.device import Device
 from saci.modeling.device.sensor.accelerometer import Accelerometer
 from saci.modeling.communication import UnauthenticatedCommunication, AuthenticatedCommunication, ExternalInput
@@ -12,7 +12,7 @@ from saci.modeling.communication import UnauthenticatedCommunication, Authentica
 class AccelerometerSpoofingPred(Predicate):
     pass
 
-class AccelerometerSpoofingVuln(SpoofingtVulnerability):
+class AccelerometerSpoofingVuln(SpoofingVulnerability):
     def __init__(self):
         super().__init__(
             # The accelerometer component that is vulnerable to spoofing attacks

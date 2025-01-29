@@ -2,7 +2,7 @@ import os.path
 
 from clorm import Predicate
 
-from saci.modeling import SpoofingtVulnerability
+from saci.modeling import SpoofingVulnerability
 from saci.modeling.device import Device
 from saci.modeling.device.sensor import GNSSReceiver
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
@@ -11,7 +11,7 @@ from saci.modeling.communication import AuthenticatedCommunication, Unauthentica
 class GNSSSpoofingPred(Predicate):
     pass
 
-class GNSSSpoofingVuln(SpoofingtVulnerability):
+class GNSSSpoofingVuln(SpoofingVulnerability):
     def __init__(self):
         super().__init__(
             # The GNSSReceiver component vulnerable to spoofing attacks

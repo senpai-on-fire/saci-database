@@ -23,8 +23,6 @@ class ObjectTrackCPV(CPV):
         super().__init__(
             required_components=[
                 Camera(),
-                Serial(),
-                Controller(),
                 DNN(),
                 PX4Controller(),
                 PWMChannel(), 

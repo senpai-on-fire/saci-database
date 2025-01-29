@@ -2,7 +2,7 @@ import os.path
 
 from clorm import Predicate
 
-from saci.modeling import SpoofingtVulnerability
+from saci.modeling import SpoofingVulnerability
 
 from saci.modeling.device import Device
 from saci.modeling.device.sensor import Gyroscope, GyroscopeHWPackage 
@@ -13,7 +13,7 @@ from saci.modeling.communication import AuthenticatedCommunication, Unauthentica
 class GyroscopeSpoofingPred(Predicate):
     pass
 
-class GyroscopeSpoofingVuln(SpoofingtVulnerability):
+class GyroscopeSpoofingVuln(SpoofingVulnerability):
     def __init__(self):
         super().__init__(
             # The Gyroscope component vulnerable to spoofing attacks

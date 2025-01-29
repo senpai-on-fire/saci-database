@@ -3,7 +3,7 @@ import networkx as nx
 from clorm import Predicate, IntegerField
 
 from saci.modeling.device.sensor import GPSReceiver, CompassSensor
-from saci.modeling.device import Device, Motor, Controller, Wifi, Serial, ESC, WebServer
+from saci.modeling.device import Device, Motor, Controller, Wifi, Serial, ESC, WebServer, WebClient
 from saci.modeling.device.motor.steering import Steering
 from saci.modeling.state import GlobalState
 
@@ -19,6 +19,7 @@ class NGCRover(Device):
         wifi = Wifi()
         serial = Serial()
         webserver = WebServer()
+        webclient = WebClient()
         gps = GPSReceiver() # sends NMEA messages to R4 over serial
         compass = CompassSensor() # reading two analog values
         uno_r4 = Controller()
@@ -34,6 +35,7 @@ class NGCRover(Device):
         components = [wifi, webserver, gps, compass, uno_r4, serial, uno_r3, esc, steering, motor,]
 
         component_graph = nx.from_edgelist([
+            (webclient, wifi),
             (wifi, webserver),
             (webserver, uno_r4),
             (gps, uno_r4),
@@ -46,6 +48,7 @@ class NGCRover(Device):
         ], create_using=nx.DiGraph)
 
         entry_points = {
+            webclient: True,
             wifi: True, 
             webserver: False,
             uno_r4: False,

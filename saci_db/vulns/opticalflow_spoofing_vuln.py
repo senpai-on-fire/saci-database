@@ -1,6 +1,6 @@
 import os.path
 from clorm import Predicate
-from saci.modeling import SpoofingtVulnerability
+from saci.modeling import SpoofingVulnerability
 from saci.modeling.device import Device
 from saci.modeling.device.sensor import OpticalFlowSensor
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
@@ -9,7 +9,7 @@ from saci.modeling.communication import AuthenticatedCommunication, Unauthentica
 class OpticalFlowSpoofingPred(Predicate):
     pass
 
-class OpticalFlowSpoofingVuln(SpoofingtVulnerability):
+class OpticalFlowSpoofingVuln(SpoofingVulnerability):
     def __init__(self):
         super().__init__(
             # The OpticalFlowSensor component vulnerable to spoofing attacks

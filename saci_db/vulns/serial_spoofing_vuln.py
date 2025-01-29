@@ -1,7 +1,7 @@
 import os.path
 from clorm import Predicate
 
-from saci.modeling import SpoofingtVulnerability
+from saci.modeling import SpoofingVulnerability
 from saci.modeling.device import Device, Serial
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
 from saci.modeling.communication.protocol import UARTProtocol, I2CProtocol, SPIProtocol
@@ -10,7 +10,7 @@ from saci.modeling.communication.protocol import UARTProtocol, I2CProtocol, SPIP
 class SerialSpoofingPred(Predicate):
     pass
 
-class SerialSpoofingVuln(SpoofingtVulnerability):
+class SerialSpoofingVuln(SpoofingVulnerability):
     def __init__(self):
         super().__init__(
             # The Serial component is vulnerable to spoofing attacks

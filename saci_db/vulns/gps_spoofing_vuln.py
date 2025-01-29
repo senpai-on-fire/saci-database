@@ -2,7 +2,7 @@ import os.path
 
 from clorm import Predicate
 
-from saci.modeling import SpoofingtVulnerability
+from saci.modeling import SpoofingVulnerability
 from saci.modeling.device import Device
 from saci.modeling.device.sensor import GPSReceiver
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
@@ -11,7 +11,7 @@ from saci.modeling.communication import AuthenticatedCommunication, Unauthentica
 class GPSSpoofingPred(Predicate):
     pass
 
-class GPSSpoofingVuln(SpoofingtVulnerability):
+class GPSSpoofingVuln(SpoofingVulnerability):
     def __init__(self):
         super().__init__(
             # The GPSReceiver component vulnerable to spoofing attacks
