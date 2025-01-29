@@ -2,8 +2,8 @@ import os
 import networkx as nx
 from clorm import Predicate, IntegerField
 
-from saci.modeling.device import Device, GPSReceiver, Motor, Controller, Wifi, Serial, ESC, WebServer
-from saci.modeling.device.compass import CompassSensor
+from saci.modeling.device.sensor import GPSReceiver, CompassSensor
+from saci.modeling.device import Device, Motor, Controller, Wifi, Serial, ESC, WebServer
 from saci.modeling.device.motor.steering import Steering
 from saci.modeling.state import GlobalState
 

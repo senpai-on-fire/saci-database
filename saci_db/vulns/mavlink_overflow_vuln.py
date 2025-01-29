@@ -3,7 +3,7 @@ from clorm import Predicate, IntegerField
 
 from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import Device, Mavlink
-from saci.modeling.communication import AuthenticatedCommunication, ExternalInput
+from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
 
 class Attack_CPSV_Overflow(Predicate):
     time = IntegerField()
@@ -14,10 +14,19 @@ class MavlinkOverflow(PublicSecretVulnerability):
             # TODO: how do you describe that it can occur in both Algorithmic and High telemetry?
             component=Mavlink(),
             # TODO: how to express input/output constraints
-            _input=AuthenticatedCommunication(src=ExternalInput()),
-            output=AuthenticatedCommunication(),
+            _input=UnauthenticatedCommunication(src=ExternalInput()),
+            output=UnauthenticatedCommunication(),
             attack_ASP=Attack_CPSV_Overflow,
-            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'mavlink_overflow.lp')
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'mavlink_overflow.lp'),
+            # List of Associated CWEs:
+            associated_cwe = [
+                "CWE-120: Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')",
+                "CWE-125: Out-of-Bounds Read",
+                "CWE-787: Out-of-Bounds Write",
+                "CWE-119: Improper Restriction of Operations within the Bounds of a Memory Buffer",
+                "CWE-94: Improper Control of Generation of Code ('Code Injection')",
+                "CWE-20: Improper Input Validation",
+                "CWE-400: Uncontrolled Resource Consumption"]
         )
         self.input = "overflow the mavlink protocol"
 

@@ -1,12 +1,12 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import (CyberComponentBase,Controller, Motor)
-from saci.modeling.device.compass import CompassSensor
+from saci.modeling.device import (Serial, Controller, PWMChannel, Motor)
+from saci.modeling.device.sensor import CompassSensor
 from saci.modeling.device.motor.steering import Steering
 from saci.modeling.state import GlobalState
 
-from saci_db.vulns.compass_spoofing import CompassSpoofingVuln
+from saci_db.vulns.compass_spoofing_vuln import CompassSpoofingVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
@@ -15,16 +15,18 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 from saci.modeling.communication import ExternalInput
 
-class PermanentCompassSpoofingCPV(CPV):
+class CompassPermanentSpoofingCPV(CPV):
     
-    NAME = "The Permanent Magnet-on-Compass CPV"
+    NAME = "The Permanent Magnetic Interference on Compass"
     
     def __init__(self):
         super().__init__(
             required_components=[
                 CompassSensor(),
+                Serial(),
                 Controller(),
                 Controller(),
+                PWMChannel(),
                 Steering(),],
             entry_component=CompassSensor(),
             exit_component=Motor(),

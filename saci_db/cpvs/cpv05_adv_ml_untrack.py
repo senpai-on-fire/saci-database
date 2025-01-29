@@ -1,37 +1,39 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import (
-    ESC, DNN,
-    Camera,
-    MultiCopterMotor,
-)
+from saci.modeling.device import ESC, DNN, Serial, Controller, Camera, PWMChannel, MultiCopterMotor
+
 from saci.modeling.communication import ExternalInput
 from saci.modeling.state import GlobalState
 
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.image_attack_signal import ImageAttackSignal
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
-from saci_db.vulns.ml_vuln import DeepNeuralNetworkVuln
+
+from saci_db.vulns.ml_adversarial_vuln import DeepNeuralNetworkVuln
+from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
 from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 class ObjectTrackCPV(CPV):
-    NAME = "The Object Untracking CPV"
+
+    NAME = "The Object Untracking Attack on AI models"
 
     def __init__(self):
-        ml_vuln = DeepNeuralNetworkVuln()
         super().__init__(
             required_components=[
                 Camera(),
+                Serial(),
+                Controller(),
                 DNN(),
                 PX4Controller(),
+                PWMChannel(), 
                 ESC(),
                 MultiCopterMotor(),
             ],
             entry_component=Camera(),
             exit_component=MultiCopterMotor(),
-            vulnerabilities=[ml_vuln],
+            vulnerabilities=[DeepNeuralNetworkVuln(), ControllerIntegrityVuln()],
             goals=[],
             initial_conditions={
                 "Position": "Any",

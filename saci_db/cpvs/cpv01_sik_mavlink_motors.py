@@ -1,27 +1,30 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import Telemetry, Controller, ControllerHigh, MultiCopterMotor, MultiCopterMotorAlgo, SikRadio, Mavlink, ESC
+from saci.modeling.device import GCS, TelemetryHigh, Controller, MultiCopterMotor, MultiCopterMotorAlgo, PWMChannel, SikRadio, Mavlink, ESC
 from saci.modeling.state import GlobalState
 
-from saci_db.vulns.mavlink_mitm_vuln import MavlinkVuln01
-from saci_db.vulns.sik_vuln import SiKAuthVuln01
+from saci_db.vulns.mavlink_mitm_vuln import MavlinkMitmVuln
+from saci_db.vulns.sik_flooding_vuln import SiKFloodingVuln
 
 from saci_db.devices.px4_quadcopter_device import PX4Controller
 
-class MavlinkCPV(CPV):
+class MavlinkSiKCPV(CPV):
 
-    NAME = "The Mavlink and SiK Radio CPV"
+    NAME = "The Mavlink and SiK Radio Attack"
 
-    sik_auth_vuln = SiKAuthVuln01()
-    mavlink_vuln = MavlinkVuln01()
+    sik_auth_vuln = SiKFloodingVuln()
+    mavlink_vuln = MavlinkMitmVuln()
 
     def __init__(self):
         super().__init__(
             required_components=[
+                GCS(),
                 SikRadio(),
                 Mavlink(),
+                TelemetryHigh(), 
                 PX4Controller(),
+                PWMChannel(), 
                 ESC(),
                 MultiCopterMotor(),
             ],
@@ -67,8 +70,8 @@ class MavlinkCPV(CPV):
             elif isinstance(component, MultiCopterMotor):
                 if component != self.goal_motor_state:
                     return False
-            elif isinstance(component, Telemetry) and not component.powered:
+            elif isinstance(component, TelemetryHigh) and not component.powered:
                 return False
-            elif isinstance(component, ControllerHigh) and not component.powered:
+            elif isinstance(component, Controller) and not component.powered:
                 return False
         return True

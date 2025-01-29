@@ -1,8 +1,10 @@
 from typing import List, Type
 from saci.modeling import CPV
-from saci.modeling.device import Controller, Wifi, Controller, Motor, WebServer, ESC
-from saci_db.vulns.knowncreds import WifiKnownCredsVuln
+from saci.modeling.device import Controller, Wifi, Controller, Motor, WebServer, WebClient, PWMChannel, ESC
+
+from saci_db.vulns.wifi_knowncreds_vuln import WifiKnownCredsVuln
 from saci_db.vulns.weak_application_auth_vuln import WeakApplicationAuthVuln
+
 from saci.modeling.communication import ExternalInput
 
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
@@ -12,18 +14,20 @@ from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.state import GlobalState
 
 
-class WebCrashCPV(CPV):
+class WifiWebCrashCPV(CPV):
    
-    NAME = "The Crash-via-Web CPV"
+    NAME = "The Crashing the CPS from Webserver and via Wifi"
 
     def __init__(self):
 
         super().__init__(
             required_components=[
+                WebClient(),
                 Wifi(),
                 WebServer(),
                 Controller(),
                 Controller(),
+                PWMChannel(), 
                 ESC(),
                 Motor(),
             ],

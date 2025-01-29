@@ -2,22 +2,30 @@ import os
 from clorm import Predicate, IntegerField
 
 from saci.modeling import PublicSecretVulnerability
-from saci.modeling.device import TelemetryHigh, TelemetryAlgorithmic, Telemetry, Device, Mavlink
-from saci.modeling.communication import AuthenticatedCommunication, ExternalInput
+from saci.modeling.device import TelemetryHigh, TelemetryAlgorithmic, Device, Mavlink
+from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
 
 class Attack_CPSV_Mavlink(Predicate):
     time = IntegerField()
 
-class MavlinkVuln01(PublicSecretVulnerability):
+class MavlinkMitmVuln(PublicSecretVulnerability):
     def __init__(self):
         super().__init__(
             # TODO: how do you describe that it can occur in both Algorithmic and High telemetry?
             component=Mavlink(),
             # TODO: how to express input/output constraints
-            _input=AuthenticatedCommunication(src=ExternalInput()),
-            output=AuthenticatedCommunication(),
+            _input=UnauthenticatedCommunication(src=ExternalInput()),
+            output=UnauthenticatedCommunication(),
             attack_ASP=Attack_CPSV_Mavlink,
-            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'mavlink_mitm.lp')
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'mavlink_mitm.lp'),
+            # List of Associated CWEs:
+            associated_cwe=[
+                "CWE-300: Channel Accessible by Non-Endpoint ('Man-in-the-Middle')",
+                "CWE-345: Insufficient Verification of Data Authenticity",
+                "CWE-441: Unintended Proxy or Intermediary ('Confused Deputy')",
+                "CWE-294: Authentication Bypass by Capture-replay",
+                "CWE-693: Protection Mechanism Failure"
+            ]
         )
         self.input = "launch a Mavlink MITM attack"
 

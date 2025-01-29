@@ -4,7 +4,9 @@ from clorm import Predicate, IntegerField
 from saci.modeling.state import GlobalState
 
 from .gcs_telemetry import GCSTelemetry
-from saci.modeling.device import Device, MultiCopterMotor, ESC, SikRadio, Mavlink, GPSReceiver, ICMP, Camera, DNN, DepthCamera, OpticalFlowSensor, Wifi
+from saci.modeling.device import Device, MultiCopterMotor, ESC, SikRadio, Mavlink, ICMP, DNN, Wifi
+from saci.modeling.device.sensor import GPSReceiver, Camera, DepthCamera, OpticalFlowSensor
+
 
 from .px4_controller import PX4Controller
 

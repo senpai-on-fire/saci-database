@@ -1,11 +1,11 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import (Controller, ESC, Serial)
+from saci.modeling.device import (Controller, PWMChannel, ESC, Serial)
 from saci.modeling.device.motor import Motor
 from saci.modeling.state import GlobalState
-from saci_db.vulns.lack_serial_authentification import LackSerialAuthenticationVuln
-from saci.modeling.device.component import CyberComponentBase
+
+from saci_db.vulns.lack_serial_auth_vuln import LackSerialAuthenticationVuln
 
 from saci.modeling.attack.serial_attack_signal import SerialAttackSignal 
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
@@ -13,16 +13,20 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 from saci.modeling.communication import ExternalInput
 
-class RollOverCPV(CPV):
-    NAME = "The Roll-the-Rover-Over CPV"
+class SerialRollOverCPV(CPV):
+
+    NAME = "The Roll-the-Rover-Over via Serial Interface"
 
     def __init__(self):
+
         serial_vuln = LackSerialAuthenticationVuln()
+
         super().__init__(
             required_components=[
                 Serial(),
                 Controller(),
                 Controller(),
+                PWMChannel(), 
                 ESC(),
                 Motor(),
             ],
