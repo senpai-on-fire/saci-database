@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import GCS, TelemetryHigh, Controller, MultiCopterMotor, MultiCopterMotorAlgo, PWMChannel, SikRadio, Mavlink, ESC
+from saci.modeling.device import GCS, TelemetryHigh, Controller, MultiCopterMotor, MultiCopterMotorAlgorithmic, PWMChannel, SikRadio, Mavlink, ESC
 from saci.modeling.state import GlobalState
 
 from saci_db.vulns.mavlink_mitm_vuln import MavlinkMitmVuln
@@ -52,7 +52,7 @@ class MavlinkSiKCPV(CPV):
         # We want the motor to be powered, but to be doing nothing. This can be described as neither
         # having lift, pitch, or yaw.
 
-        gms = MultiCopterMotorAlgo()
+        gms = MultiCopterMotorAlgorithmic()
         gms.conditions = [
             gms.v["yaw"] == 0,
             gms.v["pitch"] == 0,
