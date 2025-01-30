@@ -21,7 +21,6 @@ class ProjectorOpticalFlowCPV(CPV):
         super().__init__(
             required_components=[
                 OpticalFlowSensor(),
-                Serial(),            
                 PX4Controller(),   
                 PWMChannel(),  
                 ESC(),

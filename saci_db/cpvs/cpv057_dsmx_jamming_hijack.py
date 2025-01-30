@@ -15,7 +15,7 @@ from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 class DSMxJammingHijackCPV(CPV):
     
-    NAME = "Icarus DSMx Protocol Hijacking Attack"
+    NAME = "The Icarus DSMx Protocol Hijacking Attack"
 
     def __init__(self):
         super().__init__(
@@ -29,7 +29,7 @@ class DSMxJammingHijackCPV(CPV):
                 ESC(),
                 MultiCopterMotor(),
             ],
-            entry_component=SikRadio(),
+            entry_component=GCS(),
             exit_component=MultiCopterMotor(),
             
             vulnerabilities=[RFInterferenceVuln(), DSMxJammingProtocolVuln(), ControllerIntegrityVuln()],

@@ -1,4 +1,5 @@
 from saci.modeling import CPV
+from saci.modeling.device import (PWMChannel, ESC, MultiCopterMotor)
 from saci.modeling.communication import ExternalInput
 
 from saci.modeling.attack.payload_firmware_attack import PayloadFirmwareAttack
@@ -7,19 +8,22 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 from saci_db.vulns.payload_firmware_vuln import FirmwarePayloadVuln
 
-from saci_db.devices.propriety_quadcopter_device import ProprietyQuadcopter
+from saci_db.devices.propriety_quadcopter_device import ProprietyController
 
 class PayloadSpoofDroneIDCPV(CPV):
     
-    NAME = "Spoof Drone Identifier for Masking Identity"
+    NAME = "The Spoof Drone Identifier for Masking Identity"
 
     def __init__(self):
         super().__init__(
             required_components=[
-                ProprietyQuadcopter(),
+                ProprietyController(),
+                PWMChannel(),
+                ESC(),
+                MultiCopterMotor(),
             ],
-            entry_component=ProprietyQuadcopter(),
-            exit_component=None,
+            entry_component=ProprietyController(),
+            exit_component=MultiCopterMotor(),
             
             vulnerabilities=[FirmwarePayloadVuln],
             
@@ -41,7 +45,7 @@ class PayloadSpoofDroneIDCPV(CPV):
                     name="Identifier Spoofing",
                     signal=PayloadFirmwareAttack(
                         src=ExternalInput(),
-                        dst=ProprietyQuadcopter(), # Add the binary abstraction here
+                        dst=ProprietyController(), # Add the binary abstraction here
                         modality="fimware payload",
                     ),
                     required_access_level="Physical Access",

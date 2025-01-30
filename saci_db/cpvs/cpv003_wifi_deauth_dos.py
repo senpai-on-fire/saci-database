@@ -16,12 +16,11 @@ from saci.modeling.state import GlobalState
 
 class WiFiDeauthDosCPV(CPV):
     
-    NAME = "The WiFi Deauthentication"
+    NAME = "The WiFi Deauthentication Attack"
 
     def __init__(self):
         super().__init__(
             required_components=[
-                WebClient(),
                 Wifi(),
                 WebServer(),
                 Controller(),

@@ -30,7 +30,7 @@ class MavlinkSiKCPV(CPV):
             ],
         
         # TODO: how to describe what kind of input is needed
-        entry_component = SikRadio(),
+        entry_component = GCS(),
         exit_component = MultiCopterMotor(),
 
         vulnerabilities=[self.sik_auth_vuln, self.mavlink_vuln],

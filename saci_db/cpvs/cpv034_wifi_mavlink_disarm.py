@@ -17,7 +17,7 @@ from saci.modeling.state import GlobalState
 
 class MavlinkDisarmCPV(CPV):
     
-    NAME = "The Mavlink Disram via Wifi"
+    NAME = "The Mavlink Disram  Attack via Wifi"
 
     def __init__(self):
         super().__init__(

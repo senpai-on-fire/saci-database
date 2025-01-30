@@ -13,18 +13,18 @@ from saci_db.vulns.gnss_spoofing_vuln import GNSSSpoofingVuln
 from saci_db.vulns.lack_gnss_filtering_vuln import LackGNSSFilteringVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
-from saci_db.devices.propriety_quadcopter_device import ProprietyQuadcopter
+from saci_db.devices.propriety_quadcopter_device import ProprietyController
 
 class GNSSFlightModeSpoofingCPV(CPV):
     
-    NAME = "GNSS Spoofing in Flight Mode for Path Deviation"
+    NAME = "The GNSS Spoofing in Flight Mode for Path Deviation"
 
     def __init__(self):
         super().__init__(
             required_components=[
                 GNSSReceiver(),
                 Serial(),
-                ProprietyQuadcopter(),
+                ProprietyController(),
                 PWMChannel(),
                 ESC(),
                 MultiCopterMotor(),

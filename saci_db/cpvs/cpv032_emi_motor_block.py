@@ -17,12 +17,11 @@ from saci.modeling.device import ESC, PWMChannel, MultiCopterMotor
 
 class EMIMotorBlockCPV(CPV):
     
-    NAME = "The Block on PWM Signals to Motors using EMI"
+    NAME = "The Block PWM Signals Attack on Motors using EMI"
     
     def __init__(self):
         super().__init__(
             required_components=[
-                PX4Controller(),   
                 PWMChannel(),  
                 ESC(),
                 MultiCopterMotor()

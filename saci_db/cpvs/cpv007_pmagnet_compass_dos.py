@@ -23,7 +23,6 @@ class CompassPermanentSpoofingCPV(CPV):
         super().__init__(
             required_components=[
                 CompassSensor(),
-                Serial(),
                 Controller(),
                 Controller(),
                 PWMChannel(),

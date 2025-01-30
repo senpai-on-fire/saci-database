@@ -15,7 +15,8 @@ from saci.modeling.device import Barometer, Serial, PWMChannel, ESC, MultiCopter
 from saci.modeling.state import GlobalState
 
 class BarometricSensorSpoofingCPV(CPV):
-    NAME = "Barometric Sensor Spoofing Attack"
+
+    NAME = "The Airflow Spoofing Attack on Barometric Sensors"
 
     def __init__(self):
         super().__init__(

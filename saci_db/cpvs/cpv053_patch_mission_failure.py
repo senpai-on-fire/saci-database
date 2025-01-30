@@ -17,7 +17,8 @@ from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 class PatchMissionFailureCPV(CPV):
-    NAME = "Mission Failure Due to Faulty Navigation or Control Updates"
+    
+    NAME = "The Mission Failure Due to Faulty Navigation or Control Updates"
 
     def __init__(self):
         super().__init__(

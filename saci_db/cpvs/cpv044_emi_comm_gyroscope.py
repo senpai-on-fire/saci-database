@@ -16,7 +16,7 @@ from saci.modeling.communication import ExternalInput
 
 class GyroscopeEMIChannelDisruptionCPV(CPV):
     
-    NAME = "Electromagnetic Interference (EMI) on Gyroscope Communication Channel"
+    NAME = "The EMI Spoofing Attack on Gyroscope Serial Communication Channel"
 
     def __init__(self):
         super().__init__(

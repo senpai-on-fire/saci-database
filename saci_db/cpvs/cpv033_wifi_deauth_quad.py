@@ -21,7 +21,7 @@ from saci.modeling.state import GlobalState
 
 class WiFiDeauthQuadDosCPV(CPV):
     
-    NAME = "The WiFi Deauthentication on Quadcopters"
+    NAME = "The WiFi Deauthentication Attack"
 
     def __init__(self):
         super().__init__(

@@ -23,11 +23,9 @@ class CompassTemporarySpoofingCPV(CPV):
         super().__init__(
             required_components=[
                 CompassSensor(),
-                Serial(),
                 Controller(),
                 Controller(),
                 PWMChannel(),
-                ESC(),
                 Steering(),],
 
             entry_component=CompassSensor(),

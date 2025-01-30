@@ -16,7 +16,7 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 class AcousticSpoofingAccelerometerCPV(CPV):
     
-    NAME = "The Acoustic Spoofing on Accelerometer Sensors"
+    NAME = "The Acoustic Spoofing Attack on Accelerometer Sensors"
     
     def __init__(self):
         super().__init__(

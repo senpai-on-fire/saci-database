@@ -14,7 +14,7 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci.modeling.device import  Wifi, TelemetryHigh, ARDiscovery, PWMChannel, ESC, MultiCopterMotor
 from saci.modeling.state import GlobalState
 
-from saci_db.devices.ardupilot_quadcopter_device import ArduPilotQuadcopter
+from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
 class ARDiscoveryDoSCPV(CPV):
 
@@ -26,7 +26,7 @@ class ARDiscoveryDoSCPV(CPV):
                 Wifi(),
                 ARDiscovery(),
                 TelemetryHigh(),            
-                ArduPilotQuadcopter(),   
+                ArduPilotController(),   
                 PWMChannel(),  
                 ESC(),
                 MultiCopterMotor(), 

@@ -22,7 +22,6 @@ class WifiWebCrashCPV(CPV):
 
         super().__init__(
             required_components=[
-                WebClient(),
                 Wifi(),
                 WebServer(),
                 Controller(),

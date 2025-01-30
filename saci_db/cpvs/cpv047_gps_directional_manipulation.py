@@ -13,18 +13,18 @@ from saci_db.vulns.gps_spoofing_vuln import GPSSpoofingVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 from saci_db.vulns.lack_gps_filtering_vuln import LackGPSFilteringVuln
 
-from saci_db.devices.ardupilot_quadcopter_device import ArduPilotQuadcopter
+from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
 class DirectionalManipulationCPV(CPV):
 
-    NAME = "Directional Manipulation Attack on Type I Drones"
+    NAME = "The Directional Manipulation Attack on Type I Drones"
 
     def __init__(self):
         super().__init__(
             required_components=[
                 GPSReceiver(),
                 Serial(),
-                ArduPilotQuadcopter(),
+                ArduPilotController(),
                 PWMChannel(),
                 ESC(),
                 MultiCopterMotor(),

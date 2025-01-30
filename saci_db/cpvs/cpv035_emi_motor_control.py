@@ -22,7 +22,6 @@ class EMIMotorFullControlCPV(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
-                PX4Controller(),   
                 PWMChannel(),  
                 ESC(),
                 MultiCopterMotor(),  

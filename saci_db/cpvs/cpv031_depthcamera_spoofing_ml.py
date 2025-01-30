@@ -1,5 +1,5 @@
 from saci.modeling import CPV
-from saci.modeling.device import ObstacleAvoidanceLogic, DepthCamera, DNN, PWMChannel, ESC, MultiCopterMotor
+from saci.modeling.device import ObstacleAvoidanceLogic, DepthCamera, ObjectAvoidanceDNN, PWMChannel, ESC, MultiCopterMotor
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.optical_attack_signal import OpticalAttackSignal
@@ -13,14 +13,13 @@ from saci_db.vulns.ml_adversarial_vuln import DeepNeuralNetworkVuln
 
 class MLDepthEstimationAttackCPV(CPV):
     
-    NAME = "Attack on ML-Based Depth Estimation Systems"
+    NAME = "The Stereo Vision-Based Depth Camera Attack on ML-based Depth Estimation Systems"
 
     def __init__(self):
         super().__init__(
             required_components=[
                 DepthCamera(),
-                DNN(),
-                ObstacleAvoidanceLogic(),
+                ObjectAvoidanceDNN(),
                 PX4Controller(),
                 PWMChannel(),
                 ESC(),
@@ -28,7 +27,7 @@ class MLDepthEstimationAttackCPV(CPV):
             ],
 
             entry_component=DepthCamera(),
-            exit_component=ObstacleAvoidanceLogic(),
+            exit_component=MultiCopterMotor(), 
 
             vulnerabilities=[DepthCameraSpoofingVuln(), DeepNeuralNetworkVuln(), StereoMatchingVuln()],
 

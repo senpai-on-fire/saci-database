@@ -21,12 +21,11 @@ from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 class WiFiICMPFloodingCPV(CPV):
     
-    NAME = "The ICMP Flooding via Wifi"
+    NAME = "The ICMP Flooding Attack via Wifi"
 
     def __init__(self):
         super().__init__(
             required_components=[
-                GCS(),
                 Wifi(),
                 ICMP() , 
                 TelemetryHigh(),          
@@ -35,7 +34,7 @@ class WiFiICMPFloodingCPV(CPV):
                 ESC(),
                 MultiCopterMotor(), 
             ],
-            entry_component = ICMP(),
+            entry_component = Wifi(),
             exit_component = MultiCopterMotor(),
 
             vulnerabilities =[LackWifiAuthenticationVuln(),IcmpFloodVuln(), LackWifiEncryptionVuln()],

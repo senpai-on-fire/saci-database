@@ -8,7 +8,7 @@ The modeled impact is: attackers can control the output of DNN models by exploit
 '''
 
 from saci.modeling import BaseVulnerability
-from saci.modeling.device import Device, DNN
+from saci.modeling.device import Device, DNNTracking
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
 
 # Predicate to define formal reasoning logic for vulnerabilities in deep neural networks (DNNs)
@@ -19,7 +19,7 @@ class DeepNeuralNetworkVuln(BaseVulnerability):
     def __init__(self):
         super().__init__(
             # The DNN component, vulnerable to adversarial example attacks
-            component=DNN(),
+            component=DNNTracking(),
             # Input: Authenticated communication representing crafted adversarial inputs
             _input=AuthenticatedCommunication(),
             # Output: Authenticated communication leading to attacker-controlled or misclassified outputs

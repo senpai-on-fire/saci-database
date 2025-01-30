@@ -12,7 +12,8 @@ from saci_db.vulns.stereo_matching_vuln import StereoMatchingVuln
 
 
 class ClassicDepthEstimationAttackCPV(CPV):
-    NAME = "Attack on Classic Stereo Vision-Based Depth Estimation"
+    
+    NAME = "The Stereo Vision-Based Depth Camera Attack on Classic Depth Estimation Systems"
 
     def __init__(self):
         super().__init__(

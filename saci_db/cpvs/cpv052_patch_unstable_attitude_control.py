@@ -16,7 +16,8 @@ from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 class PatchUnstableAttitudeControlCPV(CPV):
-    NAME = "Unstable Attitude Control Due to Faulty Patch"
+    
+    NAME = "The Unstable Attitude Control Due to Faulty Patch"
 
     def __init__(self):
         super().__init__(

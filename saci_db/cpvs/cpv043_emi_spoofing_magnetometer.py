@@ -17,7 +17,7 @@ from saci.modeling.state import GlobalState
 
 class EMISpoofingMagnetometerCPV(CPV):
 
-    NAME = "The EMI Spoofing on Magnetometer Sensors"
+    NAME = "The EMI Spoofing Attack on Magnetometer Sensors"
 
     def __init__(self):
         super().__init__(

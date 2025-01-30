@@ -12,7 +12,7 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci.modeling.device import GCS, Mavlink, Wifi, TelemetryHigh, SikRadio, ESC, PWMChannel, MultiCopterMotor
 from saci.modeling.state import GlobalState
 
-from saci_db.devices.ardupilot_quadcopter_device import ArduPilotQuadcopter
+from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
 
 class RFJammingCPV(CPV):
@@ -26,12 +26,12 @@ class RFJammingCPV(CPV):
                 SikRadio(),   
                 Mavlink(),  
                 TelemetryHigh(),            
-                ArduPilotQuadcopter(),
+                ArduPilotController(),
                 PWMChannel(),  
                 ESC(),
                 MultiCopterMotor(),
             ],
-            entry_component=Wifi(),        
+            entry_component=GCS(),        
             exit_component=MultiCopterMotor(), 
 
             vulnerabilities=[RFInterferenceVuln()],

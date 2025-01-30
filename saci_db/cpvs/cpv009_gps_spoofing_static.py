@@ -23,7 +23,6 @@ class GPSSpoofingStaticCPV(CPV):
         super().__init__(
             required_components=[
                 GPSReceiver(),
-                Serial(),
                 Controller(),
                 Controller(),
                 PWMChannel(), 

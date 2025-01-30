@@ -8,21 +8,21 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 from saci_db.vulns.payload_firmware_vuln import FirmwarePayloadVuln
 
-from saci_db.devices.propriety_quadcopter_device import ProprietyQuadcopter
+from saci_db.devices.propriety_quadcopter_device import ProprietyController
 
 class PayloadCrashCommandCPV(CPV):
 
-    NAME = "Drone Mid-Flight Crash Exploit"
+    NAME = "The Drone Mid-Flight Crash Exploit"
 
     def __init__(self):
         super().__init__(
             required_components=[
-                ProprietyQuadcopter(),
+                ProprietyController(),
                 PWMChannel(),
                 ESC(),
                 MultiCopterMotor(),
             ],
-            entry_component=ProprietyQuadcopter(),
+            entry_component=ProprietyController(),
             exit_component=MultiCopterMotor(),
             
             vulnerabilities=[FirmwarePayloadVuln()],
@@ -46,7 +46,7 @@ class PayloadCrashCommandCPV(CPV):
                     name="Firmware Exploitation",
                     signal=PayloadFirmwareAttack(
                         src=ExternalInput(),
-                        dst=ProprietyQuadcopter(), # Add the binary abstraction here
+                        dst=ProprietyController(), # Add the binary abstraction here
                         modality="fimware payload",
                     ),
                     required_access_level="Physical Access",

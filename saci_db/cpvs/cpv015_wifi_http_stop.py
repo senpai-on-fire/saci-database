@@ -21,7 +21,6 @@ class WifiWebStopCPV(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
-                WebClient(),
                 Wifi(),
                 WebServer(),
                 Controller(),

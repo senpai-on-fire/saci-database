@@ -18,7 +18,7 @@ from saci.modeling.state import GlobalState
 
 class MagnetometerEMIChannelDisruptionCPV(CPV):
 
-    NAME = "Electromagnetic Interference (EMI) on Magnetometer Communication Channel"
+    NAME = "The EMI Spoofing Attack on Magnetometer Serial Communication Channel"
 
     def __init__(self):
         super().__init__(

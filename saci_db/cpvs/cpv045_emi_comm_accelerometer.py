@@ -18,7 +18,7 @@ from saci.modeling.communication import ExternalInput
 
 class AccelerometerEMIChannelDisruptionCPV(CPV):
     
-    NAME = "Electromagnetic Interference (EMI) on Accelerometer Communication Channel"
+    NAME = "The EMI Spoofing Attack on Accelerometer Serial Communication Channel"
 
     def __init__(self):
         super().__init__(

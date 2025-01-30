@@ -16,7 +16,8 @@ from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 class PatchPivotTurnMalfunctionCPV(CPV):
-    NAME = "Pivot Turn Malfunction Due to Faulty Speed Control Patch"
+    
+    NAME = "The Pivot Turn Malfunction Due to Faulty Speed Control Patch"
 
     def __init__(self):
         super().__init__(
