@@ -5,7 +5,7 @@ from saci.modeling.device.component.cyber.cyber_abstraction_level import CyberAb
 
 class GCSTelemetryHigh(TelemetryHigh):
     def __init__(self):
-        super().__init__(name="gcs_telemetry_high", protocol_name="mavlink")
+        super().__init__(name="gcs_telemetry_high", parameters=dict(protocol_name="mavlink"))
 
 
 class GCSTelemetryAlgo(TelemetryAlgorithmic):

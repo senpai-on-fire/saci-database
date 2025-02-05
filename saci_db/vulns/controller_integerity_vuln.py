@@ -40,10 +40,8 @@ class ControllerIntegrityVuln(BaseVulnerability):
     def exists(self, device: Device) -> bool:
         # Iterate through all components of the device
         for comp in device.components:
-            # Check if the component is a Controller or PX4Controller
-            if (isinstance(comp, Controller) or isinstance(comp, PX4Controller)) and \
-               comp.operating_mode in [OperationMode.MISSION, OperationMode.AUTONOMOUS]:
-                # Verify if the controller lacks integrity checks for its sensors
-                if not comp.has_integrity_check:
-                    return True  # Vulnerability exists if integrity checks are missing
-        return False  # No vulnerability detected if all conditions are unmet
+            if isinstance(comp, Controller) and comp.operating_mode in [OperationMode.MISSION, OperationMode.AUTONOMOUS]:
+                # Check if the controller relies on a single vulnerable sensor
+                if not comp.parameters['has_integrity_check']:
+                    return True
+        return False
