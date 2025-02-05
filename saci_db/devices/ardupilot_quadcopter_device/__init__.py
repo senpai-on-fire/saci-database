@@ -20,51 +20,51 @@ class ArduPilotQuadcopter(Device):
     description = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'device.lp')
     def __init__(self, state=None):
 
-        gcs = GCS(has_external_input=True)
+        gcs = GCS()
         sik = SikRadio()
         dsmx = DSMx()
         mavlink = Mavlink()
         icmp = ICMP()
-        wifi = Wifi(has_external_input=True)
+        wifi = Wifi()
         ard = ARDiscovery()
         telnet = Telnet()
         ftp = FTP()
 
         ardu_telemetry = TelemetryHigh()
         
-        gps = GPSReceiver(has_external_input=True)
+        gps = GPSReceiver()
         gps_serial = Serial()
 
-        gnss = GNSSReceiver(has_external_input=True)
+        gnss = GNSSReceiver()
         gnss_serial = Serial()
 
-        accel = Accelerometer(has_external_input=True)
+        accel = Accelerometer()
         accel_serial = Serial()
 
-        gyro = Gyroscope(has_external_input=True)
-        gyro_serial = Serial(has_external_input=True)
+        gyro = Gyroscope()
+        gyro_serial = Serial()
 
-        magnet = Magnetometer(has_external_input=True)
-        magnet_serial = Serial(has_external_input=True)
+        magnet = Magnetometer()
+        magnet_serial = Serial()
 
-        baro = Barometer(has_external_input=True)
+        baro = Barometer()
         baro_serial = Serial()
 
-        camera = Camera(has_external_input=True)
+        camera = Camera()
         dnn_tracking  = DNNTracking()
 
-        depth_camera = DepthCamera(has_external_input=True)
+        depth_camera = DepthCamera()
         dnn_obstacle = ObjectAvoidanceDNN()
-        obstacle = ObstacleAvoidanceLogic(has_external_input=True)
-        optical_camera = OpticalFlowSensor(has_external_input=True)
+        obstacle = ObstacleAvoidanceLogic()
+        optical_camera = OpticalFlowSensor()
 
-        emergency_stop = EmergencyStopLogic(has_external_input=True)
-        speed_control = SpeedControlLogic(has_external_input=True)
-        attitude_control = AttitudeControlLogic(has_external_input=True)
-        navigation_control = NavigationControlLogic(has_external_input=True)
+        emergency_stop = EmergencyStopLogic()
+        speed_control = SpeedControlLogic()
+        attitude_control = AttitudeControlLogic()
+        navigation_control = NavigationControlLogic()
 
         ardu_cont = ArduPilotController()
-        pwm_channel = PWMChannel(has_external_input=True)
+        pwm_channel = PWMChannel()
         esc = ESC()
         motor = MultiCopterMotor()
 
@@ -150,4 +150,3 @@ class ArduPilotQuadcopter(Device):
 
     def update_state(self, state: GlobalState) -> GlobalState:
         pass
-

@@ -10,8 +10,8 @@ class ESP32S3WifiTelemetry(Telemetry):
     Describes Sik radio.
     """
 
-    def __init__(self, has_external_input=False, **kwargs):
-        super().__init__(has_external_input=has_external_input, **kwargs)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.ABSTRACTIONS = {
             CyberAbstractionLevel.HIGH: TelemetryHigh(
                 name="ESP32S3 Wifi",

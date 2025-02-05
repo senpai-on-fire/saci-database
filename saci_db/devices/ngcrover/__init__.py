@@ -16,11 +16,11 @@ class NGCRover(Device):
     description = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'device.lp')
     def __init__(self, state=None):
 
-        wifi = Wifi(has_external_input=True)
-        serial = Serial(has_external_input=True)
+        wifi = Wifi()
+        serial = Serial()
         webserver = WebServer()
-        gps = GPSReceiver(has_external_input=True) # sends NMEA messages to R4 over serial
-        compass = CompassSensor(has_external_input=True) # reading two analog values
+        gps = GPSReceiver() # sends NMEA messages to R4 over serial
+        compass = CompassSensor() # reading two analog values
         uno_r4 = Controller()
         # part of the firmware on the R4 is converting angle to PWM for servo
         # r4 -> r3 over CAN
