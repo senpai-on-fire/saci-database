@@ -45,7 +45,9 @@ class PatchEmergencyStopFailureCPV(CPV):
                 "Operating mode": "Any",
             },
             attack_requirements=[
-                "A deployed faulty patch targeting emergency stop functionality."
+                "A deployed faulty patch targeting emergency stop functionality.",
+                "`PatchVerif` codebase",
+                "Simulator"
             ],
             attack_vectors=[
                 BaseAttackVector(
@@ -69,22 +71,36 @@ class PatchEmergencyStopFailureCPV(CPV):
                     ),
                 ),
             ],
-            exploit_steps = [
-                "Identify the target drone model and its emergency stop functionality requirements.",
-                "Develop or obtain a faulty patch that modifies or disables the emergency stop command logic.",
-                "Deploy the faulty patch onto the drone's flight controller, either through direct access or remote update mechanisms.",
-                "Confirm that the emergency stop feature has been disabled by testing in a controlled environment.",
-                "Trigger a real-world scenario requiring the emergency stop, such as:",
-                "    - Introducing obstacles into the drone's flight path.",
-                "    - Simulating hardware faults or critical alerts to activate the emergency stop command.",
-                "Observe the drone's behavior and confirm that it does not respond to the emergency stop command.",
-                "Allow the drone to continue its operation unchecked, causing one or more of the following outcomes:",
-                "    - Collision with physical obstacles.",
-                "    - Entry into restricted or hazardous zones.",
-                "    - Loss of control leading to crashes.",
-                "Analyze the impact of the failure and document the consequences to refine future attacks."
-            ],
-
+            exploit_steps = {
+                "TA3 Exploit Steps": [
+                    "Use Optical imaging tools to catalog all of the components on the rover.",
+                    "Identify which components contained memory that might contain firmware."
+                ],
+                "TA2 Exploit Steps": [
+                    "Extract the firmware from the memory component.",
+                    "Identify the firmware type and version.",
+                    "Deploy the faulty patch onto the drone's flight controller, either through direct access or remote update mechanisms.",
+                    "This steps can be done by revisit the ArduPilot git commit history.",
+                    "Find the version which has this bugs and inject the code snippet.",
+                    "If the current version is newer, uncommit the fixed patch.",
+                    "If the current version is older, add the code snippet.",
+                    "Derive the triggering condition by running PatchVerif, which gives the triggering unit test input.",
+                    "Report the triggering condition to TA3 for simulator verification."
+                ],
+                "TA1 Exploit Steps": [
+                    "Prepare the simulator for the triggering condition reported by TA2.",
+                    "Confirm that the emergency stop feature has been disabled by testing in a simulator.",
+                    "Trigger a real-world scenario requiring the emergency stop, such as:",
+                    "    - Introducing obstacles into the drone's flight path.",
+                    "    - Simulating hardware faults or critical alerts to activate the emergency stop command.",
+                    "Observe the drone's behavior and confirm that it does not respond to the emergency stop command.",
+                    "Allow the drone to continue its operation unchecked, causing one or more of the following outcomes:",
+                    "    - Collision with physical obstacles.",
+                    "    - Entry into restricted or hazardous zones.",
+                    "    - Loss of control leading to crashes.",
+                    "Analyze the impact of the failure and document the consequences to refine future attacks."
+                ]
+            },
             associated_files=[],
             reference_urls=["https://www.usenix.org/system/files/usenixsecurity23-kim-hyungsub.pdf"],
         )

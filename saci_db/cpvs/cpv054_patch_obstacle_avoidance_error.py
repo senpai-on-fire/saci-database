@@ -46,12 +46,14 @@ class PatchObstacleAvoidanceErrorCPV(CPV):
             },
             attack_requirements=[
                 "A faulty patch or firmware bug affecting obstacle avoidance calculations.",
-                "The vehicle operates in a dynamic environment with potential obstacles or complex navigation."
+                "The vehicle operates in a dynamic environment with potential obstacles or complex navigation.",
+                "Simulators",
+                "PatchVerif codebase"
             ],
 
             attack_vectors=[
                 BaseAttackVector(
-                    name="Faulty Obstacle Avoidance y Patch",
+                    name="Faulty Obstacle Avoidance Patch",
                     signal=BinaryPatchingAttack(
                         src=ExternalInput(),
                         dst=ObstacleAvoidanceLogic(), # Add the binary abstraction here
@@ -70,21 +72,33 @@ class PatchObstacleAvoidanceErrorCPV(CPV):
                     ),
                 ),
             ],
-            exploit_steps=[
-                "Analyze the firmware patch applied to the PX4Controller for obstacle avoidance.",
-                "Identify vulnerabilities or misconfigurations in obstacle detection.",
-                "Develop a faulty patch designed to disrupt obstacle avoidance",
-                "Deploy the faulty patch onto the PX4Controller through one of the following means:",
-                "    - Physical access to modify the firmware directly.",
-                "    - Exploiting vulnerabilities in the remote patch deployment process.",
-                "Command the vehicle to operate in a dynamic or obstacle-rich environment.",
-                "Monitor the vehicle's behavior, including:",
-                "    - Failure to detect or avoid obstacles in its path.",
-                "    - Incorrect navigation causing direct collisions with objects or the ground.",
-                "Record the physical consequences of crashes, such as damage to the vehicle or surrounding environment.",
-                "Simulate extended operations to analyze the long-term impact of the patch, such as repeated collisions or degradation of system performance.",
-                "Refine the attack to target more complex scenarios or multi-vehicle operations."
-            ],
+            exploit_steps = {
+                "TA3 Exploit Steps": [
+                    "Use Optical imaging tools to catalog all of the components on the rover.",
+                    "Identify which components contained memory that might contain firmware."
+                ],
+                "TA2 Exploit Steps": [
+                    "Extract the firmware from the memory component.",
+                    "Identify the firmware type and version.",
+                    "Deploy the faulty patch onto the drone's flight controller, either through direct access or remote update mechanisms.",
+                    "   - These steps can be done by revisiting the ArduPilot git commit history.",
+                    "   - Find the version that has these bugs and inject the code snippet.",
+                    "       - If the current version is newer, uncommit the fixed patch.",
+                    "       - If the current version is older, add the code snippet.",
+                    "Derive the triggering condition by running PatchVerif, which gives the triggering unit test input.",
+                    "Report the triggering condition to TA3 for simulator verification."
+                ],
+                "TA1 Exploit Steps": [
+                    "Prepare the simulator for the triggering condition reported by TA2.",
+                    "Command the vehicle to operate in a dynamic or obstacle-rich environment.",
+                    "Monitor the vehicle's behavior, including:",
+                    "   - Failure to detect or avoid obstacles in its path.",
+                    "   - Incorrect navigation causing direct collisions with objects or the ground.",
+                    "Record the physical consequences of crashes, such as damage to the vehicle or surrounding environment.",
+                    "Simulate extended operations to analyze the long-term impact of the patch, such as repeated collisions or degradation of system performance.",
+                    "Refine the attack to target more complex scenarios or multi-vehicle operations."
+                ]
+            },
             associated_files=[],
             reference_urls=["https://www.usenix.org/system/files/usenixsecurity23-kim-hyungsub.pdf"],
         )

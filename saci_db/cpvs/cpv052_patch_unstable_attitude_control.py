@@ -45,7 +45,9 @@ class PatchUnstableAttitudeControlCPV(CPV):
             },
             attack_requirements=[
                 "A faulty patch applied to the attitude control logic.",
-                "The vehicle performs maneuvers that rely on stable orientation control."
+                "The vehicle performs maneuvers that rely on stable orientation control.",
+                "Simulators",
+                "PatchVerif codebase"
             ],
 
             attack_vectors=[
@@ -69,19 +71,31 @@ class PatchUnstableAttitudeControlCPV(CPV):
                     ),
                 ),
             ],
-            exploit_steps=[
-                "Analyze the firmware patch applied to the PX4Controller for attitude control logic.",
-                "Identify vulnerabilities in the control loop design, particularly during flight maneuvers.",
-                "Develop a modified or faulty patch that disrupts stability in the attitude control logic.",
-                "Deploy the faulty patch onto the PX4Controller through one of the following means:",
-                "    - Direct physical access to the system's firmware.",
-                "    - Exploiting remote update mechanisms in the patching process.",
-                "Engage the vehicle in real-world or simulated flight operations.",
-                "Observe the vehicle's attitude control during standard and extreme maneuvers.",
-                "Monitor for signs of instability, such as unexpected tilting, erratic yaw, or unsteady flight paths.",
-                "Document the physical consequences, including loss of control, crashes, or potential mechanical damage.",
-                "Refine the patch for future attacks, focusing on greater disruption during more complex maneuvers."
-            ],
+            exploit_steps = {
+                "TA3 Exploit Steps": [
+                    "Use Optical imaging tools to catalog all of the components on the rover.",
+                    "Identify which components contained memory that might contain firmware."
+                ],
+                "TA2 Exploit Steps": [
+                    "Extract the firmware from the memory component.",
+                    "Identify the firmware type and version.",
+                    "Deploy the faulty patch onto the drone's flight controller, either through direct access or remote update mechanisms.",
+                    "   - These steps can be done by revisiting the ArduPilot git commit history.",
+                    "   - Find the version that has these bugs and inject the code snippet.",
+                    "       - If the current version is newer, uncommit the fixed patch.",
+                    "       - If the current version is older, add the code snippet.",
+                    "Derive the triggering condition by running PatchVerif, which gives the triggering unit test input.",
+                    "Report the triggering condition to TA3 for simulator verification."
+                ],
+                "TA1 Exploit Steps": [
+                    "Prepare the simulator for the triggering condition reported by TA2.",
+                    "Instruct the vehicle to execute sharp pivoting maneuvers at varying speeds and angles.",
+                    "Observe the vehicle's attitude control during standard and extreme maneuvers.",
+                    "Monitor for signs of instability, such as unexpected tilting, erratic yaw, or unsteady flight paths.",
+                    "Document the physical consequences, including loss of control, crashes, or potential mechanical damage.",
+                    "Refine the patch for future attacks, focusing on greater disruption during more complex maneuvers."
+                ]
+            },
             associated_files=[],
             reference_urls=["https://www.usenix.org/system/files/usenixsecurity23-kim-hyungsub.pdf"],
         )

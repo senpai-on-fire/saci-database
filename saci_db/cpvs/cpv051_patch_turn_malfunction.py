@@ -45,7 +45,9 @@ class PatchPivotTurnMalfunctionCPV(CPV):
             },
             attack_requirements=[
                 "A faulty patch applied to the speed control logic.",
-                "The vehicle performs a sharp pivoting maneuver."
+                "The vehicle performs a sharp pivoting maneuver.",
+                "PatchVerif codebase",
+                "Simulators",
             ],
 
             attack_vectors=[
@@ -71,25 +73,35 @@ class PatchPivotTurnMalfunctionCPV(CPV):
                 ),
             ],
 
-            exploit_steps = [
-                "Identify the target vehicle's model and control system architecture, particularly its speed control logic.",
-                "Analyze the firmware patch version currently deployed on the target system to check for known vulnerabilities or misconfigurations.",
-                "Develop or acquire a faulty patch specifically designed to adjust pivot turn speed control logic.",
-                "Deploy the faulty patch onto the vehicle's PX4Controller through one of the following methods:",
-                "    - Direct access to the firmware using local tools.",
-                "    - Exploiting remote access vulnerabilities in the patching process.",
-                "    - Leveraging insider access or supply chain vulnerabilities.",
-                "Activate the vehicle in a controlled environment to confirm the patch is operational.",
-                "Instruct the vehicle to execute sharp pivoting maneuvers at varying speeds and angles.",
-                "Observe the vehicle's behavior during the maneuvers, specifically:",
-                "    - Whether it maintains a constant, unsafe speed despite varying turning requirements.",
-                "    - Signs of instability, such as wheel lift, skid, or wobble.",
-                "    - Near rollover or loss of control at sharp angles or high speeds.",
-                "Record the physical effects caused by the patch, including reduced maneuverability, instability, and safety risks.",
-                "Evaluate the long-term effects of the attack by simulating repeated pivot maneuvers to assess cumulative damage to the vehicle (e.g., mechanical strain or system degradation).",
-                "Document the results of the exploit, including observations, metrics (e.g., speed consistency during maneuvers), and outcomes (e.g., rollovers or crashes).",
-                "Analyze and refine the patch for future exploits to ensure consistency and broader applicability across different vehicle models."
-            ],
+            exploit_steps = {
+                "TA3 Exploit Steps": [
+                    "Use Optical imaging tools to catalog all of the components on the rover.",
+                    "Identify which components contained memory that might contain firmware."
+                ],
+                "TA2 Exploit Steps": [
+                    "Extract the firmware from the memory component.",
+                    "Identify the firmware type and version.",
+                    "Deploy the faulty patch onto the drone's flight controller, either through direct access or remote update mechanisms.",
+                    "   - These steps can be done by revisiting the ArduPilot git commit history.",
+                    "   - Find the version that has these bugs and inject the code snippet.",
+                    "       - If the current version is newer, uncommit the fixed patch.",
+                    "       - If the current version is older, add the code snippet.",
+                    "Derive the triggering condition by running PatchVerif, which gives the triggering unit test input.",
+                    "Report the triggering condition to TA3 for simulator verification."
+                ],
+                "TA1 Exploit Steps": [
+                    "Prepare the simulator for the triggering condition reported by TA2.",
+                    "Instruct the vehicle to execute sharp pivoting maneuvers at varying speeds and angles.",
+                    "Observe the vehicle's behavior during the maneuvers, specifically:",
+                    "   - Whether it maintains a constant, unsafe speed despite varying turning requirements.",
+                    "   - Signs of instability, such as wheel lift, skid, or wobble.",
+                    "   - Near rollover or loss of control at sharp angles or high speeds.",
+                    "Record the physical effects caused by the patch, including reduced maneuverability, instability, and safety risks.",
+                    "Evaluate the long-term effects of the attack by simulating repeated pivot maneuvers to assess cumulative damage to the vehicle (e.g., mechanical strain or system degradation).",
+                    "Document the results of the exploit, including observations, metrics (e.g., speed consistency during maneuvers), and outcomes (e.g., rollovers or crashes).",
+                    "Analyze the impact of the failure and document the consequences to refine future attacks."
+                ]
+            },
 
             associated_files=[],
             reference_urls=["https://www.usenix.org/system/files/usenixsecurity23-kim-hyungsub.pdf"],
