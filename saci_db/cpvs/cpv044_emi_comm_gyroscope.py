@@ -29,7 +29,7 @@ class GyroscopeEMIChannelDisruptionCPV(CPV):
                 ESC(),
                 MultiCopterMotor(),     
             ],
-            entry_component=Serial(), 
+            entry_component=Gyroscope(),
             exit_component=MultiCopterMotor(),          
 
             vulnerabilities=[LackEMISerialShieldingVuln, LackEMIControllerShieldingVuln(), ControllerIntegrityVuln()],

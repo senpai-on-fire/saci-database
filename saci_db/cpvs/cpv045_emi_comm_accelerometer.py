@@ -31,7 +31,7 @@ class AccelerometerEMIChannelDisruptionCPV(CPV):
                 ESC(),
                 MultiCopterMotor(),     
             ],
-            entry_component=Serial(), 
+            entry_component=Accelerometer(), 
             exit_component=MultiCopterMotor(),          
 
             vulnerabilities=[LackEMISerialShieldingVuln, LackEMIControllerShieldingVuln(), ControllerIntegrityVuln()],

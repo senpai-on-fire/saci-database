@@ -13,7 +13,7 @@ from saci_db.vulns.patch_misconfiguration_vuln import PatchMisconfigurationVuln
 from saci_db.vulns.control_loop_instability_vuln import ControlLoopInstabilityVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
-from saci_db.devices.px4_quadcopter_device import PX4Controller
+from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
 class PatchUnstableAttitudeControlCPV(CPV):
     
@@ -22,13 +22,13 @@ class PatchUnstableAttitudeControlCPV(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
+                ArduPilotController(),
                 AttitudeControlLogic(),
-                PX4Controller(),
                 PWMChannel(),
                 ESC(),
                 MultiCopterMotor(),
             ],
-            entry_component=AttitudeControlLogic(),
+            entry_component=ArduPilotController(),
             exit_component=MultiCopterMotor(),
             
             vulnerabilities=[PatchMisconfigurationVuln(), ControlLoopInstabilityVuln(), ControllerIntegrityVuln()],

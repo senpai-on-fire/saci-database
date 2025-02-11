@@ -13,7 +13,7 @@ from saci_db.vulns.patch_misconfiguration_vuln import PatchMisconfigurationVuln
 from saci_db.vulns.obstacle_avoidance_error_vuln import ObstacleAvoidanceErrorVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
-from saci_db.devices.px4_quadcopter_device import PX4Controller
+from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
 class PatchObstacleAvoidanceErrorCPV(CPV):
 
@@ -22,13 +22,13 @@ class PatchObstacleAvoidanceErrorCPV(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
+                ArduPilotController(),
                 ObstacleAvoidanceLogic(),
-                PX4Controller(),
                 PWMChannel(),
                 ESC(),
                 MultiCopterMotor(),
             ],
-            entry_component=ObstacleAvoidanceLogic(),
+            entry_component=ArduPilotController(),
             exit_component=MultiCopterMotor(),
             
             vulnerabilities=[PatchMisconfigurationVuln(), ObstacleAvoidanceErrorVuln(), ControllerIntegrityVuln()],

@@ -31,7 +31,7 @@ class MagnetometerEMIChannelDisruptionCPV(CPV):
                 ESC(),
                 MultiCopterMotor(),        
             ],
-            entry_component=Serial(),  
+            entry_component=Magnetometer(),  
             exit_component=MultiCopterMotor(),          
 
             vulnerabilities=[LackEMISerialShieldingVuln(), LackEMIControllerShieldingVuln(), ControllerIntegrityVuln()],

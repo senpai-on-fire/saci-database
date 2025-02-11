@@ -13,7 +13,7 @@ from saci_db.vulns.patch_misconfiguration_vuln import PatchMisconfigurationVuln
 from saci_db.vulns.speed_control_misbehavior_vuln import SpeedControlMisbehaviorVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
-from saci_db.devices.px4_quadcopter_device import PX4Controller
+from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
 class PatchPivotTurnMalfunctionCPV(CPV):
     
@@ -21,14 +21,14 @@ class PatchPivotTurnMalfunctionCPV(CPV):
 
     def __init__(self):
         super().__init__(
-            required_components=[
+            required_components=[ 
+                ArduPilotController(),
                 SpeedControlLogic(),
-                PX4Controller(),
                 PWMChannel(),
                 ESC(),
                 MultiCopterMotor(),
             ],
-            entry_component=SpeedControlLogic(),
+            entry_component=ArduPilotController(),
             exit_component=MultiCopterMotor(),
             
             vulnerabilities=[PatchMisconfigurationVuln(), SpeedControlMisbehaviorVuln(), ControllerIntegrityVuln()],
