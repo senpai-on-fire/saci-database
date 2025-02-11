@@ -48,7 +48,7 @@ class AccelerometerEMIChannelDisruptionCPV(CPV):
             attack_requirements=[
                 "High-power EMI emitter tuned to interfere with the accelerometer communication channel",
                 "Proximity to the UAV's controller or communication pathway",
-                "Knowledge of the accelerometer's communication protocol",
+                "Knowledge of the accelerometer's communication protocol and operating frequencies",
             ],
 
             attack_vectors=[

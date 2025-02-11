@@ -45,7 +45,7 @@ class GyroscopeEMIChannelDisruptionCPV(CPV):
 
             attack_requirements=[
                 "High-power EMI emitter tuned to interfere with the gyroscope communication channel",
-                "Proximity to the UAV's gyroscope or communication pathway",
+                "Proximity to the UAV's controller or communication pathway",
                 "Knowledge of the gyroscope's communication protocol and operating frequencies",
             ],
 

@@ -47,7 +47,7 @@ class MagnetometerEMIChannelDisruptionCPV(CPV):
 
             attack_requirements=[
                 "High-power EMI emitter tuned to interfere with the magnetometer communication channel",
-                "Proximity to the UAV's magnetometer or communication pathway",
+                "Proximity to the UAV's controller or communication pathway",
                 "Knowledge of the magnetometer's communication protocol and operating frequencies",
             ],
 
