@@ -42,7 +42,7 @@ class AcousticSpoofingAccelerometerCPV(CPV):
                 "Environment": "Any",
                 "RemoteController": "On",
                 "CPSController": "None",
-                "Operating mode": "Hold",
+                "Operating mode": "Any",
             },
             
             attack_requirements=["Speaker or Ultrasonic Sound Source"],
@@ -54,8 +54,11 @@ class AcousticSpoofingAccelerometerCPV(CPV):
                         dst=Accelerometer(),
                         modality="audio",
                     ),
-                    required_access_level="Physical",
-                    configuration={"duration": "Permanent"},
+                    required_access_level="close proximity or physical",
+                    configuration={
+                        "duration": "Permanent",
+                        "frequency": "Resonant Frequency",
+                    },
                 )
             ],
             attack_impacts=[
@@ -66,10 +69,26 @@ class AcousticSpoofingAccelerometerCPV(CPV):
             ],
             
             exploit_steps = [
-                "Determine the resonant frequency of the accelerometer sensor installed on the CPS.",
-                "Generate an acoustic signal modulated with the desired false sensor output.",
-                "Direct the acoustic source device toward the CPS and emit the modulated signal.",
-                "Observe the CPS's behavior in response to the spoofed accelerometer readings.",
+                "TA1 Exploit Steps",
+                "   - Implement a simulation of MEMS accelerometer response to acoustic interference.",
+                "   - Run CPS Simulation to analyze how manipulated accelerometer readings translate to control instability in the CPS device.",
+                "   - Collaborate with TA2 to determine what control impact is desired (e.g., altitude drop, drift, erratic movement).",
+                "",
+                "TA2 Exploit Steps",
+                "   - Construct the acoustic signal with necessary modulation (amplitude, frequency, phase shifting) to achieve desired impact.",
+                "   - Reverse-engineer the CPS firmware to determine if sensor fusion or filtering mechanisms exist for accelerometer data.",
+                "   - Identify if the firmware fully trusts the raw accelerometer data or applies any verification before use.",
+                "   - Analyze the PID control logic to assess how fluctuations in accelerometer readings propagate to motor actuation.",
+                "",
+                "TA3 Exploit Steps",
+                "   - Use Imaging tools to catalog all componets on the CPS.",
+                "   - Identify if an IMU containing an accelerometer is present.",
+                "   - Mount the accelerometer (or CPS) in a vibration-free environment and measure output under a frequency sweep (e.g 20Hz to 30kHz).",
+                "   - Identify the resonant frequency at which acceleration output deviates most from true value.",
+                "   - Position an ultrasonic transducer/speaker near the CPS and emit the resonant frequency. "
+                "   - Alternatively, attach a miniature acoustic transducer to the CPS chassis/controller board to introduce vibrations.",
+                "   - Log accelerometer sensor data before, during, and after the attack.",
+                "   - Analyze the CPS's physical response using external tracking and onboard telemetry.",
             ],
             
             associated_files=[],

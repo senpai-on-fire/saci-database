@@ -42,7 +42,7 @@ class AcousticSpoofingGyroscopeCPV(CPV):
                 "Environment": "Any",
                 "RemoteController": "On",
                 "CPSController": "None",
-                "Operating mode": "Hold",
+                "Operating mode": "Any",
             },
             
             attack_requirements=["Speaker or Ultrasonic Sound Source"],
@@ -54,8 +54,11 @@ class AcousticSpoofingGyroscopeCPV(CPV):
                         dst=Gyroscope(),
                         modality="audio",
                     ),
-                    required_access_level="Physical",
-                    configuration={"duration": "Permanent"},
+                    required_access_level="close proximity or physical",
+                    configuration={
+                        "duration": "Permanent",
+                        "frequency": "Resonant Frequency",
+                    },
                 )
             ],
             attack_impacts=[
@@ -66,9 +69,26 @@ class AcousticSpoofingGyroscopeCPV(CPV):
             ],
             
             exploit_steps=[
-                "Determine the Resonant Frequency of the Gyroscope Sensor installed on the CPS.",
-                "Point the spoofing audio source device towards the CPS and play the sound noise.",
-                "Observe the CPS's erratic movements in response to spoofed sensor readings.",
+                "TA1 Exploit Steps",
+                "   - Implement a simulation of MEMS gyroscope response to acoustic interference.",
+                "   - Inject synthetic acoustic noise into the control loop and measure PID controller response.",
+                "   - Simulate how abnormal gyroscope outputs propagate through the CPS system.",
+                "",
+                "TA2 Exploit Steps",
+                "   - Reverse-engineer the CPS firmware to determine if sensor fusion or filtering mechanisms exist for gyroscope data.",
+                "   - Identify if the firmware fully trusts the raw gyroscope data or applies any verification before use.",
+                "   - Analyze the PID control logic to assess how fluctuations in gyroscope readings propagate to motor actuation.",
+                "",
+                "TA3 Exploit Steps",
+                "   - Use Imaging tools & other techniques to catalog all componets on the CPS.",
+                "   - Identify if an IMU containing a gyroscope is present.",
+                "   - Mount the MEMS gyroscope (or CPS) in a vibration-free environment and measure output when exposed to acoustic frequency sweep (e.g 20Hz to 30kHz).",
+                "   - Observe gyroscope sensor output for spikes and increased standard deviation to detect resonance-induced errors.",
+                "   - Identify the resonant frequency at the point of maximum deviation from the true value.",
+                "   - Position an ultrasonic transducer/speaker near the CPS and emit the resonant frequency. "
+                "   - Log gyroscope sensor data before, during, and after the attack.",
+                "   - Analyze the CPS's physical response using external tracking and onboard telemetry.",
+                "",
             ],
             
             associated_files=[],
