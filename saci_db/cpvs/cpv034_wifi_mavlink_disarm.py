@@ -59,15 +59,35 @@ class MavlinkDisarmCPV(CPV):
                                                 )],
             attack_impacts = [BaseAttackImpact(category='Physical Impact',
                                                description='The CPS crashes into the ground')],
-            exploit_steps=[
-                "Identify the IP addresses and ports of the controller and the CPS",
-                "Perform ARP spoofing",
-                "Send a DISARM MAVLink command"
-                ],
+            exploit_steps = [
+                "TA1 Exploit Steps:",
+                " - Collaborate with TA2 to get the extracted firmware.",
+                " - Reverse-engineer the CPS firmware to determine if it implements security mechanisms such as MAVLink encryption or authentication.",
+                " - Identify if the firmware has failsafe mechanisms to prevent unauthorized disarm commands.",
+                " - Analyze the CPS control logic to assess how receiving an unauthorized disarm command affects the drone’s operation.",
+
+                "TA2 Exploit Steps:",
+                " - Implement a simulation of the ARP poisoning attack to establish a MITM (Man-In-The-Middle) position between the ground control station (GCS) and the drone.",
+                " - Simulate the impact of sending a malicious MAVLink disarm command to the drone.",
+                " - Collaborate with TA1 to determine the severity of the attack and possible escalation paths.",
+
+                "TA3 Exploit Steps:",
+                " - Use imaging tools & other techniques to catalog all Wi-Fi-related hardware components on the drone.",
+                " - Identify physical interfaces that allow firmware extraction from the drone's flight controller.",
+                " - Identify the specific MAVLink version used and whether encryption/authentication is enabled.",
+                " - Join the drone’s open Wi-Fi network.",
+                " - Set up ARP poisoning to become a MITM between the ground control station (GCS) and the drone.",
+                " - Capture MAVLink messages exchanged between the GCS and the drone.",
+                " - Modify and inject a malicious MAVLink disarm command into the communication channel.",
+                " - Observe that the drone disarms and verify that the ground control station loses control over it.",
+                " - Log network traffic and MAVLink messages before, during, and after the attack.",
+                " - Analyze the CPS’s physical response to the disarm command using telemetry and external tracking.",
+            ]
+
                 
             associated_files=[],
             #TODO: add a video link! 
-            reference_urls=["https://ieeexplore.ieee.org/document/7575381", "Add a video link"]
+            reference_urls=["https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8425627&tag=1", "Add a video link"]
         )
 
     
