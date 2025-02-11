@@ -47,8 +47,8 @@ class AccelerometerEMIChannelDisruptionCPV(CPV):
 
             attack_requirements=[
                 "High-power EMI emitter tuned to interfere with the accelerometer communication channel",
-                "Proximity to the UAV's accelerometer or communication pathway",
-                "Knowledge of the accelerometer's communication protocol and operating frequencies",
+                "Proximity to the UAV's controller or communication pathway",
+                "Knowledge of the accelerometer's communication protocol",
             ],
 
             attack_vectors=[
@@ -104,7 +104,7 @@ class AccelerometerEMIChannelDisruptionCPV(CPV):
                 "       + EMC",
                 "       + Spectrum analyzer",
                 "   - Environment: shielded chamber",
-                "   - Make sure the following steps are done in a chamber shielded from any external sources ElectroMagentic Intergerence (EMI)",
+                "   - Make sure the following steps are done in a chamber shielded from any external sources ElectroMagentic Interference (EMI)",
                 "   - Connect the EMC to the spectrum analyzer",
                 "   - Turn on the drone system (without flying)",
                 "   - Scan the EMI radiated from the controller board together with the accelerometer using the EMC scanner",
@@ -113,7 +113,7 @@ class AccelerometerEMIChannelDisruptionCPV(CPV):
                 "   - Tools and Equipment:",
                 "       + Antenna",
                 "       + Function Generator",
-                "       + Amplifier (at least 10 mw, 30 W preferred)",
+                "       + Amplifier (at least 100 mw, 30 W preferred)",
                 "       + Oscilloscope",
                 "       + Logic analyzer", 
                 "   - Environment: Any (shielded chamber if transmission power is high)",
