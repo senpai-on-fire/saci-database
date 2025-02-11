@@ -40,7 +40,7 @@ class SerialArduinoControlCPV(CPV):
                 "Environment": "Any", 
                 "RemoteController": "On", 
                 "CPSController": ["Moving, Idle"],
-                "Operating mode": "Any",
+                "OperatingMode": "Manual or Mission",
             },
             
             attack_requirements = ["Computer", "USB-C cable"],

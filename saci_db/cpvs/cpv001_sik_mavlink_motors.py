@@ -35,7 +35,16 @@ class MavlinkSiKCPV(CPV):
 
         vulnerabilities=[self.sik_auth_vuln, self.mavlink_vuln],
 
-        initial_conditions = [],
+        initial_conditions={
+                "Position": "Any",
+                "Heading": "Any",
+                "Speed": "None",
+                "Environment": "Open Field or Urban Area",
+                "RemoteController": "Active",
+                "CPSController": "Active",
+                # TODO: stabilization machanism when moving?
+                "OperatingMode": "Manual or Mission",
+            },
         attack_requirements = [],
 
         attack_vectors = [],

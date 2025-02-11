@@ -39,7 +39,7 @@ class SerialOverheatingCPV(CPV):
                 "Environment": "Any",
                 "BMS": "On",
                 "ESC": "On",
-                "Operating mode": "Any",
+                "OperatingMode": "Manual or Mission",
             },
 
             attack_vectors = [BaseAttackVector(name='Serial Duty_speed_up Command Injection',

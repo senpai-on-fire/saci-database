@@ -40,7 +40,7 @@ class ProjectorOpticalFlowCPV(CPV):
                 "Environment": "Any",
                 "RemoteController": "On",
                 "CPSController": "None",
-                "Operating mode": "Hold",
+                "OperatingMode": "Manual or Mission",
             },
             
             attack_requirements=["Projector or Laser-based spoofing device"],

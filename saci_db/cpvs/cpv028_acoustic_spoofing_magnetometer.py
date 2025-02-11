@@ -42,7 +42,7 @@ class AcousticSpoofingMagnetometerCPV(CPV):
                 "Environment": "Any",
                 "RemoteController": "On",
                 "CPSController": "None",
-                "Operating mode": "Hold",
+                "OperatingMode": "Manual or Mission",
             },
             
             attack_requirements=["Speaker or Ultrasonic Sound Source"],

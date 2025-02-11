@@ -41,7 +41,7 @@ class PatchUnstableAttitudeControlCPV(CPV):
                 "Environment": "Any",
                 "RemoteController": "Active",
                 "CPSController": "Active",
-                "Operating mode": "Any",
+                "OperatingMode": "Manual or Mission",
             },
             attack_requirements=[
                 "A faulty patch applied to the attitude control logic.",
@@ -71,31 +71,39 @@ class PatchUnstableAttitudeControlCPV(CPV):
                     ),
                 ),
             ],
+
             exploit_steps = {
                 "TA3 Exploit Steps": [
-                    "Use Optical imaging tools to catalog all of the components on the rover.",
-                    "Identify which components contained memory that might contain firmware."
-                ],
-                "TA2 Exploit Steps": [
+                    "Use optical imaging tools to catalog all components on the rover.",
+                    "Identify components that contain memory that might store firmware.",
                     "Extract the firmware from the memory component.",
                     "Identify the firmware type and version.",
-                    "Deploy the faulty patch onto the drone's flight controller, either through direct access or remote update mechanisms.",
-                    "   - These steps can be done by revisiting the ArduPilot git commit history.",
-                    "   - Find the version that has these bugs and inject the code snippet.",
-                    "       - If the current version is newer, uncommit the fixed patch.",
-                    "       - If the current version is older, add the code snippet.",
-                    "Derive the triggering condition by running PatchVerif, which gives the triggering unit test input.",
-                    "Report the triggering condition to TA3 for simulator verification."
+                ],
+                "TA2 Exploit Steps": [
+                    "Deploy the faulty patch onto the drone's flight controller via direct access or remote update mechanisms.",
+                    "    - These steps can be performed by revisiting the ArduPilot Git commit history.",
+                    "    - Find the version that contains the bugs and inject the code snippet.",
+                    "        - If the current version is newer, revert (uncommit) the fixed patch.",
+                    "        - If the current version is older, insert the buggy code snippet.",
+                    "Derive the triggering condition by running PatchVerif, which provides the triggering unit test input.",
+                    "Report the identified triggering condition to TA3 for simulator verification."
                 ],
                 "TA1 Exploit Steps": [
                     "Prepare the simulator for the triggering condition reported by TA2.",
                     "Instruct the vehicle to execute sharp pivoting maneuvers at varying speeds and angles.",
-                    "Observe the vehicle's attitude control during standard and extreme maneuvers.",
-                    "Monitor for signs of instability, such as unexpected tilting, erratic yaw, or unsteady flight paths.",
-                    "Document the physical consequences, including loss of control, crashes, or potential mechanical damage.",
-                    "Refine the patch for future attacks, focusing on greater disruption during more complex maneuvers."
+                    "Observe the vehicle’s attitude control during both standard and extreme maneuvers.",
+                    "Monitor for signs of instability, such as:",
+                    "    - Unexpected tilting.",
+                    "    - Erratic yaw movements.",
+                    "    - Unsteady flight paths.",
+                    "Document the physical consequences, including:",
+                    "    - Loss of control.",
+                    "    - Crashes.",
+                    "    - Potential mechanical damage.",
+                    "Refine the patch for future attacks, focusing on increasing disruption during complex maneuvers."
                 ]
             },
+
             associated_files=[],
             reference_urls=["https://www.usenix.org/system/files/usenixsecurity23-kim-hyungsub.pdf"],
         )

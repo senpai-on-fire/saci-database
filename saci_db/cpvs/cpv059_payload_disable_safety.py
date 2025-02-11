@@ -33,6 +33,7 @@ class PayloadDisableSafetyCPV(CPV):
                 "Drone State": "On Ground or In Flight",
                 "GNSS Connection": "Active",
                 "Firmware": "Unsecured",
+                "OperatingMode": "Manual or Mission",
             },
             
             attack_requirements=[

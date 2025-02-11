@@ -46,7 +46,7 @@ class FTPTelnetHijackCPV(CPV):
                 "Controller": "Active",
                 "Drone Status": "Flying",
                 "Environment": "Urban Area",
-                "Operating Mode": "Manual or Semi-Autonomous",
+                "OperatingMode": "Manual or Mission",
             },
 
             attack_requirements=[

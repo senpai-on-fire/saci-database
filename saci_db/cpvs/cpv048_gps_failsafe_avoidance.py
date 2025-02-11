@@ -40,7 +40,7 @@ class FailSafeAvoidanceCPV(CPV):
                 "Speed": "Normal",
                 "Environment": "Dynamic or stationary",
                 "Failsafe Mode": "Enabled",
-                "Operating mode": "Any",
+                "OperatingMode": "Manual or Mission",
             },
             attack_requirements=[
                 "GPS spoofing device with fine-grained control over signal deviations.",

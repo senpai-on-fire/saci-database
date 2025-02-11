@@ -41,7 +41,7 @@ class GNSSFlightModeSpoofingCPV(CPV):
                 "Heading": "In Flight",
                 "Speed": "Nominal",
                 "Environment": "Open Field or Urban Area",
-                "OperatingMode": "Flight",
+                "OperatingMode": "Manual or Mission",
             },
             
             attack_requirements=[

@@ -41,9 +41,9 @@ class DSMxJammingHijackCPV(CPV):
                 "Heading": "Any",
                 "Speed": "Nominal",
                 "Environment": "Open Field or Urban Area",
-                "OperatingMode": "In Flight",
                 "RemoteController": "Active",
                 "CPSController": "Active",
+                "OperatingMode": "Manual or Mission",
             },
             
             attack_requirements=[

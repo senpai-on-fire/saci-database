@@ -41,7 +41,7 @@ class PatchPivotTurnMalfunctionCPV(CPV):
                 "Environment": "Sharp pivoting maneuver",
                 "RemoteController": "Active",
                 "CPSController": "Active",
-                "Operating mode": "Any",
+                "OperatingMode": "Manual or Mission",
             },
             attack_requirements=[
                 "A faulty patch applied to the speed control logic.",
@@ -75,31 +75,31 @@ class PatchPivotTurnMalfunctionCPV(CPV):
 
             exploit_steps = {
                 "TA3 Exploit Steps": [
-                    "Use Optical imaging tools to catalog all of the components on the rover.",
-                    "Identify which components contained memory that might contain firmware."
+                    "Use optical imaging tools to catalog all components on the rover.",
+                    "Identify components that contain memory that might store firmware.",
+                    "Extract the firmware from the memory component.",
+                    "Identify the firmware type and version."
                 ],
                 "TA2 Exploit Steps": [
-                    "Extract the firmware from the memory component.",
-                    "Identify the firmware type and version.",
-                    "Deploy the faulty patch onto the drone's flight controller, either through direct access or remote update mechanisms.",
-                    "   - These steps can be done by revisiting the ArduPilot git commit history.",
-                    "   - Find the version that has these bugs and inject the code snippet.",
-                    "       - If the current version is newer, uncommit the fixed patch.",
-                    "       - If the current version is older, add the code snippet.",
-                    "Derive the triggering condition by running PatchVerif, which gives the triggering unit test input.",
-                    "Report the triggering condition to TA3 for simulator verification."
+                    "Deploy the faulty patch onto the drone's flight controller via direct access or remote update mechanisms.",
+                    "    - These steps can be performed by revisiting the ArduPilot Git commit history.",
+                    "    - Find the version that contains the bugs and inject the code snippet.",
+                    "        - If the current version is newer, revert (uncommit) the fixed patch.",
+                    "        - If the current version is older, insert the buggy code snippet.",
+                    "Derive the triggering condition by running PatchVerif, which provides the triggering unit test input.",
+                    "Report the identified triggering condition to TA3 for simulator verification."
                 ],
                 "TA1 Exploit Steps": [
                     "Prepare the simulator for the triggering condition reported by TA2.",
                     "Instruct the vehicle to execute sharp pivoting maneuvers at varying speeds and angles.",
-                    "Observe the vehicle's behavior during the maneuvers, specifically:",
-                    "   - Whether it maintains a constant, unsafe speed despite varying turning requirements.",
-                    "   - Signs of instability, such as wheel lift, skid, or wobble.",
-                    "   - Near rollover or loss of control at sharp angles or high speeds.",
+                    "Observe the vehicle's behavior during these maneuvers, specifically:",
+                    "    - Whether it maintains a constant, unsafe speed despite varying turning requirements.",
+                    "    - Signs of instability, such as wheel lift, skidding, or wobbling.",
+                    "    - Near rollovers or loss of control at sharp angles or high speeds.",
                     "Record the physical effects caused by the patch, including reduced maneuverability, instability, and safety risks.",
                     "Evaluate the long-term effects of the attack by simulating repeated pivot maneuvers to assess cumulative damage to the vehicle (e.g., mechanical strain or system degradation).",
-                    "Document the results of the exploit, including observations, metrics (e.g., speed consistency during maneuvers), and outcomes (e.g., rollovers or crashes).",
-                    "Analyze the impact of the failure and document the consequences to refine future attacks."
+                    "Document the results of the exploit, including observations, key metrics (e.g., speed consistency during maneuvers), and outcomes (e.g., rollovers or crashes).",
+                    "Analyze the impact of the failure and document the consequences to refine future attack strategies."
                 ]
             },
 

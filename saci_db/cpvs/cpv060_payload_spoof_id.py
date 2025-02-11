@@ -33,6 +33,7 @@ class PayloadSpoofDroneIDCPV(CPV):
                 "Drone State": "On Ground or In Flight",
                 "Firmware": "Unsecured",
                 "DroneID Protocol": "Active",
+                "OperatingMode": "Manual or Mission",
             },
             
             attack_requirements=[

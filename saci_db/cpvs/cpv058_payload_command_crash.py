@@ -34,6 +34,7 @@ class PayloadCrashCommandCPV(CPV):
                 "GNSS Connection": "Active",
                 "Remote Controller": "Active",
                 "Firmware": "Unsecured",
+                "OperatingMode": "Manual or Mission",
             },
             
             attack_requirements=[

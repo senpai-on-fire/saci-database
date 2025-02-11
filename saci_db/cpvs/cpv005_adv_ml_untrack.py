@@ -40,7 +40,7 @@ class ObjectTrackCPV(CPV):
                 "Environment": "Any",
                 "RemoteController": "Any",
                 "CPSController": "Any",
-                "Operating mode": "Autonomous",
+                "Operating mode": "Mission",
             },
             attack_requirements=[
                 "Adversarial patches generated use adversarial machine learning",

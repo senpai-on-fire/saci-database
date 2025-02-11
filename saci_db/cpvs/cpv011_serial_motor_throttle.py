@@ -42,7 +42,7 @@ class SerialThrottleCPV(CPV):
                 "Environment": "Any",
                 "RemoteController": "On",
                 "CPSController": "Moving",
-                "Operating mode": "Any",
+                "OperatingMode": "Manual or Mission",
             },
 
             attack_vectors = [BaseAttackVector(name='Serial DSHOT Command Injection',

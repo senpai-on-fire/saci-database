@@ -40,7 +40,7 @@ class BarometricSensorSpoofingCPV(CPV):
                 "Environment": "Controlled or with pressure manipulation capability",
                 "RemoteController": "On",
                 "CPSController": "Active",
-                "Operating mode": "Autonomous or Semi-Autonomous",
+                "OperatingMode": "Manual or Mission",
             },
 
             attack_requirements=[

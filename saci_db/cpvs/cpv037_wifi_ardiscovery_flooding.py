@@ -43,7 +43,7 @@ class ARDiscoveryDoSCPV(CPV):
                 "Environment": "Any",
                 "RemoteController": "On",
                 "CPSController": "Moving",
-                "Operating mode": "Manual or Semi-Autonomous",
+                "OperatingMode": "Manual or Mission",
             },
             
             attack_requirements=[

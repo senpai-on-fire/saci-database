@@ -41,7 +41,7 @@ class WiFiDeauthDosCPV(CPV):
                 "Environment": "Any",
                 "RemoteController": "On",
                 "CPSController": "Moving",
-                "Operating mode": "Manual"
+                "OperatingMode": "Manual",
             },
             
             attack_requirements=[

@@ -42,7 +42,7 @@ class PatchEmergencyStopFailureCPV(CPV):
                 "Environment": "Open Field or Urban Area",
                 "RemoteController": "Active",
                 "CPSController": "Active",
-                "Operating mode": "Any",
+                "OperatingMode": "Manual or Mission",
             },
             attack_requirements=[
                 "A deployed faulty patch targeting emergency stop functionality.",
@@ -71,36 +71,38 @@ class PatchEmergencyStopFailureCPV(CPV):
                     ),
                 ),
             ],
+
             exploit_steps = {
                 "TA3 Exploit Steps": [
-                    "Use Optical imaging tools to catalog all of the components on the rover.",
-                    "Identify which components contained memory that might contain firmware."
-                ],
-                "TA2 Exploit Steps": [
-                    "Extract the firmware from the memory component.",
-                    "Identify the firmware type and version.",
-                    "Deploy the faulty patch onto the drone's flight controller, either through direct access or remote update mechanisms.",
-                    "This steps can be done by revisit the ArduPilot git commit history.",
-                    "Find the version which has this bugs and inject the code snippet.",
-                    "If the current version is newer, uncommit the fixed patch.",
-                    "If the current version is older, add the code snippet.",
-                    "Derive the triggering condition by running PatchVerif, which gives the triggering unit test input.",
-                    "Report the triggering condition to TA3 for simulator verification."
+                    "Use optical imaging tools to catalog all components on the rover.",
+                    "Identify components that contain memory that might store firmware.",
+                    "Extract the firmware from the identified memory component.",
+                    "Determine the firmware type and version for further analysis."
                 ],
                 "TA1 Exploit Steps": [
-                    "Prepare the simulator for the triggering condition reported by TA2.",
-                    "Confirm that the emergency stop feature has been disabled by testing in a simulator.",
-                    "Trigger a real-world scenario requiring the emergency stop, such as:",
-                    "    - Introducing obstacles into the drone's flight path.",
-                    "    - Simulating hardware faults or critical alerts to activate the emergency stop command.",
+                    "Deploy the faulty patch onto the drone's flight controller via direct access or remote update mechanisms.",
+                    "Revisit the ArduPilot Git commit history to identify a version containing the bug.",
+                    "Modify the firmware accordingly:",
+                    "    - If the current version is newer, revert the fixed patch (uncommit the fix).",
+                    "    - If the current version is older, inject the buggy code snippet.",
+                    "Derive the triggering condition using PatchVerif, which provides the triggering unit test input.",
+                    "Report the identified triggering condition to TA3 for simulator verification."
+                ],
+                "TA2 Exploit Steps": [
+                    "Prepare the simulator for the triggering condition reported by TA1.",
+                    "Verify that the emergency stop feature has been disabled through simulator testing.",
+                    "Trigger a real-world scenario requiring an emergency stop by:",
+                    "    - Introducing obstacles into the drone’s flight path.",
+                    "    - Simulating hardware faults or critical alerts that would normally activate the stop command.",
                     "Observe the drone's behavior and confirm that it does not respond to the emergency stop command.",
-                    "Allow the drone to continue its operation unchecked, causing one or more of the following outcomes:",
+                    "Allow the drone to continue its operation unchecked, leading to potential consequences such as:",
                     "    - Collision with physical obstacles.",
                     "    - Entry into restricted or hazardous zones.",
-                    "    - Loss of control leading to crashes.",
-                    "Analyze the impact of the failure and document the consequences to refine future attacks."
+                    "    - Loss of control resulting in a crash.",
+                    "Analyze the impact of the failure and document the consequences to refine future attack strategies."
                 ]
             },
+
             associated_files=[],
             reference_urls=["https://www.usenix.org/system/files/usenixsecurity23-kim-hyungsub.pdf"],
         )

@@ -41,7 +41,7 @@ class EMISpoofingMagnetometerCPV(CPV):
                 "Environment": "Proximity to EMI source",
                 "RemoteController": "On",
                 "CPSController": "Active",
-                "Operating mode": "Autonomous or Semi-Autonomous",
+                "OperatingMode": "Manual or Mission",
             },
 
 
