@@ -63,13 +63,37 @@ class WiFiDeauthQuadDosCPV(CPV):
                                                 )],
             attack_impacts = [BaseAttackImpact(category='Denial of control',
                                                description='The user can not stop the CPS')],
-            exploit_steps=[
-                "Set the Wi-Fi card into monitor mode and find the BSSID and channel number for the CPS's Wi-Fi network.",
-                "Send a deauthentication packet to the WIFI Interface."
-                ],
+           exploit_steps = [
+            "TA1 Exploit Steps:",
+            " - Collaborate with TA2 to get the extracted firmware.",
+            " - Reverse-engineer the CPS firmware to determine if the Wi-Fi implements security mechanisms such as Management Frame Protection (MFP).",
+            " - Identify if the firmware has failsafe mechanisms to recover from deauthentication or enters a critical state.",
+            " - Analyze the CPS control logic to assess how disconnection impacts movement and operation.",
+
+            "TA2 Exploit Steps:",
+            " - Implement a simulation of Wi-Fi deauthentication attack on the CPS network.",
+            " - Run simulation to analyze how loss of communication translates to control failure in the CPS device.",
+            " - Collaborate with TA1 to determine the desired impact control.",
+
+            "TA3 Exploit Steps:",
+            " - Use imaging tools & other techniques to catalog all Wi-Fi-related hardware components on the CPS.",
+            " - Identify physical interfaces that allow firmware extraction from the Wi-Fi module.",  
+            " - Identify the specific Wi-Fi module and extract the Wi-Fi SSID and password.",
+            " - Connect the operator’s computer to the rover’s Wi-Fi network.",
+            " - Set the Wi-Fi card into monitor mode.",
+            " - Find the BSSID and channel number for the 'FuelSource Wifi'.",
+            " - Set the Wi-Fi card to monitor the correct channel.",
+            " - On the operator computer, issue a HTTP GET request to http://192.168.4.1/Demo.",
+            " - Ensure the rover begins to drive.",
+            " - On the attacking computer, deauthenticate the control computer.",
+            " - Observe that the operator’s computer is no longer connected and can no longer issue the stop command to the rover.",
+            " - Log Wi-Fi connection status and CPS behavior before, during, and after the attack.",
+            " - Analyze the CPS’s physical response to communication disruption using telemetry and external tracking.",
+        ]
+
                 
             associated_files=[],
-            reference_urls=["https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8658279&tag=1"]
+            reference_urls=["https://docs.google.com/document/d/1DB4kHnwS-eE6Yy0G1dbc3fyc5Q4_A2Yz/edit"]
         )
     
     def in_goal_state(self, state: GlobalState):
