@@ -50,7 +50,7 @@ class EMIMotorBlockRotateCPV(CPV):
                                                configuration={"duration": "permanent"},
                                                 )],  
             attack_impacts = [BaseAttackImpact(category='Manipulation of Control',
-                                               description='Control the rotation direction of the motor')],
+                                               description='Attacker can set the RPM of the motors to 0, or flip its sign (make the motors go in reverse direction at the same speed)')],
 
             exploit_steps = {
                 "TA1 Exploit Steps": [

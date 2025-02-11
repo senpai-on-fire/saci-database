@@ -50,8 +50,8 @@ class EMIMotorBlockCPV(CPV):
                                                required_access_level="Remote",
                                                configuration={"duration": "permanent"},
                                                 )],  
-            attack_impacts = [BaseAttackImpact(category='Denial of Control',
-                                               description='Motor stops responding to legititame PWM commands')],
+            attack_impacts = [BaseAttackImpact(category='Denial of control',
+                                               description='Attacker sets motor RPM to a semi-constant value of 0 with some random spurious bursts')],
 
             exploit_steps = {
                 "TA1 Exploit Steps": [

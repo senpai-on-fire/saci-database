@@ -49,8 +49,8 @@ class EMIMotorFullControlCPV(CPV):
                                                required_access_level="Remote",
                                                configuration={"duration": "permanent"},
                                                 )],  
-            attack_impacts = [BaseAttackImpact(category='Denial of Control',
-                                               description='Motor can be fully controlled by the attacker')],
+            attack_impacts = [BaseAttackImpact(category='Denial of Service',
+                                               description='Attacker can set motor RPM to arbitrary value that the attacker chooses')],
 
             exploit_steps = {
                 "TA1 Exploit Steps": [
