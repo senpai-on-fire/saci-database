@@ -71,7 +71,7 @@ class AccelerometerEMIChannelDisruptionCPV(CPV):
             attack_impacts=[
                 BaseAttackImpact(
                     category="Denial of Service",
-                    description="Disrupted accelerometer data leads to inaccurate motion detection and navigation errors."
+                    description="Disrupted accelerometer data leads to inaccurate motion detection and navigation errors and ultimately crashing the drone."
                 )
             ],
 
@@ -172,4 +172,4 @@ class AccelerometerEMIChannelDisruptionCPV(CPV):
 
     def in_goal_state(self, state: GlobalState):
         # Define the goal state, such as flight instability or navigation disruption
-        return state.has_property("FlightInstability", True) or state.has_property("NavigationDisruption", True)
+        return state.has_property("FlightInstability", True) or state.has_property("NavigationDisruption", True) or state.has_property("Crash", True)
