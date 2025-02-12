@@ -170,4 +170,4 @@ class GyroscopeEMIChannelDisruptionCPV(CPV):
 
     def in_goal_state(self, state: GlobalState):
         # Define the goal state, such as flight instability or loss of navigation
-        return state.has_property("FlightInstability", True) or state.has_property("NavigationFailure", True)
+        return state.has_property("FlightInstability", True) or state.has_property("NavigationFailure", True) or state.has_property("Crash", True)
