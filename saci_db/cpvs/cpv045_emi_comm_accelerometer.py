@@ -103,7 +103,7 @@ class AccelerometerEMIChannelDisruptionCPV(CPV):
                     "    - Number of blades per propeller.",
                     "Use optical imaging tools to catalog all components of the drone system.",
                     "Identify the accelerometer's serial communication channel protocol and transmission frequency.",
-                    "Wait for TA1 to finish all their steps and receive their findings.",
+                    "Wait for TA2 to finish all their steps and receive their findings.",
                     "Identify the system's potential entry points and susceptible frequencies:",
                     "    - Tools and Equipment:",
                     "        + EMC scanner.",
