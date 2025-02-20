@@ -36,15 +36,16 @@ class BarometerSpoofingVuln(SpoofingVulnerability):
 
         )
 
-    def exists(self, device: Device) -> bool:
+    def exists(self, device: Device) -> bool: 
+        # These are new But these are DIFFERENTIAL, which probably is bad!!
+        vuln_sensor_list = [ "P1K-2-2X16PA", "MPVZ5004GW7U", "SDP810-250PA", "SDP810-500PA", "P993-1B", "A1011-00"] + BarometerHWPackage.KNOWN_CHIP_NAMES
         # Iterate through all components of the device
-        for comp in device.components :
-            #List of known vulnrable sensors
-                                                                                                        # These are new 
-            vuln_sensor_list = ["BMP180", "BMP280", "BMP388", "MS5611", "LPS22HB", "LPS25HB", "DPS310", "P1K-2-2X16PA", "MPVZ5004GW7U", "SDP810-250PA", "SDP810-500PA", "P993-1B", "A1011-00"]
-            # Check if the component is a barometer
-            if isinstance(comp, BarometerHWPackage) and comp.chip_name in vuln_sensor_list:
-                return True #This in the future could be 100%
-            if isinstance(comp, Barometer) and comp.chip_type == "MEMS":
-                return True  # Vulnerability exists if a barometer is found
-        return False  # No vulnerability detected if no barometer is found
+        for comp in device.components :            
+            # Check if the component is a barometer, 
+            if isinstance(comp, Barometer)
+                if hasattr(comp, "chip_name") comp.chip_name in vuln_sensor_list:
+                    return True #This in the future could be 100%
+                if hasattr(comp, "chip_type") and comp.chip_type == "MEMS":
+                    if not hasattr(comp,"acoustic_isolation") or not comp.acoustic_isolation:
+                        return True #If it doesn't have the acoustic isolation attribute, it is assumed it doesnt have it. If it has the attribute and specified as false, then it is vulnrable
+            return False  # No vulnerability detected if no barometer is found, and it is not MEMS
