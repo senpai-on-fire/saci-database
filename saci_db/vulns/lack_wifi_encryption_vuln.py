@@ -35,14 +35,17 @@ class LackWifiEncryptionVuln(BaseVulnerability):
         )
 
     def exists(self, device: Device) -> bool:
-        # Iterate through all components of the device
+        """
+        Checks if the WiFi module lacks authentication mechanisms.
+        The vulnerability exists if:
+        - The WiFi module supports an **open network** (no password or authentication).
+        - The network allows **unauthenticated** connections.
+        - The device does not require **mutual authentication** for command transmission.
+        """
         for comp in device.components:
-            # Check if the component has supported protocols
-            if hasattr(comp, 'supported_protocols'):
-                supported_protocols = comp.supported_protocols
-                # Iterate through the supported protocols
-                for protocol in supported_protocols:
-                    # Check if any protocol is unauthenticated, indicating a lack of integrity or encryption
-                    if issubclass(protocol, UnauthenticatedCommunication):
-                        return True  # Vulnerability detected
-        return False  # No vulnerability detected if all protocols provide encryption and integrity
+            if isinstance(comp, Wifi):
+                if comp.encryption_type in [None, "Open"]:
+                    return True  # No authentication = vulnerable
+                if not comp.requires_mutual_authentication:
+                    return True  # No mutual authentication = vulnerable
+        return False

@@ -49,14 +49,17 @@ class WiFiDeauthVuln(PublicSecretVulnerability):
         )
 
     def exists(self, device: Device) -> bool:
-        # Iterate through all components of the device
+        """
+        Checks if the WiFi module is vulnerable to deauthentication attacks.
+        The vulnerability exists if:
+        - The WiFi module does not support Management Frame Protection (MFP).
+        - The network is **open** or **uses WPA2 without MFP**.
+        - The network allows unprotected disassociation requests.
+        """
         for comp in device.components:
-            # Check if the component is a WiFi module
             if isinstance(comp, Wifi):
-                # Check if the WiFi module uses WPA2 encryption without management frame protection
+                if comp.encryption_type in [None, "WEP", "Open"]:
+                    return True  # Open or weak encryption = vulnerable
                 if comp.encryption_type == "WPA2" and not comp.has_management_frame_protection:
-                    return True  # Vulnerability exists due to lack of management frame protection
-                # Check if the WiFi module has no encryption, making it vulnerable by default
-                if comp.encryption_type is None:
-                    return True  # Vulnerability exists due to lack of encryption
-        return False  # No vulnerability detected if all conditions are unmet
+                    return True  # WPA2 without MFP = vulnerable
+        return False
