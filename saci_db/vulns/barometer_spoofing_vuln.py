@@ -37,7 +37,7 @@ class BarometerSpoofingVuln(SpoofingVulnerability):
         )
 
     def exists(self, device: Device) -> bool: 
-        # These are new But these are DIFFERENTIAL, which probably is bad!!
+        # These are new But these are DIFFERENTIAL
         vuln_sensor_list = [ "P1K-2-2X16PA", "MPVZ5004GW7U", "SDP810-250PA", "SDP810-500PA", "P993-1B", "A1011-00"] + BarometerHWPackage.KNOWN_CHIP_NAMES
         # Iterate through all components of the device
         for comp in device.components :            
