@@ -3,7 +3,7 @@ import networkx as nx
 from clorm import Predicate, IntegerField
 
 from saci.modeling.device.sensor import GPSReceiver, CompassSensor
-from saci.modeling.device import Device, Motor, Servo, Controller, Wifi, Serial, PWMChannel, ESC, WebServer, WebClient
+from saci.modeling.device import ComponentID, Device, Motor, Servo, Controller, Wifi, Serial, PWMChannel, ESC, WebServer, WebClient
 from saci.modeling.device.motor.steering import Steering
 from saci.modeling.state import GlobalState
 
@@ -33,35 +33,33 @@ class NGCRover(Device):
 
         self.steering = steering
 
-        components = [wifi, webserver, gps, compass, uno_r4, serial, uno_r3, pwm_channel_esc, pwm_channel_servo, esc, steering, motor,]
+        components = { ComponentID('wifi'): wifi, ComponentID('webserver'): webserver, ComponentID('gps'): gps, ComponentID('compass'): compass, ComponentID('uno_r4'): uno_r4, ComponentID('serial'): serial, ComponentID('uno_r3'): uno_r3, ComponentID('pwm_channel_esc'): pwm_channel_esc, ComponentID('pwm_channel_servo'): pwm_channel_servo, ComponentID('esc'): esc, ComponentID('steering'): steering, ComponentID('motor'): motor, }
 
-        component_graph = nx.from_edgelist([
-            (wifi, webserver),
-            (webserver, uno_r4),
-            (gps, uno_r4),
-            (compass, uno_r4),
-            (serial, uno_r4),
-            (uno_r4, uno_r3),
-            (uno_r3, pwm_channel_esc),
-            (uno_r3, pwm_channel_servo),
-            (pwm_channel_esc, esc),
-            (esc, motor),
-            (pwm_channel_servo, steering),
-        ], create_using=nx.DiGraph)
+        component_graph = nx.from_edgelist([(ComponentID('wifi'), ComponentID('webserver')),
+        (ComponentID('webserver'), ComponentID('uno_r4')),
+        (ComponentID('gps'), ComponentID('uno_r4')),
+        (ComponentID('compass'), ComponentID('uno_r4')),
+        (ComponentID('serial'), ComponentID('uno_r4')),
+        (ComponentID('uno_r4'), ComponentID('uno_r3')),
+        (ComponentID('uno_r3'), ComponentID('pwm_channel_esc')),
+        (ComponentID('uno_r3'), ComponentID('pwm_channel_servo')),
+        (ComponentID('pwm_channel_esc'), ComponentID('esc')),
+        (ComponentID('esc'), ComponentID('motor')),
+        (ComponentID('pwm_channel_servo'), ComponentID('steering')),], create_using=nx.DiGraph)
 
         entry_points = {
-            wifi: True, 
-            webserver: False,
-            uno_r4: False,
-            gps: True,
-            compass: True,
-            serial: True,
-            uno_r3: False,
-            pwm_channel_esc: False,
-            esc: False,
-            pwm_channel_servo: False,
-            steering: False,
-            motor: False
+            ComponentID('wifi'): True, 
+            ComponentID('webserver'): False,
+            ComponentID('uno_r4'): False,
+            ComponentID('gps'): True,
+            ComponentID('compass'): True,
+            ComponentID('serial'): True,
+            ComponentID('uno_r3'): False,
+            ComponentID('pwm_channel_esc'): False,
+            ComponentID('esc'): False,
+            ComponentID('pwm_channel_servo'): False,
+            ComponentID('steering'): False,
+            ComponentID('motor'): False
         }
         nx.set_node_attributes(component_graph, entry_points, 'is_entry')
 

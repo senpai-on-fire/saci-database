@@ -2,7 +2,7 @@ import os
 import networkx as nx
 from clorm import Predicate, IntegerField
 
-from saci.modeling.device import Device, Motor, Controller, Debug, Serial, ESC, SMBus, BMS, Battery
+from saci.modeling.device import ComponentID, Device, Motor, Controller, Debug, Serial, ESC, SMBus, BMS, Battery
 from saci.modeling.device.motor.steering import Steering
 from saci.modeling.state import GlobalState
 
@@ -22,26 +22,24 @@ class GSQuadcopter(Device):
         bms = BMS()
         battery = Battery()
 
-        components = [debug, serial, esc, bms, smbus, motor, battery]
+        components = { ComponentID('debug'): debug, ComponentID('serial'): serial, ComponentID('esc'): esc, ComponentID('bms'): bms, ComponentID('smbus'): smbus, ComponentID('motor'): motor, ComponentID('battery'): battery }
 
-        component_graph=nx.from_edgelist([
-            (serial, esc),
-            (debug, esc),
-            (esc, motor),
-            (esc, bms),
-            (smbus, bms),
-            (bms, battery),
-            (battery, esc),
-            ], create_using=nx.DiGraph)
+        component_graph = nx.from_edgelist([(ComponentID('serial'), ComponentID('esc')),
+        (ComponentID('debug'), ComponentID('esc')),
+        (ComponentID('esc'), ComponentID('motor')),
+        (ComponentID('esc'), ComponentID('bms')),
+        (ComponentID('smbus'), ComponentID('bms')),
+        (ComponentID('bms'), ComponentID('battery')),
+        (ComponentID('battery'), ComponentID('esc')),], create_using=nx.DiGraph)
 
         entry_points = {
-            serial: True, 
-            debug: True,
-            smbus: True,
-            esc: False,
-            bms: False,
-            battery: False,
-            motor: False
+            ComponentID('serial'): True, 
+            ComponentID('debug'): True,
+            ComponentID('smbus'): True,
+            ComponentID('esc'): False,
+            ComponentID('bms'): False,
+            ComponentID('battery'): False,
+            ComponentID('motor'): False
         }
         nx.set_node_attributes(component_graph, entry_points, 'is_entry')
 
