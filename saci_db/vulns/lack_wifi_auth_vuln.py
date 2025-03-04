@@ -35,7 +35,7 @@ class LackWifiAuthenticationVuln(BaseVulnerability):
                 "CWE-1188: Insecure Default Initialization of Resource",
                 "CWE-295: Improper Certificate Validation"
             ],
-            attack_vectors = [
+            attack_vectors_exploits = [
                 {
                     # List of related attack vectors and their exploitation information
                     "attack_vector": [BaseAttackVector(name="MavLink Packets Injection",
