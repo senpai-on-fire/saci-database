@@ -36,7 +36,7 @@ class LackWifiEncryptionVuln(BaseVulnerability):
                 "CWE-20: Improper Input Validation",
                 "CWE-1188: Insecure Default Initialization of Resource"
             ],
-            attack_vectors = [
+            attack_vectors_expoits = [
                 {
                     # List of related attack vectors and their exploitation information”
                     "attack_vector": BaseAttackVector(name="Deauthentification Wifi Packets Injection", 
