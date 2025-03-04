@@ -34,7 +34,7 @@ class ARDiscoveryDoSCPV(CPV):
             entry_component=Wifi(),
             exit_component=MultiCopterMotor(),
 
-            vulnerabilities=[ARDiscoveryFloodVuln(), LackWifiAuthenticationVuln(), LackWifiEncryptionVuln()], #TO-DO: Consider adding more vulns
+            vulnerabilities=[ARDiscoveryFloodVuln(), LackWifiAuthenticationVuln()], #TO-DO: Consider adding more vulns
 
             initial_conditions={
                 "Position": "Any",

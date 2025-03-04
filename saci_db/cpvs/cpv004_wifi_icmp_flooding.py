@@ -37,7 +37,7 @@ class WiFiICMPFloodingCPV(CPV):
             entry_component = Wifi(),
             exit_component = MultiCopterMotor(),
 
-            vulnerabilities =[LackWifiAuthenticationVuln(),IcmpFloodVuln(), LackWifiEncryptionVuln()],
+            vulnerabilities =[LackWifiAuthenticationVuln(),IcmpFloodVuln()],
 
             initial_conditions ={
                 "Position": "Any",
