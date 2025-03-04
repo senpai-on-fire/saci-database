@@ -5,6 +5,9 @@ from clorm import Predicate
 from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import Device, Wifi, TelemetryHigh, Telemetry
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
+from saci.modeling.attack import BaseCompEffect
+from saci.modeling.attack.base_attack_vector import BaseAttackVector
+from saci.saci.modeling.attack.packet_attack_signal import PacketAttackSignal
 
 # Predicate to define formal reasoning logic for vulnerabilities caused by known credentials
 class KnownCredsPred(Predicate):
@@ -33,7 +36,62 @@ class WifiKnownCredsVuln(PublicSecretVulnerability):
                 "CWE-1188: Insecure Default Initialization of Resource",
                 "CWE-345: Insufficient Verification of Data Authenticity",
                 "CWE-308: Use of Single-factor Authentication"
-            ]         
+            ],
+            attack_vectors = [
+                {
+                    # List of related attack vectors and their exploitation information
+                    "attack_vector": [BaseAttackVector(name="Stop Button Manipulation via HTTP Requests Injection",
+                                                    signal=PacketAttackSignal(src=ExternalInput(), dst=Wifi()),
+                                                    required_access_level="Proximity")],
+                    
+                    # List of associated CPVs
+                    "related_cpv": ['WifiWebStopCPV'],
+
+                    # List of associated component-level attack effects
+                    "comp_attack_effect": BaseCompEffect(category="Integrity", 
+                                                        description="Manipulation of Control. The CPS stops without the operator's input."),
+
+                    # Steps of exploiting this attack vector
+                    "exploit_steps": [
+                        "Connect to the Wi-Fi network using the hardcoded credentials.",
+                        "Using a web browser, navigate to the webserver IP address.",
+                        "Observe that the CPS remains idle.",
+                        "Click either of the drive buttons.",
+                        "Ensure the rover begins to drive."
+                    ],
+
+                    # List of related references
+                    "reference_urls": [
+                        "https://github.com/senpai-on-fire/NGC1B-rover-CPVs/blob/main/CPV009/HII-NGP1AROV1ARR03-CPV009-20240911.docx"
+                    ]
+                },
+                {
+                    # List of related attack vectors and their exploitation information
+                    "attack_vector": [BaseAttackVector(name="Long HTTP GET Requests Injection",
+                                                    # The external input will be the long HTTP request from the attacker's web client
+                                                    signal=PacketAttackSignal(src=ExternalInput(), dst=Wifi()),
+                                                    required_access_level="Proximity")],
+                    
+                    # List of associated CPVs
+                    "related_cpv": ['WifiWebCrashCPV'],
+
+                    # List of associated component-level attack effects
+                    "comp_attack_effect": BaseCompEffect(category="Availability", 
+                                                        description="Loss of Control. The user cannot stop the CPS while driving."),
+
+                    # Steps of exploiting this attack vector
+                    "exploit_steps": [
+                        "Connect to the rover's Wi-Fi using hardcoded credentials.",
+                        "Issue a long HTTP GET request (at least 26,000 characters) to the webserver address."
+                    ],
+
+                    # List of related references
+                    "reference_urls": [
+                        "https://github.com/senpai-on-fire/NGC1B-rover-CPVs/blob/main/CPV003/HII-NGP1AROV1ARR03-CPV003-20240828.docx"
+                    ]
+                }
+            ]
+
         )
 
     def exists(self, device: Device) -> bool:
