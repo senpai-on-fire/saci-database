@@ -39,7 +39,7 @@ class SerialESCOverflowCPV(CPV):
                 "Environment": "Any",
                 "BMS": "On",
                 "ESC": "On",
-                "Operating mode": "Any",
+                "OperatingMode": "Manual or Mission",
             },
 
             attack_vectors = [BaseAttackVector(name='Serial ASCII_Characters Command Injection',

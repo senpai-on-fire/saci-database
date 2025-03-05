@@ -42,7 +42,7 @@ class PathManipulationCPV(CPV):
                 "Speed": "Normal",
                 "Environment": "Dynamic",
                 "Failsafe Mode": "Enabled",
-                "Operating mode": "Autonomous",
+                "OperatingMode": "Mission",
             },
             attack_requirements=[
                 "GPS spoofing device capable of introducing artificial waypoints.",

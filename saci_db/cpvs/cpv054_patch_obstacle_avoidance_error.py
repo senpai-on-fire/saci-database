@@ -13,7 +13,7 @@ from saci_db.vulns.patch_misconfiguration_vuln import PatchMisconfigurationVuln
 from saci_db.vulns.obstacle_avoidance_error_vuln import ObstacleAvoidanceErrorVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
-from saci_db.devices.px4_quadcopter_device import PX4Controller
+from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
 class PatchObstacleAvoidanceErrorCPV(CPV):
 
@@ -22,13 +22,13 @@ class PatchObstacleAvoidanceErrorCPV(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
+                ArduPilotController(),
                 ObstacleAvoidanceLogic(),
-                PX4Controller(),
                 PWMChannel(),
                 ESC(),
                 MultiCopterMotor(),
             ],
-            entry_component=ObstacleAvoidanceLogic(),
+            entry_component=ArduPilotController(),
             exit_component=MultiCopterMotor(),
             
             vulnerabilities=[PatchMisconfigurationVuln(), ObstacleAvoidanceErrorVuln(), ControllerIntegrityVuln()],
@@ -42,16 +42,18 @@ class PatchObstacleAvoidanceErrorCPV(CPV):
                 "Environment": "Dynamic or hazardous",
                 "RemoteController": "Active",
                 "CPSController": "Active",
-                "Operating mode": "Any",
+                "OperatingMode": "Manual or Mission",
             },
             attack_requirements=[
                 "A faulty patch or firmware bug affecting obstacle avoidance calculations.",
-                "The vehicle operates in a dynamic environment with potential obstacles or complex navigation."
+                "The vehicle operates in a dynamic environment with potential obstacles or complex navigation.",
+                "Simulators",
+                "PatchVerif codebase"
             ],
 
             attack_vectors=[
                 BaseAttackVector(
-                    name="Faulty Obstacle Avoidance y Patch",
+                    name="Faulty Obstacle Avoidance Patch",
                     signal=BinaryPatchingAttack(
                         src=ExternalInput(),
                         dst=ObstacleAvoidanceLogic(), # Add the binary abstraction here
@@ -70,21 +72,41 @@ class PatchObstacleAvoidanceErrorCPV(CPV):
                     ),
                 ),
             ],
-            exploit_steps=[
-                "Analyze the firmware patch applied to the PX4Controller for obstacle avoidance.",
-                "Identify vulnerabilities or misconfigurations in obstacle detection.",
-                "Develop a faulty patch designed to disrupt obstacle avoidance",
-                "Deploy the faulty patch onto the PX4Controller through one of the following means:",
-                "    - Physical access to modify the firmware directly.",
-                "    - Exploiting vulnerabilities in the remote patch deployment process.",
-                "Command the vehicle to operate in a dynamic or obstacle-rich environment.",
-                "Monitor the vehicle's behavior, including:",
-                "    - Failure to detect or avoid obstacles in its path.",
-                "    - Incorrect navigation causing direct collisions with objects or the ground.",
-                "Record the physical consequences of crashes, such as damage to the vehicle or surrounding environment.",
-                "Simulate extended operations to analyze the long-term impact of the patch, such as repeated collisions or degradation of system performance.",
-                "Refine the attack to target more complex scenarios or multi-vehicle operations."
-            ],
+
+            exploit_steps = {
+                "TA3 Exploit Steps": [
+                    "Use optical imaging tools to catalog all components on the rover.",
+                    "Identify components that contain memory that might store firmware.",
+                    "Extract the firmware from the memory component.",
+                    "Identify the firmware type and version."
+                ],  
+                "TA2 Exploit Steps": [
+                    "Deploy the faulty patch onto the drone's flight controller via direct access or remote update mechanisms.",
+                    "    - These steps can be performed by revisiting the ArduPilot Git commit history.",
+                    "    - Find the version that contains the bugs and inject the code snippet.",
+                    "        - If the current version is newer, revert (uncommit) the fixed patch.",
+                    "        - If the current version is older, insert the buggy code snippet.",
+                    "Derive the triggering condition by running PatchVerif, which provides the triggering unit test input.",
+                    "Report the identified triggering condition to TA3 for simulator verification."
+                ],
+                "TA1 Exploit Steps": [
+                    "Prepare the simulator for the triggering condition reported by TA2.",
+                    "Command the vehicle to operate in a dynamic or obstacle-rich environment.",
+                    "Monitor the vehicle’s behavior, focusing on:",
+                    "    - Failure to detect or avoid obstacles in its path.",
+                    "    - Incorrect navigation leading to direct collisions with objects or the ground.",
+                    "Record the physical consequences of crashes, such as:",
+                    "    - Damage to the vehicle or surrounding environment.",
+                    "    - Loss of operational functionality or control.",
+                    "Simulate extended operations to analyze the long-term impact of the patch, including:",
+                    "    - Repeated collisions.",
+                    "    - Progressive degradation of system performance.",
+                    "Refine the attack to target more complex scenarios, including:",
+                    "    - Multi-vehicle operations.",
+                    "    - Adaptive or mission-critical navigation tasks."
+                ],
+            },
+
             associated_files=[],
             reference_urls=["https://www.usenix.org/system/files/usenixsecurity23-kim-hyungsub.pdf"],
         )

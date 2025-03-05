@@ -47,7 +47,7 @@ class GPSSpoofingLoopCPV(CPV):
                 "Environment": "Any", 
                 "RemoteController": "On", 
                 "CPSController": "Idle",
-                "Operating mode": "Any",
+                "OperatingMode": "Manual or Mission",
             },
             
             # TODO: We also want to specify the signal data

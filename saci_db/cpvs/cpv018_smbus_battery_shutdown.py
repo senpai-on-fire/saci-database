@@ -37,6 +37,7 @@ class SMBusBatteryShutdownCPV(CPV):
                 "Environment": "Any",
                 "Software state": "Any",
                 "Operator Supervision": "Any",
+                "OperatingMode": "Manual or Mission",
             },
             
             attack_requirements=[

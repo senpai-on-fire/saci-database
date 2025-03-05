@@ -41,7 +41,7 @@ class DirectionalManipulationCPV(CPV):
                 "Speed": "Normal",
                 "Environment": "Open field or urban area",
                 "Failsafe Mode": "Enabled",
-                "Operating mode": "Position Hold",
+                "OperatingMode": "Manual or Mission",
             },
             attack_requirements=[
                 "GPS signal jammer or spoofer (e.g., HackRF SDR).",

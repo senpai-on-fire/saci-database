@@ -6,6 +6,8 @@ from saci.modeling.communication import ExternalInput
 from saci_db.vulns.lack_wifi_auth_vuln import LackWifiAuthenticationVuln
 from saci_db.vulns.lack_wifi_encryption_vuln import LackWifiEncryptionVuln
 from saci_db.vulns.lack_beacon_filtering_vuln import LackBeaconFilteringVuln
+from saci_db.vulns.wifi_knowncreds_vuln import WifiKnownCredsVuln
+from saci_db.vulns.payload_firmware_vuln import FirmwarePayloadVuln
 
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
@@ -33,7 +35,7 @@ class BeaconFrameFloodingCPV(CPV):
             entry_component=Wifi(),        
             exit_component=MultiCopterMotor(),
 
-            vulnerabilities=[LackBeaconFilteringVuln(), LackWifiAuthenticationVuln(), LackWifiEncryptionVuln()],
+            vulnerabilities=[LackBeaconFilteringVuln(), LackWifiAuthenticationVuln(), LackWifiEncryptionVuln(), WifiKnownCredsVuln(), FirmwarePayloadVuln()],
 
             initial_conditions={
                 "Position": "Any",
@@ -63,6 +65,20 @@ class BeaconFrameFloodingCPV(CPV):
                         "attack_method": "Flood with beacon frames",
                         "frequency": "High",
                         "target": "UAV Wi-Fi interface",
+                        "frame_type": "beacon",
+                        "delivery_method": {
+                            "broadcast": True,
+                            "unicast": True
+                        },
+                        "injection_timing": "after_legitimate_beacon",
+                        "elements": [
+                            "WMM",
+                            "power_constraint",
+                            "t",
+                            "TIM", 
+                            "CSA"
+                        ],
+                        "beacon_interval": "102.4ms"
                     },
                 )
             ],
@@ -74,12 +90,40 @@ class BeaconFrameFloodingCPV(CPV):
                 )
             ],
 
-            exploit_steps=[
-                "Identify the target Wi-Fi network used by the UAV (e.g., using `airodump-ng`).",
-                "Craft malicious beacon frames with tools like Scapy or aireplay-ng.",
-                "Send a high volume of beacon frames to the UAV's Wi-Fi channel.",
-                "Monitor the UAV's response (e.g., loss of communication or fail-safe activation)."
-            ],
+            exploit_steps = {
+                "TA1 Exploit Steps": [
+                    "Install the ModWifi framework and aircrack-ng suite.",
+                    "Set the Wi-Fi interface to monitoring mode.",
+                    "Use airodump-ng to identify the target UAV's Wi-Fi network parameters, including:",
+                    "    - SSID",
+                    "    - Channel",
+                    "    - BSSID",
+                    "Capture and analyze the following settings in legitimate beacon frames using Wireshark or airodump-ng:",
+                    "    - WMM settings",
+                    "    - TIM (Traffic Indication Map) elements",
+                    "    - Transmission power constraints"
+                ],
+                "TA2 Exploit Steps": [
+                    "Craft malicious beacon frames with manipulated parameters, including:",
+                    "    - Malicious power constraint values",
+                    "    - Country information elements",
+                    "    - Power constraint IEs along with Cisco Dynamic Transmit Power Control IE",
+                    "Construct malicious beacons with extreme EDCA parameters based on extracted WMM update counts.",
+                    "Modify TIM elements to indicate buffered frames waiting for all clients.",
+                    "Create malicious beacons with Channel Switch Announcement (CSA) elements.",
+                    "Ensure all attack payloads can be injected through the ModWifi framework."
+                ],
+                "TA3 Exploit Steps": [
+                    "Inject forged beacon frames after legitimate ones using the ModWifi framework.",
+                    "Monitor UAV responses using airodump-ng or Wireshark.",
+                    "Measure network performance changes using iperf3.",
+                    "Verify the attack effects on:",
+                    "    - Transmission power",
+                    "    - Network throughput",
+                    "    - Battery consumption",
+                    "    - Channel switching"
+                ]
+            },
 
             associated_files=[],
             reference_urls=["https://medium.com/@angelinatsuboi/drone-swarmer-uncovering-vulnerabilities-in-open-drone-id-cdd8d1a23c2c",

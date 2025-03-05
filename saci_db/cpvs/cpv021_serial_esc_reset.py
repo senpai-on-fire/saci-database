@@ -33,7 +33,8 @@ class SerialESCResetCPV(CPV):
                 "Speed": "Any", 
                 "Environment": "Any", 
                 "Software state": "On",
-                "Operator Supervision": "Any"
+                "Operator Supervision": "Any",
+                "OperatingMode": "Manual or Mission",
             },
             
             attack_requirements=[

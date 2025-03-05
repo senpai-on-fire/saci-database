@@ -5,7 +5,7 @@ from clorm import Predicate
 from saci.modeling import BaseVulnerability
 from saci.modeling import SpoofingVulnerability
 from saci.modeling.device import Device
-from saci.modeling.device.sensor.barometer import Barometer
+from saci.modeling.device.sensor.barometer import Barometer, BarometerHWPackage
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
 
 # Predicate to define formal reasoning logic for barometer spoofing attacks
@@ -36,10 +36,16 @@ class BarometerSpoofingVuln(SpoofingVulnerability):
 
         )
 
-    def exists(self, device: Device) -> bool:
+    def exists(self, device: Device) -> bool: 
+        # These are new But these are DIFFERENTIAL
+        vuln_sensor_list = [ "P1K-2-2X16PA", "MPVZ5004GW7U", "SDP810-250PA", "SDP810-500PA", "P993-1B", "A1011-00"] + BarometerHWPackage.KNOWN_CHIP_NAMES
         # Iterate through all components of the device
         for comp in device.components:
-            # Check if the component is a barometer
+            # Check if the component is a barometer, 
             if isinstance(comp, Barometer):
-                return True  # Vulnerability exists if a barometer is found
-        return False  # No vulnerability detected if no barometer is found
+                if hasattr(comp, "chip_name") and comp.chip_name in vuln_sensor_list:
+                    return True #This in the future could be 100%
+                if hasattr(comp, "chip_type") and comp.chip_type == "MEMS":
+                    if not hasattr(comp,"acoustic_isolation") or not comp.acoustic_isolation:
+                        return True #If it doesn't have the acoustic isolation attribute, it is assumed it doesnt have it. If it has the attribute and specified as false, then it is vulnrable
+        return False  # No vulnerability detected if no barometer is found, and it is not MEMS

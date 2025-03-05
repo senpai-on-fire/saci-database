@@ -41,7 +41,8 @@ class CompassPermanentSpoofingCPV(CPV):
                 "Environment": "Any", 
                 "RemoteController": "On", 
                 "CPSController": "Moving",
-                "Operating mode": "Mission",},
+                "Operating mode": "Mission",
+                },
 
             attack_requirements = ["Magnet with adequate shapes and dimensions"],
             attack_vectors = [BaseAttackVector(name="Magnetic Signals Interference", 

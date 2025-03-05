@@ -13,7 +13,7 @@ from saci_db.vulns.patch_misconfiguration_vuln import PatchMisconfigurationVuln
 from saci_db.vulns.speed_control_misbehavior_vuln import SpeedControlMisbehaviorVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
-from saci_db.devices.px4_quadcopter_device import PX4Controller
+from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
 class PatchPivotTurnMalfunctionCPV(CPV):
     
@@ -21,14 +21,14 @@ class PatchPivotTurnMalfunctionCPV(CPV):
 
     def __init__(self):
         super().__init__(
-            required_components=[
+            required_components=[ 
+                ArduPilotController(),
                 SpeedControlLogic(),
-                PX4Controller(),
                 PWMChannel(),
                 ESC(),
                 MultiCopterMotor(),
             ],
-            entry_component=SpeedControlLogic(),
+            entry_component=ArduPilotController(),
             exit_component=MultiCopterMotor(),
             
             vulnerabilities=[PatchMisconfigurationVuln(), SpeedControlMisbehaviorVuln(), ControllerIntegrityVuln()],
@@ -41,11 +41,13 @@ class PatchPivotTurnMalfunctionCPV(CPV):
                 "Environment": "Sharp pivoting maneuver",
                 "RemoteController": "Active",
                 "CPSController": "Active",
-                "Operating mode": "Any",
+                "OperatingMode": "Manual or Mission",
             },
             attack_requirements=[
                 "A faulty patch applied to the speed control logic.",
-                "The vehicle performs a sharp pivoting maneuver."
+                "The vehicle performs a sharp pivoting maneuver.",
+                "PatchVerif codebase",
+                "Simulators",
             ],
 
             attack_vectors=[
@@ -71,25 +73,35 @@ class PatchPivotTurnMalfunctionCPV(CPV):
                 ),
             ],
 
-            exploit_steps = [
-                "Identify the target vehicle's model and control system architecture, particularly its speed control logic.",
-                "Analyze the firmware patch version currently deployed on the target system to check for known vulnerabilities or misconfigurations.",
-                "Develop or acquire a faulty patch specifically designed to adjust pivot turn speed control logic.",
-                "Deploy the faulty patch onto the vehicle's PX4Controller through one of the following methods:",
-                "    - Direct access to the firmware using local tools.",
-                "    - Exploiting remote access vulnerabilities in the patching process.",
-                "    - Leveraging insider access or supply chain vulnerabilities.",
-                "Activate the vehicle in a controlled environment to confirm the patch is operational.",
-                "Instruct the vehicle to execute sharp pivoting maneuvers at varying speeds and angles.",
-                "Observe the vehicle's behavior during the maneuvers, specifically:",
-                "    - Whether it maintains a constant, unsafe speed despite varying turning requirements.",
-                "    - Signs of instability, such as wheel lift, skid, or wobble.",
-                "    - Near rollover or loss of control at sharp angles or high speeds.",
-                "Record the physical effects caused by the patch, including reduced maneuverability, instability, and safety risks.",
-                "Evaluate the long-term effects of the attack by simulating repeated pivot maneuvers to assess cumulative damage to the vehicle (e.g., mechanical strain or system degradation).",
-                "Document the results of the exploit, including observations, metrics (e.g., speed consistency during maneuvers), and outcomes (e.g., rollovers or crashes).",
-                "Analyze and refine the patch for future exploits to ensure consistency and broader applicability across different vehicle models."
-            ],
+            exploit_steps = {
+                "TA3 Exploit Steps": [
+                    "Use optical imaging tools to catalog all components on the rover.",
+                    "Identify components that contain memory that might store firmware.",
+                    "Extract the firmware from the memory component.",
+                    "Identify the firmware type and version."
+                ],
+                "TA2 Exploit Steps": [
+                    "Deploy the faulty patch onto the drone's flight controller via direct access or remote update mechanisms.",
+                    "    - These steps can be performed by revisiting the ArduPilot Git commit history.",
+                    "    - Find the version that contains the bugs and inject the code snippet.",
+                    "        - If the current version is newer, revert (uncommit) the fixed patch.",
+                    "        - If the current version is older, insert the buggy code snippet.",
+                    "Derive the triggering condition by running PatchVerif, which provides the triggering unit test input.",
+                    "Report the identified triggering condition to TA3 for simulator verification."
+                ],
+                "TA1 Exploit Steps": [
+                    "Prepare the simulator for the triggering condition reported by TA2.",
+                    "Instruct the vehicle to execute sharp pivoting maneuvers at varying speeds and angles.",
+                    "Observe the vehicle's behavior during these maneuvers, specifically:",
+                    "    - Whether it maintains a constant, unsafe speed despite varying turning requirements.",
+                    "    - Signs of instability, such as wheel lift, skidding, or wobbling.",
+                    "    - Near rollovers or loss of control at sharp angles or high speeds.",
+                    "Record the physical effects caused by the patch, including reduced maneuverability, instability, and safety risks.",
+                    "Evaluate the long-term effects of the attack by simulating repeated pivot maneuvers to assess cumulative damage to the vehicle (e.g., mechanical strain or system degradation).",
+                    "Document the results of the exploit, including observations, key metrics (e.g., speed consistency during maneuvers), and outcomes (e.g., rollovers or crashes).",
+                    "Analyze the impact of the failure and document the consequences to refine future attack strategies."
+                ]
+            },
 
             associated_files=[],
             reference_urls=["https://www.usenix.org/system/files/usenixsecurity23-kim-hyungsub.pdf"],

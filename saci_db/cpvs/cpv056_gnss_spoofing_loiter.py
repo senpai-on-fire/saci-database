@@ -41,7 +41,7 @@ class GNSSLoiterModeSpoofingCPV(CPV):
                 "Heading": "Any",
                 "Speed": "Hovering",
                 "Environment": "Open Field or Urban Area",
-                "OperatingMode": "Loiter",
+                "OperatingMode": "Manual or Mission",
             },
             
             attack_requirements=[
