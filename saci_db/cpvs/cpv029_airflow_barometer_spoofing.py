@@ -10,7 +10,7 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci_db.vulns.barometer_spoofing_vuln import BarometerSpoofingVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
-from saci_db.devices.px4_quadcopter_device import PX4Controller
+from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 from saci.modeling.device import Barometer, Serial, PWMChannel, ESC, MultiCopterMotor
 from saci.modeling.state import GlobalState
 
@@ -23,7 +23,7 @@ class BarometricSensorSpoofingCPV(CPV):
             required_components=[
                 Barometer(),       
                 Serial(),            
-                PX4Controller(),   
+                ArduPilotController(), 
                 PWMChannel(),  
                 ESC(),
                 MultiCopterMotor(),
