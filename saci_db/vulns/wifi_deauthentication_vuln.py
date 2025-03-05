@@ -15,7 +15,7 @@ Modeled impact:
 '''
 
 from saci.modeling import PublicSecretVulnerability
-from saci.modeling.device import Device
+from saci.modeling.device import Device, Telnet, FTP
 from saci.modeling.device import CyberComponentBase, Wifi
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
 from saci.modeling.attack import BaseCompEffect
@@ -49,7 +49,7 @@ class WiFiDeauthVuln(PublicSecretVulnerability):
                 "CWE-1188: Insecure Default Initialization of Resource",
                 "CWE-693: Protection Mechanism Failure"
             ],
-            attack_vectors_exploits = [
+            attack_vectors = [
                 {
                     # List of related attack vectors and their exploitation information”
                     "attack_vector": [BaseAttackVector(name="Deauthentication WiFi Packets Injection",

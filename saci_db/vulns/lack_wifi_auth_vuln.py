@@ -1,9 +1,10 @@
 import os.path
+from typing import Iterator
 from clorm import Predicate
 
-from saci.modeling import BaseVulnerability
-from saci.modeling.device import Device, Wifi
-from saci.modeling.communication import UnauthenticatedCommunication, ExternalInput,TelemetryHigh
+from saci.modeling.vulnerability import VulnerabilityEffect, MakeEntryEffect, BaseVulnerability
+from saci.modeling.device import ComponentID, Device, Wifi, TelemetryHigh, ICMP, ARDiscovery, Telnet
+from saci.modeling.communication import UnauthenticatedCommunication, ExternalInput
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
 from saci.modeling.attack import BaseCompEffect
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
@@ -35,7 +36,7 @@ class LackWifiAuthenticationVuln(BaseVulnerability):
                 "CWE-1188: Insecure Default Initialization of Resource",
                 "CWE-295: Improper Certificate Validation"
             ],
-            attack_vectors_exploits = [
+            attack_vectors = [
                 {
                     # List of related attack vectors and their exploitation information
                     "attack_vector": [BaseAttackVector(name="MavLink Packets Injection",
@@ -247,15 +248,22 @@ class LackWifiAuthenticationVuln(BaseVulnerability):
 ]
         )
 
-    def exists(self, device: Device) -> bool:
+    def _vulnerable_components(self, device: Device) -> Iterator[ComponentID]:
         # Iterate through all components of the device
-        for comp in device.components:
+        for comp_id, comp in device.components.items():
             # Check if the component has supported protocols
-            if hasattr(comp, 'supported_protocols'):
-                supported_protocols = comp.supported_protocols
+            if (supported_protocols := comp.parameters.get("supported_protocols")) is not None:
                 # Iterate through the supported protocols
                 for protocol in supported_protocols:
                     # Check if any protocol is unauthenticated, indicating a vulnerability
                     if issubclass(protocol, UnauthenticatedCommunication):
-                        return True  # Vulnerability detected
-        return False  # No vulnerability detected if all protocols are authenticated
+                        yield comp_id  # Vulnerability detected
+
+    def exists(self, device: Device) -> bool:
+        return any(True for _ in self._vulnerable_components(device))
+
+    def effects(self, device: Device) -> list[VulnerabilityEffect]:
+        return [MakeEntryEffect(
+            reason="Unauthenticated Wifi",
+            nodes=frozenset(self._vulnerable_components(device)),
+        )]

@@ -3,7 +3,7 @@ from clorm import Predicate
 
 from saci.modeling.attack import BaseCompEffect
 from saci.modeling import BaseVulnerability
-from saci.modeling.device import Device, Wifi, ARDiscovery, SikRadio
+from saci.modeling.device import Device, Wifi, ARDiscovery, SikRadio, Telnet, FTP
 from saci.modeling.attack.radio_attack_signal import RadioAttackSignal
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
@@ -36,7 +36,7 @@ class LackWifiEncryptionVuln(BaseVulnerability):
                 "CWE-20: Improper Input Validation",
                 "CWE-1188: Insecure Default Initialization of Resource"
             ],
-            attack_vectors_exploits = [
+            attack_vectors = [
                 {
                     # List of related attack vectors and their exploitation information”
                     "attack_vector": BaseAttackVector(name="Deauthentification Wifi Packets Injection", 

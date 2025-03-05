@@ -36,7 +36,7 @@ class GPSSpoofingVuln(SpoofingVulnerability):
                 "CWE-693: Protection Mechanism Failure",
                 "CWE-1188: Insecure Default Initialization of Resource"
             ],
-            attack_vectors_exploits = [
+            attack_vectors = [
                 {   
                     # List of related attack vectors and their exploitation information:
                     "attack_vector": [BaseAttackVector(name='GPS Signal Spoofing Attack',

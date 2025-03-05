@@ -6,8 +6,8 @@ from saci.modeling.communication import ExternalInput
 from saci_db.vulns.lack_wifi_auth_vuln import LackWifiAuthenticationVuln
 from saci_db.vulns.lack_wifi_encryption_vuln import LackWifiEncryptionVuln
 from saci_db.vulns.lack_beacon_filtering_vuln import LackBeaconFilteringVuln
-from saci_db.vulns.wifi_known_vuln import WifiKnownVuln
-from saci_db.vulns.payload_fimrware_vuln import PayloadFirmwareVuln
+from saci_db.vulns.wifi_knowncreds_vuln import WifiKnownCredsVuln
+from saci_db.vulns.payload_firmware_vuln import FirmwarePayloadVuln
 
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
@@ -35,7 +35,7 @@ class BeaconFrameFloodingCPV(CPV):
             entry_component=Wifi(),        
             exit_component=MultiCopterMotor(),
 
-            vulnerabilities=[LackBeaconFilteringVuln(), LackWifiAuthenticationVuln(), LackWifiEncryptionVuln(), WifiKnownVuln(), PayloadFirmwareVuln()],
+            vulnerabilities=[LackBeaconFilteringVuln(), LackWifiAuthenticationVuln(), LackWifiEncryptionVuln(), WifiKnownCredsVuln(), FirmwarePayloadVuln()],
 
             initial_conditions={
                 "Position": "Any",
