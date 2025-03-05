@@ -18,6 +18,7 @@ from saci.modeling.device import (
 )
 from saci.modeling.device.motor.steering import Steering
 from saci.modeling.state import GlobalState
+from saci.modeling.communication.protocol import WifiGProtocol
 
 
 class RoverCrash(Predicate):
@@ -29,7 +30,7 @@ class NGCRover(Device):
     description = os.path.join(os.path.dirname(os.path.realpath(__file__)), "device.lp")
 
     def __init__(self, state=None):
-        wifi = Wifi()
+        wifi = Wifi(parameters=dict(supported_protocols=[WifiGProtocol]))
         serial = Serial()
         webserver = WebServer()
         gps = GPSReceiver()  # sends NMEA messages to R4 over serial
