@@ -30,6 +30,38 @@ class DepthCameraSpoofingVuln(SpoofingVulnerability):
                 "CWE-20: Improper Input Validation",
                 "CWE-693: Protection Mechanism Failure",
                 "CWE-925: Improper Verification of Integrity Check Value"
+            ],
+            attack_vectors_exploits = [
+                {
+                    "attack_vector": [BaseAttackVector(
+                        name="Light Pattern Injection Attack",
+                    signal=OpticalAttackSignal(
+                        src=ExternalInput(),
+                        dst=DepthCamera(),
+                    ),
+                    required_access_level="Remote",
+                    configuration={"pattern": "Adversarial or Complementary light patterns"},
+                )],
+                "related_cpv": [
+                    "ClassicDepthEstimationAttackCPV",
+                    "MLDepthEstimationAttackCPV"
+                ],
+                "comp_attack_effect": [
+                    BaseCompEffect(category='Integrity',
+                                description='Light pattern injection can cause the depth estimation algorithm to produce incorrect depth maps, leading to false obstacle detection or failure to detect actual obstacles.')
+                ],
+                "exploit_steps": [
+                    "Analyze the target's depth estimation system to understand its vulnerability to specific light pattern perturbations.",
+                    "Generate light patterns tailored to exploit the system's weaknesses.",
+                    "Set up projectors to emit the light patterns aimed at the stereo camera lenses.",
+                    "Project the patterns during the autonomous system's operation.",
+                    "The depth estimation system processes the perturbed images, resulting in incorrect depth predictions.",
+                    "The obstacle avoidance system reacts based on the erroneous depth information, causing unintended or unsafe maneuvers.",
+                ],
+                "reference_urls": [
+                        "https://www.usenix.org/system/files/sec22-zhou-ce.pdf",
+                    ]
+                }
             ]
         )
 
@@ -43,35 +75,4 @@ class DepthCameraSpoofingVuln(SpoofingVulnerability):
                     return True  # Vulnerability exists
         return False  # No vulnerability detected if conditions are unmet
 
-attack_vectors_exploits = [
-    {
-        "attack_vector": [BaseAttackVector(
-            name="Light Pattern Injection Attack",
-            signal=OpticalAttackSignal(
-                src=ExternalInput(),
-                dst=DepthCamera(),
-            ),
-            required_access_level="Remote",
-            configuration={"pattern": "Adversarial or Complementary light patterns"},
-        )],
-        "related_cpv": [
-            "ClassicDepthEstimationAttackCPV",
-            "MLDepthEstimationAttackCPV"
-        ],
-        "comp_attack_effect": [
-            BaseCompEffect(category='Integrity',
-                           description='Light pattern injection can cause the depth estimation algorithm to produce incorrect depth maps, leading to false obstacle detection or failure to detect actual obstacles.')
-        ],
-        "exploit_steps": [
-            "Analyze the target's depth estimation system to understand its vulnerability to specific light pattern perturbations.",
-            "Generate light patterns tailored to exploit the system's weaknesses.",
-            "Set up projectors to emit the light patterns aimed at the stereo camera lenses.",
-            "Project the patterns during the autonomous system's operation.",
-            "The depth estimation system processes the perturbed images, resulting in incorrect depth predictions.",
-            "The obstacle avoidance system reacts based on the erroneous depth information, causing unintended or unsafe maneuvers.",
-        ],
-        "reference_urls": [
-            "https://www.usenix.org/system/files/sec22-zhou-ce.pdf",
-        ]
-    }
-]
+
