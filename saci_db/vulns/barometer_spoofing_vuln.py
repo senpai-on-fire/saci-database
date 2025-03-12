@@ -77,7 +77,7 @@ class BarometerSpoofingVuln(SpoofingVulnerability):
         # These are new But these are DIFFERENTIAL
         vuln_sensor_list = [ "P1K-2-2X16PA", "MPVZ5004GW7U", "SDP810-250PA", "SDP810-500PA", "P993-1B", "A1011-00"] + BarometerHWPackage.KNOWN_CHIP_NAMES
         # Iterate through all components of the device
-        for comp in device.components :            
+        for comp in device.components:
             # Check if the component is a barometer, 
             if isinstance(comp, Barometer):
                 if hasattr(comp, "chip_name") and comp.chip_name in vuln_sensor_list:
@@ -85,4 +85,4 @@ class BarometerSpoofingVuln(SpoofingVulnerability):
                 if hasattr(comp, "chip_type") and comp.chip_type == "MEMS":
                     if not hasattr(comp,"acoustic_isolation") or not comp.acoustic_isolation:
                         return True #If it doesn't have the acoustic isolation attribute, it is assumed it doesnt have it. If it has the attribute and specified as false, then it is vulnrable
-            return False  # No vulnerability detected if no barometer is found, and it is not MEMS
+        return False  # No vulnerability detected if no barometer is found, and it is not MEMS

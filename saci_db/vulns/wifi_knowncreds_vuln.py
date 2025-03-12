@@ -7,7 +7,7 @@ from saci.modeling.device import Device, Wifi, TelemetryHigh, Telemetry
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
 from saci.modeling.attack import BaseCompEffect
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
-from saci.saci.modeling.attack.packet_attack_signal import PacketAttackSignal
+from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
 
 # Predicate to define formal reasoning logic for vulnerabilities caused by known credentials
 class KnownCredsPred(Predicate):
@@ -37,7 +37,7 @@ class WifiKnownCredsVuln(PublicSecretVulnerability):
                 "CWE-345: Insufficient Verification of Data Authenticity",
                 "CWE-308: Use of Single-factor Authentication"
             ],
-            attack_vectors_exploits = [
+            attack_vectors = [
                 {
                     # List of related attack vectors and their exploitation information
                     "attack_vector": [BaseAttackVector(name="Stop Button Manipulation via HTTP Requests Injection",

@@ -10,7 +10,7 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci_db.vulns.barometer_spoofing_vuln import BarometerSpoofingVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
-from saci_db.devices.px4_quadcopter_device import PX4Controller
+from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 from saci.modeling.device import Barometer, Serial, PWMChannel, ESC, MultiCopterMotor
 from saci.modeling.state import GlobalState
 
@@ -23,7 +23,7 @@ class BarometricSensorSpoofingCPV(CPV):
             required_components=[
                 Barometer(),       
                 Serial(),            
-                PX4Controller(),   
+                ArduPilotController(), 
                 PWMChannel(),  
                 ESC(),
                 MultiCopterMotor(),
@@ -72,7 +72,7 @@ class BarometricSensorSpoofingCPV(CPV):
                 )
             ],
 
-            exploit_steps=[
+            exploit_steps={
                 "TA1 Exploit Steps":[
                 "   - Use the navigation planning model made by TA3 to simulate the path planning while feeding it sensor inputs with some added error",
                 "   - Try different faulty input combinations for the different available sensors and detect the maximum possible amount of errors inducible in the sensor reading without triggering the data integrity check. (Check section 3 of the first reference paper if the system uses a Kalman Filter [KF])",
@@ -130,7 +130,7 @@ class BarometricSensorSpoofingCPV(CPV):
                 "         - Record the resonance frequencies where a deviation in the readings occurred.",
                 "      - Design the audio signal that would induce the desired error ( Refer to the second reference. It is used for a gyroscope and accelerometer but same principals can apply to barometer)",
                 "      - Go back to the same environment setup and play the designed signal and observe the navigation system state, verifying its disorientation"]
-            ],
+            },
 
             associated_files=[],
             reference_urls=[
