@@ -4,6 +4,7 @@ from clorm import Predicate, IntegerField
 from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import Device, Wifi, ARDiscovery
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
+from saci.modeling.attack_vector import BaseAttackVector, PacketAttackSignal, BaseCompEffect
 
 # Predicate to define formal reasoning for an ARDiscovery Man-in-the-Middle (MITM) attack
 # Includes a time field to model the timing of the attack
@@ -30,8 +31,41 @@ class ARDiscoveryMitmVuln(PublicSecretVulnerability):
                 "CWE-441: Unintended Proxy or Intermediary ('Confused Deputy')",
                 "CWE-294: Authentication Bypass by Capture-replay",
                 "CWE-693: Protection Mechanism Failure"
+            ],
+            attack_vectors_exploits = [
+                {
+                    "attack_vector": [BaseAttackVector(
+                        name="ARP Cache Poisoning Attack",
+                        signal=PacketAttackSignal(
+                            src=ExternalInput(),
+                            dst=ARDiscovery(),
+                        ),
+                        required_access_level="Proximity",
+                        configuration={
+                            "attack_method": "Spoofed ARP packets",
+                            "frequency": "High",
+                            "target": "UAV Wi-Fi interface",
+                        },
+                    )],
+                    "related_cpv": [
+                        "ARDiscoveryMitM"
+                    ],
+                    "comp_attack_effect": [
+                        BaseCompEffect(category='Integrity',
+                                       description='ARP cache poisoning can lead to unauthorized interception and manipulation of UAV communication.')
+                    ],
+                    "exploit_steps": [
+                        "Scan the target Wi-Fi network to identify the UAV's IP and MAC address.",
+                        "Craft malicious ARP packets to associate the attacker's MAC address with the UAV's IP address.",
+                        "Send the spoofed ARP packets to poison the ARP cache of both the UAV and the controller.",
+                        "Capture and analyze the intercepted communication using tools like Wireshark.",
+                        "Optionally, inject malicious commands or modify the intercepted data to manipulate UAV behavior.",
+                    ],
+                    "reference_urls": [
+                        "https://ieeexplore.ieee.org/document/7795496"
+                    ]
+                }
             ]
-  
         )
         # Description of the input attack scenario
         self.input = "launch a ARDiscovery Protocol MITM attack"
