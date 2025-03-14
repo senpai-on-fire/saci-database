@@ -62,7 +62,7 @@ class MavlinkSiKCPV(CPV):
                     dst=Mavlink(),
                     modality="uart_signals"
                 ),
-                required_access_level="Physical",
+                required_access_level="Remote",
                 configuration={"duration": "Immediate"}
             )
         ],
