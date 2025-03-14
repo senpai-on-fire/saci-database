@@ -9,6 +9,10 @@ from saci_db.vulns.sik_flooding_vuln import SiKFloodingVuln
 
 from saci_db.devices.px4_quadcopter_device import PX4Controller
 
+from saci.modeling.attack.base_attack_vector import BaseAttackVector
+from saci.modeling.attack.radio_attack_signal import RadioAttackSignal
+from saci.modeling.attack.base_attack_impact import BaseAttackImpact
+
 class MavlinkSiKCPV(CPV):
 
     NAME = "The Mavlink and SiK Radio Attack"
@@ -45,17 +49,50 @@ class MavlinkSiKCPV(CPV):
                 # TODO: stabilization machanism when moving?
                 "OperatingMode": "Manual or Mission",
             },
-        attack_requirements = [],
+        attack_requirements = [
+            "MAVLink packet generator/interception device",
+            "Physical access to JP7 bus between receiver and flight controller"
+        ],
 
-        attack_vectors = [],
+        attack_vectors = [
+            BaseAttackVector(
+                name="MAVLink Command Injection",
+                signal= RadioAttackSignal(
+                    src=GCS(), 
+                    dst=Mavlink(),
+                    modality="uart_signals"
+                ),
+                required_access_level="Physical",
+                configuration={"duration": "Immediate"}
+            )
+        ],
 
-        attack_impacts = [],
+        attack_impacts = [
+            BaseAttackImpact(
+                category="Control Manipulation",
+                description=(
+                    "Motors will spin erratically on the delivered system. If the system were actually flown, "
+                    "then the drone would fly in an unpredictable pattern and potentially crash."
+                )
+            )
+        ],
 
-        exploit_steps = [],
+        exploit_steps = [
+            "Connect MAVLink packet generator between RF receiver and flight computer board at JP7",
+            "Power on the drone",
+            "Power on the transmitter",
+            "Turn off drone safety by pressing black button for two seconds",
+            "Arm the drone by holding rudder in bottom right position until motors spin",
+            "Move throttle to max position",
+            "MAVLink packet generator reads commands from RF receiver and generates competing commands",
+            "Return throttle to bottom position",
+            "Disarm drone by holding rudder in bottom left position until motors stop"
+        ],
+
 
         associated_files=[],
 
-        reference_urls=["add alink the video we have"],
+        reference_urls=["https://github.com/senpai-on-fire/owlet-taskboard/tree/main/CPVs/HII-GS0409380007-CPV010"],
         )
 
         # We want the motor to be powered, but to be doing nothing. This can be described as neither
