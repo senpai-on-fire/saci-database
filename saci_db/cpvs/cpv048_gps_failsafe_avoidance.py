@@ -64,11 +64,27 @@ class FailSafeAvoidanceCPV(CPV):
                 ),
             ],
             exploit_steps=[
-                "Identify the drone model and its GPS fail-safe mechanism behavior.",
-                "Deploy soft GPS spoofing equipment to introduce gradual deviations in the GPS signal.",
-                "Ensure the spoofed signals remain consistent with the drone’s expected GPS data.",
-                "Monitor the drone’s response to verify that fail-safe mechanisms are not triggered.",
-                "Redirect the drone to the attacker’s desired location while avoiding safety interruptions."
+                "TA1 Exploit Steps",
+                    "Model the impact of spoofing into the GPS receiver on the CPS dynamics to verify the attack.",
+                        "The model must include:",
+                        "    - Controller attitude logic algorithm.",
+                        "    - GPS receiver sensor.",
+                        "    - Any required physical parameters to simulate CPS dynamics.",
+                        "    - Electronic speed controller logic and output.",
+                        "    - CPS actuators (e.g., motors) controlled by the ESC.",
+
+                "TA2 Exploit Steps",
+                    "Simulate the impact of spoofing into the CPS receiver to verify the validity of the attack.",
+                    "Start the simulation allow the CPS to start its intended operation.",
+                    "At arbitrary time x, start the GPS spoofing attack into and verify the attack impact.",
+                    "Report your findings to TA3.",
+
+                "TA3 Exploit Steps",
+                    "Identify the drone model and its GPS fail-safe mechanism behavior.",
+                    "Deploy soft GPS spoofing equipment to introduce gradual deviations in the GPS signal.",
+                    "Ensure the spoofed signals remain consistent with the drone’s expected GPS data.",
+                    "Monitor the drone’s response to verify that fail-safe mechanisms are not triggered.",
+                    "Redirect the drone to the attacker’s desired location while avoiding safety interruptions."
             ],
             associated_files=[],
             reference_urls=["https://dl.acm.org/doi/10.1145/3309735"],

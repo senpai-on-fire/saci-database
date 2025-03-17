@@ -64,11 +64,25 @@ class PayloadSpoofDroneIDCPV(CPV):
             ],
             
             exploit_steps=[
-                "Gain physical access to the drone’s controller or firmware.",
-                "Extract and analyze the DroneID firmware or configuration files.",
-                "Modify the unique identifier fields (e.g., serial number).",
-                "Deploy the modified firmware back to the drone.",
-                "Verify that the drone now broadcasts a spoofed identifier.",
+                "TA1 Exploit Steps",
+                    "Implement a model to simulate a firmware paayload attack on the CPS dynamic."
+                    "The model must include:",
+                        "    - Control logic algorithm.",
+                        "    - GPS receiver sensor.",
+                        "    - Any required physical parameters to simulate CPS dynamics.",
+                        "    - Electronic speed controller logic and output.",
+                        "    - CPS actuators (e.g., motors) controlled by the ESC.",
+                
+                "TA2 Exploit Steps",
+                    "Simulate the CPS dynamics after injecting the payload",
+                    "Refine the malicious payload based on TA1 observations to trigger the desired attack impact",
+                
+                "TA3 Exploit Steps",
+                    "Gain physical access to the drone’s controller or firmware.",
+                    "Extract and analyze the DroneID firmware or configuration files.",
+                    "Modify the unique identifier fields (e.g., serial number).",
+                    "Deploy the modified firmware back to the drone.",
+                    "Verify that the drone now broadcasts a spoofed identifier.",
             ],
             
             associated_files=[],

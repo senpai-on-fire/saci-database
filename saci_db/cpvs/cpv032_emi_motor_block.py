@@ -53,8 +53,8 @@ class EMIMotorBlockCPV(CPV):
             attack_impacts = [BaseAttackImpact(category='Denial of control',
                                                description='Attacker sets motor RPM to a semi-constant value of 0 with some random spurious bursts')],
 
-            exploit_steps = {
-                "TA1 Exploit Steps": [
+            exploit_steps = [
+                "TA1 Exploit Steps",
                     "Develop a simulation model to analyze the impact of the Block Waveform Attack on PWM-controlled actuators.",
                     "The model must include:",
                     "    - Controller logic algorithm governing actuator behavior.",
@@ -69,9 +69,9 @@ class EMIMotorBlockCPV(CPV):
                     "Simulate the effects of a continuous CW signal interfering with the legitimate PWM control signal:",
                     "    - Observe system behavior under different interference power levels.",
                     "    - Determine the minimum power required to block the PWM signal.",
-                    "    - Identify potential mitigation factors, such as signal filtering or shielding."
-                ],
-                "TA2 Exploit Steps": [
+                    "    - Identify potential mitigation factors, such as signal filtering or shielding.",
+                
+                "TA2 Exploit Steps",
                     "Implement the simulation model using appropriate electromagnetic and control system analysis tools.",
                     "Configure the simulation environment with realistic actuator parameters and PWM characteristics.",
                     "Simulate the attack by injecting a CW signal at the resonant frequency of the PWM circuitry.",
@@ -83,9 +83,9 @@ class EMIMotorBlockCPV(CPV):
                     "    - Adjust CW signal amplitude and frequency to determine the optimal attack parameters.",
                     "    - Evaluate the attack’s effectiveness at different distances between the interference source and the actuator circuitry.",
                     "Compare results against baseline operation to quantify the impact of the Block Waveform Attack.",
-                    "Validate findings by cross-referencing with theoretical models and prior research."
-                ],
-                "TA3 Exploit Steps": [
+                    "Validate findings by cross-referencing with theoretical models and prior research.",
+                
+                "TA3 Exploit Steps",
                     "Prepare the experimental setup to test the Block Waveform Attack on a physical PWM-controlled actuator.",
                     "Gather the necessary equipment:",
                     "    - Signal generator capable of producing CW signals in the target frequency range.",
@@ -105,8 +105,7 @@ class EMIMotorBlockCPV(CPV):
                     "    - Adjust signal frequency and power to maintain effective blocking.",
                     "    - Record the conditions where interference successfully disrupts motor operation.",
                 ],
-            },
-
+                
             associated_files = [],
             reference_urls = ["https://www.usenix.org/system/files/sec22-dayanikli.pdf"],
         )

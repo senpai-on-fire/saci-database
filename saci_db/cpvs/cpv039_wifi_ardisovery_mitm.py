@@ -49,7 +49,7 @@ class ARDiscoveryMitM(CPV):
             attack_requirements=[
                 "Computer with Wi-Fi card supporting monitor mode",
                 "Packet crafting tools (e.g., Scapy, arpspoof)",
-                "Access to the UAV's network (proximity or Wi-Fi credentials)",
+                "Access to the CPS's network (proximity or Wi-Fi credentials)",
             ],
 
             attack_vectors=[
@@ -63,7 +63,7 @@ class ARDiscoveryMitM(CPV):
                     configuration={
                         "attack_method": "Spoofed ARP packets",
                         "frequency": "High",
-                        "target": "UAV Wi-Fi interface",
+                        "target": "CPS Wi-Fi interface",
                     },
                 )
             ],
@@ -76,11 +76,22 @@ class ARDiscoveryMitM(CPV):
             ],
 
             exploit_steps=[
-                "Scan the target Wi-Fi network to identify the UAV's IP and MAC address.",
-                "Craft malicious ARP packets to associate the attacker's MAC address with the UAV's IP address.",
-                "Send the spoofed ARP packets to poison the ARP cache of both the UAV and the controller.",
-                "Capture and analyze the intercepted communication using tools like Wireshark.",
-                "Optionally, inject malicious commands or modify the intercepted data to manipulate UAV behavior.",
+                "TA1 Exploit Steps",
+                    "Get the extracted CPS firmware from TA3.",
+                    "Check if the CPS uses an ARDiscovery protocol over WiFi",
+                    "Reverse-engineer the CPS firmware to determine if the Wi-Fi implements security mechanisms",
+                
+                "TA2 Exploit Steps",
+                    "Implement a simulation of an ARDiscovery flooding attack over Wi-Fi in the CPS model.",
+                    "Run the simulation to analyze how loss of communication translates to control failure in the CPS device.",
+                    "Check with TA1 to determine the desired impact on control.",
+
+                "TA3 Exploit Steps",
+                    "Scan the target Wi-Fi network to identify the CPS's IP and MAC address.",
+                    "Craft malicious ARP packets to associate the attacker's MAC address with the CPS's IP address.",
+                    "Send the spoofed ARP packets to poison the ARP cache of both the CPS and the controller.",
+                    "Capture and analyze the intercepted communication using tools like Wireshark.",
+                    "Optionally, inject malicious commands or modify the intercepted data to manipulate CPS behavior.",
             ],
 
             associated_files=[],

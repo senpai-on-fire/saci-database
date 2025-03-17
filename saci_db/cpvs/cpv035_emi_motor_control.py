@@ -52,9 +52,9 @@ class EMIMotorFullControlCPV(CPV):
             attack_impacts = [BaseAttackImpact(category='Denial of Service',
                                                description='Attacker can set motor RPM to arbitrary value that the attacker chooses')],
 
-            exploit_steps = {
-                "TA1 Exploit Steps": [
-                    "Develop a comprehensive simulation model to analyze the impact of the Full Control Waveform Attack on PWM-controlled actuators.",
+            exploit_steps = [
+                "TA1 Exploit Steps",
+                    "Create a model to analyze the impact of the Full Control Waveform Attack on PWM-controlled actuators.",
                     "The model must include:",
                     "    - Controller logic algorithm governing actuator behavior.",
                     "    - PWM signal generation and motor control system.",
@@ -68,9 +68,8 @@ class EMIMotorFullControlCPV(CPV):
                     "Simulate the effects of a controlled waveform injection to override legitimate PWM signals:",
                     "    - Observe system behavior under different interference parameters.",
                     "    - Determine the conditions under which the attacker achieves complete control over the actuator.",
-                    "    - Identify mitigation strategies such as signal authentication or hardware shielding."
-                ],
-                "TA2 Exploit Steps": [
+
+                "TA2 Exploit Steps",
                     "Implement the simulation model using advanced electromagnetic and control system analysis tools.",
                     "Configure the simulation environment with realistic actuator parameters and PWM control characteristics.",
                     "Simulate the attack by injecting a fully controlled modulated waveform designed to replace the legitimate PWM signal.",
@@ -83,9 +82,9 @@ class EMIMotorFullControlCPV(CPV):
                     "    - Evaluate the effectiveness of different modulation schemes for precise control over motor direction, speed, and position.",
                     "    - Identify how variations in attack distance, power levels, and environmental noise affect control reliability.",
                     "Compare results against baseline operation to quantify the extent of attacker control over the actuator.",
-                    "Validate findings by cross-referencing with theoretical models and previous research on EMI-induced control hijacking."
-                ],
-                "TA3 Exploit Steps": [
+                    "Validate findings by cross-referencing with theoretical models and previous research on EMI-induced control hijacking.",
+
+                "TA3 Exploit Steps",
                     "Prepare the experimental setup to test the Full Control Waveform Attack on a physical PWM-controlled actuator.",
                     "Gather the necessary equipment:",
                     "    - Signal generator capable of producing fully modulated control waveforms.",
@@ -106,7 +105,6 @@ class EMIMotorFullControlCPV(CPV):
                     "    - Identify the minimum power threshold required to fully override the PWM signal.",
                     "    - Experiment with different control inputs to verify the attack's precision and repeatability.",
                 ],
-            },
 
             associated_files = [],
             reference_urls = ["https://www.usenix.org/system/files/sec22-dayanikli.pdf"],

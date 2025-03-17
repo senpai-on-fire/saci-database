@@ -72,23 +72,17 @@ class PatchEmergencyStopFailureCPV(CPV):
                 ),
             ],
 
-            exploit_steps = {
-                "TA3 Exploit Steps": [
-                    "Use optical imaging tools to catalog all components on the rover.",
-                    "Identify components that contain memory that might store firmware.",
-                    "Extract the firmware from the identified memory component.",
-                    "Determine the firmware type and version for further analysis."
-                ],
-                "TA1 Exploit Steps": [
+            exploit_steps = [
+                "TA1 Exploit Steps",
                     "Deploy the faulty patch onto the drone's flight controller via direct access or remote update mechanisms.",
                     "Revisit the ArduPilot Git commit history to identify a version containing the bug.",
                     "Modify the firmware accordingly:",
                     "    - If the current version is newer, revert the fixed patch (uncommit the fix).",
                     "    - If the current version is older, inject the buggy code snippet.",
                     "Derive the triggering condition using PatchVerif, which provides the triggering unit test input.",
-                    "Report the identified triggering condition to TA3 for simulator verification."
-                ],
-                "TA2 Exploit Steps": [
+                    "Report the identified triggering condition to TA3 for simulator verification.",
+        
+                "TA2 Exploit Steps",
                     "Prepare the simulator for the triggering condition reported by TA1.",
                     "Verify that the emergency stop feature has been disabled through simulator testing.",
                     "Trigger a real-world scenario requiring an emergency stop by:",
@@ -99,9 +93,14 @@ class PatchEmergencyStopFailureCPV(CPV):
                     "    - Collision with physical obstacles.",
                     "    - Entry into restricted or hazardous zones.",
                     "    - Loss of control resulting in a crash.",
-                    "Analyze the impact of the failure and document the consequences to refine future attack strategies."
-                ]
-            },
+                    "Analyze the impact of the failure and document the consequences to refine future attack strategies.",
+
+                "TA3 Exploit Steps",
+                    "Use optical imaging tools to catalog all components on the CPS.",
+                    "Identify components that contain memory that might store firmware.",
+                    "Extract the firmware from the identified memory component.",
+                    "Determine the firmware type and version for further analysis.",
+                ],
 
             associated_files=[],
             reference_urls=["https://www.usenix.org/system/files/usenixsecurity23-kim-hyungsub.pdf"],

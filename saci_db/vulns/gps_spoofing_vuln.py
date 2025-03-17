@@ -61,6 +61,8 @@ class GPSSpoofingVuln(SpoofingVulnerability):
                     # List of associated component-level attack effects
                     "comp_attack_effect": [
                         BaseCompEffect(category='Integrity',
+                                       # TODO: how to tell what integrity violation is more severe?
+                                       # TODO: What are the exepcted changes in the component output/behavior?
                                        description='GPS signal manipulation can cause unauthorized device movement, navigation deviation, and safety mechanism bypass through signal data tampering')
                     ],
                     # Steps of exploiting this attack vector

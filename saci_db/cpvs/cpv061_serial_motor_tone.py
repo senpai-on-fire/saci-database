@@ -60,24 +60,36 @@ class SerialToneCPV(CPV):
                                                description='The CPS ESC/Motor generates a repeating tone'
                                                             'that varies in pitch based upon the character sent')],         
             exploit_steps=[
-                "Power rover on", 
-                "Connect a USB cord to the USB-C port on the Arduino Uno R4",
-                "Open a terminal emulator and connect to the serial device exposed by the Arduino Uno R4",
-                "On Linux this can be accomplished with the command:",
-                "> tio /dev/ttyACM0"
-                "The exact name of the serial device may vary based on system settings and other attached serial devices. ",
-                "The command “dmesg | tail” may help identify the named device. You may need to have root permissions, or be a member of the “dialout” group to open the device.",
-                " Other programs like minicom or screen can be used to connect to a serial device, but the CPV has not been tested with those programs and we cannot verify what command-line options may need to be provided.",
-                "The serial device communicates at a baud rate of 115200 (which is the default for tio).",
-                "On Windows you can use putty to attach to a serial device. ",
-                "In the idle state the rover should repeatedly print readings from the digital compass in the form of one floating point number per line.",
-                " If you do not see this output on your terminal emulator then communication to the serial device is not set up correctly and the CPV will likely not be able to be triggered as described.",
-                "Press any number key within the range 1-5 or the PgUp key on the computer keyboard.",
-                "Observe that the ESC/Motor is generating a repeated tone."
+                "TA1 Exploit Steps",
+                    "Implement a Model to simulate the audible tones manipulation in Motors",
+                    "The model must include:",
+                        "    - Control logic algorithm.",
+                        "    - Any required physical parameters to simulate CPS dynamics.",
+                        "    - Electronic speed controller logic and output.",
+                        "    - CPS actuators (e.g., motors) controlled by the ESC.",
+
+                "TA2 Exploit Steps",
+                    "Simulate the fault injection attack to trigger audible tones in motors",
+                    "Find all the commands that trigger the attack based on TA1 models findings",
+                "TA3 Exploit Steps",
+                    "Power CPS on", 
+                    "Connect a USB cord to the USB-C port on the Arduino Uno R4",
+                    "Open a terminal emulator and connect to the serial device exposed by the Arduino Uno R4",
+                    "On Linux this can be accomplished with the command:",
+                    "> tio /dev/ttyACM0"
+                    "The exact name of the serial device may vary based on system settings and other attached serial devices. ",
+                    "The command “dmesg | tail” may help identify the named device. You may need to have root permissions, or be a member of the “dialout” group to open the device.",
+                    " Other programs like minicom or screen can be used to connect to a serial device, but the CPV has not been tested with those programs and we cannot verify what command-line options may need to be provided.",
+                    "The serial device communicates at a baud rate of 115200 (which is the default for tio).",
+                    "On Windows you can use putty to attach to a serial device. ",
+                    "In the idle state the CPS should repeatedly print readings from the digital compass in the form of one floating point number per line.",
+                    " If you do not see this output on your terminal emulator then communication to the serial device is not set up correctly and the CPV will likely not be able to be triggered as described.",
+                    "Press any number key within the range 1-5 or the PgUp key on the computer keyboard.",
+                    "Observe that the ESC/Motor is generating a repeated tone."
             ],
 
             associated_files = [],
-            reference_urls = ["https://github.com/senpai-on-fire/NGC1B-rover-CPVs/tree/main/CPV004"],
+            reference_urls = ["https://github.com/senpai-on-fire/NGC1B-CPS-CPVs/tree/main/CPV004"],
         )
 
     def in_goal_state(self, state: GlobalState):

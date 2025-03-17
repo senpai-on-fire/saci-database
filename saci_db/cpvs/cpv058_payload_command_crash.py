@@ -65,11 +65,25 @@ class PayloadCrashCommandCPV(CPV):
             ],
             
             exploit_steps=[
-                "Gain physical access to the drone and extract its firmware.",
-                "Analyze the firmware for vulnerabilities allowing arbitrary code execution.",
-                "Inject a malicious payload to execute a crash command mid-flight.",
-                "Deploy the modified firmware to the drone and initiate a flight.",
-                "Trigger the crash command to force the drone to fall mid-flight.",
+                "TA1 Exploit Steps",
+                    "Implement a model to simulate a firmware paayload attack on the CPS dynamic."
+                    "The model must include:",
+                        "    - Control logic algorithm.",
+                        "    - GPS receiver sensor.",
+                        "    - Any required physical parameters to simulate CPS dynamics.",
+                        "    - Electronic speed controller logic and output.",
+                        "    - CPS actuators (e.g., motors) controlled by the ESC.",
+                
+                "TA2 Exploit Steps",
+                    "Simulate the CPS dynamics after injecting the payload",
+                    "Refine the malicious payload based on TA1 observations to trigger the desired attack impact",
+                
+                "TA3 Exploit Steps",
+                    "Gain physical access to the drone and extract its firmware.",
+                    "Analyze the firmware for vulnerabilities allowing arbitrary code execution.",
+                    "Inject a malicious payload to execute a crash command mid-flight.",
+                    "Deploy the modified firmware to the drone and initiate a flight.",
+                    "Trigger the crash command to force the drone to fall mid-flight.",
             ],
             
             associated_files=[],

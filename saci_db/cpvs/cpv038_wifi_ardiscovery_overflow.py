@@ -74,17 +74,28 @@ class ARDiscoveryBufferOverflowCPV(CPV):
             attack_impacts=[
                 BaseAttackImpact(
                     category="Denial of Service",
-                    description="Causes the UAV to crash or exhibit undefined behavior, disrupting operations."
+                    description="Causes the CPS to crash or exhibit undefined behavior, disrupting operations."
                 ),
             ],
 
             exploit_steps=[
-                "Prepare the hardware and tools: Ensure you have a Wi-Fi card and install required tools like Scapy and Wireshark.",
-                "Capture and analyze ARDiscovery packets using Wireshark to understand the protocol's structure.",
-                "Craft a malicious packet with an oversized payload that exceeds the ARDiscovery protocol's buffer size.",
-                "Use Scapy to send the crafted packet to the UAV over its Wi-Fi network.",
-                "Observe the UAV's behavior to verify a crash or unexpected response, such as rebooting or freezing.",
-                "Optional: Explore if remote code execution is possible by embedding shellcode in the payload."
+                "TA1 Exploit Steps",
+                    "Get the extracted CPS firmware from TA3.",
+                    "Check if the CPS uses an ARDiscovery protocol over WiFi",
+                    "Reverse-engineer the CPS firmware to determine if the Wi-Fi implements security mechanisms",
+                
+                "TA2 Exploit Steps",
+                    "Implement a simulation of an ARDiscovery flooding attack over Wi-Fi in the CPS model.",
+                    "Run the simulation to analyze how loss of communication translates to control failure in the CPS device.",
+                    "Check with TA1 to determine the desired impact on control.",
+
+                "TA3 Exploit Steps",
+                    "Prepare the hardware and tools: Ensure you have a Wi-Fi card and install required tools like Scapy and Wireshark.",
+                    "Capture and analyze ARDiscovery packets using Wireshark to understand the protocol's structure.",
+                    "Craft a malicious packet with an oversized payload that exceeds the ARDiscovery protocol's buffer size.",
+                    "Use Scapy to send the crafted packet to the CPS over its Wi-Fi network.",
+                    "Observe the CPS's behavior to verify a crash or unexpected response, such as rebooting or freezing.",
+                    "Optional: Explore if remote code execution is possible by embedding shellcode in the payload."
             ],
 
             associated_files=[],
@@ -92,5 +103,5 @@ class ARDiscoveryBufferOverflowCPV(CPV):
         )
     
     def in_goal_state(self, state: GlobalState):
-        # TODO: Define the specific goal state conditions (e.g., UAV in crashed or unresponsive state)
+        # TODO: Define the specific goal state conditions (e.g., CPS in crashed or unresponsive state)
         pass

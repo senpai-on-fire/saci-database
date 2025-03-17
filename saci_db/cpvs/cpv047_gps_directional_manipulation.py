@@ -65,11 +65,27 @@ class DirectionalManipulationCPV(CPV):
                 ),
             ],
             exploit_steps=[
-                "Identify the target drone and confirm it is in Position Hold mode.",
-                "Deploy GPS spoofing equipment in the drone’s vicinity.",
-                "Gradually spoof the GPS position to simulate drifting in the desired direction.",
-                "Observe the drone adjusting its trajectory to correct the perceived error.",
-                "Continuously adjust the spoofed GPS position to guide the drone in the desired direction."
+                "TA1 Exploit Steps",
+                    "Model the impact of spoofing into the GPS receiver on the CPS dynamics to verify the attack.",
+                        "The model must include:",
+                        "    - Controller attitude logic algorithm.",
+                        "    - GPS receiver sensor.",
+                        "    - Any required physical parameters to simulate CPS dynamics.",
+                        "    - Electronic speed controller logic and output.",
+                        "    - CPS actuators (e.g., motors) controlled by the ESC.",
+                
+                "TA2 Exploit Steps",
+                    "Simulate the impact of spoofing into the CPS receiver to verify the validity of the attack.",
+                    "Start the simulation allow the CPS to start its intended operation.",
+                    "At arbitrary time x, start the GPS spoofing attack into and verify the attack impact.",
+                    "Report your findings to TA3.",
+
+                "TA3 Exploit Steps",
+                    "Identify the target drone and confirm it is in Position Hold mode.",
+                    "Deploy GPS spoofing equipment in the drone’s vicinity.",
+                    "Gradually spoof the GPS position to simulate drifting in the desired direction.",
+                    "Observe the drone adjusting its trajectory to correct the perceived error.",
+                    "Continuously adjust the spoofed GPS position to guide the drone in the desired direction."
             ],
             associated_files=[],
             reference_urls=["https://dl.acm.org/doi/10.1145/3309735"],
