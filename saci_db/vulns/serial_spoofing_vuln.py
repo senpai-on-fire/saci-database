@@ -49,6 +49,7 @@ class SerialSpoofingVuln(SpoofingVulnerability):
                         
                         "SerialRollOverCPV",
                         "SerialRedirectCPV",
+                        "SerialToneCPV",
                         "SerialThrottleCPV",
                         "SerialArduinoControlCPV"
                     ],
