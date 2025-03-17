@@ -34,7 +34,7 @@ class IcmpFloodVuln(PublicSecretVulnerability):
                 "CWE-693: Protection Mechanism Failure",
                 "CWE-417: Channel and Path Errors"
             ],
-            attack_vectors = [
+            attack_vectors_exploits = [
                 {
                     # List of related attack vectors and their exploitation information
                     "attack_vector": [BaseAttackVector(name="ICMP Packets Injection", 

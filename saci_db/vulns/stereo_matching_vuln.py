@@ -30,7 +30,8 @@ class StereoMatchingVuln(SpoofingVulnerability):
                 "CWE-20: Improper Input Validation",
                 "CWE-693: Protection Mechanism Failure",
                 "CWE-1254: Improper Handling of Transparent or Translucent Inputs"
-            ]
+            ],
+            attack_vectors_exploits = []
         )
 
     def exists(self, device: Device) -> bool:

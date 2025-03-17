@@ -38,7 +38,7 @@ class FirmwarePayloadVuln(BaseVulnerability):
                 "CWE-1188: Insecure Default Initialization of Resource",
                 "CWE-20: Improper Input Validation"
             ],
-            attack_vectors = [
+            attack_vectors_exploits = [
                 {
                     "attack_vector": [
                         BaseAttackVector(
