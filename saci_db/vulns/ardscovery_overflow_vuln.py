@@ -4,7 +4,8 @@ from clorm import Predicate, IntegerField
 from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import Wifi, Device, ARDiscovery
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
-from saci.modeling.attack_vector import BaseAttackVector, PacketAttackSignal, BaseCompEffect
+from saci.modeling.attack import BaseAttackVector, PacketAttackSignal, BaseCompEffect
+
 
 # Predicate to define formal reasoning logic for ARDiscovery buffer overflow attacks
 # Includes a `time` field to represent the timing of the overflow event

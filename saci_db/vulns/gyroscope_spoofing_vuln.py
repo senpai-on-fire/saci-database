@@ -8,8 +8,8 @@ from saci.modeling.device import Device
 from saci.modeling.device.sensor import Gyroscope, GyroscopeHWPackage 
 
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
-from saci.modeling.attack_vector import BaseAttackVector, AcousticAttackSignal, MagneticAttackSignal
-from saci.modeling.comp_effect import BaseCompEffect
+from saci.modeling.attack import BaseAttackVector, AcousticAttackSignal, MagneticAttackSignal, BaseCompEffect
+
 
 # Predicate to define formal reasoning logic for Gyroscope spoofing attacks
 class GyroscopeSpoofingPred(Predicate):

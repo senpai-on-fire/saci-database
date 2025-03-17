@@ -7,8 +7,8 @@ from saci.modeling import SpoofingVulnerability
 from saci.modeling.device import Device
 from saci.modeling.device.sensor.accelerometer import Accelerometer, AccelerometerHardware
 from saci.modeling.communication import UnauthenticatedCommunication, AuthenticatedCommunication, ExternalInput
-from saci.modeling.attack_vector import BaseAttackVector, AcousticAttackSignal, MagneticAttackSignal
-from saci.modeling.comp_effect import BaseCompEffect
+from saci.modeling.attack import BaseAttackVector, AcousticAttackSignal, MagneticAttackSignal, BaseCompEffect
+
 
 # Predicate to define the formal reasoning logic for the accelerometer spoofing attack
 class AccelerometerSpoofingPred(Predicate):

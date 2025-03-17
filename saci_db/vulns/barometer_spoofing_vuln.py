@@ -7,8 +7,8 @@ from saci.modeling import SpoofingVulnerability
 from saci.modeling.device import Device
 from saci.modeling.device.sensor.barometer import Barometer, BarometerHWPackage
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
-from saci.modeling.attack_vector import BaseAttackVector, EnvironmentalInterference
-from saci.modeling.comp_effect import BaseCompEffect
+from saci.modeling.attack import BaseAttackVector, EnvironmentalInterference, BaseCompEffect
+
 
 # Predicate to define formal reasoning logic for barometer spoofing attacks
 class BarometerSpoofingPred(Predicate):

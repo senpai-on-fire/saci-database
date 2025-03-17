@@ -7,7 +7,7 @@ from saci.modeling.device import TelemetryHigh, TelemetryAlgorithmic, Telemetry,
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.radio_attack_signal import RadioAttackSignal
-from saci.modeling.comp_effect import BaseCompEffect
+from saci.modeling.attack import BaseCompEffect
 
 
 # Predicate to define formal reasoning for SiK radio-based attacks
