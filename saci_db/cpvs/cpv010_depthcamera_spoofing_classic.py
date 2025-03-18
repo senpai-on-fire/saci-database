@@ -73,15 +73,19 @@ class ClassicDepthEstimationAttackCPV(CPV):
             ],
             exploit_steps=[
                 "TA1 Exploit Steps",
-                
-                "TA2 Exploit Steps",
-
-                "TA3 Exploit Steps",
                     "Analyze the target's stereo vision system to determine the stereo matching algorithm in use.",
-                    "Set up two projectors to emit complementary light patterns aimed at each lens of the stereo camera.",
+                    "Report the stereo camera setups to TA2 and TA4.",
+                "TA2 Exploit Steps",
+                    "Simulate the stereo vision system in simulator for collision avoidance based on TA4.",
+                    "Simulate the light projecting to the stereo camera following the setups indentified by TA4.",
+                "TA3 Exploit Steps",
+                    "Set up two projectors to emit complementary light patterns aimed at each lens of the stereo camera based on TA4.",
                     "Project the light patterns simultaneously, ensuring one pattern is more prominent in one lens than the other.",
                     "The disparity in light intensity between the two images leads to incorrect stereo matching, resulting in false depth perception.",
                     "The obstacle avoidance system reacts to the perceived obstacles, causing unintended maneuvers.",
+                "TA4 Exploit Steps",
+                    "Identify the projector setups based on the stereo vision system's characteristics.",
+                    "Report to the projector setups to TA2 and TA3 for CPV verification in the simulator and physical environment.",
             ],
             associated_files=[],
             reference_urls=[

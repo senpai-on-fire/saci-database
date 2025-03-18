@@ -65,12 +65,18 @@ class ProjectorOpticalFlowCPV(CPV):
             
             exploit_steps=[
                 "TA1 Exploit Steps",
+                    "Identify the optical flow sensor model and parameters.",
                 "TA2 Exploit Steps",
+                    "Wait for the information from TA4 to setup the experiment.",
+                    "Simulate the optical flow sensor attack in the simulator.",
                 "TA3 Exploit Steps",
+                    "Wait for the information from TA4 to setup the experiment.",
                     "Position the spoofing device in the UAV's optical flow sensor field.",
                     "Project high-contrast patterns using a laser or projector.",
                     "Move the projected pattern to mislead corner detection algorithms.",
                     "Observe the drone drift following the displacement of the projected pattern.",
+                "TA4 Exploit Steps",
+                    "Identify the spoofing device setups to launch the attack, report the findings to TA2 and TA3."
             ],
             
             associated_files=[],
