@@ -57,8 +57,20 @@ class WifiWebCrashCPV(CPV):
                                                description='The user can not stop the CPS while driving')],
 
             exploit_steps=[
-                "Connect to rover Wi-Fi using hardcoded credentials",
-                "Issue a long HTTP GET request (at least 26,000 characters) to the webserver address",
+                "TA1 Exploit Steps",
+                    "Get the extracted CPS firmware from TA3.",
+                    "Reverse-engineer the CPS firmware to determine if the Wi-Fi implements security mechanisms such as Management Frame Protection (MFP).",
+                    "Reverse-engineer the CPS firmware to determine if the ICMP protocol is used",
+                    "Analyze the CPS control logic to assess how disconnection impacts CPS dynamics.",
+                
+                "TA2 Exploit Steps",
+                    "Implement a simulation of an ICMP flooding attack on the CPS network.",
+                    "Run the simulation to analyze how loss of communication translates to control failure in the CPS device.",
+                    "Check with TA1 to determine the desired impact on control.",
+
+                "TA3 Exploit Steps",
+                    "Connect to rover Wi-Fi using hardcoded credentials",
+                    "Issue a long HTTP GET request (at least 26,000 characters) to the webserver address",
             ],
             associated_files=[],
             reference_urls=["https://github.com/senpai-on-fire/NGC1B-rover-CPVs/blob/main/CPV003/HII-NGP1AROV1ARR03-CPV003-20240828.docx"]

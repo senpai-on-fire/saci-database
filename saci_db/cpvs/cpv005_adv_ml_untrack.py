@@ -67,10 +67,15 @@ class ObjectTrackCPV(CPV):
                 ),
             ],
             exploit_steps=[
-                "Decompile the DNN model from the CPS firmware.",
-                "Dump the source code and model weight of the DNN model",
-                "Generate adversarial examples using adversarial machine learning-based optimization.",
-                "Showcase the adversarial examples to the CPS camera for control manipulation."
+                "TA1 Exploit Steps",
+                
+                "TA2 Exploit Steps",
+
+                "TA3 Exploit Steps",
+                    "Decompile the DNN model from the CPS firmware.",
+                    "Dump the source code and model weight of the DNN model",
+                    "Generate adversarial examples using adversarial machine learning-based optimization.",
+                    "Showcase the adversarial examples to the CPS camera for control manipulation."
             ],
             associated_files=[],
             reference_urls=[],

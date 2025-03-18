@@ -45,9 +45,9 @@ class BarometricSensorSpoofingCPV(CPV):
 
             attack_requirements=[
                 "Strong Speaker",
-                "Proximity to the drone's barometric sensor",
-                "Knowledge of barometric sensor location on the UAV",
-                "Knowledge of the UAV navigation algorithm",
+                "Proximity to the CPS's barometric sensor",
+                "Knowledge of barometric sensor location on the CPS",
+                "Knowledge of the CPS navigation algorithm",
             ],
 
             attack_vectors=[
@@ -68,27 +68,27 @@ class BarometricSensorSpoofingCPV(CPV):
             attack_impacts=[
                 BaseAttackImpact(
                     category="Denial of Service",
-                    description="Causes the UAV to perceive incorrect altitude, leading to unstable or unintended flight behavior or leading the drone to an incorrect location if used in conjunction with other sensors"
+                    description="Causes the CPS to perceive incorrect altitude, leading to unstable or unintended flight behavior or leading the CPS to an incorrect location if used in conjunction with other sensors"
                 )
             ],
 
-            exploit_steps={
-                "TA1 Exploit Steps":[
+            exploit_steps= [
+                "TA1 Exploit Steps",
                 "   - Use the navigation planning model made by TA3 to simulate the path planning while feeding it sensor inputs with some added error",
-                "   - Try different faulty input combinations for the different available sensors and detect the maximum possible amount of errors inducible in the sensor reading without triggering the data integrity check. (Check section 3 of the first reference paper if the system uses a Kalman Filter [KF])",
+                "   - Try different faulty input combinations for the different available sensors and detect the maximum possible amount of errors inducible in the sensor reading without triggering the data integrity check.",
                 "   - Report your findings to TA3",
                 "   - Wait for the error generator model to be provided by TA3.",
                 "   - Simulate the navigation planning model together with the error generator and verify the effectiveness of the attack.",
-                "   - Report your findings to TA3"],
+                "   - Report your findings to TA3",
         
-                "TA2 Exploit Steps":[
+                "TA2 Exploit Steps",
                 "   - Reverse engineer the navigation system path planning algorithm, specifically, the altitude control. ",
                 "   - Verify if the controller checks for data integrity, if so extract the data integrity check algorithm.",
-                "   - Report your findings to TA3"],
+                "   - Report your findings to TA3",
         
-                "TA3 Exploit Steps":[
-                "   - Verify whether the UAV uses a barometer or not.",
-                "   - Detect the type of controller and barometer used in the UAV",
+                "TA3 Exploit Steps",
+                "   - Verify whether the CPS uses a barometer or not.",
+                "   - Detect the type of controller and barometer used in the CPS",
                 "   - Model the controller path planning and altitude control algorithms (Use TA2 findings)",
                 "      - The model must include the controller data integrity detection algorithms.",
                 "      - Model inputs:",
@@ -99,15 +99,15 @@ class BarometricSensorSpoofingCPV(CPV):
                 "            - GPS",
                 "            - Accelerometer",
                 "            - Gyroscope",
-                "            - Any other sensors used to determine current drone state (position, altitude, speed)",
+                "            - Any other sensors used to determine current CPS state (position, altitude, speed)",
                 "      - Model output",
                 "         - The 3D path to take at each time step, including the velocity and acceleration.",
                 "   - Pass the model to TA1",
-                "   - If the drone uses a Kalman Filter (KF) based position estimation system, then model the phase 3 algorithm described in the fourth section of the 1st reference. Otherwise, a new algorithm with the following description is required:",
+                "   - If the CPS uses a Kalman Filter (KF) based position estimation system, then model the phase 3 algorithm described in the fourth section of the 1st reference. Otherwise, a new algorithm with the following description is required:",
                 "      - Inputs",
-                "         - UAV current position",
-                "         - UAV normal target destination",
-                "         - UAV malicious target destination",
+                "         - CPS current position",
+                "         - CPS normal target destination",
+                "         - CPS malicious target destination",
                 "         - Allowable induced error combinations and limits that would not trigger integrity check (should be reported by TA1)",
                 "      - Output",
                 "         -  Series of errors to induce into sensor readings to reach the malicious destination",
@@ -129,8 +129,8 @@ class BarometricSensorSpoofingCPV(CPV):
                 "         - Turn on the speaker and do a frequency sweep (1k to 30k) with a reasonable step (~50-100 Hz) while recording the sensor outputs",
                 "         - Record the resonance frequencies where a deviation in the readings occurred.",
                 "      - Design the audio signal that would induce the desired error ( Refer to the second reference. It is used for a gyroscope and accelerometer but same principals can apply to barometer)",
-                "      - Go back to the same environment setup and play the designed signal and observe the navigation system state, verifying its disorientation"]
-            },
+                "      - Go back to the same environment setup and play the designed signal and observe the navigation system state, verifying its disorientation",
+            ],
 
             associated_files=[],
             reference_urls=[

@@ -54,8 +54,13 @@ class SerialThrottleCPV(CPV):
                                                description='The serial commands cause CPS device to start moving/driving')],
             
             exploit_steps=[
-                "Open a terminal emulator and connect to the serial device exposed by the CPS device. You may need root access.",
-                "When the CPS is Idle, enter any number between 48-2047 (except 55, 66, & 77) into the terminal",
+                "TA1 Exploit Steps",
+                
+                "TA2 Exploit Steps",
+
+                "TA3 Exploit Steps",
+                    "Open a terminal emulator and connect to the serial device exposed by the CPS device. You may need root access.",
+                    "When the CPS is Idle, enter any number between 48-2047 (except 55, 66, & 77) into the terminal",
             ],
 
             associated_files = [],

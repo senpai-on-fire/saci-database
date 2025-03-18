@@ -52,15 +52,20 @@ class SerialESCResetCPV(CPV):
             attack_impacts = [BaseAttackImpact(category='Loss of availability',
                                                description='ESC will repeatedly reset every 3s')],
             exploit_steps=[
-                "Send a throttle command of zero to initialize the motor/firmware state.",
-                "Send a throttle command to engage the motor and observe that the motor begins to spin.",
-                "Send a throttle command of zero to stop the motor.", 
-                "Reset power to ESC. In theory this should not be necessary, but in practice values could not be set reliably if a non-zero throttle had been commanded within the same power cycle.",
-                "Send the data following data to set the prot_volt configuration value:",
-                "Send the data following data to set the prot_cells configuration value:",
-                "Save the configuration changes",
-                "Repeat steps 1 & 2 to engage the motor.",
-                "Observe that the motor either begins to spin and stops within three seconds or will not start at all"
+                "TA1 Exploit Steps",
+                
+                "TA2 Exploit Steps",
+
+                "TA3 Exploit Steps",
+                    "Send a throttle command of zero to initialize the motor/firmware state.",
+                    "Send a throttle command to engage the motor and observe that the motor begins to spin.",
+                    "Send a throttle command of zero to stop the motor.", 
+                    "Reset power to ESC. In theory this should not be necessary, but in practice values could not be set reliably if a non-zero throttle had been commanded within the same power cycle.",
+                    "Send the data following data to set the prot_volt configuration value:",
+                    "Send the data following data to set the prot_cells configuration value:",
+                    "Save the configuration changes",
+                    "Repeat steps 1 & 2 to engage the motor.",
+                    "Observe that the motor either begins to spin and stops within three seconds or will not start at all"
                 ],
                 
             associated_files=[],

@@ -57,13 +57,30 @@ class CompassTemporarySpoofingCPV(CPV):
                                                description='over/under steer of the desired turning angle'),],
 
             exploit_steps=[
-            "Prepare a powerful magnet with adequate shapes and dimensions.",
-            "Install the magnet on top of the compass.",
-            "Until observing change in the compass readings, keep doing the following: Point the CPS device at a different direction then install the magnet on top of the compass."
-            "Leave the magnet in place for at least 10 seconds.",
-            "Remove the magnet.",
-            "Rotate the CPS 45 degrees in either direction and observe that the compass readings do not significantly change as the CPS rotates."
-            "Rotate the CPS 180 degrees from the original heading. The compass readings should either not significantly change or not change until near 180 degrees."
+            "TA1 Exploit Steps",
+                "Model the impact of temporary magnetic interference on the compass sensor on CPS heading estimation.",
+                "The model must include:",
+                "    - Compass sensor.",
+                "    - CPS Control logic algorithm.",
+                "    - Any required physical parameters to simulate CPS dynamics.",
+                "    - Electronic speed controller and Steering logi."
+                "    - CPS actuators (e.g., motors).",
+
+            "TA2 Exploit Steps",
+                "Simulate the impact of temporary heading mis-calculation on the CPS dynamics",
+                "Start the simulation by turning-on the CPS.",
+                "At arbitrary time x, start the fault injection into the compass sensor and verify the attack impact.",
+                "Stop the fault injection and observe the impact on the CPS afterward"
+                "Report the findings to TA3 to refine the magnetic interference attack",
+
+            "TA3 Exploit Steps",
+                "Prepare a powerful magnet with adequate shapes and dimensions.",
+                "Install the magnet on top of the compass.",
+                "Until observing change in the compass readings, keep doing the following: Point the CPS device at a different direction then install the magnet on top of the compass."
+                "Leave the magnet in place for at least 10 seconds.",
+                "Remove the magnet.",
+                "Rotate the CPS 45 degrees in either direction and observe that the compass readings do not significantly change as the CPS rotates."
+                "Rotate the CPS 180 degrees from the original heading. The compass readings should either not significantly change or not change until near 180 degrees."
             ],
 
             associated_files = [],

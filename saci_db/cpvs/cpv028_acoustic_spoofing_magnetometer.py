@@ -66,9 +66,20 @@ class AcousticSpoofingMagnetometerCPV(CPV):
             ],
             
             exploit_steps=[
-                "Determine the Resonant Frequency of the Magnetometer Sensor installed on the CPS.",
-                "Point the spoofing audio source device towards the CPS and play the sound noise.",
-                "Observe the CPS's erratic movements in response to spoofed sensor readings.",
+                "TA1 Exploit Steps",
+                    "Reverse-engineer the CPS firmware to determine if sensor fusion or filtering mechanisms exist for magnetometer data.",
+                    "Identify whether the firmware fully trusts the raw magnetometer data or applies any verification before use.",
+                    "Analyze the PID control logic to assess how fluctuations in magnetometer readings propagate to motor actuation.",
+                
+                "TA2 Exploit Steps",
+                    "Implement a simulation of MEMS magnetometer response to acoustic interference.",
+                    "Inject synthetic acoustic noise into the control loop and measure PID controller response.",
+                    "Simulate how abnormal magnetometer outputs propagate through the CPS system.",
+                
+                "TA3 Exploit Steps",
+                    "Determine the Resonant Frequency of the Magnetometer Sensor installed on the CPS.",
+                    "Point the spoofing audio source device towards the CPS and play the sound noise.",
+                    "Observe the CPS's erratic movements in response to spoofed sensor readings.",
             ],
             
             associated_files=[],

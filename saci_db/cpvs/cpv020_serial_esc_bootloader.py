@@ -53,13 +53,18 @@ class SerialESCBootloaderCPV(CPV):
             attack_impacts = [BaseAttackImpact(category='Loss of control',
                                                description='ESC will not start motor')],
             exploit_steps=[
-                "Connect to the ESC via a USB-TTL serial adapter using a terminal emulator with a baud rate of 38400.",
-                "Arm the ESC and start the motor.",
-                "Use the microprocessor programmer to connect to the STM32.",
-                "Follow the procedure to write the HII-GSP1AESC01NR017-CPV003_FF.hex file to the STM32.",
-                "Use the microprocessor programmer to reset the STM32.",
-                "Reconnect to the USB-TTL serial adapter using the terminal emulator.",
-                "The terminal emulator will likely not connect and the motor does not begin to spin."
+                "TA1 Exploit Steps",
+                
+                "TA2 Exploit Steps",
+
+                "TA3 Exploit Steps",
+                    "Connect to the ESC via a USB-TTL serial adapter using a terminal emulator with a baud rate of 38400.",
+                    "Arm the ESC and start the motor.",
+                    "Use the microprocessor programmer to connect to the STM32.",
+                    "Follow the procedure to write the HII-GSP1AESC01NR017-CPV003_FF.hex file to the STM32.",
+                    "Use the microprocessor programmer to reset the STM32.",
+                    "Reconnect to the USB-TTL serial adapter using the terminal emulator.",
+                    "The terminal emulator will likely not connect and the motor does not begin to spin."
                 ],
                 
             associated_files=[],

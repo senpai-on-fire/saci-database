@@ -62,11 +62,17 @@ class GPSSpoofingLoopCPV(CPV):
                                               description='The CPS’s behavior can be altered in unintended ways, such as stopping mid-sequence, moving intermittently, or executing a sequence not commanded by the operator')],
             
             exploit_steps = [
-                "Configure the HackRF device and replace the GPS antenna.",
-                "Transmit the spoofed GPS signal using specific commands.",
-                "Connect the RemoteController to a computer via USB.",
-                "Open a terminal emulator or use provided scripts to send commands.",
-                "Input specific control commands"],
+                "TA1 Exploit Steps",
+                
+                "TA2 Exploit Steps",
+
+                "TA3 Exploit Steps",
+                    "Configure the HackRF device and replace the GPS antenna.",
+                    "Transmit the spoofed GPS signal using specific commands.",
+                    "Connect the RemoteController to a computer via USB.",
+                    "Open a terminal emulator or use provided scripts to send commands.",
+                    "Input specific control commands"
+                ],
             
             associated_files = [],
             reference_urls = ["https://github.com/senpai-on-fire/NGC1B-rover-CPVs/tree/main/CPV013"],

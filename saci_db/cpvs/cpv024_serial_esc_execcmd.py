@@ -53,8 +53,13 @@ class SerialESCExeccmdCPV(CPV):
                                                description='Motors stop spinning'),],
             
             exploit_steps=[
-                "Connect the USB-TTL Serial Adapter to the RC_1 test point on the ESC.",
-                "Send a Serial Command that is longer than the buffer.",
+                "TA1 Exploit Steps",
+                
+                "TA2 Exploit Steps",
+
+                "TA3 Exploit Steps",
+                    "Connect the USB-TTL Serial Adapter to the RC_1 test point on the ESC.",
+                    "Send a Serial Command that is longer than the buffer.",
             ],
 
             associated_files = [],

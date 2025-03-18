@@ -64,10 +64,13 @@ class ProjectorOpticalFlowCPV(CPV):
             ],
             
             exploit_steps=[
-                "Position the spoofing device in the UAV's optical flow sensor field.",
-                "Project high-contrast patterns using a laser or projector.",
-                "Move the projected pattern to mislead corner detection algorithms.",
-                "Observe the drone drift following the displacement of the projected pattern.",
+                "TA1 Exploit Steps",
+                "TA2 Exploit Steps",
+                "TA3 Exploit Steps",
+                    "Position the spoofing device in the UAV's optical flow sensor field.",
+                    "Project high-contrast patterns using a laser or projector.",
+                    "Move the projected pattern to mislead corner detection algorithms.",
+                    "Observe the drone drift following the displacement of the projected pattern.",
             ],
             
             associated_files=[],

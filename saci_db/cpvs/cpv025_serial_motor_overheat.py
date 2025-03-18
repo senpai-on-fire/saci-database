@@ -52,8 +52,13 @@ class SerialOverheatingCPV(CPV):
                                                description='Motors will overheat'),],
             
             exploit_steps=[
-                "Connect the USB-TTL Serial Adapter to the RC_1 test point on the ESC.",
-                "Send a Serial Command that sets Duty Cycle during speed up to 100.",
+                "TA1 Exploit Steps",
+                
+                "TA2 Exploit Steps",
+
+                "TA3 Exploit Steps",
+                    "Connect the USB-TTL Serial Adapter to the RC_1 test point on the ESC.",
+                    "Send a Serial Command that sets Duty Cycle during speed up to 100.",
             ],
 
             associated_files = [],

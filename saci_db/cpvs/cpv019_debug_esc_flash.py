@@ -51,11 +51,16 @@ class DebugESCFlashCPV(CPV):
             attack_impacts = [BaseAttackImpact(category='Denial of control',
                                                description='Motor stops spinning')],
             exploit_steps=[
-                "Send a throttle command of zero to initialize the motor/firmware state.",   
-                "Send a throttle command to engage the motor.",              
-                "Observe that the motor begins to spin.",    
-                "Send the data following data to enter bootloader mode.",    
-                "Observe that the motor stops spinning.",
+                "TA1 Exploit Steps",
+                
+                "TA2 Exploit Steps",
+
+                "TA3 Exploit Steps",
+                    "Send a throttle command of zero to initialize the motor/firmware state.",   
+                    "Send a throttle command to engage the motor.",              
+                    "Observe that the motor begins to spin.",    
+                    "Send the data following data to enter bootloader mode.",    
+                    "Observe that the motor stops spinning.",
                 ],
                 
             associated_files=[],

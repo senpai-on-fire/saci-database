@@ -53,8 +53,13 @@ class SerialESCDischargeCPV(CPV):
                                                description='ESC will not limit battery discharge'),],
             
             exploit_steps=[
-                "Connect the USB-TTL Serial Adapter to the RC_1 test point on the ESC.",
-                "Send the Serial Command 'set prot_cells 1' to the ESC.",
+                "TA1 Exploit Steps",
+                
+                "TA2 Exploit Steps",
+
+                "TA3 Exploit Steps",
+                    "Connect the USB-TTL Serial Adapter to the RC_1 test point on the ESC.",
+                    "Send the Serial Command 'set prot_cells 1' to the ESC.",
             ],
 
             associated_files = [],

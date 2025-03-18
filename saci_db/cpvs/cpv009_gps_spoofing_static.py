@@ -57,8 +57,26 @@ class GPSSpoofingStaticCPV(CPV):
             attack_impacts= [BaseAttackImpact(category='Loss of control',
                                                description='CPS drives in circles without stopping')],
             
-            exploit_steps= ["Configure the HackRF device and replace the GPS antenna.",
-                            "Transmit the spoofed GPS signal using specific commands."],
+            exploit_steps= [
+                "TA1 Exploit Steps",
+                    "Model the impact of spoofing into the GPS receiver on the CPS dynamics to verify the attack.",
+                        "The model must include:",
+                        "    - Control logic algorithm.",
+                        "    - GPS receiver sensor.",
+                        "    - Any required physical parameters to simulate CPS dynamics.",
+                        "    - Electronic speed controller logic and output.",
+                        "    - CPS actuators (e.g., motors) controlled by the ESC.",
+                
+                "TA2 Exploit Steps",
+                    "Simulate the impact of spoofing into the CPS receiver to verify the validity of the attack.",
+                    "Start the simulation allow the CPS to start its intended operation.",
+                    "At arbitrary time x, start the GPS spoofing attack into and verify if the CPS remains at static position.",
+                    "Report your findings to TA3.",
+
+                "TA3 Exploit Steps",
+                    "Configure the HackRF device and replace the GPS antenna.",
+                    "Transmit the spoofed GPS signal using specific commands."
+                    ],
             
             associated_files = [],
             reference_urls = ["https://github.com/senpai-on-fire/NGC1B-rover-CPVs/tree/main/CPV007"],

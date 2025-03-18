@@ -61,10 +61,26 @@ class GPSSpoofingMoveCPV(CPV):
                 ),
             ],
             exploit_steps=[
-                "Deploy GPS spoofer near the target's vicinity.",
-                "Send modified GPS signals targeting the drone's receiver.",
-                "Observe the manipulated localization output.",
-                "Guide the drone off its intended trajectory or into dangerous zones."
+                 "TA1 Exploit Steps",
+                    "Model the impact of spoofing into the GPS receiver on the CPS dynamics to verify the attack.",
+                        "The model must include:",
+                        "    - Control logic algorithm.",
+                        "    - GPS receiver sensor.",
+                        "    - Any required physical parameters to simulate CPS dynamics.",
+                        "    - Electronic speed controller logic and output.",
+                        "    - CPS actuators (e.g., motors) controlled by the ESC.",
+                
+                "TA2 Exploit Steps",
+                    "Simulate the impact of spoofing into the CPS receiver to verify the validity of the attack.",
+                    "Start the simulation allow the CPS to start its intended operation.",
+                    "At arbitrary time x, start the GPS spoofing attack into and verify if the CPS changes its trajectory.",
+                    "Report your findings to TA3.",
+
+                "TA3 Exploit Steps",
+                    "Deploy GPS spoofer near the target's vicinity.",
+                    "Send modified GPS signals targeting the drone's receiver.",
+                    "Observe the manipulated localization output.",
+                    "Guide the drone off its intended trajectory or into dangerous zones."
             ],
             associated_files=[],
             reference_urls=[

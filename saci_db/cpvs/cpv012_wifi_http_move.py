@@ -55,11 +55,16 @@ class WifiWebMoveCPV(CPV):
                                                description='The CPS starts driving without the operator control')],
 
             exploit_steps=[
-                "Connect to Wi-Fi network using the hardcoded credentials”",
-                "Using a web browser, navigate to webserver IP address",
-                "Observe that the cps remains idle",
-                "Click either of the drive buttons",
-                "Ensure the rover begins to drive"
+                "TA1 Exploit Steps",
+                
+                "TA2 Exploit Steps",
+
+                "TA3 Exploit Steps",
+                    "Connect to Wi-Fi network using the hardcoded credentials”",
+                    "Using a web browser, navigate to webserver IP address",
+                    "Observe that the cps remains idle",
+                    "Click either of the drive buttons",
+                    "Ensure the rover begins to drive"
             ],
             associated_files=[],
             reference_urls=["https://github.com/senpai-on-fire/NGC1B-rover-CPVs/blob/main/CPV009/HII-NGP1AROV1ARR03-CPV009-20240911.docx"]

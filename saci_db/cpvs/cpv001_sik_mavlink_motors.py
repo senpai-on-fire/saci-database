@@ -72,24 +72,34 @@ class MavlinkSiKCPV(CPV):
                 category="Control Manipulation",
                 description=(
                     "Motors will spin erratically on the delivered system. If the system were actually flown, "
-                    "then the drone would fly in an unpredictable pattern and potentially crash."
+                    "then the CPS would fly in an unpredictable pattern and potentially crash."
                 )
             )
         ],
 
         exploit_steps = [
-            "Connect MAVLink packet generator between RF receiver and flight computer board at JP7",
-            "Power on the drone",
-            "Power on the transmitter",
-            "Turn off drone safety by pressing black button for two seconds",
-            "Arm the drone by holding rudder in bottom right position until motors spin",
-            "Move throttle to max position",
-            "MAVLink packet generator reads commands from RF receiver and generates competing commands",
-            "Return throttle to bottom position",
-            "Disarm drone by holding rudder in bottom left position until motors stop"
+            "TA1 Exploit Steps",
+                "Get the extracted CPS firmware from TA3.",
+                "Reverse-engineer the CPS firmware to determine if it implements security mechanisms such as MAVLink encryption or authentication.",
+                "Identify if the firmware has failsafe mechanisms to prevent unauthorized disarm commands.",
+                "Analyze the CPS control logic to assess how receiving an unauthorized disarm command affects the CPS’s operation.",
+            
+            "TA2 Exploit Steps",
+                "Simulate the impact of sending a malicious MAVLink disarm command to the CPS.",
+                "Collaborate with TA1 to determine the severity of the attack and possible escalation paths.",
+        
+            "TA3 Exploit Steps",
+                "Connect MAVLink packet generator between RF receiver and flight computer board at JP7",
+                "Power on the CPS",
+                "Power on the transmitter",
+                "Turn off CPS safety by pressing black button for two seconds",
+                "Arm the CPS by holding rudder in bottom right position until motors spin",
+                "Move throttle to max position",
+                "MAVLink packet generator reads commands from RF receiver and generates competing commands",
+                "Return throttle to bottom position",
+                "Disarm CPS by holding rudder in bottom left position until motors stop"
         ],
-
-
+        
         associated_files=[],
 
         reference_urls=["https://github.com/senpai-on-fire/owlet-taskboard/tree/main/CPVs/HII-GS0409380007-CPV010"],

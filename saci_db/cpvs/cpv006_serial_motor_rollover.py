@@ -66,11 +66,27 @@ class SerialRollOverCPV(CPV):
                                              description='The CPS device will rollover')],
             
             exploit_steps=[
-                "Open a terminal emulator and connect to the serial device exposed by the CPS device. You may need root access.",
-                "In the idle state, you should observe floating point outputs from the compass. If you do not, the retry the previous step.",
-                "With the CPS device in idle state, enter the number 10 six times into the terminal. This corresponds to DSHOT_3D_MODE_ON.",
-                "With the rover in idle state, enter the number 12 six times. This corresponds to the DSHOT_CMD_SAVE_SETTINGS.",
-                "Restart the CPS device and control from the web interface.",
+                "TA1 Exploit Steps",
+                    "Model the impact of buffer overflow attack on the CPS dynamics.",
+                        "The model must include:",
+                        "    - Control logic algorithm.",
+                        "    - Serial interface.",
+                        "    - Any required physical parameters to simulate CPS dynamics.",
+                        "    - Electronic speed controller logic and output.",
+                        "    - CPS actuators (e.g., motors) controlled by the ESC.",
+                
+                "TA2 Exploit Steps",
+                    "Simulate the impact of serial spoofing to verify the validity of the attack.",
+                    "Start the simulation allow the CPS to start its intended operation.",
+                    "At arbitrary time x, start the GPS spoofing attack into and verify if the CPS remains at static position.",
+                    "Report your findings to TA3.",
+
+                "TA3 Exploit Steps",
+                    "Open a terminal emulator and connect to the serial device exposed by the CPS device. You may need root access.",
+                    "In the idle state, you should observe floating point outputs from the compass. If you do not, the retry the previous step.",
+                    "With the CPS device in idle state, enter the number 10 six times into the terminal. This corresponds to DSHOT_3D_MODE_ON.",
+                    "With the rover in idle state, enter the number 12 six times. This corresponds to the DSHOT_CMD_SAVE_SETTINGS.",
+                    "Restart the CPS device and control from the web interface.",
             ],
 
             associated_files = [],

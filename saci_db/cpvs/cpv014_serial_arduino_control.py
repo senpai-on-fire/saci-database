@@ -52,16 +52,21 @@ class SerialArduinoControlCPV(CPV):
             attack_impacts= [BaseAttackImpact(category='Control Manipulation',
                                               description='The CPS’s behavior can be altered in unintended ways, such as stopping mid-sequence, moving intermittently, or executing a sequence not commanded by the operator')],
             
-            exploit_steps = [ # Check with Sh the steps
-                "Configure the HackRF device and replace the GPS antenna.",
-                "Transmit the spoofed GPS signal using specific commands.",
-                "Connect the Arduino Uno R4 to a computer via USB.",
-                "Open a terminal emulator or use provided scripts to send commands.",
-                "Input specific commands:",
-                "    - 77: Initiates a pre-programmed driving sequence.",
-                "    - 66: Interrupts the sequence, stopping the rover.",
-                "    - 55: Causes intermittent movements with brief motor engagements.",
-                "Observe the corresponding effects on the CPS."
+            exploit_steps = [
+                "TA1 Exploit Steps",
+                
+                "TA2 Exploit Steps",
+
+                "TA3 Exploit Steps",
+                    "Configure the HackRF device and replace the GPS antenna.",
+                    "Transmit the spoofed GPS signal using specific commands.",
+                    "Connect the Arduino Uno R4 to a computer via USB.",
+                    "Open a terminal emulator or use provided scripts to send commands.",
+                    "Input specific commands:",
+                    "    - 77: Initiates a pre-programmed driving sequence.",
+                    "    - 66: Interrupts the sequence, stopping the rover.",
+                    "    - 55: Causes intermittent movements with brief motor engagements.",
+                    "Observe the corresponding effects on the CPS."
             ],
             
             associated_files = [],

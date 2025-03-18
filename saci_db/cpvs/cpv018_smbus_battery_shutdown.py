@@ -52,15 +52,20 @@ class SMBusBatteryShutdownCPV(CPV):
             attack_impacts = [BaseAttackImpact(category='Loss of control',
                                                description='system does not provide power to subsystem')],
             exploit_steps=[
-                "Connect an SMBus cable between the SMBus connector on the EV2400 and J3 on the battery monitor board",
-                "Power system on using only battery power",
-                "Observe the system is operational, LEDs on the ESC are on",
-                "Open BQStudio",
-                "If the BQ40Z80 isn't detected automatically BQStudio will prompt the user to select a device",
-                "Once connected through BQStudio, observe that the BQ40Z80 status is displayed on the screen",
-                "In the commands window click SHUTDOWN twice",
-                "The BQ40Z80 will enter shutdown mode disconnecting the power from the system",
-                "Observe the ESC board LEDs are disabled."
+                "TA1 Exploit Steps",
+                
+                "TA2 Exploit Steps",
+
+                "TA3 Exploit Steps",
+                    "Connect an SMBus cable between the SMBus connector on the EV2400 and J3 on the battery monitor board",
+                    "Power system on using only battery power",
+                    "Observe the system is operational, LEDs on the ESC are on",
+                    "Open BQStudio",
+                    "If the BQ40Z80 isn't detected automatically BQStudio will prompt the user to select a device",
+                    "Once connected through BQStudio, observe that the BQ40Z80 status is displayed on the screen",
+                    "In the commands window click SHUTDOWN twice",
+                    "The BQ40Z80 will enter shutdown mode disconnecting the power from the system",
+                    "Observe the ESC board LEDs are disabled."
                 ],
                 
             associated_files=[],
