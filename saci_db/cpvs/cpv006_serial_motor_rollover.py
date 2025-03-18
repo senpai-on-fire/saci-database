@@ -66,22 +66,27 @@ class SerialRollOverCPV(CPV):
                                              description='The CPS device will rollover')],
             
             exploit_steps=[
-                "TA1 Exploit Steps",
-                    "Model the impact of buffer overflow attack on the CPS dynamics.",
-                        "The model must include:",
-                        "    - Control logic algorithm.",
-                        "    - Serial interface.",
-                        "    - Any required physical parameters to simulate CPS dynamics.",
-                        "    - Electronic speed controller logic and output.",
-                        "    - CPS actuators (e.g., motors) controlled by the ESC.",
+                "TA1 Exploit Steps",  
+                    "Reverse engineering the extracted firmware using a combination of standard software reverse engineering tools and Binsync.",
+                    "Provide context for what the firmware is supposed to do when interacting with off-chip peripherals (e.g., serial ports) using open-source references.",
+                    "Check if the firmware accepts inputs from the WIFI interface.",
+                    "Check if the firmware is implementing a web server.",
+                    "Identify the code that’s implementing the web server component.",
+                    "Check if the code has bounds checking on the string operations being performed.",
+                    "Create models for the following components: Wifi, Webserver, CPS control logic, ESC logic and output, CPS actuators (e.g., motors) controlled by the ESC.",
+                    "Report to TA2 any required physical parameters to simulate the CPS dynamics"
                 
                 "TA2 Exploit Steps",
-                    "Simulate the impact of serial spoofing to verify the validity of the attack.",
-                    "Start the simulation allow the CPS to start its intended operation.",
-                    "At arbitrary time x, start the GPS spoofing attack into and verify if the CPS remains at static position.",
-                    "Report your findings to TA3.",
+                    "Create an automata to simulate the buffer overflow attack on the webserver."
+                    "Use a fuzzing tool to fuzz the functions and generate an HTTP Get request that triggers the buffer overflow."
 
                 "TA3 Exploit Steps",
+                    "Use Optical imaging tools to catalog all of the components on the rover.",
+                    "Identify which components contained memory that might contain firmware.",
+                    "Extract the firmware from the memory component.",
+                    "Check if there’s a WIFI component.",
+                    "Check if there are hardcoded credentials for connecting to the Wi-Fi network.",
+                    "Extract the hardcoded credentials using reverse-engineering tools.",
                     "Open a terminal emulator and connect to the serial device exposed by the CPS device. You may need root access.",
                     "In the idle state, you should observe floating point outputs from the compass. If you do not, the retry the previous step.",
                     "With the CPS device in idle state, enter the number 10 six times into the terminal. This corresponds to DSHOT_3D_MODE_ON.",

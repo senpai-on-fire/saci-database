@@ -55,8 +55,15 @@ class SerialThrottleCPV(CPV):
             
             exploit_steps=[
                 "TA1 Exploit Steps",
+                    "Reverse-engineer the CPS firmware to determine if the serial interface is vulnerable to command injection.",
+                    "Identify if the firmware has failsafe mechanisms to recover from malicious serial commands.",
+                    "Analyze the CPS control logic to assess how malicious serial commands can manipulate the CPS movements before the start of the mission.",
+                    "Create models for the following components: CPS control logic with serial interface, ESC logic and output, CPS actuators (e.g., motors) controlled by the ESC.",
+                    "Report to TA2 any required physical parameters to simulate the CPS dynamics"
                 
                 "TA2 Exploit Steps",
+                    "Create an automata to simulate a malicious serial command injection on the CPS dynamics.",
+                    "Use a fuzzing tool to fuzz the functions and generate a malicious serial commands that manipulate the CPS throttle."
 
                 "TA3 Exploit Steps",
                     "Open a terminal emulator and connect to the serial device exposed by the CPS device. You may need root access.",

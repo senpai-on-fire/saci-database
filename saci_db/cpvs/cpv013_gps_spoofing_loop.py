@@ -63,15 +63,31 @@ class GPSSpoofingLoopCPV(CPV):
             
             exploit_steps = [
                 "TA1 Exploit Steps",
+                    "Get the extracted CPS firmware from TA3.",
+                    "Reverse-engineer the CPS firmware to determine if it implements security mechanisms such as GPS encryption, filtering, or authentication.",
+                    "Identify if the firmware has failsafe mechanisms to prevent GPS spoofing.",
+                    "Analyze the CPS control logic to understand how a a spoofed GPS readings affects the CPS’s operation.",
+                    "Create models for the following components: GPS receiver, CPS control logic, ESC logic and output, CPS actuators (e.g., motors) controlled by the ESC.",
+                    "Report to TA2 any required physical parameters to simulate the CPS dynamics"
                 
                 "TA2 Exploit Steps",
+                    "Simulate the impact of the GPS spoofing to verifty the impact on the CPS.",
+                    "Start the simulation by turning-on the CPS and start its intended operation."                    
+                    "At arbitrary time x, start the GPS spoofing attack into and verify if the CPS remains at static position.",
+                    "Use a fuzzing tool, find which command will trigger a loop state in the CPS device."
+                    "Report your findings to TA3.",
 
                 "TA3 Exploit Steps",
+                    "Use optical imaging tools to catalog all of the components on the CPS.",
+                    "Identify which components contained memory that might contain firmware.",
+                    "Extract the firmware from the memory component.",
+                    "Check if there's a GPS receiver on the CPS. "
                     "Configure the HackRF device and replace the GPS antenna.",
                     "Transmit the spoofed GPS signal using specific commands.",
                     "Connect the RemoteController to a computer via USB.",
-                    "Open a terminal emulator or use provided scripts to send commands.",
-                    "Input specific control commands"
+                    "In the idle state the CPS should repeatedly print readings from the digital compass in the form of one floating point number per line."
+                    "With the CPS in the idle state, enter the number 77 into the terminal."
+                    "Observer the CPS does not begin to drive, and no longer responds to requests in the terminal or through the webserver."
                 ],
             
             associated_files = [],

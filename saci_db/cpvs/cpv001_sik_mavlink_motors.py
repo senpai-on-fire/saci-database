@@ -83,12 +83,19 @@ class MavlinkSiKCPV(CPV):
                 "Reverse-engineer the CPS firmware to determine if it implements security mechanisms such as MAVLink encryption or authentication.",
                 "Identify if the firmware has failsafe mechanisms to prevent unauthorized disarm commands.",
                 "Analyze the CPS control logic to assess how receiving an unauthorized disarm command affects the CPS’s operation.",
+                "Create models for the following components: GCS, SiK radio netwwork with MAVLink protocol, CPS control logic, ESC logic and output, CPS actuators (e.g., motors) controlled by the ESC.",
+                "Report to TA2 any required physical parameters to simulate the CPS dynamics"
             
             "TA2 Exploit Steps",
                 "Simulate the impact of sending a malicious MAVLink disarm command to the CPS.",
                 "Collaborate with TA1 to determine the severity of the attack and possible escalation paths.",
+                "Report the findings to TA3 to test the MAVLink disarm attack on the physical CPS device"
         
             "TA3 Exploit Steps",
+                "Use optical imaging tools to catalog all of the components on the CPS.",
+                "Identify which components contained memory that might contain firmware.",
+                "Extract the firmware from the memory component.",
+                "Check if there's an RF transmitter on the CPS and if it uses a MAVLink protocol. "
                 "Connect MAVLink packet generator between RF receiver and flight computer board at JP7",
                 "Power on the CPS",
                 "Power on the transmitter",

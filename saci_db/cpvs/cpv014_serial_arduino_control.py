@@ -54,11 +54,29 @@ class SerialArduinoControlCPV(CPV):
             
             exploit_steps = [
                 "TA1 Exploit Steps",
+                    "Reverse-engineer the CPS firmware to determine if the serial interface is vulnerable to command injection.",
+                    "Identify if the firmware has failsafe mechanisms to recover from malicious serial commands.",
+                    "Analyze the CPS control logic to assess how malicious serial commands can perturb the CPS movements during the mission.",
+                    "Determine if the firmware implements security mechanisms for the GPS receiver such as GPS encryption, filtering, or authentication.",
+                    "Identify if the firmware has failsafe mechanisms to prevent GPS spoofing.",
+                    "Analyze the CPS control logic to assess how a static spoofed GPS readings affects the CPS’s operation.",
+                    "Create models for the following components: GPS receiver, CPS control logic with serial interface, ESC logic and output, CPS actuators (e.g., motors) controlled by the ESC.",
+                    "Report to TA2 any required physical parameters to simulate the CPS dynamics"
                 
                 "TA2 Exploit Steps",
+                    "Simulate the impact of the GPS spoofing to verifty the impact on the CPS.",
+                    "Start the simulation by turning-on the CPS and start its intended operation."                    
+                    "At arbitrary time x, start the GPS spoofing attack and verify if the CPS remains changes its trajectory.",
+                    "Create an automata to simulate a malicious serial command injection on the CPS dynamics.",
+                    "Use a fuzzing tool to fuzz the functions and generate a malicious serial commands that manipulate the CPS control during the operation.",
+                    "Report your findings to TA3."
 
                 "TA3 Exploit Steps",
-                    "Configure the HackRF device and replace the GPS antenna.",
+                    "Use optical imaging tools to catalog all of the components on the CPS.",
+                    "Identify which components contained memory that might contain firmware.",
+                    "Extract the firmware from the memory component.",
+                    "Check if there's a GPS receiver on the CPS.",
+                    "Deploy and configure the GPS spoofer (e.g., HackRF) and replace the GPS antenna.",
                     "Transmit the spoofed GPS signal using specific commands.",
                     "Connect the Arduino Uno R4 to a computer via USB.",
                     "Open a terminal emulator or use provided scripts to send commands.",
