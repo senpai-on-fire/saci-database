@@ -78,7 +78,8 @@ class AcousticSpoofingAccelerometerCPV(CPV):
                 "TA2 Exploit Steps",
                     "Implement a simulation of MEMS accelerometer response to acoustic interference.",
                     "Run CPS simulation to analyze how manipulated accelerometer readings translate to control instability in the CPS device.",
-                    "Collaborate with TA2 to determine the desired control impact (e.g., altitude drop, drift, erratic movement).",    
+                    "Collaborate with TA2 to determine the desired control impact (e.g., altitude drop, drift, erratic movement).",   
+                    "Report the findings to TA3 to conduct the experiments on the physical CPS device", 
                 
                 "TA3 Exploit Steps",
                     "Use imaging tools to catalog all components on the CPS.",

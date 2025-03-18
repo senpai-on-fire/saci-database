@@ -70,7 +70,7 @@ class WiFiDeauthDosCPV(CPV):
                     "TA2 Exploit Steps",
                         "Implement a simulation of a Wi-Fi deauthentication attack on the CPS network.",
                         "Run the simulation to analyze how loss of communication translates to control failure in the CPS device.",
-                        "Report the findings to TA3 to test the Wifi de-authentication attack on the physical CPS device."
+                        "Report the findings to TA3 to conduct the experiments on the physical CPS device",
                     
                     "TA3 Exploit Steps",
                         "Use imaging tools and other techniques to catalog all Wi-Fi-related hardware components on the CPS.",

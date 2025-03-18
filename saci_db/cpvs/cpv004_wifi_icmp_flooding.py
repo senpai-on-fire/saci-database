@@ -72,6 +72,7 @@ class WiFiICMPFloodingCPV(CPV):
                     "Implement a simulation of an ICMP flooding attack on the CPS network.",
                     "Run the simulation to analyze how loss of communication translates to control failure in the CPS device.",
                     "Check with TA1 to determine the desired impact on control.",
+                    "Report the findings to TA3 to conduct the experiments on the physical CPS device",
 
                 "TA3 Exploit Steps",
                     "Set the Wi-Fi card into monitor mode and find the BSSID and channel number for the CPS's Wi-Fi network.",

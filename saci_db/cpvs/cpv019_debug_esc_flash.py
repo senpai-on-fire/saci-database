@@ -52,10 +52,21 @@ class DebugESCFlashCPV(CPV):
                                                description='Motor stops spinning')],
             exploit_steps=[
                 "TA1 Exploit Steps",
+                    "Reverse-engineer the ESC firmware to determine if its debug interface is vulnerable to command injection.",
+                    "Identify if the ESC firmware has failsafe mechanisms to recover from malicious commands over the debug interface.",
+                    "Analyze the ESC control logic how malicious debug commands can manipulate the motor's throttle.",
+                    "Create models for the following components: ESC with debug interface, Battery, ESC logic and output, Actuators (e.g., motors) controlled by the ESC.",
+                    "Report to TA2 any required enrionnemental factors (e.g., temperature) to simulate the battery state."
                 
                 "TA2 Exploit Steps",
+                    "Create an automata to simulate a malicious debug command injection on the BMS.",
+                    "Use a fuzzing tool to fuzz the functions and generate a malicious debug commands that directly manipulate the motor's spinning.",
+                    "Report the findings to TA3 to conduct the experiments on the physical CPS device",
 
                 "TA3 Exploit Steps",
+                    "Use optical imaging tools to catalog all of the components on the CPS.",
+                    "Identify which components contained memory that might contain ESC firmware.",
+                    "Extract the ESC firmware from the ESC memory component.",
                     "Send a throttle command of zero to initialize the motor/firmware state.",   
                     "Send a throttle command to engage the motor.",              
                     "Observe that the motor begins to spin.",    

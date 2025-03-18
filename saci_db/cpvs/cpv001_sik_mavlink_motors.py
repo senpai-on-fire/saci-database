@@ -89,7 +89,7 @@ class MavlinkSiKCPV(CPV):
             "TA2 Exploit Steps",
                 "Simulate the impact of sending a malicious MAVLink disarm command to the CPS.",
                 "Collaborate with TA1 to determine the severity of the attack and possible escalation paths.",
-                "Report the findings to TA3 to test the MAVLink disarm attack on the physical CPS device"
+                "Report the findings to TA3 to conduct the experiments on the physical CPS device",
         
             "TA3 Exploit Steps",
                 "Use optical imaging tools to catalog all of the components on the CPS.",

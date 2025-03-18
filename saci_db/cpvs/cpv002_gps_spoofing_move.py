@@ -73,7 +73,7 @@ class GPSSpoofingMoveCPV(CPV):
                     "Simulate the impact of the GPS spoofing to verifty the impact on the CPS.",
                     "Start the simulation by turning-on the CPS and start its intended operation.",
                     "At arbitrary time x, start the GPS spoofing attack and verify if the CPS changes its trajectory.",
-                    "Report your findings to TA3.",
+                    "Report the findings to TA3 to conduct the experiments on the physical CPS device",
 
                 "TA3 Exploit Steps",
                     "Use optical imaging tools to catalog all of the components on the CPS.",

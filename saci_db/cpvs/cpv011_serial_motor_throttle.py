@@ -63,7 +63,8 @@ class SerialThrottleCPV(CPV):
                 
                 "TA2 Exploit Steps",
                     "Create an automata to simulate a malicious serial command injection on the CPS dynamics.",
-                    "Use a fuzzing tool to fuzz the functions and generate a malicious serial commands that manipulate the CPS throttle."
+                    "Use a fuzzing tool to fuzz the functions and generate a malicious serial commands that manipulate the CPS throttle.",
+                    "Report the findings to TA3 to conduct the experiments on the physical CPS device",
 
                 "TA3 Exploit Steps",
                     "Open a terminal emulator and connect to the serial device exposed by the CPS device. You may need root access.",

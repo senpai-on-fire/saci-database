@@ -65,15 +65,16 @@ class WiFiDeauthQuadDosCPV(CPV):
                                                description='The user can not stop the CPS')],
            exploit_steps = [
                 "TA1 Exploit Steps",
-                    "Get the extracted CPS firmware from TA3.",
                     "Reverse-engineer the CPS firmware to determine if the Wi-Fi implements security mechanisms such as Management Frame Protection (MFP).",
                     "Identify if the firmware has failsafe mechanisms to recover from deauthentication or if it enters a critical state.",
                     "Analyze the CPS control logic to assess how disconnection impacts movement and operation.",
+                    "Create models for the following components: Ground control station, Wifi, CPS control logic, ESC logic and output, CPS actuators (e.g., motors) controlled by the ESC.",
+                    "Report to TA2 any required physical parameters to simulate the CPS dynamics"
                
                 "TA2 Exploit Steps",
                     "Implement a simulation of a Wi-Fi deauthentication attack on the CPS network.",
                     "Run the simulation to analyze how loss of communication translates to control failure in the CPS device.",
-                    "Collaborate with TA1 to determine the desired impact on control.",
+                    "Report the findings to TA3 to conduct the experiments on the physical CPS device",
                 
                 "TA3 Exploit Steps",
                     "Use imaging tools and other techniques to catalog all Wi-Fi-related hardware components on the CPS.",

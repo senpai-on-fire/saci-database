@@ -78,7 +78,8 @@ class SerialRollOverCPV(CPV):
                 
                 "TA2 Exploit Steps",
                     "Create an automata to simulate the buffer overflow attack on the webserver."
-                    "Use a fuzzing tool to fuzz the functions and generate an HTTP Get request that triggers the buffer overflow."
+                    "Use a fuzzing tool to fuzz the functions and generate an HTTP Get request that triggers the buffer overflow.",
+                    "Report the findings to TA3 to conduct the experiments on the physical CPS device",
 
                 "TA3 Exploit Steps",
                     "Use Optical imaging tools to catalog all of the components on the rover.",

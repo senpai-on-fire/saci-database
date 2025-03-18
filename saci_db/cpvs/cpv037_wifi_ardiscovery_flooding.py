@@ -79,15 +79,22 @@ class ARDiscoveryDoSCPV(CPV):
 
             exploit_steps=[
                 "TA1 Exploit Steps",
-                    "Get the extracted CPS firmware from TA3.",
-                    "Reverse-engineer the CPS firmware to determine if the Wi-Fi implements security mechanisms",
+                    "Reverse-engineer the CPS firmware to determine if the Wi-Fi implements security mechanisms such as Management Frame Protection (MFP).",
+                    "Identify if the firmware has failsafe mechanisms to recover from ARDiscovery flooding attack.",
+                    "Analyze the CPS control logic to assess how high frequency ARDiscovery requests impact the CPS movement and operation.",
+                    "Create models for the following components: Ground Control Station, Wifi with an ARDisovery protocol, CPS control logic, ESC logic and output, CPS actuators (e.g., motors) controlled by the ESC.",
+                    "Report to TA2 any required physical parameters to simulate the CPS dynamics",
                 
                 "TA2 Exploit Steps",
                     "Implement a simulation of an ARDiscovery flooding attack over Wi-Fi in the CPS model.",
                     "Run the simulation to analyze how loss of communication translates to control failure in the CPS device.",
                     "Check with TA1 to determine the desired impact on control.",
+                    "Report the findings to TA3 to conduct the experiments on the physical CPS device",
 
                 "TA3 Exploit Steps",
+                    "Use imaging tools and other techniques to catalog all Wi-Fi-related hardware components on the CPS.",
+                    "Identify if the ARDiscovery protocol is used in the networking system.",
+                    "Identify the specific Wi-Fi module and extract the Wi-Fi SSID and password.",
                     "Prepare the hardware: Ensure you have a Wi-Fi card capable of monitor mode and necessary tools (e.g., Scapy, Wireshark).",
                     "Scan the Wi-Fi network to identify the CPS's SSID using tools like `airodump-ng`.",
                     "Determine the CPS's channel and BSSID via network scanning tools.",

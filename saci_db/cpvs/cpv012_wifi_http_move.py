@@ -64,7 +64,8 @@ class WifiWebMoveCPV(CPV):
                 
                 "TA2 Exploit Steps",
                     "Create an automata to simulate a malicious HTTP request injection the CPS."
-                    "Use a fuzzing tool to fuzz the functions and generate a malicious HTTP request that manipulates the move button."
+                    "Use a fuzzing tool to fuzz the functions and generate a malicious HTTP request that manipulates the move button.",
+                    "Report the findings to TA3 to conduct the experiments on the physical CPS device",
 
                 "TA3 Exploit Steps",
                     "Use Optical imaging tools to catalog all of the components on the rover.",

@@ -78,6 +78,7 @@ class AcousticSpoofingGyroscopeCPV(CPV):
                     "Implement a simulation of MEMS gyroscope response to acoustic interference.",
                     "Inject synthetic acoustic noise into the control loop and measure PID controller response.",
                     "Simulate how abnormal gyroscope outputs propagate through the CPS system.",     
+                    "Report the findings to TA3 to conduct the experiments on the physical CPS device",
                 
                 "TA3 Exploit Steps",
                     "Use imaging tools and other techniques to catalog all components on the CPS.",

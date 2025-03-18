@@ -75,6 +75,7 @@ class AcousticSpoofingMagnetometerCPV(CPV):
                     "Implement a simulation of MEMS magnetometer response to acoustic interference.",
                     "Inject synthetic acoustic noise into the control loop and measure PID controller response.",
                     "Simulate how abnormal magnetometer outputs propagate through the CPS system.",
+                    "Report the findings to TA3 to conduct the experiments on the physical CPS device",
                 
                 "TA3 Exploit Steps",
                     "Determine the Resonant Frequency of the Magnetometer Sensor installed on the CPS.",

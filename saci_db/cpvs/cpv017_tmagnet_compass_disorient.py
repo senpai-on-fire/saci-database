@@ -71,7 +71,7 @@ class CompassTemporarySpoofingCPV(CPV):
                 "Start the simulation by turning-on the CPS device.",
                 "At arbitrary time x, start injecting errors into the compass sensor for y seconds",
                 "Change the orientation of the CPS in the simulation and observe the impact on the compass readings"
-                "Report the findings to TA3 to test the magnetic interference attack on the physical CPS device",
+                "Report the findings to TA3 to conduct the experiments on the physical CPS device",
 
             "TA3 Exploit Steps",
                 "Use Optical imaging tools to catalog all of the components on the CPS device.",

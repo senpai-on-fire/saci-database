@@ -69,7 +69,7 @@ class SerialArduinoControlCPV(CPV):
                     "At arbitrary time x, start the GPS spoofing attack and verify if the CPS remains changes its trajectory.",
                     "Create an automata to simulate a malicious serial command injection on the CPS dynamics.",
                     "Use a fuzzing tool to fuzz the functions and generate a malicious serial commands that manipulate the CPS control during the operation.",
-                    "Report your findings to TA3."
+                    "Report the findings to TA3 to conduct the experiments on the physical CPS device",
 
                 "TA3 Exploit Steps",
                     "Use optical imaging tools to catalog all of the components on the CPS.",
