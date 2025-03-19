@@ -62,7 +62,6 @@ class GPSSpoofingMoveCPV(CPV):
             ],
             exploit_steps=[
                  "TA1 Exploit Steps",
-                    "Get the extracted CPS firmware from TA3.",
                     "Reverse-engineer the CPS firmware to determine if it implements security mechanisms such as GPS encryption, filtering, or authentication.",
                     "Identify if the firmware has failsafe mechanisms to prevent GPS spoofing.",
                     "Analyze the CPS control logic to assess how spoofing the GPS readings affects the CPS’s operation.",

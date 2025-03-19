@@ -59,7 +59,6 @@ class SerialESCResetCPV(CPV):
                     "Create models for the following components: ESC with serial interface, Battery, ESC logic and output, Actuators (e.g., motors) controlled by the ESC.",
                     "Report to TA2 any required enrionnemental factors (e.g., temperature) to simulate the battery state."
                 
-                
                 "TA2 Exploit Steps",
                     "Create an automata to simulate a malicious serial command injection on the ESC.",
                     "Use a fuzzing tool to fuzz the functions and generate a malicious serial commands that directly reset the ESC operation.",

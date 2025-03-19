@@ -58,7 +58,6 @@ class WifiWebCrashCPV(CPV):
 
             exploit_steps=[
                 "TA1 Exploit Steps",
-                    "Get the extracted CPS firmware from TA3.",
                     "Reverse-engineer the CPS firmware to determine if the Wi-Fi implements security mechanisms such as Management Frame Protection (MFP).",
                     "Reverse-engineer the CPS firmware to determine if the ICMP protocol is used",
                     "Analyze the CPS control logic to assess how disconnection impacts CPS dynamics.",
