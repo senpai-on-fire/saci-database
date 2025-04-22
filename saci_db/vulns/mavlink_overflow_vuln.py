@@ -26,9 +26,10 @@ class MavlinkOverflow(PublicSecretVulnerability):
                 "CWE-119: Improper Restriction of Operations within the Bounds of a Memory Buffer",
                 "CWE-94: Improper Control of Generation of Code ('Code Injection')",
                 "CWE-20: Improper Input Validation",
-                "CWE-400: Uncontrolled Resource Consumption"]
+                "CWE-400: Uncontrolled Resource Consumption"],
+            attack_vectors_exploits = []
         )
-        self.input = "overflow the mavlink protocol"
+        #self.input = "overflow the mavlink protocol"
 
     def exists(self, device: Device) -> bool:
         for comp in device.components:

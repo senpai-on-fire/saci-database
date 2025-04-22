@@ -53,8 +53,23 @@ class SerialESCOverflowCPV(CPV):
                                                description='Motors stop spinning'),],
             
             exploit_steps=[
-                "Connect the USB-TTL Serial Adapter to the RC_1 test point on the ESC.",
-                "Send a Serial Command that is longer than the buffer.",
+                "TA1 Exploit Steps",        
+                    "Reverse-engineer the ESC firmware to determine if its serial interface is vulnerable to command injection.",
+                    "Identify if the ESC firmware has failsafe mechanisms to recover from malicious commands over the serial interface.",
+                    "Analyze the ESC control logic and determine how malicious serial commands can manipulate the ESC battery managmenet.",
+                    "Check if the ESC firmware has bounds checking on the serial commands."
+                    "Create models for the following components: ESC with serial interface, Battery, ESC logic and output, Actuators (e.g., motors) controlled by the ESC.",
+                    "Report to TA2 any required enrionnemental factors (e.g., temperature) to simulate the battery state."
+
+                "TA2 Exploit Steps",
+                    "Create an automata to simulate a buffer overflow attack via serial interface on the ESC.",
+                    "Use a fuzzing tool to fuzz the functions and generate a malicious serial commands that can trigger a buffer overflow on the ESC.",
+                    "Report the findings to TA3 to conduct the experiments on the physical CPS device",
+
+                "TA3 Exploit Steps",
+                    "Connect the USB-TTL Serial Adapter to the RC_1 test point on the ESC.",
+                    "Send a the serial command found by TA1/TA2 that is longer than the buffer.",
+                    "Observe the impact on the CPS dynamics (motor should stop spinning)"
             ],
 
             associated_files = [],

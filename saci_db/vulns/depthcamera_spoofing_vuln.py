@@ -4,7 +4,8 @@ from saci.modeling import SpoofingVulnerability
 from saci.modeling.device import Device
 from saci.modeling.device.sensor.depth_camera import DepthCamera
 from saci.modeling.communication import AuthenticatedCommunication, ExternalInput
-from saci.modeling.attack_vector import BaseAttackVector, OpticalAttackSignal, BaseCompEffect
+from saci.modeling.attack import BaseAttackVector, OpticalAttackSignal, BaseCompEffect
+
 
 # Predicate to define formal reasoning logic for depth camera spoofing attacks
 class DepthCameraSpoofingPred(Predicate):

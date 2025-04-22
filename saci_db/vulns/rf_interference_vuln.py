@@ -31,7 +31,8 @@ class RFInterferenceVuln(PublicSecretVulnerability):
                 "CWE-693: Protection Mechanism Failure",
                 "CWE-661: Improper Handling of Overlapping or Conflicting Actions",
                 "CWE-1188: Insecure Default Initialization of Resource"
-            ]     
+            ],
+            attack_vectors_exploits = []     
         )
         # Human-readable description of the attack input scenario
         self.input = "Deliberate RF interference targeting the UAV's communication frequencies."

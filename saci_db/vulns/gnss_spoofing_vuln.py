@@ -6,8 +6,8 @@ from saci.modeling import SpoofingVulnerability
 from saci.modeling.device import Device
 from saci.modeling.device.sensor import GNSSReceiver
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
-from saci.modeling.attack_vector import BaseAttackVector, GNSSAttackSignal
-from saci.modeling.comp_effect import BaseCompEffect
+from saci.modeling.attack import BaseAttackVector, GNSSAttackSignal, BaseCompEffect
+
 
 # Predicate to define formal reasoning logic for GNSS spoofing attacks
 class GNSSSpoofingPred(Predicate):

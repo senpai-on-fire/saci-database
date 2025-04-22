@@ -4,7 +4,7 @@ from clorm import Predicate
 from saci.modeling import SpoofingVulnerability
 from saci.modeling.device import Device, SMBus
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
-from saci.modeling.attack_vector import BaseAttackVector, SerialAttackSignal
+from saci.modeling.attack import BaseAttackVector, SerialAttackSignal
 from saci.modeling.attack import BaseCompEffect
 
 # Predicate to define formal reasoning logic for SMBus vulnerabilities

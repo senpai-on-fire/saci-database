@@ -5,8 +5,8 @@ from clorm import Predicate
 from saci.modeling import SpoofingVulnerability
 from saci.modeling.device import PWMChannel, Device
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
-from saci.modeling.attack_vector import BaseAttackVector, MagneticAttackSignal
-from saci.modeling.comp_effect import BaseCompEffect
+from saci.modeling.attack import BaseAttackVector, MagneticAttackSignal, BaseCompEffect
+
 
 # Predicate to define formal reasoning logic for PWM spoofing attacks
 class PWMSpoofingPred(Predicate):

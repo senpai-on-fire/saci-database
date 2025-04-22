@@ -16,7 +16,7 @@ class ControllerIntegrityVuln(BaseVulnerability):
     def __init__(self):
         super().__init__(
             # Components vulnerable to integrity manipulation: generic Controller and PX4Controller
-            component=[Controller(), PX4Controller()],
+            component=Controller(),
             # Input: Even though communication is authenticated, the attacker manipulates the data before it reaches the controller
             _input=AuthenticatedCommunication(),
             # Output: Authenticated communication containing manipulated or corrupted data
@@ -32,9 +32,8 @@ class ControllerIntegrityVuln(BaseVulnerability):
                 "CWE-345: Insufficient Verification of Data Authenticity",
                 "CWE-693: Protection Mechanism Failure",
                 "CWE-925: Improper Verification of Integrity Check Value"
-            ]
-
-
+            ],
+            attack_vectors_exploits = []
         )
 
     def exists(self, device: Device) -> bool:

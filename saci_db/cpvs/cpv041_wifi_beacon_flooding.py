@@ -50,7 +50,7 @@ class BeaconFrameFloodingCPV(CPV):
             attack_requirements=[
                 "Computer with Wi-Fi card supporting monitor mode",
                 "Packet crafting tools (e.g., Scapy, aireplay-ng)",
-                "Access to the UAV's Wi-Fi network (proximity)",
+                "Access to the CPS's Wi-Fi network (proximity)",
             ],
 
             attack_vectors=[
@@ -64,7 +64,7 @@ class BeaconFrameFloodingCPV(CPV):
                     configuration={
                         "attack_method": "Flood with beacon frames",
                         "frequency": "High",
-                        "target": "UAV Wi-Fi interface",
+                        "target": "CPS Wi-Fi interface",
                         "frame_type": "beacon",
                         "delivery_method": {
                             "broadcast": True,
@@ -86,24 +86,21 @@ class BeaconFrameFloodingCPV(CPV):
             attack_impacts=[
                 BaseAttackImpact(
                     category="Denial of Service",
-                    description="Prevents the UAV from associating with its controller by overwhelming it with beacon frames."
+                    description="Prevents the CPS from associating with its controller by overwhelming it with beacon frames."
                 )
             ],
 
-            exploit_steps = {
-                "TA1 Exploit Steps": [
+            exploit_steps = [
+                "TA1 Exploit Steps",
                     "Install the ModWifi framework and aircrack-ng suite.",
                     "Set the Wi-Fi interface to monitoring mode.",
-                    "Use airodump-ng to identify the target UAV's Wi-Fi network parameters, including:",
-                    "    - SSID",
-                    "    - Channel",
-                    "    - BSSID",
+                    "Use airodump-ng to identify the target CPS's Wi-Fi network parameters, including:: SSID, Channel, BSSID",
                     "Capture and analyze the following settings in legitimate beacon frames using Wireshark or airodump-ng:",
                     "    - WMM settings",
                     "    - TIM (Traffic Indication Map) elements",
-                    "    - Transmission power constraints"
-                ],
-                "TA2 Exploit Steps": [
+                    "    - Transmission power constraints",
+
+                "TA2 Exploit Steps",
                     "Craft malicious beacon frames with manipulated parameters, including:",
                     "    - Malicious power constraint values",
                     "    - Country information elements",
@@ -111,19 +108,18 @@ class BeaconFrameFloodingCPV(CPV):
                     "Construct malicious beacons with extreme EDCA parameters based on extracted WMM update counts.",
                     "Modify TIM elements to indicate buffered frames waiting for all clients.",
                     "Create malicious beacons with Channel Switch Announcement (CSA) elements.",
-                    "Ensure all attack payloads can be injected through the ModWifi framework."
-                ],
-                "TA3 Exploit Steps": [
+                    "Ensure all attack payloads can be injected through the ModWifi framework.",
+
+                "TA3 Exploit Steps",
                     "Inject forged beacon frames after legitimate ones using the ModWifi framework.",
-                    "Monitor UAV responses using airodump-ng or Wireshark.",
+                    "Monitor CPS responses using airodump-ng or Wireshark.",
                     "Measure network performance changes using iperf3.",
                     "Verify the attack effects on:",
                     "    - Transmission power",
                     "    - Network throughput",
                     "    - Battery consumption",
                     "    - Channel switching"
-                ]
-            },
+                ],
 
             associated_files=[],
             reference_urls=["https://medium.com/@angelinatsuboi/drone-swarmer-uncovering-vulnerabilities-in-open-drone-id-cdd8d1a23c2c",
@@ -131,5 +127,5 @@ class BeaconFrameFloodingCPV(CPV):
         )
 
     def in_goal_state(self, state: GlobalState):
-        # Define the goal state conditions, such as the UAV failing to associate with its controller
+        # Define the goal state conditions, such as the CPS failing to associate with its controller
         return state.has_property("CommunicationLoss", True)

@@ -4,7 +4,8 @@ from saci.modeling import SpoofingVulnerability
 from saci.modeling.device import Device
 from saci.modeling.device.sensor import OpticalFlowSensor
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
-from saci.modeling.attack_vector import BaseAttackVector, ImageAttackSignal, BaseCompEffect
+from saci.modeling.attack import BaseAttackVector, ImageAttackSignal, BaseCompEffect
+
 
 # Predicate to define formal reasoning logic for optical flow spoofing attacks
 class OpticalFlowSpoofingPred(Predicate):

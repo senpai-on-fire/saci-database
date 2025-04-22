@@ -30,7 +30,8 @@ class LackBeaconFilteringVuln(PublicSecretVulnerability):
                 "CWE-290: Authentication Bypass by Capture-replay",
                 "CWE-693: Protection Mechanism Failure",
                 "CWE-916: Use of an Insecure Protocol"
-            ]
+            ],
+            attack_vectors_exploits = []
         )
         self.input = "Flood of malicious beacon frames targeting the UAV's Wi-Fi communication stack."
 

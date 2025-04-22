@@ -4,7 +4,8 @@ from clorm import Predicate, IntegerField
 from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import Device, Wifi, ARDiscovery
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
-from saci.modeling.attack_vector import BaseAttackVector, PacketAttackSignal, BaseCompEffect
+from saci.modeling.attack import BaseAttackVector, PacketAttackSignal, BaseCompEffect
+
 
 # Predicate to define formal reasoning for an ARDiscovery Man-in-the-Middle (MITM) attack
 # Includes a time field to model the timing of the attack

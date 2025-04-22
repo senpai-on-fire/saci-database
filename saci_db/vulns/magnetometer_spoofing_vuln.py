@@ -6,8 +6,8 @@ from saci.modeling import SpoofingVulnerability
 from saci.modeling.device import Device
 from saci.modeling.device.sensor import Magnetometer
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
-from saci.modeling.attack_vector import BaseAttackVector, MagneticAttackSignal, AcousticAttackSignal
-from saci.modeling.comp_effect import BaseCompEffect
+from saci.modeling.attack import BaseAttackVector, MagneticAttackSignal, AcousticAttackSignal, BaseCompEffect
+
 
 # Predicate to define formal reasoning logic for magnetometer spoofing attacks
 class MagnetometerSpoofingPred(Predicate):

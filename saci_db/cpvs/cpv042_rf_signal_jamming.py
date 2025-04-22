@@ -52,8 +52,8 @@ class RFJammingCPV(CPV):
 
             attack_requirements=[
                 "RF signal generator or jammer",
-                "Knowledge of the UAV's communication frequency (e.g., 2.4 GHz or 5 GHz)",
-                "Proximity to the UAV's operating area",
+                "Knowledge of the CPS's communication frequency (e.g., 2.4 GHz or 5 GHz)",
+                "Proximity to the CPS's operating area",
             ],
 
             attack_vectors=[
@@ -68,7 +68,7 @@ class RFJammingCPV(CPV):
                         "attack_method": "Broadband RF jamming",
                         "frequency_range": "2.4 GHz or 5 GHz",
                         "hardware": "HackRF",
-                        "target": "UAV communication channel",
+                        "target": "CPS communication channel",
                     },
                 )
             ],
@@ -76,35 +76,33 @@ class RFJammingCPV(CPV):
             attack_impacts=[
                 BaseAttackImpact(
                     category="Denial of Service",
-                    description="Disrupts telemetry and control signals, causing the UAV to lose communication with its controller."
+                    description="Disrupts telemetry and control signals, causing the CPS to lose communication with its controller."
                 )
             ],
 
-            exploit_steps = {
-                "TA1 Exploit Steps": [
+            exploit_steps = [
+                "TA1 Exploit Steps",
                     "Identify the communication frequencies used between the Ground Control Station (GCS) and the drone running ArduPilot.",
                     "Common frequency bands include:",
                     "    - 2.4 GHz (Wi-Fi, telemetry control).",
                     "    - 5.8 GHz (video transmission).",
                     "Use software-defined radio (SDR) tools such as HackRF One or RTL-SDR to analyze real-time frequency spectrums.",
-                ],
-                "TA2 Exploit Steps": [
+                
+                "TA2 Exploit Steps",
                     "Select and configure appropriate RF jamming equipment based on identified frequencies.",
                     "    - Choose between omnidirectional or directional jammers depending on the target environment.",
                     "    - Adjust transmission power to effectively disrupt the drone-GCS link while minimizing unintended interference.",
                     "Deploy the jammer within range of the drone’s operational zone to maximize disruption effectiveness.",
-                ],
-                "TA3 Exploit Steps": [
+            
+                "TA3 Exploit Steps",
                     "Activate the jammer and observe the drone’s behavior in response to communication loss.",
-                    "Monitor potential outcomes based on fail-safe configurations, including:",
+                    "After getting datMonitor potential outcomes based on fail-safe configurations, including:",
                     "    - Hovering in place due to loss of command signals.",
                     "    - Initiating return-to-home (RTH) mode if GPS is available.",
                     "    - Forced landing if the drone enters failsafe mode.",
                     "Record the impact on network performance using iperf3 to measure throughput disruptions.",
                     "Verify the jamming effects by analyzing telemetry dropouts and link quality reduction using tools like airodump-ng or Wireshark.",
-                ]
-            },
-
+                ],
 
             associated_files=[],
             reference_urls=[

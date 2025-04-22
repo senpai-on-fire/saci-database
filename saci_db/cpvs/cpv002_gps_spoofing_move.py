@@ -61,10 +61,27 @@ class GPSSpoofingMoveCPV(CPV):
                 ),
             ],
             exploit_steps=[
-                "Deploy GPS spoofer near the target's vicinity.",
-                "Send modified GPS signals targeting the drone's receiver.",
-                "Observe the manipulated localization output.",
-                "Guide the drone off its intended trajectory or into dangerous zones."
+                 "TA1 Exploit Steps",
+                    "Reverse-engineer the CPS firmware to determine if it implements security mechanisms such as GPS encryption, filtering, or authentication.",
+                    "Identify if the firmware has failsafe mechanisms to prevent GPS spoofing.",
+                    "Analyze the CPS control logic to assess how spoofing the GPS readings affects the CPS’s operation.",
+                    "Create models for the following components: GPS receiver, CPS control logic, ESC logic and output, CPS actuators (e.g., motors) controlled by the ESC.",
+                    "Report to TA2 any required physical parameters to simulate the CPS dynamics"
+                
+                "TA2 Exploit Steps",
+                    "Simulate the impact of the GPS spoofing to verifty the impact on the CPS.",
+                    "Start the simulation by turning-on the CPS and start its intended operation.",
+                    "At arbitrary time x, start the GPS spoofing attack and verify if the CPS changes its trajectory.",
+                    "Report the findings to TA3 to conduct the experiments on the physical CPS device",
+
+                "TA3 Exploit Steps",
+                    "Use optical imaging tools to catalog all of the components on the CPS.",
+                    "Identify which components contained memory that might contain firmware.",
+                    "Extract the firmware from the memory component.",
+                    "Check if there's a GPS receiver on the CPS. "
+                    "Deploy a GPS spoofer (e.g., HackRF) near the target's vicinity.",
+                    "Send modified GPS signals targeting the drone's receiver.",
+                    "Observe the manipulated localization output.",
             ],
             associated_files=[],
             reference_urls=[

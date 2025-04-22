@@ -47,7 +47,7 @@ class EMISpoofingMagnetometerCPV(CPV):
 
             attack_requirements=[
                 "High-power EMI emitter capable of generating magnetic field interference",
-                "Proximity to the UAV or line-of-sight to its magnetometer sensor",
+                "Proximity to the CPS or line-of-sight to its magnetometer sensor",
                 "Knowledge of the magnetometer sensor's operating characteristics",
             ],
 
@@ -71,16 +71,32 @@ class EMISpoofingMagnetometerCPV(CPV):
             attack_impacts=[
                 BaseAttackImpact(
                     category="Denial of Service",
-                    description="Causes the UAV to miscalculate its heading due to corrupted magnetometer data."
+                    description="Causes the CPS to miscalculate its heading due to corrupted magnetometer data."
                 )
             ],
 
             exploit_steps=[
-                "Identify the operating characteristics and sensitivity range of the UAV's magnetometer sensor.",
-                "Acquire or construct a high-power EMI emitter capable of generating interference within the identified sensitivity range.",
-                "Position the EMI emitter in proximity to the UAV, ensuring line-of-sight to the magnetometer sensor.",
-                "Activate the EMI emitter to introduce interference, corrupting the magnetometer sensor's readings.",
-                "Monitor the UAV's behavior for signs of orientation miscalculation or navigation errors.",
+                "TA1 Exploit Steps",
+                    "Model the impact of fault injection into the serial communication channel on the drone flight to verify the validity of the attack.",
+                            "The model must include:",
+                            "    - Controller attitude logic algorithm.",
+                            "    - Magnetoemter sensor outputs at the bit level.",
+                            "    - Any required physical parameters to simulate CPS operation.",
+                            "    - Electronic speed controller logic and output.",
+                            "    - CPS actuators (e.g., motors) controlled by the ESC.",
+                
+                "TA2 Exploit Steps",
+                    "Simulate the impact of fault injection into the magnetometer sensor readings.",
+                    "At arbitrary time x, start the fault injection into the magnetometer sensor and verify the attack impact.",
+                    "This simulation does not need to include any ElectroMagnetic Interference (EMI); instead, force random bits to be transmitted throughout the simulation.",
+                    "Report your findings to TA3.",
+                
+                "TA3 Exploit Steps",
+                    "Identify the operating characteristics and sensitivity range of the CPS's magnetometer sensor.",
+                    "Acquire or construct a high-power EMI emitter capable of generating interference within the identified sensitivity range.",
+                    "Position the EMI emitter in proximity to the CPS, ensuring line-of-sight to the magnetometer sensor.",
+                    "Activate the EMI emitter to introduce interference, corrupting the magnetometer sensor's readings.",
+                    "Monitor the CPS's behavior for signs of orientation miscalculation or navigation errors.",
             ],
 
             associated_files=[],

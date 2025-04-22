@@ -30,7 +30,8 @@ class LackEMIPWMShieldingVuln(BaseVulnerability):
                 "CWE-1188: Insecure Default Initialization of Resource",
                 "CWE-770: Allocation of Resources Without Limits or Throttling",
                 "CWE-400: Uncontrolled Resource Consumption"
-            ]
+            ],
+            attack_vectors_exploits = []
 
         )
     

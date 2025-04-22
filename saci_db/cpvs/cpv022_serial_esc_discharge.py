@@ -53,8 +53,21 @@ class SerialESCDischargeCPV(CPV):
                                                description='ESC will not limit battery discharge'),],
             
             exploit_steps=[
-                "Connect the USB-TTL Serial Adapter to the RC_1 test point on the ESC.",
-                "Send the Serial Command 'set prot_cells 1' to the ESC.",
+                "TA1 Exploit Steps",
+                    "Reverse-engineer the ESC firmware to determine if its serial interface is vulnerable to command injection.",
+                    "Identify if the ESC firmware has failsafe mechanisms to recover from malicious commands over the serial interface.",
+                    "Analyze the ESC control logic and determine how malicious serial commands can manipulate the ESC battery managmenet.",
+                    "Create models for the following components: ESC with serial interface, Battery, ESC logic and output, Actuators (e.g., motors) controlled by the ESC.",
+                    "Report to TA2 any required enrionnemental factors (e.g., temperature) to simulate the battery state."
+                
+                "TA2 Exploit Steps",
+                    "Create an automata to simulate a malicious serial command injection on the ESC.",
+                    "Use a fuzzing tool to fuzz the functions and generate a malicious serial commands that manipulated the battery discharge by the ESC.",
+                    "Report the findings to TA3 to conduct the experiments on the physical CPS device",
+
+                "TA3 Exploit Steps",
+                    "Connect the USB-TTL Serial Adapter to the RC_1 test point on the ESC.",
+                    "Send the Serial Command 'set prot_cells 1' to the ESC.",
             ],
 
             associated_files = [],
