@@ -5,6 +5,7 @@ from .cpv013_gps_spoofing_loop import *
 from .cpv014_serial_arduino_control import *
 from .cpv015_wifi_http_stop import *
 from .cpv016_serial_motor_redirect import *
+from .cpv061_serial_motor_tone import *
 from .cpv017_tmagnet_compass_disorient import *
 from .cpv018_smbus_battery_shutdown import *
 from .cpv019_debug_esc_flash import *
