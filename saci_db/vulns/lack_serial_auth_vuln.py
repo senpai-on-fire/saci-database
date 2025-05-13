@@ -30,7 +30,8 @@ class LackSerialAuthenticationVuln(BaseVulnerability):
                 "CWE-345: Insufficient Verification of Data Authenticity",
                 "CWE-918: Server-Side Request Forgery (SSRF)",
                 "CWE-1188: Insecure Default Initialization of Resource"
-            ]
+            ],
+            attack_vectors_exploits = []
         )
     
     def exists(self, device: Device) -> bool:

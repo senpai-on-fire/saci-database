@@ -4,6 +4,8 @@ from clorm import Predicate, IntegerField
 from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import Wifi, Device, ARDiscovery
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
+from saci.modeling.attack import BaseAttackVector, PacketAttackSignal, BaseCompEffect
+
 
 # Predicate to define formal reasoning logic for ARDiscovery buffer overflow attacks
 # Includes a `time` field to represent the timing of the overflow event
@@ -30,7 +32,44 @@ class ARDiscoveryOverflowVuln(PublicSecretVulnerability):
                 "CWE-119: Improper Restriction of Operations within the Bounds of a Memory Buffer",
                 "CWE-94: Improper Control of Generation of Code ('Code Injection')",
                 "CWE-20: Improper Input Validation",
-                "CWE-400: Uncontrolled Resource Consumption"]
+                "CWE-400: Uncontrolled Resource Consumption"
+            ],
+            attack_vectors_exploits = [
+                {
+                    "attack_vector": [BaseAttackVector(
+                        name="ARDiscovery Buffer Overflow Attack",
+                        signal=PacketAttackSignal(
+                            src=ExternalInput(),
+                            dst=ARDiscovery(),
+                        ),
+                        required_access_level="Proximity",
+                        configuration={
+                            "target_protocol": "ARDiscovery",
+                            "packet_size": "Exceeds buffer limit",
+                            "interface_name": "wireless",
+                            "attack_args": "Oversized payload with malicious data",
+                        },
+                    )],
+                    "related_cpv": [
+                        "ARDiscoveryBufferOverflowCPV"
+                    ],
+                    "comp_attack_effect": [
+                        BaseCompEffect(category='Availability',
+                                       description='Buffer overflow can cause the UAV to crash or exhibit undefined behavior, disrupting operations.')
+                    ],
+                    "exploit_steps": [
+                        "Prepare the hardware and tools: Ensure you have a Wi-Fi card and install required tools like Scapy and Wireshark.",
+                        "Capture and analyze ARDiscovery packets using Wireshark to understand the protocol's structure.",
+                        "Craft a malicious packet with an oversized payload that exceeds the ARDiscovery protocol's buffer size.",
+                        "Use Scapy to send the crafted packet to the UAV over its Wi-Fi network.",
+                        "Observe the UAV's behavior to verify a crash or unexpected response, such as rebooting or freezing.",
+                        "Optional: Explore if remote code execution is possible by embedding shellcode in the payload."
+                    ],
+                    "reference_urls": [
+                        "https://ieeexplore.ieee.org/document/7795496"
+                    ]
+                }
+            ]
         )
         # Description of the attack input scenario
         self.input = "Overflow the ARDiscovery protocol by sending oversized or malformed packets."

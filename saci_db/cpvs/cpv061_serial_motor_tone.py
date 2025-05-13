@@ -71,7 +71,7 @@ class SerialToneCPV(CPV):
                 "TA2 Exploit Steps",
                     "Simulate the fault injection attack to trigger audible tones in motors",
                     "Find all the commands that trigger the attack based on TA1 models findings",
-                
+              
                 "TA3 Exploit Steps",
                     "Power CPS on", 
                     "Connect a USB cord to the USB-C port on the Arduino Uno R4",

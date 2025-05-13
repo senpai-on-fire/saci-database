@@ -34,7 +34,7 @@ class GNSSFlightModeSpoofingCPV(CPV):
             
             vulnerabilities=[GNSSSpoofingVuln(), LackGNSSFilteringVuln(), ControllerIntegrityVuln()],
             
-            goals=["Redirect UAV from its flight trajectory to an attacker-defined location"],
+            goals=["Redirect CPS from its flight trajectory to an attacker-defined location"],
             
             initial_conditions={
                 "Position": "Any",
@@ -46,7 +46,7 @@ class GNSSFlightModeSpoofingCPV(CPV):
             
             attack_requirements=[
                 "GNSS spoofer (e.g., HackRF SDR)",
-                "Access to the UAV's operational trajectory",
+                "Access to the CPS's operational trajectory",
             ],
             
             attack_vectors=[
@@ -64,19 +64,35 @@ class GNSSFlightModeSpoofingCPV(CPV):
             
             attack_impacts=[
                 BaseAttackImpact(
-                    category="Flight Path Manipulation",
+                    category="Manipulation of Control",
                     description=(
-                        "The attacker manipulates GNSS signals to deviate the UAV's flight trajectory from its intended course, "
+                        "The attacker manipulates GNSS signals to deviate the CPS's trajectory from its intended course, "
                         "redirecting it to an attacker-defined destination."
                     ),
                 ),
             ],
             
             exploit_steps=[
-                "Deploy GNSS spoofer near the UAV’s operational trajectory.",
-                "Inject spoofed GNSS signals to alter the UAV's perceived position.",
-                "Gradually manipulate the trajectory by sending dynamically adjusted GNSS data.",
-                "Redirect the UAV to a target location without triggering safety mechanisms.",
+                "TA1 Exploit Steps",
+                    "Model the impact of spoofing into the GNSS receiver on the CPS dynamics to verify the attack.",
+                        "The model must include:",
+                        "    - Control logic algorithm.",
+                        "    - GNSS receiver sensor.",
+                        "    - Any required physical parameters to simulate CPS dynamics.",
+                        "    - Electronic speed controller logic and output.",
+                        "    - CPS actuators (e.g., motors) controlled by the ESC.",
+
+                "TA2 Exploit Steps",
+                    "Simulate the impact of GNSS spoofing into the CPS receiver to verify the validity of the attack.",
+                    "Start the simulation by allowing the CPS to start its intended operation.",
+                    "At arbitrary time x, start the GNSS spoofing attack into and verify the attack impact.",
+                    "Report your findings to TA3.",
+
+                "TA3 Exploit Steps",
+                    "Deploy GNSS spoofer near the CPS’s operational trajectory.",
+                    "Inject spoofed GNSS signals to alter the CPS's perceived position.",
+                    "Gradually manipulate the trajectory by sending dynamically adjusted GNSS data.",
+                    "Redirect the CPS to a target location without triggering safety mechanisms.",
             ],
             
             associated_files=[],
@@ -86,11 +102,11 @@ class GNSSFlightModeSpoofingCPV(CPV):
             ],
         )
         
-        self.goal_state = ["UAV successfully follows the spoofed trajectory and reaches the target location"]
+        self.goal_state = ["CPS successfully follows the spoofed trajectory and reaches the target location"]
 
     def in_goal_state(self, state: GlobalState) -> bool:
         target_position = state.get("target_position", None)
-        current_position = state.get("UAV_position", None)
+        current_position = state.get("CPS_position", None)
         
         if target_position and current_position:
             threshold = 5  # Meters

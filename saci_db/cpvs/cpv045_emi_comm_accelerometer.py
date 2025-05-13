@@ -48,7 +48,7 @@ class AccelerometerEMIChannelDisruptionCPV(CPV):
 
             attack_requirements=[
                 "High-power EMI emitter tuned to interfere with the accelerometer communication channel",
-                "Proximity to the UAV's controller or communication pathway",
+                "Proximity to the CPS's controller or communication pathway",
                 "Knowledge of the accelerometer's communication protocol and operating frequencies",
             ],
 
@@ -75,33 +75,25 @@ class AccelerometerEMIChannelDisruptionCPV(CPV):
                 )
             ],
 
-            exploit_steps = {
-                "TA1 Exploit Steps": [
+            exploit_steps = [
+                "TA1 Exploit Steps",
                     "Model the impact of fault injection into the serial communication channel on the drone flight to verify the validity of the attack.",
                     "The model must include:",
                     "    - Controller attitude logic algorithm.",
                     "    - Accelerometer sensor outputs at the bit level.",
                     "    - Accelerometer-Controller communication channel at the bit level.",
                     "    - Any required physical parameters to simulate drone flight.",
-                    "    - Electronic speed controller logic and output."
-                ],
-                "TA2 Exploit Steps": [
+                    "    - Electronic speed controller logic and output.",
+                    "    - CPS actuators (e.g., motors) controlled by the ESC.",
+
+                "TA2 Exploit Steps",
                     "Simulate the impact of fault injection into the serial communication channel on the drone flight to verify the validity of the attack.",
                     "Start the simulation by allowing the drone to fly to a certain altitude and hover.",
                     "At arbitrary time x, start the fault injection into the accelerometer-controller communication channel and verify the attack impact.",
                     "This simulation does not need to include any ElectroMagnetic Interference (EMI); instead, force random bits to be transmitted throughout the simulation.",
-                    "Report your findings to TA3."
-                ],
-                "TA3 Exploit Steps": [
-                    "Record all drone physical properties, including:",
-                    "    - Weight.",
-                    "    - Dimensions.",
-                    "    - Center of gravity.",
-                    "    - Propeller size.",
-                    "    - Number of propellers.",
-                    "    - Blade shape & pitch.",
-                    "    - Number of blades per propeller.",
-                    "Use optical imaging tools to catalog all components of the drone system.",
+                    "Report your findings to TA3.",
+
+                "TA3 Exploit Steps",
                     "Identify the accelerometer's serial communication channel protocol and transmission frequency.",
                     "Wait for TA2 to finish all their steps and receive their findings.",
                     "Identify the system's potential entry points and susceptible frequencies:",
@@ -147,22 +139,8 @@ class AccelerometerEMIChannelDisruptionCPV(CPV):
                     "    - Connect the function generator, antenna, and amplifier.",
                     "    - Point the antenna towards the drone, no further than 50cm away from the drone.",
                     "    - Power on the amplifier and function generator and set it up to generate a sinusoidal signal at the chosen susceptible frequency.",
-                    "    - Monitor the UAV for signs of flight instability or orientation errors caused by corrupted accelerometer data."
+                    "    - Monitor the CPS for signs of flight instability or orientation errors caused by corrupted accelerometer data.",
                 ],
-                "Reference Table": [
-                    "+=========================+==========+==========+=====================================+",
-                    "|       Controller        |  Power   | Distance | Induced voltage / Transmitted power |",
-                    "+=========================+==========+==========+=====================================+",
-                    "| Arduino Uno, Nano, Mega | 100 mW   | 10 cm    |                                     |",
-                    "+-------------------------+----------+----------+-------------------------------------+",
-                    "| Pixhawk4                | 12.6 W   | 10 cm    |                                     |",
-                    "+-------------------------+----------+----------+           0.10152 V/3dBm            +",
-                    "| Pixhawk4                | 100 W    | 50 cm    |                                     |",
-                    "+-------------------------+----------+----------+-------------------------------------+",
-                    "| DJI                     | 30.357 W | 10 cm    |           0.1128 V/3dBm             |",
-                    "+-------------------------+----------+----------+-------------------------------------+"
-                ]
-            },
 
             associated_files=[],
             reference_urls=[

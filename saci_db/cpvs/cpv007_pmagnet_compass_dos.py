@@ -54,10 +54,31 @@ class CompassPermanentSpoofingCPV(CPV):
                                                description='CPS drives in circles without stopping')],
 
             exploit_steps=[
-            "Prepare a powerful magnet with adequate shapes and dimensions.",
-            "Install the magnet on top of the compass.",
-            "Until observing change in the compass readings, keep doing the following: Point the CPS device at a different direction then install the magnet on top of the compass.",
-            "Rotate the CPS device and observe that the compass readings do not significantly change as the CPS rotates.",
+                "TA1 Exploit Steps",
+                    "Reverse engineering the extracted firmware using a combination of standard software reverse engineering tools and Binsync.",
+                    "Provide context for what the firmware is supposed to do when interacting with sensors (e.g., compass).",
+                    "Check if the firmware accepts inputs from the compass sensor.",
+                    "Identify the code that is implementing the CPS heading calculation from the compass.",
+                    "Check if the code implements any filtering mechanism for compass readings.",
+                    "Create models for the following components: Compass, CPS control logic, ESC logic and output, CPS actuators (e.g., motors) controlled by the ESC.",
+                    "Report to TA2 any required physical parameters to simulate the CPS dynamics"
+
+                "TA2 Exploit Steps",
+                    "Simulate the impact of permanent heading mis-calculation on the CPS dynamics",
+                    "Start the simulation by turning-on the CPS.",
+                    "At arbitrary time x, start injecting errors into the compass sensor for y seconds",
+                    "Change the orientation of the CPS in the simulation and observe the impact on the compass readings",
+                    "Report the findings to TA3 to conduct the experiments on the physical CPS device",
+
+                "TA3 Exploit Steps",
+                    "Use Optical imaging tools to catalog all of the components on the CPS.",
+                    "Identify which components contained memory that might contain firmware.",
+                    "Extract the firmware from the memory component.",
+                    "Check if there is a compass (magnetometer) component.",
+                    "Prepare a powerful magnet with adequate shapes and dimensions.",
+                    "Install the magnet on top of the compass.",
+                    "Until observing change in the compass readings, keep doing the following: Point the CPS device at a different direction then install the magnet on top of the compass.",
+                    "Rotate the CPS device and observe that the compass readings do not significantly change as the CPS rotates."
             ],
 
             associated_files = [],

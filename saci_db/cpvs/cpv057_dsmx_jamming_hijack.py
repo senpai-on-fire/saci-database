@@ -34,7 +34,7 @@ class DSMxJammingHijackCPV(CPV):
             
             vulnerabilities=[RFInterferenceVuln(), DSMxJammingProtocolVuln(), ControllerIntegrityVuln()],
             
-            goals=["Hijack the UAV mid-flight by assuming control over DSMx communication"],
+            goals=["Hijack the CPS mid-flight by assuming control over DSMx communication"],
             
             initial_conditions={
                 "Position": "Any",
@@ -48,7 +48,7 @@ class DSMxJammingHijackCPV(CPV):
             
             attack_requirements=[
                 "DSMX signal hijacker (e.g., SDR device or custom hardware)",
-                "Ability to observe DSMx communication (e.g., proximity to UAV)",
+                "Ability to observe DSMx communication (e.g., proximity to CPS)",
             ],
             
             attack_vectors=[
@@ -69,16 +69,27 @@ class DSMxJammingHijackCPV(CPV):
                     category="Control Hijacking",
                     description=(
                         "The attacker brute-forces the DSMx shared secret and uses timing-based attacks to "
-                        "supersede the original controller's signal, enabling them to take full control of the UAV."
+                        "supersede the original controller's signal, enabling them to take full control of the CPS."
                     ),
                 ),
             ],
             
             exploit_steps=[
-                "Deploy a device capable of intercepting DSMx protocol communication in the UAV's vicinity.",
-                "Observe and record DSMx signals to brute-force the shared secret between the UAV and its controller.",
-                "Send timing-based spoofed DSMx signals to override the original transmitter’s control.",
-                "Assume full control of the UAV, disregarding the legitimate controller’s commands.",
+                "TA1 Exploit Steps",
+                    "Get the extracted CPS firmware from TA3.",
+                    "Reverse-engineer the CPS firmware to determine if the DSMX protocol is used",
+                    "Reverse-engineer the CPS firmware to determine if the Radio Transmitter implements security mechanisms",
+                
+                "TA2 Exploit Steps",
+                    "Implement a simulation of an ARDiscovery flooding attack over Wi-Fi in the CPS model.",
+                    "Run the simulation to analyze how loss of communication translates to control failure in the CPS device.",
+                    "Check with TA1 to determine the desired impact on control.",
+                
+                "TA3 Exploit Steps",
+                    "Deploy a device capable of intercepting DSMx protocol communication in the CPS's vicinity.",
+                    "Observe and record DSMx signals to brute-force the shared secret between the CPS and its controller.",
+                    "Send timing-based spoofed DSMx signals to override the original transmitter’s control.",
+                    "Assume full control of the CPS, disregarding the legitimate controller’s commands.",
             ],
             
             associated_files=[],
@@ -89,11 +100,11 @@ class DSMxJammingHijackCPV(CPV):
             ],
         )
         
-        self.goal_state = ["Attacker successfully overrides legitimate DSMx control and takes full command of the UAV"]
+        self.goal_state = ["Attacker successfully overrides legitimate DSMx control and takes full command of the CPS"]
 
     def in_goal_state(self, state: GlobalState) -> bool:
         """
-        Check if the attacker has successfully hijacked the UAV's control.
+        Check if the attacker has successfully hijacked the CPS's control.
         """
         attacker_control = state.get("AttackerControl", False)
         original_controller_disconnected = state.get("OriginalControllerDisconnected", False)

@@ -31,11 +31,12 @@ class UnsecuredTelemetryVuln(PublicSecretVulnerability):
                 "CWE-345: Insufficient Verification of Data Authenticity",
                 "CWE-20: Improper Input Validation",
                 "CWE-1188: Insecure Default Initialization of Resource"
-            ]
+            ],
+            attack_vectors_exploits = []
 
         )
         # Description of the attack scenario
-        self.input = "Intercept and spoof telemetry data due to lack of encryption or authentication."
+        #self.input = "Intercept and spoof telemetry data due to lack of encryption or authentication."
 
     def exists(self, device: Device) -> bool:
         # Iterate through all components of the device

@@ -6,6 +6,8 @@ from saci.modeling import SpoofingVulnerability
 from saci.modeling.device import Device
 from saci.modeling.device.sensor import GNSSReceiver
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
+from saci.modeling.attack import BaseAttackVector, GNSSAttackSignal, BaseCompEffect
+
 
 # Predicate to define formal reasoning logic for GNSS spoofing attacks
 class GNSSSpoofingPred(Predicate):
@@ -32,8 +34,43 @@ class GNSSSpoofingVuln(SpoofingVulnerability):
                 "CWE-693: Protection Mechanism Failure",
                 "CWE-1188: Insecure Default Initialization of Resource",
                 "CWE-354: Improper Validation of Integrity Check Value"
+            ],
+            attack_vectors_exploits = [
+                {
+                    "attack_vector": [
+                        BaseAttackVector(
+                            name="GNSS Signal Injection for Navigation Manipulation",
+                            signal=GNSSAttackSignal(src=ExternalInput(), dst=GNSSReceiver(), modality="gnss_signals"),
+                            required_access_level="Remote",
+                            configuration={
+                                "attack_type": "Navigation Manipulation",
+                                "signal_modality": "gnss_signals",
+                                "target_components": ["GNSSReceiver"],
+                                "required_access": "Remote",
+                            },
+                        )
+                    ],
+                    "related_cpv": [
+                        "GNSSFlightModeSpoofingCPV",
+                        "GNSSLoiterModeSpoofingCPV"
+                    ],
+                    "comp_attack_effect": [
+                        BaseCompEffect(
+                            category='Integrity',
+                            description='GNSS signal manipulation can cause unauthorized device movement, navigation deviation, and safety mechanism bypass through signal data tampering'
+                        )
+                    ],
+                    "exploit_steps": [
+                        "Deploy GNSS spoofer near the UAV's operational trajectory.",
+                        "Inject spoofed GNSS signals to alter the UAV's perceived position.",
+                        "Gradually manipulate the trajectory by sending dynamically adjusted GNSS data.",
+                        "Redirect the UAV to a target location without triggering safety mechanisms."
+                    ],
+                    "reference_urls": [
+                        "https://ieeexplore.ieee.org/abstract/document/8535083"
+                    ]
+                }
             ]
-
         )
 
     def exists(self, device: Device) -> bool:

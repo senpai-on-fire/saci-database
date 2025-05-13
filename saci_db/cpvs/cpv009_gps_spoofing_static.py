@@ -57,8 +57,30 @@ class GPSSpoofingStaticCPV(CPV):
             attack_impacts= [BaseAttackImpact(category='Loss of control',
                                                description='CPS drives in circles without stopping')],
             
-            exploit_steps= ["Configure the HackRF device and replace the GPS antenna.",
-                            "Transmit the spoofed GPS signal using specific commands."],
+            exploit_steps= [
+                "TA1 Exploit Steps",
+                    "Reverse-engineer the CPS firmware to determine if it implements security mechanisms such as GPS encryption, filtering, or authentication.",
+                    "Identify if the firmware has failsafe mechanisms to prevent GPS spoofing.",
+                    "Analyze the CPS control logic to assess how a static spoofed GPS readings affects the CPS’s operation.",
+                    "Create models for the following components: GPS receiver, CPS control logic, ESC logic and output, CPS actuators (e.g., motors) controlled by the ESC.",
+                    "Report to TA2 any required physical parameters to simulate the CPS dynamics"
+                
+                
+                "TA2 Exploit Steps",
+                    "Simulate the impact of the GPS spoofing to verifty the impact on the CPS.",
+                    "Start the simulation by turning-on the CPS and start its intended operation."                    
+                    "At arbitrary time x, start the GPS spoofing attack into and verify if the CPS remains at static position.",
+                    "Report the findings to TA3 to conduct the experiments on the physical CPS device",
+
+                "TA3 Exploit Steps",
+                    "Use optical imaging tools to catalog all of the components on the CPS.",
+                    "Identify which components contained memory that might contain firmware.",
+                    "Extract the firmware from the memory component.",
+                    "Check if there's a GPS receiver on the CPS. "
+                    "Deploy a GPS spoofer (e.g., HackRF) near the target's vicinity.",
+                    "Send modified GPS signals targeting the CPS's receiver.",
+                    "Observe the manipulated localization output.",
+                    ],
             
             associated_files = [],
             reference_urls = ["https://github.com/senpai-on-fire/NGC1B-rover-CPVs/tree/main/CPV007"],

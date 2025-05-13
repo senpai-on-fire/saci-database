@@ -59,6 +59,7 @@ from .cpv006_serial_motor_rollover import *
 from .cpv007_pmagnet_compass_dos import *
 from .cpv008_wifi_webserver_crash import *
 from .cpv009_gps_spoofing_static import *
+from .cpv061_serial_motor_tone import *
 
 
 CPVS = [

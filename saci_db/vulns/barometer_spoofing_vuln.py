@@ -7,6 +7,8 @@ from saci.modeling import SpoofingVulnerability
 from saci.modeling.device import Device
 from saci.modeling.device.sensor.barometer import Barometer, BarometerHWPackage
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
+from saci.modeling.attack import BaseAttackVector, EnvironmentalInterference, BaseCompEffect
+
 
 # Predicate to define formal reasoning logic for barometer spoofing attacks
 class BarometerSpoofingPred(Predicate):
@@ -32,8 +34,43 @@ class BarometerSpoofingVuln(SpoofingVulnerability):
                 "CWE-20: Improper Input Validation",
                 "CWE-693: Protection Mechanism Failure",
                 "CWE-1188: Insecure Default Initialization of Resource"
+            ],
+            attack_vectors_exploits = [
+                {
+                    "attack_vector": [
+                        BaseAttackVector(
+                            name="Barometric Sensor Spoofing",
+                            signal=EnvironmentalInterference(
+                                src=ExternalInput(),
+                                dst=Barometer(),
+                            ),
+                            required_access_level="Proximity",
+                            configuration={
+                                "attack_method": "Tampering with sensor output using audio signals",
+                                "equipment": "Very loud speaker (100dB)",
+                            },
+                        )
+                    ],
+                    "related_cpv": [
+                        "BarometricSensorSpoofingCPV"
+                    ],
+                    "comp_attack_effect": [
+                        BaseCompEffect(
+                            category='Integrity',
+                            description='Audio interference can cause unauthorized altitude perception and navigation errors through signal data tampering'
+                        )
+                    ],
+                    "exploit_steps": [
+                        "Determine the resonant frequency of the barometer sensor installed on the UAV.",
+                        "Point the spoofing audio source device towards the UAV and play the sound noise.",
+                        "Observe the UAV's erratic movements in response to spoofed sensor readings."
+                    ],
+                    "reference_urls": [
+                        "https://ieeexplore.ieee.org/document/8802817",
+                        "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=7961948"
+                    ]
+                }
             ]
-
         )
 
     def exists(self, device: Device) -> bool: 

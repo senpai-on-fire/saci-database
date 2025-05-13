@@ -52,15 +52,31 @@ class SMBusBatteryShutdownCPV(CPV):
             attack_impacts = [BaseAttackImpact(category='Loss of control',
                                                description='system does not provide power to subsystem')],
             exploit_steps=[
-                "Connect an SMBus cable between the SMBus connector on the EV2400 and J3 on the battery monitor board",
-                "Power system on using only battery power",
-                "Observe the system is operational, LEDs on the ESC are on",
-                "Open BQStudio",
-                "If the BQ40Z80 isn't detected automatically BQStudio will prompt the user to select a device",
-                "Once connected through BQStudio, observe that the BQ40Z80 status is displayed on the screen",
-                "In the commands window click SHUTDOWN twice",
-                "The BQ40Z80 will enter shutdown mode disconnecting the power from the system",
-                "Observe the ESC board LEDs are disabled."
+                "TA1 Exploit Steps",
+                    "Reverse-engineer the BMS firmware to determine if its serial interface is vulnerable to command injection.",
+                    "Identify if the BMS firmware has failsafe mechanisms to recover from malicious serial commands.",
+                    "Analyze the battery managmenet system to assess how malicious serial commands can manipulate the ESC and battery.",
+                    "Create models for the following components: BMS with serial interface, Battery, ESC logic and output, Actuators (e.g., motors) controlled by the ESC.",
+                    "Report to TA2 any required enrionnemental factors (e.g., temperature) to simulate the battery state."
+                
+                "TA2 Exploit Steps",
+                    "Create an automata to simulate a malicious serial command injection on the BMS.",
+                    "Use a fuzzing tool to fuzz the functions and generate a malicious serial commands that directly manipulate the battery, ESC, and battery.",
+                    "Report the findings to TA3 to conduct the experiments on the physical CPS device",
+
+                "TA3 Exploit Steps",
+                    "Use optical imaging tools to catalog all of the components on the CPS.",
+                    "Identify which components contained memory that might contain firmware.",
+                    "Extract the BMS firmware from the BMS memory component.",
+                    "Connect an SMBus cable between the SMBus connector on the EV2400 and J3 on the battery monitor board",
+                    "Power system on using only battery power",
+                    "Observe the system is operational, LEDs on the ESC are on",
+                    "Open BQStudio",
+                    "If the BQ40Z80 isn't detected automatically BQStudio will prompt the user to select a device",
+                    "Once connected through BQStudio, observe that the BQ40Z80 status is displayed on the screen",
+                    "In the commands window click SHUTDOWN twice",
+                    "The BQ40Z80 will enter shutdown mode disconnecting the power from the system",
+                    "Observe the ESC board LEDs are disabled."
                 ],
                 
             associated_files=[],

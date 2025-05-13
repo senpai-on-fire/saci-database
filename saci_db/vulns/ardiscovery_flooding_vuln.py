@@ -5,6 +5,7 @@ from clorm import Predicate
 from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import Device, Wifi, ARDiscovery
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
+from saci.modeling.attack import BaseAttackVector, PacketAttackSignal, BaseCompEffect
 
 # Predicate to define formal reasoning logic for ARDiscovery flooding attacks
 class ARDiscoveryFloodPred(Predicate):
@@ -30,8 +31,45 @@ class ARDiscoveryFloodVuln(PublicSecretVulnerability):
                 "CWE-406: Insufficient Control of Network Message Volume (Network Amplification)",
                 "CWE-661: Improper Handling of Overlapping or Conflicting Actions",
                 "CWE-693: Protection Mechanism Failure"
+            ],
+            attack_vectors_exploits = [
+                {
+                    "attack_vector": [BaseAttackVector(
+                        name="ARDiscovery DoS Flooding Attack",
+                        signal=PacketAttackSignal(
+                            src=ExternalInput(),
+                            dst=ARDiscovery(),
+                        ),
+                        required_access_level="Proximity",
+                        configuration={
+                            "target_protocol": "ARDiscovery",
+                            "flood_type": "Malformed/Excessive ARDiscovery Requests",
+                            "interface_name": "wireless",
+                            "attack_args": "--max_requests 1000/sec",
+                        },
+                    )],
+                    "related_cpv": [
+                        "ARDiscoveryDoSCPV"
+                    ],
+                    "comp_attack_effect": [
+                        BaseCompEffect(category='Availability',
+                                       description='Flooding ARDiscovery requests can lead to denial of service, disrupting UAV communication and triggering fail-safe mechanisms.')
+                    ],
+                    "exploit_steps": [
+                        "Prepare the hardware: Ensure you have a Wi-Fi card capable of monitor mode and necessary tools (e.g., Scapy, Wireshark).",
+                        "Scan the Wi-Fi network to identify the UAV's SSID using tools like `airodump-ng`.",
+                        "Determine the UAV's channel and BSSID via network scanning tools.",
+                        "Analyze the ARDiscovery protocol by capturing traffic using Wireshark and saving a sample ARDiscovery connection request packet.",
+                        "Craft malicious packets with tools like Scapy to send excessive/malformed ARDiscovery requests to the UAV.",
+                        "Flood the UAV with ARDiscovery packets by running a script that sends high-frequency requests.",
+                        "Monitor the attack's effectiveness by checking if the UAV loses communication with the controller or enters fail-safe mode.",
+                        "Optional: Post-exploitation—use the disruption to perform further analysis or intercept other communications."
+                    ],
+                    "reference_urls": [
+                        "https://ieeexplore.ieee.org/document/7795496"
+                    ]
+                }
             ]
-
         )
 
     def exists(self, device: Device) -> bool:

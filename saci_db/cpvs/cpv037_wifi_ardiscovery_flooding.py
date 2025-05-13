@@ -73,19 +73,36 @@ class ARDiscoveryDoSCPV(CPV):
             attack_impacts=[
                 BaseAttackImpact(
                     category='Denial of control',
-                    description='Disrupts communication between the UAV and its controller, leading to operational failure or triggering fail-safe mechanisms (e.g., emergency landing).'
+                    description='Disrupts communication between the CPS and its controller, leading to operational failure or triggering fail-safe mechanisms (e.g., emergency landing).'
                 )
             ],
 
             exploit_steps=[
-                "Prepare the hardware: Ensure you have a Wi-Fi card capable of monitor mode and necessary tools (e.g., Scapy, Wireshark).",
-                "Scan the Wi-Fi network to identify the UAV's SSID using tools like `airodump-ng`.",
-                "Determine the UAV's channel and BSSID via network scanning tools.",
-                "Analyze the ARDiscovery protocol by capturing traffic using Wireshark and saving a sample ARDiscovery connection request packet.",
-                "Craft malicious packets with tools like Scapy to send excessive/malformed ARDiscovery requests to the UAV.",
-                "Flood the UAV with ARDiscovery packets by running a script that sends high-frequency requests.",
-                "Monitor the attack's effectiveness by checking if the UAV loses communication with the controller or enters fail-safe mode.",
-                "Optional: Post-exploitation—use the disruption to perform further analysis or intercept other communications."
+                "TA1 Exploit Steps",
+                    "Reverse-engineer the CPS firmware to determine if the Wi-Fi implements security mechanisms such as Management Frame Protection (MFP).",
+                    "Identify if the firmware has failsafe mechanisms to recover from ARDiscovery flooding attack.",
+                    "Analyze the CPS control logic to assess how high frequency ARDiscovery requests impact the CPS movement and operation.",
+                    "Create models for the following components: Ground Control Station, Wifi with an ARDisovery protocol, CPS control logic, ESC logic and output, CPS actuators (e.g., motors) controlled by the ESC.",
+                    "Report to TA2 any required physical parameters to simulate the CPS dynamics",
+                
+                "TA2 Exploit Steps",
+                    "Implement a simulation of an ARDiscovery flooding attack over Wi-Fi in the CPS model.",
+                    "Run the simulation to analyze how loss of communication translates to control failure in the CPS device.",
+                    "Check with TA1 to determine the desired impact on control.",
+                    "Report the findings to TA3 to conduct the experiments on the physical CPS device",
+
+                "TA3 Exploit Steps",
+                    "Use imaging tools and other techniques to catalog all Wi-Fi-related hardware components on the CPS.",
+                    "Identify if the ARDiscovery protocol is used in the networking system.",
+                    "Identify the specific Wi-Fi module and extract the Wi-Fi SSID and password.",
+                    "Prepare the hardware: Ensure you have a Wi-Fi card capable of monitor mode and necessary tools (e.g., Scapy, Wireshark).",
+                    "Scan the Wi-Fi network to identify the CPS's SSID using tools like `airodump-ng`.",
+                    "Determine the CPS's channel and BSSID via network scanning tools.",
+                    "Analyze the ARDiscovery protocol by capturing traffic using Wireshark and saving a sample ARDiscovery connection request packet.",
+                    "Craft malicious packets with tools like Scapy to send excessive/malformed ARDiscovery requests to the CPS.",
+                    "Flood the CPS with ARDiscovery packets by running a script that sends high-frequency requests.",
+                    "Monitor the attack's effectiveness by checking if the CPS loses communication with the controller or enters fail-safe mode.",
+                    "Optional: Post-exploitation—use the disruption to perform further analysis or intercept other communications."
             ],
                 
             associated_files=[],
@@ -93,6 +110,6 @@ class ARDiscoveryDoSCPV(CPV):
         )
     
     def in_goal_state(self, state: GlobalState):
-        # TODO: Define the specific goal state conditions (e.g., UAV in fail-safe mode)
+        # TODO: Define the specific goal state conditions (e.g., CPS in fail-safe mode)
         pass
 

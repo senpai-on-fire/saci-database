@@ -73,23 +73,17 @@ class PatchPivotTurnMalfunctionCPV(CPV):
                 ),
             ],
 
-            exploit_steps = {
-                "TA3 Exploit Steps": [
-                    "Use optical imaging tools to catalog all components on the rover.",
-                    "Identify components that contain memory that might store firmware.",
-                    "Extract the firmware from the memory component.",
-                    "Identify the firmware type and version."
-                ],
-                "TA2 Exploit Steps": [
+            exploit_steps = [
+                "TA1 Exploit Steps",
                     "Deploy the faulty patch onto the drone's flight controller via direct access or remote update mechanisms.",
                     "    - These steps can be performed by revisiting the ArduPilot Git commit history.",
                     "    - Find the version that contains the bugs and inject the code snippet.",
                     "        - If the current version is newer, revert (uncommit) the fixed patch.",
                     "        - If the current version is older, insert the buggy code snippet.",
                     "Derive the triggering condition by running PatchVerif, which provides the triggering unit test input.",
-                    "Report the identified triggering condition to TA3 for simulator verification."
-                ],
-                "TA1 Exploit Steps": [
+                    "Report the identified triggering condition to TA3 for simulator verification.",
+        
+                "TA2 Exploit Steps",
                     "Prepare the simulator for the triggering condition reported by TA2.",
                     "Instruct the vehicle to execute sharp pivoting maneuvers at varying speeds and angles.",
                     "Observe the vehicle's behavior during these maneuvers, specifically:",
@@ -99,10 +93,15 @@ class PatchPivotTurnMalfunctionCPV(CPV):
                     "Record the physical effects caused by the patch, including reduced maneuverability, instability, and safety risks.",
                     "Evaluate the long-term effects of the attack by simulating repeated pivot maneuvers to assess cumulative damage to the vehicle (e.g., mechanical strain or system degradation).",
                     "Document the results of the exploit, including observations, key metrics (e.g., speed consistency during maneuvers), and outcomes (e.g., rollovers or crashes).",
-                    "Analyze the impact of the failure and document the consequences to refine future attack strategies."
-                ]
-            },
-
+                    "Analyze the impact of the failure and document the consequences to refine future attack strategies.",
+                
+                "TA3 Exploit Steps",
+                    "Use optical imaging tools to catalog all components on the CPS.",
+                    "Identify components that contain memory that might store firmware.",
+                    "Extract the firmware from the memory component.",
+                    "Identify the firmware type and version.",
+                ],
+                
             associated_files=[],
             reference_urls=["https://www.usenix.org/system/files/usenixsecurity23-kim-hyungsub.pdf"],
         )

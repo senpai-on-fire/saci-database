@@ -46,8 +46,10 @@ class SerialSpoofingVuln(SpoofingVulnerability):
                                                )],
                     # List of associated CPVs
                     "related_cpv": [
+                        
                         "SerialRollOverCPV",
                         "SerialRedirectCPV",
+                        "SerialToneCPV",
                         "SerialThrottleCPV",
                         "SerialArduinoControlCPV"
                     ],

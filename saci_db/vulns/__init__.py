@@ -8,12 +8,14 @@ from .control_loop_instability_vuln import *
 from .controller_integerity_vuln import *
 from .depthcamera_spoofing_vuln import *
 from .dxmx_jamming_vuln import *
+from .debug_interface_vuln import *
 from .emergency_stop_vuln import *
 from .gnss_spoofing_vuln import *
 from .gps_spoofing_vuln import *
 from .gyroscope_spoofing_vuln import *
 from .icmp_flooding_vuln import *
 from .lack_beacon_filtering_vuln import *
+from .lack_emi_controller_shielding_vuln import *
 from .lack_emi_pwm_shielding_vuln import *
 from .lack_emi_sensor_shielding_vuln import *
 from .lack_emi_serial_shielding_vuln import *
@@ -36,8 +38,9 @@ from .patch_misconfiguration_vuln import *
 from .payload_firmware_vuln import *
 from .pwm_spoofing_vuln import *
 from .rf_interference_vuln import *
-from .serial_spoofing_vuln import *
 from .sik_flooding_vuln import *
+from .smbus_spoofing_vuln import *
+from .serial_spoofing_vuln import *
 from .speed_control_misbehavior_vuln import *
 from .unsecured_telemetry_vuln import *
 from .weak_application_auth_vuln import *

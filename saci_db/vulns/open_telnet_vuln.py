@@ -29,7 +29,8 @@ class OpenTelnetVuln(BaseVulnerability):
                 "CWE-306: Missing Authentication for Critical Function",
                 "CWE-732: Incorrect Permission Assignment for Critical Resource",
                 "CWE-284: Improper Access Control"
-            ]
+            ],
+            attack_vectors_exploits = []
         )
 
     def exists(self, device: Device) -> bool:

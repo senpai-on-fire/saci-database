@@ -93,11 +93,22 @@ class FTPTelnetHijackCPV(CPV):
             ],
 
             exploit_steps=[
-                "Set the Wi-Fi card into monitor mode and locate the drone's BSSID and channel.",
-                "Send continuous deauthentication packets to disconnect the legitimate controller.",
-                "Establish a Telnet session to gain root access to the drone.",
-                "Access the FTP service to extract data or modify critical files.",
-                "Optionally modify the drone's configuration to disrupt its operations or cause a crash."
+                "TA1 Exploit Steps",
+                    "Get the extracted CPS firmware from TA3.",
+                    "Check if the CPS uses an Telnet protocol for files transmission",
+                    "Reverse-engineer the CPS firmware to determine if the Wi-Fi implements security mechanisms",
+                
+                "TA2 Exploit Steps",
+                    "Implement a simulation of a WiFi de-authentication attack to disconnet the CPS from the legitimate controller",
+                    "Implement a simulation of a Telnet session hijacking to get access to the CPS control files.",
+                    "Check with TA1 to determine the desired impact on control.",
+
+                "TA3 Exploit Steps",
+                    "Set the Wi-Fi card into monitor mode and locate the drone's BSSID and channel.",
+                    "Send continuous deauthentication packets to disconnect the legitimate controller.",
+                    "Establish a Telnet session to gain root access to the drone.",
+                    "Access the FTP service to extract data or modify critical files.",
+                    "Optionally modify the drone's configuration to disrupt its operations or cause a crash."
             ],
 
             associated_files=[],

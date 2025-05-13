@@ -52,9 +52,9 @@ class EMIMotorBlockRotateCPV(CPV):
             attack_impacts = [BaseAttackImpact(category='Manipulation of Control',
                                                description='Attacker can set the RPM of the motors to 0, or flip its sign (make the motors go in reverse direction at the same speed)')],
 
-            exploit_steps = {
-                "TA1 Exploit Steps": [
-                    "Develop a simulation model to analyze the impact of the Block & Rotate Waveform Attack on PWM-controlled actuators.",
+            exploit_steps = [
+                "TA1 Exploit Steps",
+                    "Develop a model to analyze the impact of the Block & Rotate Waveform Attack on PWM-controlled actuators.",
                     "The model must include:",
                     "    - Controller logic algorithm governing actuator behavior.",
                     "    - PWM signal generation and its role in motor control.",
@@ -68,9 +68,9 @@ class EMIMotorBlockRotateCPV(CPV):
                     "Simulate the effects of an AM CW signal interfering with the legitimate PWM control signal:",
                     "    - Observe system behavior under different modulation depths and frequencies.",
                     "    - Determine the threshold at which the actuator exhibits blocked or unintended motion.",
-                    "    - Identify potential mitigation strategies such as PWM signal filtering or shielding."
-                ],
-                "TA2 Exploit Steps": [
+                    "    - Identify potential mitigation strategies such as PWM signal filtering or shielding.",
+
+                "TA2 Exploit Steps",
                     "Implement the simulation model using electromagnetic and control system analysis tools.",
                     "Configure the simulation environment with realistic actuator parameters and PWM characteristics.",
                     "Simulate the attack by injecting an AM CW signal at the resonant frequency of the PWM circuitry, with modulation intended to alter actuator movement.",
@@ -83,9 +83,9 @@ class EMIMotorBlockRotateCPV(CPV):
                     "    - Measure the delay and extent of unintended actuator movement.",
                     "    - Evaluate the effectiveness of different attack scenarios, such as sustaining a rotational offset or inducing oscillatory motion.",
                     "Compare results against baseline operation to quantify the impact of the Block & Rotate Waveform Attack.",
-                    "Validate findings by cross-referencing with theoretical models and empirical data from similar interference studies."
-                ],
-                "TA3 Exploit Steps": [
+                    "Validate findings by cross-referencing with theoretical models and empirical data from similar interference studies.",
+
+                "TA3 Exploit Steps",
                     "Prepare the experimental setup to test the Block & Rotate Waveform Attack on a physical PWM-controlled actuator.",
                     "Gather the necessary equipment:",
                     "    - Signal generator capable of producing AM CW signals.",
@@ -106,7 +106,6 @@ class EMIMotorBlockRotateCPV(CPV):
                     "    - Identify the lowest power threshold needed to sustain the attack.",
                     "    - Record the optimal conditions where the motor enters a blocked or rotationally biased state.",
                 ],
-            },
 
             associated_files = [],
             reference_urls = ["https://www.usenix.org/system/files/sec22-dayanikli.pdf"],

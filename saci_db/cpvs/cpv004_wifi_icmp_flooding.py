@@ -17,8 +17,6 @@ from saci_db.vulns.icmp_flooding_vuln import IcmpFloodVuln
 
 from saci_db.devices.px4_quadcopter_device import PX4Controller
 
-#This is to model the attack in the ARDrone drone as described by the referenced paper,
-
 class WiFiICMPFloodingCPV(CPV):
     
     NAME = "The ICMP Flooding Attack via Wifi"
@@ -63,9 +61,22 @@ class WiFiICMPFloodingCPV(CPV):
             attack_impacts = [BaseAttackImpact(category='Denial of control',
                                                description='The user can not control the CPS')],
             exploit_steps=[
-                "Set the Wi-Fi card into monitor mode and find the BSSID and channel number for the CPS's Wi-Fi network.",
-                "join the network",
-                "Flood the CPS with TCP SYN on port UDP 5556"
+                "TA1 Exploit Steps",
+                    "Reverse-engineer the CPS firmware to determine if the Wi-Fi implements security mechanisms such as Management Frame Protection (MFP).",
+                    "Reverse-engineer the CPS firmware to determine if the ICMP protocol is used",
+                    "Identify if the firmware has failsafe mechanisms to recover from ICMP packets flooding attack.",
+                    "Analyze the CPS control logic to assess how disconnection impacts CPS dynamics.",
+                
+                "TA2 Exploit Steps",
+                    "Implement a simulation of an ICMP flooding attack on the CPS network.",
+                    "Run the simulation to analyze how loss of communication translates to control failure in the CPS device.",
+                    "Check with TA1 to determine the desired impact on control.",
+                    "Report the findings to TA3 to conduct the experiments on the physical CPS device",
+
+                "TA3 Exploit Steps",
+                    "Set the Wi-Fi card into monitor mode and find the BSSID and channel number for the CPS's Wi-Fi network.",
+                    "join the network",
+                    "Flood the CPS with TCP SYN on port UDP 5556"
                 ],
                 
             associated_files=[],

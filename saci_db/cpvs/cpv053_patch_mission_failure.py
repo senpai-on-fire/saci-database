@@ -74,23 +74,17 @@ class PatchMissionFailureCPV(CPV):
                 ),
             ],
 
-            exploit_steps = {
-                "TA3 Exploit Steps": [
-                    "Use optical imaging tools to catalog all components on the rover.",
-                    "Identify components that contain memory that might store firmware.",
-                    "Extract the firmware from the memory component.",
-                    "Identify the firmware type and version."
-                ],
-                "TA2 Exploit Steps": [
+            exploit_steps = [
+                "TA2 Exploit Steps",
                     "Deploy the faulty patch onto the drone's flight controller via direct access or remote update mechanisms.",
                     "    - These steps can be performed by revisiting the ArduPilot Git commit history.",
                     "    - Find the version that contains the bugs and inject the code snippet.",
                     "        - If the current version is newer, revert (uncommit) the fixed patch.",
                     "        - If the current version is older, insert the buggy code snippet.",
                     "Derive the triggering condition by running PatchVerif, which provides the triggering unit test input.",
-                    "Report the identified triggering condition to TA3 for simulator verification."
-                ],
-                "TA1 Exploit Steps": [
+                    "Report the identified triggering condition to TA3 for simulator verification.",
+
+                "TA1 Exploit Steps",
                     "Prepare the simulator for the triggering condition reported by TA2.",
                     "Command the vehicle to execute a pre-planned mission.",
                     "Monitor the vehicle's performance during the mission, focusing on:",
@@ -103,9 +97,14 @@ class PatchMissionFailureCPV(CPV):
                     "    - Significant route deviations affecting mission success.",
                     "Refine the attack to target broader scenarios, including:",
                     "    - Multi-vehicle operations.",
-                    "    - Dynamic mission replanning environments."
-                ]
-            },
+                    "    - Dynamic mission replanning environments.",
+
+                    "TA3 Exploit Steps",
+                        "Use optical imaging tools to catalog all components on the CPS.",
+                        "Identify components that contain memory that might store firmware.",
+                        "Extract the firmware from the memory component.",
+                        "Identify the firmware type and version.",
+                ],
 
             associated_files=[],
             reference_urls=["https://www.usenix.org/system/files/usenixsecurity23-kim-hyungsub.pdf"],

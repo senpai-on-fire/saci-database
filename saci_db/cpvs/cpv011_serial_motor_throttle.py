@@ -54,8 +54,21 @@ class SerialThrottleCPV(CPV):
                                                description='The serial commands cause CPS device to start moving/driving')],
             
             exploit_steps=[
-                "Open a terminal emulator and connect to the serial device exposed by the CPS device. You may need root access.",
-                "When the CPS is Idle, enter any number between 48-2047 (except 55, 66, & 77) into the terminal",
+                "TA1 Exploit Steps",
+                    "Reverse-engineer the CPS firmware to determine if the serial interface is vulnerable to command injection.",
+                    "Identify if the firmware has failsafe mechanisms to recover from malicious serial commands.",
+                    "Analyze the CPS control logic to assess how malicious serial commands can manipulate the CPS movements before the start of the mission.",
+                    "Create models for the following components: CPS control logic with serial interface, ESC logic and output, CPS actuators (e.g., motors) controlled by the ESC.",
+                    "Report to TA2 any required physical parameters to simulate the CPS dynamics"
+                
+                "TA2 Exploit Steps",
+                    "Create an automata to simulate a malicious serial command injection on the CPS dynamics.",
+                    "Use a fuzzing tool to fuzz the functions and generate a malicious serial commands that manipulate the CPS throttle.",
+                    "Report the findings to TA3 to conduct the experiments on the physical CPS device",
+
+                "TA3 Exploit Steps",
+                    "Open a terminal emulator and connect to the serial device exposed by the CPS device. You may need root access.",
+                    "When the CPS is Idle, enter any number between 48-2047 (except 55, 66, & 77) into the terminal",
             ],
 
             associated_files = [],

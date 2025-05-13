@@ -66,11 +66,33 @@ class SerialRollOverCPV(CPV):
                                              description='The CPS device will rollover')],
             
             exploit_steps=[
-                "Open a terminal emulator and connect to the serial device exposed by the CPS device. You may need root access.",
-                "In the idle state, you should observe floating point outputs from the compass. If you do not, the retry the previous step.",
-                "With the CPS device in idle state, enter the number 10 six times into the terminal. This corresponds to DSHOT_3D_MODE_ON.",
-                "With the rover in idle state, enter the number 12 six times. This corresponds to the DSHOT_CMD_SAVE_SETTINGS.",
-                "Restart the CPS device and control from the web interface.",
+                "TA1 Exploit Steps",  
+                    "Reverse engineering the extracted firmware using a combination of standard software reverse engineering tools and Binsync.",
+                    "Provide context for what the firmware is supposed to do when interacting with off-chip peripherals (e.g., serial ports) using open-source references.",
+                    "Check if the firmware accepts inputs from the WIFI interface.",
+                    "Check if the firmware is implementing a web server.",
+                    "Identify the code that’s implementing the web server component.",
+                    "Check if the code has bounds checking on the string operations being performed.",
+                    "Create models for the following components: Wifi, Webserver, CPS control logic, ESC logic and output, CPS actuators (e.g., motors) controlled by the ESC.",
+                    "Report to TA2 any required physical parameters to simulate the CPS dynamics"
+                
+                "TA2 Exploit Steps",
+                    "Create an automata to simulate the buffer overflow attack on the webserver."
+                    "Use a fuzzing tool to fuzz the functions and generate an HTTP Get request that triggers the buffer overflow.",
+                    "Report the findings to TA3 to conduct the experiments on the physical CPS device",
+
+                "TA3 Exploit Steps",
+                    "Use Optical imaging tools to catalog all of the components on the rover.",
+                    "Identify which components contained memory that might contain firmware.",
+                    "Extract the firmware from the memory component.",
+                    "Check if there’s a WIFI component.",
+                    "Check if there are hardcoded credentials for connecting to the Wi-Fi network.",
+                    "Extract the hardcoded credentials using reverse-engineering tools.",
+                    "Open a terminal emulator and connect to the serial device exposed by the CPS device. You may need root access.",
+                    "In the idle state, you should observe floating point outputs from the compass. If you do not, the retry the previous step.",
+                    "With the CPS device in idle state, enter the number 10 six times into the terminal. This corresponds to DSHOT_3D_MODE_ON.",
+                    "With the rover in idle state, enter the number 12 six times. This corresponds to the DSHOT_CMD_SAVE_SETTINGS.",
+                    "Restart the CPS device and control from the web interface.",
             ],
 
             associated_files = [],

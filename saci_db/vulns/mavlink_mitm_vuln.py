@@ -25,9 +25,10 @@ class MavlinkMitmVuln(PublicSecretVulnerability):
                 "CWE-441: Unintended Proxy or Intermediary ('Confused Deputy')",
                 "CWE-294: Authentication Bypass by Capture-replay",
                 "CWE-693: Protection Mechanism Failure"
-            ]
+            ],
+            attack_vectors_exploits = []
         )
-        self.input = "launch a Mavlink MITM attack"
+        #self.input = "launch a Mavlink MITM attack"
 
     def exists(self, device: Device) -> bool:
         for comp in device.components:

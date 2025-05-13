@@ -33,10 +33,10 @@ class DSMxJammingProtocolVuln(PublicSecretVulnerability):
             ]
         )
         # Human-readable description of the attack input scenario
-        self.input = (
-            "Intercepted DSMx protocol communications, brute-forcing the shared secret, "
-            "and injecting spoofed signals to hijack control of the UAV."
-        )
+        #self.input = (
+        #    "Intercepted DSMx protocol communications, brute-forcing the shared secret, "
+        #    "and injecting spoofed signals to hijack control of the UAV."
+        #)
 
     def exists(self, device: Device) -> bool:
         """
