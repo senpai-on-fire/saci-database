@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import Controller, GCS, Wifi, Telemetry
+from saci.modeling.device import Controller, GCS, Wifi, Telemetry, PWMChannel, ESC, Motor, Mavlink
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
@@ -17,10 +17,13 @@ class RC3ParameterManipulation(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
-                Controller(),
-                Telemetry(),
-                GCS(),
-                Wifi()
+                GCS(),            # Sends command
+                Mavlink(),        # Protocol used
+                Wifi(),           # Communication medium
+                Controller(),     # Processes command / runs control logic
+                PWMChannel(),     # Generates PWM signals
+                ESC(),            # Converts PWM to motor drive
+                Motor(),          # Executes actuation 
             ],
             entry_component=Wifi(),
             # TODO: more precise can be firmware

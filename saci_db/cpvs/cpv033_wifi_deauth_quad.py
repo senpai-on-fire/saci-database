@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import Wifi, TelemetryHigh, PWMChannel, ESC, MultiCopterMotor
+from saci.modeling.device import Wifi, Telemetry, PWMChannel, ESC, MultiCopterMotor
 
 from saci_db.vulns.wifi_deauthentication_vuln import WiFiDeauthVuln
 from saci_db.vulns.lack_wifi_auth_vuln import LackWifiAuthenticationVuln
@@ -25,7 +25,6 @@ class WiFiDeauthQuadDosCPV(CPV):
         super().__init__(
             required_components=[
                 Wifi(),
-                TelemetryHigh(),            
                 PX4Controller(),   
                 PWMChannel(),  
                 ESC(),

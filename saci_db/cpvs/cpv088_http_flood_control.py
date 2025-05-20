@@ -1,6 +1,6 @@
 from typing import List, Type
 from saci.modeling import CPV
-from saci.modeling.device import Controller, Wifi, Controller, Motor, WebServer, PWMChannel, ESC
+from saci.modeling.device import Controller, Wifi, Controller, Motor, WebServer, PWMChannel, ESC, Telemetry
 
 from saci_db.vulns.wifi_knowncreds_vuln import WifiKnownCredsVuln
 from saci_db.vulns.weak_application_auth_vuln import WeakApplicationAuthVuln
@@ -17,8 +17,6 @@ from saci.modeling.state import GlobalState
 # It is quite similar to It is quite similar to this one from the previous rover 
 # https://github.com/senpai-on-fire/saci-database/blob/main/saci_db/cpvs/cpv008_wifi_webserver_crash.py
  
-
-
 class WifiWebCrashCPV(CPV):
 
     NAME = "Denial of Service and Control Hijacking via Webserver Flooding over Wi-Fi"
@@ -27,12 +25,13 @@ class WifiWebCrashCPV(CPV):
 
         super().__init__(
             required_components=[
-                Wifi(),
-                WebServer(),
-                Controller(),
-                PWMChannel(), 
-                ESC(),
-                Motor(),
+                Wifi(),           
+                WebServer(),      
+                Controller(),     
+                Controller(),     
+                PWMChannel(),     
+                ESC(),            
+                Motor(),          
             ],
 
             entry_component=Wifi(),
@@ -70,29 +69,25 @@ class WifiWebCrashCPV(CPV):
 
             exploit_steps=[
                 "TA1 Exploit Steps",
-                "Perform software reverse engineering on rover firmware to identify the web interface loop operations.",
-                "Identify how HTTP GET requests are processed differently compared to previous rover firmware versions.",
-                "Determine the control variables relevant to request handling and their timing in the firmware logic.",
+                    "Perform software reverse engineering on rover firmware to identify the web interface loop operations.",
+                    "Identify how HTTP GET requests are processed differently compared to previous rover firmware versions.",
+                    "Determine the control variables relevant to request handling and their timing in the firmware logic.",
 
                 "TA2 Exploit Steps",
-                "Develop an attacker script (e.g., cprj2.py) to flood the webserver with HTTP GET requests continuously.",
-                "Test the script initially in a controlled environment to validate the continuous denial of service condition.",
-                "Ensure the attacker maintains control even when the operator is locked out.",
+                    "Develop an attacker script (e.g., cprj2.py) to flood the webserver with HTTP GET requests continuously.",
+                    "Test the script initially in a controlled environment to validate the continuous denial of service condition.",
+                    "Ensure the attacker maintains control even when the operator is locked out.",
 
                 "TA3 Exploit Steps",
-                "Power on the rover using a hex wrench to rotate the power block counter-clockwise.",
-                "Wait for the rover LEDs to indicate readiness, then press the safety button on the power block.",
-                "Connect both operator and attacker computers to the rover's Wi-Fi network ('Arduino Wifi' using password 'TSWIZZLE1989').",
-                "Open the rover web interface on the operator computer at http://10.0.0.1/.",
-                "Run attacker script to flood rover with HTTP GET requests.",
-                "Verify operator's web interface becomes non-responsive.",
-                "Confirm attacker control through initiation of rover drive mission despite operator lockout.",
-                "Terminate attacker script to verify immediate recovery of the operator web interface.",
-                "Power off rover by rotating the power block clockwise until LEDs turn off.",
-
-                "TA4 Exploit Steps",
-                "Identify similar historical vulnerabilities demonstrated in earlier rover versions and validate current CPV consistency.",
-                "Document and correlate CPV findings with existing records from previous rover delivery tests conducted by Purdue University."
+                    "Power on the rover using a hex wrench to rotate the power block counter-clockwise.",
+                    "Wait for the rover LEDs to indicate readiness, then press the safety button on the power block.",
+                    "Connect both operator and attacker computers to the rover's Wi-Fi network ('Arduino Wifi' using password 'TSWIZZLE1989').",
+                    "Open the rover web interface on the operator computer at http://10.0.0.1/.",
+                    "Run attacker script to flood rover with HTTP GET requests.",
+                    "Verify operator's web interface becomes non-responsive.",
+                    "Confirm attacker control through initiation of rover drive mission despite operator lockout.",
+                    "Terminate attacker script to verify immediate recovery of the operator web interface.",
+                    "Power off rover by rotating the power block clockwise until LEDs turn off.",
             ],
 
             associated_files=["DOS with Attacker Commands-1.pdf", "cprj2.py"],

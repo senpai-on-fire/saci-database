@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import Controller, Wifi, LiDAR
+from saci.modeling.device import Controller, LiDAR, PWMChannel, ESC, Motor, Telemetry, Serial
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack_vector import OpticalAttackSignal
@@ -17,9 +17,12 @@ class LiDARBYPASSMirrorCPV(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
-                Controller(),
-                LiDAR(),
-                Wifi()
+                LiDAR(),   
+                Serial(),       
+                Controller(),     
+                PWMChannel(),     
+                ESC(),            
+                Motor(),         
             ],
             entry_component=LiDAR(),
             exit_component=Controller(),

@@ -1,12 +1,14 @@
 from typing import List
 
-from saci.modeling.device import Controller, Serial, GPSReceiver, Motor, PWMChannel, ESC
+from saci.modeling.device import Controller, Serial, GPSReceiver, Motor, PWMChannel, ESC, Telemetry
 from saci.modeling import CPV 
 
 from saci_db.vulns.gps_spoofing_vuln import GPSSpoofingVuln
 from saci_db.vulns.lack_gps_filtering_vuln import LackGPSFilteringVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 from saci_db.vulns.lack_serial_auth_vuln import LackSerialAuthenticationVuln
+from saci_db.vulns.gps_jamming_vuln import GPSJammingVuln
+
 
 from saci.modeling.communication import ExternalInput
 
@@ -23,11 +25,13 @@ class GPSJammingNoDriveCPV(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
-                GPSReceiver(),
-                Controller(),
-                PWMChannel(), 
-                ESC(),
-                Motor(),
+                GPSReceiver(),  
+                Serial(), 
+                Controller(),     
+                Controller(),     
+                PWMChannel(),     
+                ESC(),            
+                Motor(), 
             ],
 
             entry_component=GPSReceiver(),
@@ -61,23 +65,23 @@ class GPSJammingNoDriveCPV(CPV):
 
             exploit_steps=[
                 "TA1 Exploit Steps",
-                "Use optical imaging tools and OCR to identify rover components, specifically GPS receiver module (U-Blox ZED-F9P).",
-                "Review firmware and datasheets to confirm module vulnerability to GPS signal jamming.",
-                "Verify rover control logic requirement for a valid GPS fix before initiating any movement.",
+                    "Use optical imaging tools and OCR to identify rover components, specifically GPS receiver module (U-Blox ZED-F9P).",
+                    "Review firmware and datasheets to confirm module vulnerability to GPS signal jamming.",
+                    "Verify rover control logic requirement for a valid GPS fix before initiating any movement.",
 
                 "TA2 Exploit Steps",
-                "Develop and validate a simulation model to determine precise frequency and power levels needed for effective GPS signal jamming.",
-                "Simulate GPS jamming scenario and confirm rover inability to acquire a GPS fix and initiate drive.",
-                "Fine-tune simulation parameters based on simulation outcomes.",
+                    "Develop and validate a simulation model to determine precise frequency and power levels needed for effective GPS signal jamming.",
+                    "Simulate GPS jamming scenario and confirm rover inability to acquire a GPS fix and initiate drive.",
+                    "Fine-tune simulation parameters based on simulation outcomes.",
 
                 "TA3 Exploit Steps",
-                "Install HackRF SDR and necessary software dependencies (e.g., gnuradio, multi-sdr-gps-sim).",
-                "Disconnect rover GPS antenna and directly connect SDR with a 60dB attenuator.",
-                "Power on rover and enable safety mechanism; connect computer to rover Wi-Fi network ('Arduino Wifi', password: 'TSWIZZLE1989').",
-                "Start SDR transmission using command: ./gps-sim --nav-fil brdc2550.24n --geo-loc 37.27097000,79.94143000,800 --radio hackrf --verbose.",
-                "Open rover's web interface at http://10.0.0.1 and attempt to initiate rover drive commands.",
-                "Verify rover does not start driving due to GPS signal unavailability.",
-                "Power off rover after confirming jamming effectiveness.",
+                    "Install HackRF SDR and necessary software dependencies (e.g., gnuradio, multi-sdr-gps-sim).",
+                    "Disconnect rover GPS antenna and directly connect SDR with a 60dB attenuator.",
+                    "Power on rover and enable safety mechanism; connect computer to rover Wi-Fi network ('Arduino Wifi', password: 'TSWIZZLE1989').",
+                    "Start SDR transmission using command: ./gps-sim --nav-fil brdc2550.24n --geo-loc 37.27097000,79.94143000,800 --radio hackrf --verbose.",
+                    "Open rover's web interface at http://10.0.0.1 and attempt to initiate rover drive commands.",
+                    "Verify rover does not start driving due to GPS signal unavailability.",
+                    "Power off rover after confirming jamming effectiveness.",
 
             ],
 

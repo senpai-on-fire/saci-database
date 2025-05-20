@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import GCS, TelemetryHigh, Controller, MultiCopterMotor, MultiCopterMotorAlgorithmic, PWMChannel, SikRadio, Mavlink, ESC
+from saci.modeling.device import GCS, Telemetry, Controller, MultiCopterMotor, MultiCopterMotorAlgorithmic, PWMChannel, SikRadio, Mavlink, ESC
 from saci.modeling.state import GlobalState
 
 from saci_db.vulns.mavlink_mitm_vuln import MavlinkMitmVuln
@@ -26,7 +26,6 @@ class MavlinkSiKCPV(CPV):
                 GCS(),
                 SikRadio(),
                 Mavlink(),
-                TelemetryHigh(), 
                 PX4Controller(),
                 PWMChannel(), 
                 ESC(),

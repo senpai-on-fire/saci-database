@@ -1,7 +1,7 @@
 from typing import List
 from saci.modeling import CPV
 
-from saci.modeling.device import Accelerometer,Serial, PWMChannel, ESC, MultiCopterMotor
+from saci.modeling.device import Accelerometer,Serial, Telemetry, PWMChannel, ESC, MultiCopterMotor
 
 from saci_db.devices.px4_quadcopter_device import PX4Controller
 from saci_db.vulns.accelerometer_spoofing_vuln import AccelerometerSpoofingVuln
@@ -22,7 +22,7 @@ class AcousticSpoofingAccelerometerCPV(CPV):
         super().__init__(
             required_components=[
                 Accelerometer(),
-                Serial(),           
+                Serial(),    
                 PX4Controller(),   
                 PWMChannel(),  
                 ESC(),
