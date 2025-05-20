@@ -23,7 +23,6 @@ class DSMxJammingHijackCPV(CPV):
                 GCS(),
                 SikRadio(),
                 DSMx(),
-                Telemetry(), 
                 PX4Controller(),
                 PWMChannel(), 
                 ESC(),

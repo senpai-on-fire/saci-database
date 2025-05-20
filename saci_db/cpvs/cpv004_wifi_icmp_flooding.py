@@ -26,7 +26,6 @@ class WiFiICMPFloodingCPV(CPV):
             required_components=[
                 Wifi(),
                 ICMP() , 
-                Telemetry(),          
                 PX4Controller(),   
                 PWMChannel(),  
                 ESC(),

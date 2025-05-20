@@ -23,7 +23,6 @@ class BarometricSensorSpoofingCPV(CPV):
             required_components=[
                 Barometer(),       
                 Serial(),
-                Telemetry(),            
                 ArduPilotController(), 
                 PWMChannel(),  
                 ESC(),

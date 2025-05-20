@@ -1,5 +1,5 @@
 from saci.modeling import CPV
-from saci.modeling.device import LiDAR, ObjectDetector3D, PX4Controller, PWMChannel, ESC, MultiCopterMotor, Telemetry
+from saci.modeling.device import LiDAR, ObjectDetector3D, PX4Controller, PWMChannel, ESC, MultiCopterMotor, Telemetry, Serial
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.optical_attack_signal import OpticalAttackSignal
@@ -16,8 +16,8 @@ class LiDARSensorDenialCPV(CPV):
         super().__init__(
             required_components=[
                 LiDAR(),
+                Serial(),
                 ObjectDetector3D(),
-                Telemetry(),
                 PX4Controller(),
                 PWMChannel(),
                 ESC(),

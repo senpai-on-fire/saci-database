@@ -20,7 +20,6 @@ class GCSFirmwareOverwrite(CPV):
                 GCS(),            # Sends command
                 Mavlink(),        # Protocol used
                 Wifi(),           # Communication medium
-                Telemetry(),      # Decodes and delivers to onboard controller
                 Controller(),     # Processes command / runs control logic
                 PWMChannel(),     # Generates PWM signals
                 ESC(),            # Converts PWM to motor drive

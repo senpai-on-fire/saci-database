@@ -26,7 +26,6 @@ class MagnetometerEMIChannelDisruptionCPV(CPV):
             required_components=[
                 Magnetometer(),  
                 Serial(),
-                Telemetry(),
                 PX4Controller(),    
                 PWMChannel(),
                 ESC(),

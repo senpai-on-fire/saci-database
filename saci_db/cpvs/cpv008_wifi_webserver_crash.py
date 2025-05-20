@@ -25,7 +25,6 @@ class WifiWebCrashCPV(CPV):
                 Wifi(),
                 WebServer(),
                 Controller(),
-                Telemetry(),
                 Controller(),
                 PWMChannel(), 
                 ESC(),

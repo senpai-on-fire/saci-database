@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import ESC, Telemetry, DNNTracking, Camera, PWMChannel, MultiCopterMotor
+from saci.modeling.device import ESC, Telemetry, DNNTracking, Camera, PWMChannel, MultiCopterMotor, Serial
 
 from saci.modeling.communication import ExternalInput
 from saci.modeling.state import GlobalState
@@ -23,8 +23,8 @@ class ObjectTrackCPV(CPV):
         super().__init__(
             required_components=[
                 Camera(),
+                Serial(),
                 DNNTracking(),
-                Telemetry(),
                 PX4Controller(),
                 PWMChannel(), 
                 ESC(),

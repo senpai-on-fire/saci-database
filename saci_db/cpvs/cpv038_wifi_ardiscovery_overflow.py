@@ -26,7 +26,6 @@ class ARDiscoveryBufferOverflowCPV(CPV):
             required_components=[
                 Wifi(),
                 ARDiscovery(), 
-                Telemetry(),            
                 ArduPilotController(),   
                 PWMChannel(),  
                 ESC(),

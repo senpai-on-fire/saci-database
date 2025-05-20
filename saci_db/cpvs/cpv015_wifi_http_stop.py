@@ -24,7 +24,6 @@ class WifiWebStopCPV(CPV):
                 Wifi(),
                 WebServer(),
                 Controller(),
-                Telemetry(),
                 Controller(),
                 PWMChannel(), 
                 ESC(),

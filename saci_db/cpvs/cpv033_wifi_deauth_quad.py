@@ -25,7 +25,6 @@ class WiFiDeauthQuadDosCPV(CPV):
         super().__init__(
             required_components=[
                 Wifi(),
-                Telemetry(),            
                 PX4Controller(),   
                 PWMChannel(),  
                 ESC(),

@@ -24,7 +24,6 @@ class PathManipulationCPV(CPV):
             required_components=[
                 GPSReceiver(),
                 Serial(),
-                Telemetry(),
                 ArduPilotController(),
                 PWMChannel(),
                 ESC(),

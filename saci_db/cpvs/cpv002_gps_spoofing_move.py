@@ -24,7 +24,6 @@ class GPSSpoofingMoveCPV(CPV):
             required_components=[
                 GPSReceiver(),
                 Serial(),
-                Telemetry(),
                 PX4Controller(),   
                 PWMChannel(),  
                 ESC(),

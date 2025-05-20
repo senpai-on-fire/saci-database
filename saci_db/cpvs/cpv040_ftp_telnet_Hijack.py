@@ -27,7 +27,6 @@ class FTPTelnetHijackCPV(CPV):
                 Wifi(),
                 Telnet(),
                 FTP(),
-                Telemetry(),   
                 ArduPilotController(),
                 PWMChannel(),
                 ESC(),

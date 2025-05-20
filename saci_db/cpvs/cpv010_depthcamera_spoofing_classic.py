@@ -1,5 +1,5 @@
 from saci.modeling import CPV
-from saci.modeling.device import ObstacleAvoidanceLogic, Telemetry, DepthCamera, PWMChannel, ESC, MultiCopterMotor
+from saci.modeling.device import ObstacleAvoidanceLogic, Telemetry, DepthCamera, PWMChannel, ESC, MultiCopterMotor, Serial
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.optical_attack_signal import OpticalAttackSignal
@@ -19,8 +19,8 @@ class ClassicDepthEstimationAttackCPV(CPV):
         super().__init__(
             required_components=[
                 DepthCamera(),
+                Serial(),
                 ObstacleAvoidanceLogic(),
-                Telemetry(),
                 PX4Controller(),
                 PWMChannel(),
                 ESC(),

@@ -24,7 +24,6 @@ class GNSSLoiterModeSpoofingCPV(CPV):
             required_components=[
                 GNSSReceiver(),
                 Serial(),
-                Telemetry(),
                 ProprietyController(),
                 PWMChannel(),
                 ESC(),

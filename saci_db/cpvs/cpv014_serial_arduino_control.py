@@ -21,7 +21,6 @@ class SerialArduinoControlCPV(CPV):
             required_components=[
                 Serial(),
                 Controller(),
-                Telemetry(),
                 Controller(),
                 PWMChannel(), 
                 ESC(),

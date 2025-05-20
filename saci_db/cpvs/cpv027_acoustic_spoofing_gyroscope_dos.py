@@ -23,7 +23,6 @@ class AcousticSpoofingGyroscopeCPV(CPV):
             required_components=[
                 Gyroscope(),
                 Serial(),     
-                Telemetry(),       
                 PX4Controller(),   
                 PWMChannel(),  
                 ESC(),

@@ -24,7 +24,6 @@ class MavlinkDisarmCPV(CPV):
             required_components=[
                 Wifi(),
                 Mavlink(),
-                Telemetry(),            
                 PX4Controller(),   
                 PWMChannel(),  
                 ESC(),

@@ -29,7 +29,6 @@ class RFJammingCPV(CPV):
                 GCS(),
                 SikRadio(),   
                 Mavlink(),  
-                Telemetry(),            
                 ArduPilotController(), # DJI also + can work with PX4 potentially
                 PWMChannel(),  
                 ESC(),

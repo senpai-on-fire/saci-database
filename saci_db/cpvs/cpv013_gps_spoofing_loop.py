@@ -24,8 +24,8 @@ class GPSSpoofingLoopCPV(CPV):
         super().__init__(
             required_components=[
                 GPSReceiver(),
+                Serial(),
                 Controller(),
-                Telemetry(),
                 Controller(),
                 PWMChannel(), 
                 ESC(),

@@ -23,7 +23,6 @@ class AcousticSpoofingAccelerometerCPV(CPV):
             required_components=[
                 Accelerometer(),
                 Serial(),    
-                Telemetry(),       
                 PX4Controller(),   
                 PWMChannel(),  
                 ESC(),

@@ -26,7 +26,6 @@ class MavlinkSiKCPV(CPV):
                 GCS(),
                 SikRadio(),
                 Mavlink(),
-                Telemetry(), 
                 PX4Controller(),
                 PWMChannel(), 
                 ESC(),

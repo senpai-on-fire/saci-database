@@ -23,7 +23,7 @@ class FailSafeAvoidanceCPV(CPV):
         super().__init__(
             required_components=[
                 GPSReceiver(),
-                Telemetry(),
+                Serial(),
                 ArduPilotController(),
                 PWMChannel(),
                 ESC(),

@@ -24,7 +24,6 @@ class WifiWebMoveCPV(CPV):
                 Wifi(),
                 WebServer(),
                 Controller(),
-                Telemetry(),
                 Controller(),
                 PWMChannel(), 
                 ESC(),
