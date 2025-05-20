@@ -6,6 +6,7 @@ from .barometer_spoofing_vuln import *
 from .compass_spoofing_vuln import * 
 from .control_loop_instability_vuln import *
 from .controller_integerity_vuln import *
+from .debug_interface_vuln import *
 from .depthcamera_spoofing_vuln import *
 from .dxmx_jamming_vuln import *
 from .debug_interface_vuln import *
@@ -38,10 +39,11 @@ from .patch_misconfiguration_vuln import *
 from .payload_firmware_vuln import *
 from .pwm_spoofing_vuln import *
 from .rf_interference_vuln import *
+from .serial_spoofing_vuln import *
 from .sik_flooding_vuln import *
 from .smbus_spoofing_vuln import *
-from .serial_spoofing_vuln import *
 from .speed_control_misbehavior_vuln import *
+from .stereo_matching_vuln import *
 from .unsecured_telemetry_vuln import *
 from .weak_application_auth_vuln import *
 from .wifi_deauthentication_vuln import *
