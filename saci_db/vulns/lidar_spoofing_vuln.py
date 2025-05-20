@@ -5,8 +5,7 @@ from typing import List, Type
 from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import Device, LiDAR
 from saci.modeling.communication import UnauthenticatedCommunication, ExternalInput
-from saci.modeling.attack_vector import BaseAttackVector, OpticalAttackSignal
-from saci.modeling.attack.base_attack_impact import BaseCompEffect
+from saci.modeling.attack import BaseAttackVector, BaseCompEffect, EnvironmentalInterference, OpticalAttackSignal
 
 class LiDARSpoofingPred(Predicate):
     pass
@@ -128,6 +127,23 @@ class LiDARSpoofingVuln(PublicSecretVulnerability):
                     "reference_urls": [
                         "https://www.blackhat.com/docs/eu-15/materials/eu-15-Petit-Self-Driving-And-Connected-Cars-Fooling-Sensors-And-Tracking-Drivers-wp1.pdf"
                     ]
+                },
+                {
+                    "attack_vector": [EnvironmentalInterference(dst=LiDAR(), modality="non-reflective material")],
+                    "related_cpv": ["LiDARLightAbsorbCPV"],
+                    "com_attack_effect": [
+                        BaseCompEffect(
+                            category='Manipulation of Perception',
+                            description='When the LiDAR sensor emits towards the absorbant non-reflective material, it will not perceive the obstacle in that direction and assume it is a safe path to traverse.'
+                        )
+                    ],
+                    "exploit_steps": [
+                        "Set up an environment with the obstacle covered in the non-reflective material.",
+                        "Deploy the system in the environment and verify the incorrect point cloud.",
+                        "Confirm if incorrect point cloud has affected the CPS movement logic.",
+                        "Document attack effectiveness and recovery behavior."
+                    ],
+                    "reference_urls": ["https://github.com/senpai-on-fire/ngc2_taskboard/tree/main/CPVs/HII-NGP1AROV2ARR05-CPV020"]
                 }
             ]
         )
