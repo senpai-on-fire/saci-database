@@ -75,21 +75,34 @@ class GCSFirmwareOverwriteCPV(CPV):
             ],
 
             exploit_steps=[
+                "TA1 Exploit Steps",
+                    "No simulation steps required for this exploit",
+                
+                "TA2 Exploit Steps",
+                    "No simulation steps required for this exploit",
+                
                 "TA3 Exploit Steps",
-                    "Turn on the controller.",
-                    "Turn on the drone.",
-                    "On the operator computer, connect to the ExpressLRS Wi-Fi network with the password 'expresslrs'.",
-                    "On the operator computer, open the ground control software and connect to the drone.",
-                    "Turn off the drone safety by pressing the black button on the drone for two seconds.",
-                    "Navigate to the 'Actions' tab on the ground control software and press the 'Arm/Disarm' button. The drone should be armed and the motors should begin to spin.",
-                    "Click the 'Arm/Disarm' button to disarm the drone. The motors should stop spinning.",
-                    "Connect the attacker system to the ExpressLRS TX Backpack Wi-Fi network with the password 'expresslrs'.",
-                    "On the attacker machine, navigate to http://10.0.0.1 in a web browser.",
-                    "Click the 'Choose File' button and select zeros.bin.gz.",
-                    "Click 'Update' and wait for the firmware to be uploaded and flashed.",
-                    "Observe that the TX Backpack is now non-functional.",
-                    "Verify the ground control software is disconnected from the drone and cannot use the above procedure for arming the drone.",
-                    "Verify that rebooting the controller does not bring the backpack back online."
+                    "Initial System Analysis:",
+                    "Power on transmitter and observe exposed Wi-Fi network (SSID: ExpressLRS TX Backpack ###)",
+                    "Document Wi-Fi password: 'expresslrs'",
+                    "Verify web interface accessibility at http://10.0.0.1",
+                    
+                    "Baseline Functionality Verification:",
+                    "Turn on controller and drone",
+                    "Connect operator computer to ExpressLRS Wi-Fi network",
+                    "Open ground control software and establish drone connection",
+                    "Disable drone safety (press black button for 2 seconds)",
+                    "Test arm/disarm functionality via ground control software",
+                    "Verify motor response to commands",
+                    
+                    "Attack Execution:",
+                    "Connect attack system to ExpressLRS TX Backpack Wi-Fi",
+                    "Access web interface at http://10.0.0.1",
+                    "Upload zeros.bin.gz via 'Choose File' button",
+                    "Initiate firmware update",
+                    "Verify TX Backpack becomes non-functional",
+                    "Confirm ground control disconnection",
+                    "Verify persistence through controller reboot"
             ],
 
             associated_files=[],
