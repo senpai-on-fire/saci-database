@@ -11,6 +11,7 @@ from .depthcamera_spoofing_vuln import *
 from .dxmx_jamming_vuln import *
 from .debug_interface_vuln import *
 from .emergency_stop_vuln import *
+from .exposed_serial_connection_vuln import *
 from .gnss_spoofing_vuln import *
 from .gps_spoofing_vuln import *
 from .gyroscope_spoofing_vuln import *
@@ -20,11 +21,13 @@ from .lack_emi_controller_shielding_vuln import *
 from .lack_emi_pwm_shielding_vuln import *
 from .lack_emi_sensor_shielding_vuln import *
 from .lack_emi_serial_shielding_vuln import *
+from .lack_failsafe_disconnection_vuln import *
 from .lack_gnss_filtering_vuln import *
 from .lack_gps_filtering_vuln import *
 from .lack_serial_auth_vuln import *
 from .lack_wifi_auth_vuln import *
 from .lack_wifi_encryption_vuln import *
+from .lidar_spoofing_vuln import *
 from .magnetometer_spoofing_vuln import *
 from .mavlink_mitm_vuln import *
 from .mavlink_overflow_vuln import *
