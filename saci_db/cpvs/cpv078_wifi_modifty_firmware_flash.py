@@ -73,22 +73,22 @@ class ArduinoUnoFirmwareOverwriteCPV(CPV):
 
             exploit_steps=[
                 "TA1/TA2 Exploit Steps",
-                "Identify Arduino Uno R3 programmable flash memory and confirm communication dependencies with Arduino Giga R1.",
-                "Verify the impact of firmware overwrite on rover control functionalities.",
+                    "Identify Arduino Uno R3 programmable flash memory and confirm communication dependencies with Arduino Giga R1.",
+                    "Verify the impact of firmware overwrite on rover control functionalities.",
 
                 "TA3 Exploit Steps",
-                "Ensure rover is powered off.",
-                "Open Arduino IDE on the attacker computer.",
-                "Create a new blank sketch with empty setup() and loop() functions.",
-                "Connect Arduino Uno R3 to attacker computer via USB-B.",
-                "In Arduino IDE, select 'Arduino UNO' from board selector.",
-                "If the board is not listed, select 'Select other board and port' and choose 'Arduino UNO' explicitly.",
-                "Select the appropriate USB port in Arduino IDE.",
-                "Upload the blank sketch to Arduino Uno R3 via Arduino IDE.",
-                "Disconnect Arduino Uno R3 from attacker computer after successful upload.",
-                "Power on rover using hex wrench and press the safety button to activate it.",
-                "Connect to rover Wi-Fi ('Arduino Wifi') and attempt to access rover controls via web browser (http://10.0.0.1/).",
-                "Verify the web page does not load and confirm inability to start missions."
+                    "Ensure rover is powered off.",
+                    "Open Arduino IDE on the attacker computer.",
+                    "Create a new blank sketch with empty setup() and loop() functions.",
+                    "Connect Arduino Uno R3 to attacker computer via USB-B.",
+                    "In Arduino IDE, select 'Arduino UNO' from board selector.",
+                    "If the board is not listed, select 'Select other board and port' and choose 'Arduino UNO' explicitly.",
+                    "Select the appropriate USB port in Arduino IDE.",
+                    "Upload the blank sketch to Arduino Uno R3 via Arduino IDE.",
+                    "Disconnect Arduino Uno R3 from attacker computer after successful upload.",
+                    "Power on rover using hex wrench and press the safety button to activate it.",
+                    "Connect to rover Wi-Fi ('Arduino Wifi') and attempt to access rover controls via web browser (http://10.0.0.1/).",
+                    "Verify the web page does not load and confirm inability to start missions."
             ],
 
             associated_files=["arduino_r3_flash.ihex.hex", "upload.sh"],

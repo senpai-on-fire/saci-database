@@ -76,22 +76,22 @@ class ArduinoGigaFirmwareOverwriteCPV(CPV):
 
             exploit_steps=[
                 "TA1/TA2 Exploit Steps",
-                "Identify the programmable flash memory on Arduino Giga R1.",
-                "Confirm the Arduino Giga R1 is responsible for creating and managing the rover's Wi-Fi network.",
+                    "Identify the programmable flash memory on Arduino Giga R1.",
+                    "Confirm the Arduino Giga R1 is responsible for creating and managing the rover's Wi-Fi network.",
 
                 "TA3 Exploit Steps",
-                "Ensure rover is powered off.",
-                "Open Arduino IDE on the attacker computer.",
-                "Create a new blank sketch with empty setup() and loop() functions.",
-                "Connect Arduino Giga R1 to attacker computer via USB-C.",
-                "In Arduino IDE, select 'Arduino Giga R1' from board selector.",
-                "If the board is not listed, select 'Select other board and port' and choose 'Arduino Giga R1' explicitly.",
-                "Select the appropriate USB port in Arduino IDE.",
-                "Upload the blank sketch to Arduino Giga R1 via Arduino IDE.",
-                "Disconnect Arduino Giga R1 from attacker computer after successful upload.",
-                "Power on rover using hex wrench and press the safety button to activate it.",
-                "Verify the absence of the rover's Wi-Fi network 'Arduino Wifi' indicating successful exploit.",
-                "Attempt to access rover controls via web browser (http://10.0.0.1/) and confirm inability to start missions."
+                    "Ensure rover is powered off.",
+                    "Open Arduino IDE on the attacker computer.",
+                    "Create a new blank sketch with empty setup() and loop() functions.",
+                    "Connect Arduino Giga R1 to attacker computer via USB-C.",
+                    "In Arduino IDE, select 'Arduino Giga R1' from board selector.",
+                    "If the board is not listed, select 'Select other board and port' and choose 'Arduino Giga R1' explicitly.",
+                    "Select the appropriate USB port in Arduino IDE.",
+                    "Upload the blank sketch to Arduino Giga R1 via Arduino IDE.",
+                    "Disconnect Arduino Giga R1 from attacker computer after successful upload.",
+                    "Power on rover using hex wrench and press the safety button to activate it.",
+                    "Verify the absence of the rover's Wi-Fi network 'Arduino Wifi' indicating successful exploit.",
+                    "Attempt to access rover controls via web browser (http://10.0.0.1/) and confirm inability to start missions."
             ],
 
             associated_files=["arduino_giga_flash_m7.hex"],

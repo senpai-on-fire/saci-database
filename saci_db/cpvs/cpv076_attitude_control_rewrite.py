@@ -17,13 +17,13 @@ class AttitudeFlipParameterManipulation(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
-                GCS(),            # Sends command
-                Mavlink(),        # Protocol used
-                Wifi(),           # Communication medium
-                Controller(),     # Processes command / runs control logic
-                PWMChannel(),     # Generates PWM signals
-                ESC(),            # Converts PWM to motor drive
-                Motor(),          # Executes actuation 
+                GCS(),            
+                Mavlink(),        
+                Wifi(),           
+                Controller(),     
+                PWMChannel(),     
+                ESC(),            
+                Motor(),          
             ],
             entry_component=Wifi(),
             exit_component=Controller(),

@@ -10,20 +10,20 @@ from saci.modeling.state import GlobalState
 
 from saci_db.vulns.expresslrs_fw_overwrite import ExpressLRSFirmwareOverwriteVuln
 
-class GCSFirmwareOverwrite(CPV):
+class GCSFirmwareOverwriteCPV(CPV):
 
     NAME = "GCS Firmware Overwrite Denial-of-Service via Wi-Fi Configuration Interface"
 
     def __init__(self):
         super().__init__(
             required_components=[
-                GCS(),            # Sends command
-                Mavlink(),        # Protocol used
-                Wifi(),           # Communication medium
-                Controller(),     # Processes command / runs control logic
-                PWMChannel(),     # Generates PWM signals
-                ESC(),            # Converts PWM to motor drive
-                Motor(),          # Executes actuation 
+                GCS(),            
+                Mavlink(),        
+                Wifi(),           
+                Controller(),     
+                PWMChannel(),     
+                ESC(),            
+                Motor(),  
             ],
             entry_component=Wifi(),
             # TODO: more precise can be firmware
