@@ -1,7 +1,7 @@
 from typing import List
 from saci.modeling import CPV
 
-from saci.modeling.device import Gyroscope, Serial, PWMChannel, ESC, MultiCopterMotor
+from saci.modeling.device import Gyroscope, Serial, PWMChannel, ESC, MultiCopterMotor, Telemetry
 from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 from saci_db.vulns.gyroscope_spoofing_vuln import GyroscopeSpoofingVuln
@@ -22,7 +22,8 @@ class AcousticSpoofingGyroscopeCPV(CPV):
         super().__init__(
             required_components=[
                 Gyroscope(),
-                Serial(),            
+                Serial(),     
+                Telemetry(),       
                 PX4Controller(),   
                 PWMChannel(),  
                 ESC(),

@@ -11,7 +11,7 @@ from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
-from saci.modeling.device import  Wifi, TelemetryHigh, ARDiscovery, PWMChannel, ESC, MultiCopterMotor
+from saci.modeling.device import  Wifi, Telemetry, ARDiscovery, PWMChannel, ESC, MultiCopterMotor
 from saci.modeling.state import GlobalState
 
 from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
@@ -26,7 +26,7 @@ class ARDiscoveryBufferOverflowCPV(CPV):
             required_components=[
                 Wifi(),
                 ARDiscovery(), 
-                TelemetryHigh(),            
+                Telemetry(),            
                 ArduPilotController(),   
                 PWMChannel(),  
                 ESC(),

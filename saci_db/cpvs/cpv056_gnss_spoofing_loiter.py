@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import (GNSSReceiver, Serial, PWMChannel, ESC, MultiCopterMotor)
+from saci.modeling.device import (GNSSReceiver, Serial, PWMChannel, ESC, MultiCopterMotor, Telemetry)
 from saci.modeling.communication import ExternalInput
 from saci.modeling.state import GlobalState
 
@@ -24,6 +24,7 @@ class GNSSLoiterModeSpoofingCPV(CPV):
             required_components=[
                 GNSSReceiver(),
                 Serial(),
+                Telemetry(),
                 ProprietyController(),
                 PWMChannel(),
                 ESC(),

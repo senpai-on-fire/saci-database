@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import (Controller, Serial, ESC, PWMChannel, Motor)
+from saci.modeling.device import (Controller, Telemetry, Serial, ESC, PWMChannel, Motor)
 from saci.modeling.device.sensor import CompassSensor
 from saci.modeling.device.motor.steering import Steering
 from saci.modeling.state import GlobalState
@@ -24,6 +24,7 @@ class CompassTemporarySpoofingCPV(CPV):
             required_components=[
                 CompassSensor(),
                 Controller(),
+                Telemetry(),
                 Controller(),
                 PWMChannel(),
                 Steering(),],

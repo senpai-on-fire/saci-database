@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import Wifi, Controller, Motor, WebServer, WebClient, PWMChannel, ESC
+from saci.modeling.device import Wifi, Controller, Telemetry, Motor, WebServer, WebClient, PWMChannel, ESC
 
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
@@ -24,6 +24,7 @@ class WifiWebStopCPV(CPV):
                 Wifi(),
                 WebServer(),
                 Controller(),
+                Telemetry(),
                 Controller(),
                 PWMChannel(), 
                 ESC(),

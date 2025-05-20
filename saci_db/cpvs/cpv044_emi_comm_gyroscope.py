@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import (Serial, Gyroscope, PWMChannel, ESC, MultiCopterMotor)
+from saci.modeling.device import (Serial, Gyroscope, PWMChannel, ESC, MultiCopterMotor, Telemetry)
 from saci_db.devices.px4_quadcopter_device import PX4Controller
 from saci.modeling.state import GlobalState
 
@@ -24,6 +24,7 @@ class GyroscopeEMIChannelDisruptionCPV(CPV):
             required_components=[
                 Gyroscope(),       
                 Serial(),
+                Telemetry(),
                 PX4Controller(),  
                 PWMChannel(),
                 ESC(),

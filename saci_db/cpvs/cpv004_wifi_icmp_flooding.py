@@ -2,7 +2,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import GCS, Wifi, ICMP, TelemetryHigh, PWMChannel, ESC, MultiCopterMotor
+from saci.modeling.device import GCS, Wifi, ICMP, Telemetry, PWMChannel, ESC, MultiCopterMotor
 
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
@@ -26,7 +26,7 @@ class WiFiICMPFloodingCPV(CPV):
             required_components=[
                 Wifi(),
                 ICMP() , 
-                TelemetryHigh(),          
+                Telemetry(),          
                 PX4Controller(),   
                 PWMChannel(),  
                 ESC(),

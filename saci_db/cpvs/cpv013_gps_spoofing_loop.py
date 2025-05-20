@@ -1,6 +1,6 @@
 from typing import List
 
-from saci.modeling.device import Controller, Serial, GPSReceiver, Motor, PWMChannel, ESC
+from saci.modeling.device import Controller, Serial, Telemetry, GPSReceiver, Motor, PWMChannel, ESC
 from saci.modeling import CPV 
 
 from saci_db.vulns.gps_spoofing_vuln import GPSSpoofingVuln
@@ -25,6 +25,7 @@ class GPSSpoofingLoopCPV(CPV):
             required_components=[
                 GPSReceiver(),
                 Controller(),
+                Telemetry(),
                 Controller(),
                 PWMChannel(), 
                 ESC(),

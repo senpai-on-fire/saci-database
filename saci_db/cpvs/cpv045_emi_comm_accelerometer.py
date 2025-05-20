@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import (Serial, Accelerometer, PWMChannel, ESC, MultiCopterMotor)
+from saci.modeling.device import (Serial, Accelerometer, PWMChannel, ESC, MultiCopterMotor, Telemetry)
 from saci_db.devices.px4_quadcopter_device import PX4Controller
 from saci.modeling.device import Serial
 from saci.modeling.state import GlobalState
@@ -26,6 +26,7 @@ class AccelerometerEMIChannelDisruptionCPV(CPV):
             required_components=[
                 Accelerometer(),   
                 Serial(),
+                Telemetry(),
                 PX4Controller(),    
                 PWMChannel(),
                 ESC(),

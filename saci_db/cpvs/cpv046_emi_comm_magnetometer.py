@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import (Magnetometer, Serial, PWMChannel, ESC, MultiCopterMotor)
+from saci.modeling.device import (Magnetometer, Serial, PWMChannel, ESC, MultiCopterMotor, Telemetry)
 from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 
@@ -26,6 +26,7 @@ class MagnetometerEMIChannelDisruptionCPV(CPV):
             required_components=[
                 Magnetometer(),  
                 Serial(),
+                Telemetry(),
                 PX4Controller(),    
                 PWMChannel(),
                 ESC(),

@@ -1,5 +1,5 @@
 from saci.modeling import CPV
-from saci.modeling.device import (GCS, SikRadio, DSMx, TelemetryHigh, PWMChannel, ESC, MultiCopterMotor)
+from saci.modeling.device import (GCS, SikRadio, DSMx, Telemetry, PWMChannel, ESC, MultiCopterMotor)
 from saci.modeling.communication import ExternalInput
 from saci.modeling.state import GlobalState
 
@@ -23,7 +23,7 @@ class DSMxJammingHijackCPV(CPV):
                 GCS(),
                 SikRadio(),
                 DSMx(),
-                TelemetryHigh(), 
+                Telemetry(), 
                 PX4Controller(),
                 PWMChannel(), 
                 ESC(),

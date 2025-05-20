@@ -11,7 +11,7 @@ from saci_db.vulns.barometer_spoofing_vuln import BarometerSpoofingVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
 from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
-from saci.modeling.device import Barometer, Serial, PWMChannel, ESC, MultiCopterMotor
+from saci.modeling.device import Barometer, Serial, PWMChannel, ESC, MultiCopterMotor, Telemetry
 from saci.modeling.state import GlobalState
 
 class BarometricSensorSpoofingCPV(CPV):
@@ -22,7 +22,8 @@ class BarometricSensorSpoofingCPV(CPV):
         super().__init__(
             required_components=[
                 Barometer(),       
-                Serial(),            
+                Serial(),
+                Telemetry(),            
                 ArduPilotController(), 
                 PWMChannel(),  
                 ESC(),

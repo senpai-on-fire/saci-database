@@ -1,6 +1,6 @@
 from typing import List, Type
 from saci.modeling import CPV
-from saci.modeling.device import Controller, Wifi, Controller, Motor, WebServer, PWMChannel, ESC
+from saci.modeling.device import Controller, Wifi, Controller, Motor, WebServer, PWMChannel, ESC, Telemetry
 
 from saci_db.vulns.wifi_knowncreds_vuln import WifiKnownCredsVuln
 from saci_db.vulns.weak_application_auth_vuln import WeakApplicationAuthVuln
@@ -17,8 +17,6 @@ from saci.modeling.state import GlobalState
 # It is quite similar to It is quite similar to this one from the previous rover 
 # https://github.com/senpai-on-fire/saci-database/blob/main/saci_db/cpvs/cpv008_wifi_webserver_crash.py
  
-
-
 class WifiWebCrashCPV(CPV):
 
     NAME = "Denial of Service and Control Hijacking via Webserver Flooding over Wi-Fi"
@@ -27,12 +25,14 @@ class WifiWebCrashCPV(CPV):
 
         super().__init__(
             required_components=[
-                Wifi(),
-                WebServer(),
-                Controller(),
-                PWMChannel(), 
-                ESC(),
-                Motor(),
+                Wifi(),           
+                WebServer(),      
+                Controller(),     
+                Telemetry(),      
+                Controller(),     
+                PWMChannel(),     
+                ESC(),            
+                Motor(),          
             ],
 
             entry_component=Wifi(),

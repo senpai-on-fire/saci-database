@@ -14,7 +14,7 @@ from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 from saci_db.devices.px4_quadcopter_device import PX4Controller
-from saci.modeling.device import Wifi, TelemetryHigh, ESC, PWMChannel, MultiCopterMotor
+from saci.modeling.device import Wifi, Telemetry, ESC, PWMChannel, MultiCopterMotor
 from saci.modeling.state import GlobalState
 
 
@@ -26,7 +26,7 @@ class BeaconFrameFloodingCPV(CPV):
         super().__init__(
             required_components=[
                 Wifi(), 
-                TelemetryHigh(),            
+                Telemetry(),            
                 PX4Controller(),   
                 PWMChannel(),  
                 ESC(),
