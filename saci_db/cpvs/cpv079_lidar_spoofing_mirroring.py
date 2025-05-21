@@ -20,6 +20,7 @@ class LiDARBYPASSMirrorCPV(CPV):
                 LiDAR(),   
                 Serial(),       
                 Controller(),     
+                Controller(), 
                 PWMChannel(),     
                 ESC(),            
                 Motor(),         

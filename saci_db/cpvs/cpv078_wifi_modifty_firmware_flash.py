@@ -1,6 +1,6 @@
 
 from saci.modeling import CPV
-from saci.modeling.device import Controller, Motor, Wifi, Serial
+from saci.modeling.device import Controller, Motor, Wifi, Serial, PWMChannel, ESC
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
@@ -16,10 +16,12 @@ class ArduinoUnoFirmwareOverwriteCPV(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
+                Serial(),
                 Controller(),
-                Wifi(),
-                Motor(),
-                Serial(),  # Represents USB communication interface.
+                Controller(), 
+                PWMChannel(),     
+                ESC(),            
+                Motor(), 
             ],
 
             entry_component=Serial(),
@@ -72,27 +74,27 @@ class ArduinoUnoFirmwareOverwriteCPV(CPV):
 
             exploit_steps=[
                 "TA1/TA2 Exploit Steps",
-                "Identify Arduino Uno R3 manages critical CAN communication required for rover mission control.",
-                "Confirm the programmable flash memory vulnerability on Arduino Uno R3.",
+                    "Identify Arduino Uno R3 manages critical CAN communication required for rover mission control.",
+                    "Confirm the programmable flash memory vulnerability on Arduino Uno R3.",
 
                 "TA3 Exploit Steps",
-                "Open “Arduino IDE”.",
-                "Select “File” -> ”New Sketch”.",
-                "A new sketch window should open with empty setup() and loop() functions defined.",
-                "Connect the Arduino Uno R3 to the computer with the USB-B cable.",
-                "Using the board selector at the top of the window, select “Arduino UNO”.",
-                "If “Arduino UNO” is not present, select “Select other board and port”.",
-                "A dialog titled “Select Other Board and Port” should appear.",
-                "Type in “Arduino UNO” into the “Boards” text box, and select “Arduino UNO” in the list box below.",
-                "Select the appropriate port in the “Ports” dialog box.",
-                "Press the “OK” button.",
-                "Save this sketch with the name “blank” or something appropriate.",
-                "Select “Sketch” -> “Upload” to compile and upload the sketch to the board.",
-                "Once the upload has finished, unplug the Arduino Uno R3 from the computer.",
-                "Repeat Steps #1-3 in the first section to power and activate the rover.",
-                "Open a web browser on the computer and navigate to http://10.0.0.1/.",
-                "Observe that the web page will not load and a mission cannot be started.",
-                "Using a hex wrench, rotate the power block clockwise until the LEDs turn off to power off the rover."
+                    "Open “Arduino IDE”.",
+                    "Select “File” -> ”New Sketch”.",
+                    "A new sketch window should open with empty setup() and loop() functions defined.",
+                    "Connect the Arduino Uno R3 to the computer with the USB-B cable.",
+                    "Using the board selector at the top of the window, select “Arduino UNO”.",
+                    "If “Arduino UNO” is not present, select “Select other board and port”.",
+                    "A dialog titled “Select Other Board and Port” should appear.",
+                    "Type in “Arduino UNO” into the “Boards” text box, and select “Arduino UNO” in the list box below.",
+                    "Select the appropriate port in the “Ports” dialog box.",
+                    "Press the “OK” button.",
+                    "Save this sketch with the name “blank” or something appropriate.",
+                    "Select “Sketch” -> “Upload” to compile and upload the sketch to the board.",
+                    "Once the upload has finished, unplug the Arduino Uno R3 from the computer.",
+                    "Repeat Steps #1-3 in the first section to power and activate the rover.",
+                    "Open a web browser on the computer and navigate to http://10.0.0.1/.",
+                    "Observe that the web page will not load and a mission cannot be started.",
+                    "Using a hex wrench, rotate the power block clockwise until the LEDs turn off to power off the rover."
             ],
 
             associated_files=["arduino_r3_flash.ihex.hex", "upload.sh"],

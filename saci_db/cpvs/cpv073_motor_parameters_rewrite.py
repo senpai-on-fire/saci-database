@@ -9,6 +9,7 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci.modeling.state import GlobalState
 
 from saci_db.vulns.expresslrs_fw_overwrite import ExpressLRSFirmwareOverwriteVuln
+from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
 class RC3ParameterManipulationCPV(CPV):
 
@@ -20,7 +21,7 @@ class RC3ParameterManipulationCPV(CPV):
                 GCS(),            
                 Mavlink(),        
                 Wifi(),           
-                Controller(),     
+                ArduPilotController(), 
                 PWMChannel(),     
                 ESC(),            
                 Motor(),  

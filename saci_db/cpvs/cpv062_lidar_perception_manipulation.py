@@ -88,11 +88,11 @@ class LiDARPerceptionManipulationCPV(CPV):
 
             exploit_steps = [
                 "TA1 Exploit Steps",
-                    "Develop a simulation model of LiDAR sensing and spoofing behavior based on system timing and optical characteristics.",
-                    "Implement spoofer logic including photodetector-triggered emission and high-frequency pulsing logic.",
+                    "Model timing synchronization, beam alignment, and response latency to simulate realistic signal injection/removal scenarios.",
 
                 "TA2 Exploit Steps",
-                    "Model timing synchronization, beam alignment, and response latency to simulate realistic signal injection/removal scenarios.",
+                    "Develop a simulation model of LiDAR sensing and spoofing behavior based on system timing and optical characteristics.",
+                    "Implement spoofer logic including photodetector-triggered emission and high-frequency pulsing logic.",
 
                 "TA3 Exploit Steps",
                     "For pattern injection: synchronize pulse emission with LiDAR return timing to inject crafted points into scan frame.",

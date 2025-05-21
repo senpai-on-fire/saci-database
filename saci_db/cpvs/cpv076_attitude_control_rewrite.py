@@ -9,6 +9,8 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci.modeling.state import GlobalState
 
 from saci_db.vulns.ardupilot_flip_param_overwrite import ExpressLRSFirmwareOverwriteVuln
+from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
+
 
 class AttitudeFlipParameterManipulation(CPV):
 
@@ -20,7 +22,7 @@ class AttitudeFlipParameterManipulation(CPV):
                 GCS(),            
                 Mavlink(),        
                 Wifi(),           
-                Controller(),     
+                ArduPilotController(),      
                 PWMChannel(),     
                 ESC(),            
                 Motor(),          

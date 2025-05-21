@@ -9,6 +9,7 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci.modeling.state import GlobalState
 
 from saci_db.vulns.mavlink_mitm_vuln import MavlinkMitmVuln
+from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
 class RCMotorJitterCPV(CPV):
 
@@ -20,7 +21,7 @@ class RCMotorJitterCPV(CPV):
                 GCS(),            
                 Mavlink(),        
                 Wifi(),           
-                Controller(),     
+                ArduPilotController(),      
                 PWMChannel(),     
                 ESC(),            
                 Motor(), 
