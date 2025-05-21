@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from typing import List, Type
 
 from saci.modeling import CPV
@@ -20,9 +19,8 @@ from saci_db.vulns.lack_serial_auth_vuln import LackSerialAuthenticationVuln
 # -It also needs the process to be a foreground process
 # -I did not include those in attack_requirements or required_components
 
-# -The passthrough element is one of the ARM cores in the ZynQ SoC, should I model it as passthrough element now
-# or make it a general processor, or an ARM processor or specify it is a processor on a FPGA SoC or identify the exact
-# model (Zynq 7020 SoC ARM Core) ?
+# "Mission or Manual" or "Mission" only ?
+
 
 class GPSPassthroughStopCPV(CPV):
     
@@ -35,7 +33,6 @@ class GPSPassthroughStopCPV(CPV):
                 Serial(),
                 PassThrough(),
                 Controller(),
-                #PWMChannel(),
                 Steering(),
             ],
             entry_component= Serial(),
@@ -61,10 +58,10 @@ class GPSPassthroughStopCPV(CPV):
             attack_vectors = [BaseAttackVector(name="Terminate Passthrough Process", 
                                                signal=SerialAttackSignal(src=ExternalInput(), dst=Serial()),
                                                required_access_level="Physical",
-                                               #configuration={"duration": "permanent"},
+                                               configuration={"duration": "temporary"},
                                                 )],  
             attack_impacts = [BaseAttackImpact(category='Loss of control.',
-                                               description='The CPS starts driving in a stright line without turning')],
+                                               description='The Rover starts driving in a stright line without turning')],
 
             exploit_steps=[
                 "TA1 Exploit Steps",
@@ -111,6 +108,3 @@ class GPSPassthroughStopCPV(CPV):
     def in_goal_state(self, state: GlobalState):
         # TODO?
         pass
-=======
-
->>>>>>> fe6e7f5bc2946b58e9cb4fdb2fc003ad2dc0a6ac
