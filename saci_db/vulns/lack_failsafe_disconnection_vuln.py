@@ -4,7 +4,7 @@ from clorm import Predicate
 
 from saci.modeling import BaseVulnerability
 from saci.modeling.attack import BaseAttackVector, BaseAttackSignal, BaseCompEffect
-from saci.modeling.device import Serial, Controller
+from saci.modeling.device import Serial, Controller, Device
 
 
 class LackFailsafeDisconnectionPred(Predicate):
@@ -51,3 +51,10 @@ class LackFailsafeDisconnectionVuln(BaseVulnerability):
             ]
 
         )
+
+    def exists(self, device: Device) -> bool:
+        #If a device has some kind of Serial communication, there is a chance of unexpected behavior when the connection is broken
+        for comp in device.components:
+            if isinstance(comp, Serial): 
+                return True   
+        return False
