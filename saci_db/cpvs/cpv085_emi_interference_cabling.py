@@ -12,7 +12,7 @@ from saci_db.vulns.lack_emi_sensor_shielding_vuln import LackEMISensorShieldingV
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 from saci_db.vulns.lack_emi_powercable_shielding_vuln import LackEMIPowerCableShieldingVuln
 
-from saci.modeling.device import Controller, Serial, Magnetometer, PWMChannel, Steering, ESC, Motor
+from saci.modeling.device import Controller, Serial, Magnetometer, PWMChannel, Steering, PowerCable, ESC, Motor
 from saci.modeling.state import GlobalState
 
 class EMISpoofingMagnetometerCPV(CPV):
@@ -22,10 +22,10 @@ class EMISpoofingMagnetometerCPV(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
+                PowerCable(),
                 Magnetometer(), 
                 Serial(),
                 Controller(),    
-                PWMChannel(),
                 Steering(), 
             ],
             entry_component=Magnetometer(),   
@@ -53,7 +53,7 @@ class EMISpoofingMagnetometerCPV(CPV):
                 BaseAttackVector(
                     name="Electromagnetic Signals Interference", 
                     signal=MagneticAttackSignal(
-                        src=ExternalInput(),
+                        src=PowerCable(),
                         dst=Magnetometer(),
                     ),
                     required_access_level="Physical",
@@ -104,5 +104,7 @@ class EMISpoofingMagnetometerCPV(CPV):
         )
 
     def in_goal_state(self, state: GlobalState):
+        # TODO: ?
+        pass
         # Define the goal state, such as orientation estimation error or navigation disruption
-        return state.has_property("OrientationEstimationError", True) or state.has_property("NavigationDisruption", True)
+        #return state.has_property("OrientationEstimationError", True) or state.has_property("NavigationDisruption", True)
