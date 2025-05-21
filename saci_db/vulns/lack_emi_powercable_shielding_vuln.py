@@ -2,7 +2,7 @@ import os.path
 from clorm import Predicate
 
 from saci.modeling import BaseVulnerability
-from saci.modeling.device import Device, Cable
+from saci.modeling.device import Device, PowerCable
 from saci.modeling.communication import AuthenticatedCommunication
 
 # Predicate to define formal reasoning logic for vulnerabilities caused by lack of EMI shielding on sensors
@@ -13,7 +13,7 @@ class LackEMIPowerCableShieldingVuln(BaseVulnerability):
     def __init__(self):
         super().__init__(
             # The Sensor component is vulnerable due to lack of EMI shielding
-            component = Cable(), 
+            component = PowerCable(), 
             # Input: None
             _input=None,
             # Output: EM radiation.
@@ -38,7 +38,7 @@ class LackEMIPowerCableShieldingVuln(BaseVulnerability):
         # Iterate through all components of the device
         for comp in device.components:
             # Check if the component is a Sensor and lacks proper EMI shielding
-            if isinstance(comp, Cable):
+            if isinstance(comp, PowerCable):
                 # Assuming there is an attribute 'has_emi_shielding' indicating if the sensor is shielded
                 if not getattr(comp, 'has_emi_shielding', False):  # Default to False if the attribute is missing
                     return True  # Vulnerability exists if the sensor lacks shielding
