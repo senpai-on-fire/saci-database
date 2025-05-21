@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from typing import List, Type
 
 from saci.modeling import CPV
@@ -110,3 +111,6 @@ class GPSPassthroughStopCPV(CPV):
     def in_goal_state(self, state: GlobalState):
         # TODO?
         pass
+=======
+
+>>>>>>> fe6e7f5bc2946b58e9cb4fdb2fc003ad2dc0a6ac

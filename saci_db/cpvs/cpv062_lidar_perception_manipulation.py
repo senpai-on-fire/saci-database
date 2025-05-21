@@ -86,12 +86,17 @@ class LiDARPerceptionManipulationCPV(CPV):
                 )
             ],
 
-            exploit_steps=[
-                "Deploy LiDAR spoofer near line-of-sight to target sensor.",
-                "For injection: synchronize and emit crafted patterns.",
-                "For removal: use high-frequency or saturating lasers.",
-                "Object detector outputs incorrect detections.",
-                "Control system reacts to manipulated perception.",
+            exploit_steps = [
+                "TA1 Exploit Steps",
+                    "Model timing synchronization, beam alignment, and response latency to simulate realistic signal injection/removal scenarios.",
+
+                "TA2 Exploit Steps",
+                    "Develop a simulation model of LiDAR sensing and spoofing behavior based on system timing and optical characteristics.",
+                    "Implement spoofer logic including photodetector-triggered emission and high-frequency pulsing logic.",
+
+                "TA3 Exploit Steps",
+                    "For pattern injection: synchronize pulse emission with LiDAR return timing to inject crafted points into scan frame.",
+                    "For object removal: emit high-frequency laser pulses asynchronously to overwrite or suppress legitimate returns.",
             ],
 
             associated_files=[],

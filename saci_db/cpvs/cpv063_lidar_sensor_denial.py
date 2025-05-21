@@ -1,5 +1,5 @@
 from saci.modeling import CPV
-from saci.modeling.device import LiDAR, ObjectDetector3D, PX4Controller, PWMChannel, ESC, MultiCopterMotor
+from saci.modeling.device import LiDAR, PX4Controller, PWMChannel, ESC, MultiCopterMotor, Telemetry, Serial
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.optical_attack_signal import OpticalAttackSignal
@@ -16,7 +16,7 @@ class LiDARSensorDenialCPV(CPV):
         super().__init__(
             required_components=[
                 LiDAR(),
-                ObjectDetector3D(),
+                Serial(),
                 PX4Controller(),
                 PWMChannel(),
                 ESC(),
@@ -75,10 +75,27 @@ class LiDARSensorDenialCPV(CPV):
             ],
 
             exploit_steps=[
-                "Setup LED array or laser pointer aligned with target LiDAR.",
-                "Emit disruptive signals continuously or in bursts.",
-                "LiDAR experiences degraded sensing or returns invalid point clouds.",
-                "Sensor fusion fails or outputs incorrect map of environment.",
+                "TA1 Exploit Steps",
+                    "Implement a model to simulate LiDAR sensor denial attack on the CPS dynamics.",
+                    "The model must include:",
+                        "    - LiDAR sensor characteristics.",
+                        "    - Light source parameters and interference patterns.",
+                        "    - Point cloud processing algorithms.",
+                        "    - Sensor fusion mechanisms.",
+                
+                "TA2 Exploit Steps",
+                    "Simulate the CPS dynamics under different attack scenarios",
+                    "Refine the attack parameters based on TA1 observations:",
+                        "    - Test various light source intensities and patterns.",
+                        "    - Analyze point cloud degradation patterns.",
+                        "    - Evaluate impact on object detection accuracy.",
+                
+                "TA3 Exploit Steps",
+                    "Execute the physical attack:",
+                        "    - Setup LED array or laser pointer aligned with target LiDAR.",
+                        "    - Configure light source parameters based on simulation results.",
+                        "    - Emit disruptive signals continuously or in bursts.",
+                        "    - Monitor LiDAR response and point cloud quality.",
             ],
 
             associated_files=[],

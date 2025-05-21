@@ -15,7 +15,7 @@ from saci_db.vulns.lack_emi_powercable_shielding_vuln import LackEMIPowerCableSh
 from saci.modeling.device import Controller, Serial, Magnetometer, PWMChannel, Steering, PowerCable, ESC, Motor
 from saci.modeling.state import GlobalState
 
-class EMISpoofingMagnetometerCPV(CPV):
+class EMIPowerCableMagnetometerCPV(CPV):
 
     NAME = "The EMI Spoofing Attack on Magnetometer Sensors"
 
@@ -36,7 +36,7 @@ class EMISpoofingMagnetometerCPV(CPV):
             initial_conditions={
                 "Position": "Any",
                 "Heading": "Any",
-                "Speed": "Any (>0)",
+                "Speed": "Any",
                 "Environment": "Any",
                 "RemoteController": "On",
                 "CPSController": "Active",

@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import Wifi, Controller, Motor, PWMChannel, WebServer, WebClient, ESC
+from saci.modeling.device import Wifi, Telemetry, Controller, Motor, PWMChannel, WebServer, WebClient, ESC
 
 from saci.modeling.communication import ExternalInput
 

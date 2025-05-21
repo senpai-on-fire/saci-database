@@ -1,6 +1,6 @@
 from typing import List
 
-from saci.modeling.device import Controller, Serial, PWMChannel, Motor, ESC
+from saci.modeling.device import Controller, Serial, Telemetry, PWMChannel, Motor, ESC
 from saci.modeling import CPV
 from saci.modeling.state import GlobalState
 

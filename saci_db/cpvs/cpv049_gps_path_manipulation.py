@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import (GPSReceiver, Serial, PWMChannel, ESC, MultiCopterMotor)
+from saci.modeling.device import (GPSReceiver, Serial, PWMChannel, ESC, MultiCopterMotor, Telemetry)
 from saci.modeling.communication import ExternalInput
 from saci.modeling.state import GlobalState
 
@@ -23,7 +23,6 @@ class PathManipulationCPV(CPV):
         super().__init__(
             required_components=[
                 GPSReceiver(),
-                Serial(),
                 Serial(),
                 ArduPilotController(),
                 PWMChannel(),
