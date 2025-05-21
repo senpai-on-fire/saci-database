@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import Wifi, TelemetryHigh, Telnet, FTP, ESC, PWMChannel, MultiCopterMotor
+from saci.modeling.device import Wifi, Telemetry, Telnet, FTP, ESC, PWMChannel, MultiCopterMotor
 
 from saci_db.vulns.wifi_deauthentication_vuln import WiFiDeauthVuln
 from saci_db.vulns.lack_wifi_auth_vuln import LackWifiAuthenticationVuln
@@ -27,7 +27,6 @@ class FTPTelnetHijackCPV(CPV):
                 Wifi(),
                 Telnet(),
                 FTP(),
-                TelemetryHigh(),   
                 ArduPilotController(),
                 PWMChannel(),
                 ESC(),

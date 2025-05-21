@@ -12,7 +12,7 @@ from saci_db.vulns.lack_emi_sensor_shielding_vuln import LackEMISensorShieldingV
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
 from saci_db.devices.px4_quadcopter_device import PX4Controller
-from saci.modeling.device import Serial, Magnetometer, PWMChannel, ESC, MultiCopterMotor
+from saci.modeling.device import Serial, Magnetometer, PWMChannel, ESC, MultiCopterMotor, Telemetry
 from saci.modeling.state import GlobalState
 
 class EMISpoofingMagnetometerCPV(CPV):

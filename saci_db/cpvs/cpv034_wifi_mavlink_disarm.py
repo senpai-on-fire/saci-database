@@ -12,7 +12,7 @@ from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 from saci_db.devices.px4_quadcopter_device import PX4Controller
-from saci.modeling.device import Wifi, TelemetryHigh, Mavlink, ESC, PWMChannel, MultiCopterMotor
+from saci.modeling.device import Wifi, Telemetry, Mavlink, ESC, PWMChannel, MultiCopterMotor
 from saci.modeling.state import GlobalState
 
 class MavlinkDisarmCPV(CPV):
@@ -24,7 +24,6 @@ class MavlinkDisarmCPV(CPV):
             required_components=[
                 Wifi(),
                 Mavlink(),
-                TelemetryHigh(),            
                 PX4Controller(),   
                 PWMChannel(),  
                 ESC(),
