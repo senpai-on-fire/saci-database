@@ -3,7 +3,7 @@ import os.path
 from clorm import Predicate
 
 from saci.modeling import PublicSecretVulnerability
-from saci.modeling.device import Device, Wifi, TelemetryHigh, Telemetry
+from saci.modeling.device import Device, Wifi, TelemetryHigh, Telemetry, ExpressLRSBackpack, Mavlink
 from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
 from saci.modeling.attack import BaseCompEffect
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
@@ -89,6 +89,32 @@ class WifiKnownCredsVuln(PublicSecretVulnerability):
                     "reference_urls": [
                         "https://github.com/senpai-on-fire/NGC1B-rover-CPVs/blob/main/CPV003/HII-NGP1AROV1ARR03-CPV003-20240828.docx"
                     ]
+                },
+                {
+                    "attack_vector": [
+                        BaseAttackVector(
+                            name="MavLink Packets Injection",
+                            signal=PacketAttackSignal(src=Mavlink(), dst=ExpressLRSBackpack()), 
+                            required_access_level="Proximity",
+                            configuration={"protocol":"UDP","port":"14555","command":"param set"}
+                        )
+                    ],
+                    
+                    "related_cpv": ["FlightParametersRewriteCPV"],
+                    
+                    "comp_attack_effect": BaseCompEffect(
+                        category="Integrity",
+                        description="The manipulation of parameters disrupts calibration of the sensors and causes a change in the CPS movement dynamics."
+                    ),
+
+                    "exploit_steps": [
+                        "Connect to the CPS via the ExpressLRS Backpack module using the default password 'expresslrs'.",
+                        "Gain write access to the MAVLink messages of the CPS through a utility like MAVProxy.",
+                        "Issue a param set command with the format 'param set {param_name} {value}' (ex: param set INS_GYROFFS_X 10).",
+                        "Observe and verify the effect on the flight dynamics after overwriting different parameters."
+                    ],
+
+                    "reference_urls": ["https://github.com/senpai-on-fire/owlet-taskboard/blob/main/CPVs/IVV_Feedback/PASS/HII-GS0409380007-CPV004-20250303.docx"]
                 }
             ]
 
@@ -106,6 +132,8 @@ class WifiKnownCredsVuln(PublicSecretVulnerability):
             if isinstance(comp, Wifi):
                 # Further checks could be added here for specific attributes of the WiFi component
                 return True  # Vulnerability exists for any unprotected or insecure WiFi module
+            if isinstance(comp, ExpressLRSBackpack):
+                return True #could be the default password "expresslrs"
         return False  # No vulnerability detected
 
     def known_credentials(self):
