@@ -1,9 +1,10 @@
 
 from saci.modeling import CPV
-from saci.modeling.device import Controller, Motor, Wifi
+from saci.modeling.device import Controller, Motor, Wifi, Serial
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
+from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
 from saci.modeling.state import GlobalState
 
 from saci_db.vulns.firmware_overwrite_vuln import FirmwareOverwriteVuln
@@ -15,19 +16,17 @@ class ArduinoUnoFirmwareOverwriteCPV(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
-                ArduinoUnoR3(),
-                ArduinoGigaR1(),
                 Controller(),
                 Wifi(),
                 Motor(),
+                Serial(),  # Represents USB communication interface.
             ],
 
-            entry_component=ArduinoUnoR3(),
-            # Motor remains inactive due to firmware overwrite preventing command relay.
-            exit_component=Motor(),  
+            entry_component=Serial(),
+            exit_component=Motor(),  # Motor inactivity due to CAN communication disruption.
 
             vulnerabilities=[
-                FirmwareOverwriteVuln(component=ArduinoUnoR3())
+                FirmwareOverwriteVuln(component=Controller())
             ],
 
             initial_conditions={
@@ -43,16 +42,16 @@ class ArduinoUnoFirmwareOverwriteCPV(CPV):
             attack_requirements=[
                 "Computer with Arduino IDE v2.3.6",
                 "USB-B cable",
-                "Physical access to Arduino Uno R3 USB port",
+                "Physical access to Arduino Uno R3 USB-B port",
                 "Arduino AVR Boards package v1.8.6"
             ],
 
             attack_vectors=[
                 BaseAttackVector(
-                    name="Firmware Overwrite via USB-B Port",
-                    signal=FirmwareAttackSignal(
+                    name="Firmware Overwrite via USB-C Port",
+                    signal=PacketAttackSignal(
                         src=ExternalInput(),
-                        dst=ArduinoUnoR3(),
+                        dst=Serial(),
                         modality="firmware_overwrite"
                     ),
                     required_access_level="Physical",
@@ -67,28 +66,33 @@ class ArduinoUnoFirmwareOverwriteCPV(CPV):
             attack_impacts=[
                 BaseAttackImpact(
                     category="Denial of Service",
-                    description="Overwriting Arduino Uno R3 firmware disrupts CAN communication with Arduino Giga R1, making web interface unreachable and preventing rover operation."
+                    description="Overwriting Arduino Uno R3 firmware disrupts CAN communication with Arduino Giga R1, making the web interface unreachable and preventing rover operation."
                 )
             ],
 
             exploit_steps=[
                 "TA1/TA2 Exploit Steps",
-                    "Identify Arduino Uno R3 programmable flash memory and confirm communication dependencies with Arduino Giga R1.",
-                    "Verify the impact of firmware overwrite on rover control functionalities.",
+                "Identify Arduino Uno R3 manages critical CAN communication required for rover mission control.",
+                "Confirm the programmable flash memory vulnerability on Arduino Uno R3.",
 
                 "TA3 Exploit Steps",
-                    "Ensure rover is powered off.",
-                    "Open Arduino IDE on the attacker computer.",
-                    "Create a new blank sketch with empty setup() and loop() functions.",
-                    "Connect Arduino Uno R3 to attacker computer via USB-B.",
-                    "In Arduino IDE, select 'Arduino UNO' from board selector.",
-                    "If the board is not listed, select 'Select other board and port' and choose 'Arduino UNO' explicitly.",
-                    "Select the appropriate USB port in Arduino IDE.",
-                    "Upload the blank sketch to Arduino Uno R3 via Arduino IDE.",
-                    "Disconnect Arduino Uno R3 from attacker computer after successful upload.",
-                    "Power on rover using hex wrench and press the safety button to activate it.",
-                    "Connect to rover Wi-Fi ('Arduino Wifi') and attempt to access rover controls via web browser (http://10.0.0.1/).",
-                    "Verify the web page does not load and confirm inability to start missions."
+                "Open “Arduino IDE”.",
+                "Select “File” -> ”New Sketch”.",
+                "A new sketch window should open with empty setup() and loop() functions defined.",
+                "Connect the Arduino Uno R3 to the computer with the USB-B cable.",
+                "Using the board selector at the top of the window, select “Arduino UNO”.",
+                "If “Arduino UNO” is not present, select “Select other board and port”.",
+                "A dialog titled “Select Other Board and Port” should appear.",
+                "Type in “Arduino UNO” into the “Boards” text box, and select “Arduino UNO” in the list box below.",
+                "Select the appropriate port in the “Ports” dialog box.",
+                "Press the “OK” button.",
+                "Save this sketch with the name “blank” or something appropriate.",
+                "Select “Sketch” -> “Upload” to compile and upload the sketch to the board.",
+                "Once the upload has finished, unplug the Arduino Uno R3 from the computer.",
+                "Repeat Steps #1-3 in the first section to power and activate the rover.",
+                "Open a web browser on the computer and navigate to http://10.0.0.1/.",
+                "Observe that the web page will not load and a mission cannot be started.",
+                "Using a hex wrench, rotate the power block clockwise until the LEDs turn off to power off the rover."
             ],
 
             associated_files=["arduino_r3_flash.ihex.hex", "upload.sh"],
