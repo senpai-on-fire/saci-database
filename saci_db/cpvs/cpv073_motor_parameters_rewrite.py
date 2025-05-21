@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import Controller, GCS, Wifi, Telemetry, PWMChannel, ESC, Motor, Mavlink
+from saci.modeling.device import Controller, GCS, Wifi, Telemetry, PWMChannel, ESC, Motor, Mavlink, ExpressLRSBackpack
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
@@ -20,7 +20,8 @@ class RC3ParameterManipulationCPV(CPV):
             required_components=[
                 GCS(),            
                 Mavlink(),        
-                Wifi(),           
+                Wifi(),   
+                ExpressLRSBackpack(),        
                 ArduPilotController(), 
                 PWMChannel(),     
                 ESC(),            
@@ -28,11 +29,9 @@ class RC3ParameterManipulationCPV(CPV):
             ],
             entry_component=Wifi(),
             # TODO: more precise can be firmware
-            exit_component=Controller(),
+            exit_component=ArduPilotController(), 
 
-            vulnerabilities=[
-                ExpressLRSFirmwareOverwriteVuln()
-            ],
+            vulnerabilities=[ExpressLRSFirmwareOverwriteVuln()], # This is a placeholder, replace with actual vulnerability
 
             initial_conditions={
                 "Position": "Any",
