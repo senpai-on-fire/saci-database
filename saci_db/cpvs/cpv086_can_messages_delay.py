@@ -1,6 +1,6 @@
 from typing import List, Type
 from saci.modeling import CPV
-from saci.modeling.device import Controller, Wifi, Controller, Motor, WebServer, PWMChannel, ESC, CANBus, CANTransceiver, CANShield, Telemetry
+from saci.modeling.device import Controller, Wifi, Controller, Motor, PWMChannel, ESC, CANBus, CANTransceiver, CANShield
 
 
 from saci.modeling.communication import ExternalInput

@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import Controller, GCS, Wifi, Telemetry, PWMChannel, ESC, Motor, Mavlink, ExpressLRSBackpack
+from saci.modeling.device import GCS, Wifi, Telemetry, PWMChannel, ESC, MultiCopterMotor, Mavlink, ExpressLRSBackpack
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
@@ -25,10 +25,10 @@ class FlipAtLowAltitudeCPV(CPV):
                 ArduPilotController(),     
                 PWMChannel(),     
                 ESC(),            
-                Motor(),          
+                MultiCopterMotor(),         
             ],
             entry_component=Wifi(),
-            exit_component=Motor(), 
+            exit_component=MultiCopterMotor(), 
 
             vulnerabilities=[MavlinkMitmVuln],
 

@@ -1,7 +1,7 @@
 from typing import List
 from saci.modeling import CPV
 
-from saci.modeling.device import AirspeedSensor, Serial, PWMChannel, ESC, FixedWingMotor, Telemetry #Need to confirm model for AirspeedSensor & FixedWingMotor device
+from saci.modeling.device import AirspeedSensor, Serial, PWMChannel, ESC, FixedWingMotor, FixedWingMotor #Need to confirm model for AirspeedSensor & FixedWingMotor device
 from saci_db.devices.px4_fixedwing_device import PX4FixedWingController 
 
 from saci_db.vulns.airspeed_spoofing_vuln import AirspeedSpoofingVuln
@@ -29,7 +29,7 @@ class AcousticSpoofingAirspeedCPV(CPV):
                 FixedWingMotor(), 
             ],
             entry_component=AirspeedSensor(),
-            exit_component=Motor(),
+            exit_component=FixedWingMotor(),
             
             vulnerabilities=[AirspeedSpoofingVuln(), ControllerIntegrityVuln()],
             

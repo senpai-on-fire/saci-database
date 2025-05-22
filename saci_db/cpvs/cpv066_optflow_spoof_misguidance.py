@@ -1,5 +1,5 @@
 from saci.modeling import CPV
-from saci.modeling.device import Camera, PX4Controller, PWMChannel, ESC, MultiCopterMotor
+from saci.modeling.device import Camera, PX4Controller, PWMChannel, ESC, MultiCopterMotor, Serial
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.optical_attack_signal import OpticalAttackSignal
@@ -15,6 +15,7 @@ class CPV066_OptflowSpoofMisguidance(CPV):
         super().__init__(
             required_components=[
                 Camera(),
+                Serial(),
                 PX4Controller(),
                 PWMChannel(),
                 ESC(),

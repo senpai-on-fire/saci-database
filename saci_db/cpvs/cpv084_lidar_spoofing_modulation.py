@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import Controller, LiDAR, PWMChannel, ESC, Motor, Serial
+from saci.modeling.device import Controller, LiDAR, PWMChannel, ESC, Motor, Serial, CANBus, CANTransceiver, CANShield
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack_vector import OpticalAttackSignal
@@ -19,9 +19,12 @@ class LiDARSpoofingModulation(CPV):
             required_components=[
                 LiDAR(),          
                 Serial(),  
-                Controller(),    
+                Controller(),
+                CANTransceiver(),
+                CANBus(),
+                CANShield(),                     
                 Controller(),     
-                PWMChannel(),     
+                PWMChannel(),    
                 ESC(),            
                 Motor(),          
             ],

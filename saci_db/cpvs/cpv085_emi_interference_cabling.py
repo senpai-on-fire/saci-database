@@ -12,7 +12,7 @@ from saci_db.vulns.lack_emi_sensor_shielding_vuln import LackEMISensorShieldingV
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 from saci_db.vulns.lack_emi_powercable_shielding_vuln import LackEMIPowerCableShieldingVuln
 
-from saci.modeling.device import Controller, Serial, Magnetometer, PWMChannel, Steering, PowerCable, ESC, Motor
+from saci.modeling.device import Controller, Serial, Magnetometer, Steering, PowerCable, CANBus, CANTransceiver, CANShield
 from saci.modeling.state import GlobalState
 
 class EMIPowerCableMagnetometerCPV(CPV):
@@ -25,7 +25,11 @@ class EMIPowerCableMagnetometerCPV(CPV):
                 PowerCable(),
                 Magnetometer(), 
                 Serial(),
-                Controller(),    
+                Controller(),
+                CANTransceiver(),
+                CANBus(),
+                CANShield(),                     
+                Controller(),     
                 Steering(), 
             ],
             entry_component=Magnetometer(),   

@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import Wifi, Telemetry, Controller, Motor, PWMChannel, WebServer, WebClient, ESC
+from saci.modeling.device import Wifi, Controller, Motor, PWMChannel, WebServer, ESC, CANBus, CANTransceiver, CANShield
 
 from saci.modeling.communication import ExternalInput
 
@@ -24,6 +24,9 @@ class WifiWebMoveCPV(CPV):
                 Wifi(),
                 WebServer(),
                 Controller(),
+                CANTransceiver(),
+                CANBus(),
+                CANShield(),
                 Controller(),
                 PWMChannel(), 
                 ESC(),

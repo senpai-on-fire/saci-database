@@ -1,6 +1,6 @@
 from typing import List, Type
 from saci.modeling import CPV
-from saci.modeling.device import Controller, Wifi, Controller, Motor, WebServer, PWMChannel, ESC, Telemetry
+from saci.modeling.device import Controller, Wifi, Controller, Motor, WebServer, PWMChannel, ESC, CANBus, CANTransceiver, CANShield
 
 from saci_db.vulns.wifi_knowncreds_vuln import WifiKnownCredsVuln
 from saci_db.vulns.weak_application_auth_vuln import WeakApplicationAuthVuln
@@ -27,7 +27,10 @@ class WifiWebCrashCPV(CPV):
             required_components=[
                 Wifi(),           
                 WebServer(),      
-                Controller(),     
+                Controller(),
+                CANTransceiver(),
+                CANBus(),
+                CANShield(),                     
                 Controller(),     
                 PWMChannel(),     
                 ESC(),            

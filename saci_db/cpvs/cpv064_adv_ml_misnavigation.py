@@ -1,5 +1,5 @@
 from saci.modeling import CPV
-from saci.modeling.device import Camera, DeepLearningModel, PX4Controller, PWMChannel, ESC, MultiCopterMotor
+from saci.modeling.device import Camera, DeepLearningModel, PX4Controller, PWMChannel, ESC, MultiCopterMotor, Serial
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.optical_attack_signal import OpticalAttackSignal
@@ -15,6 +15,7 @@ class MLMisnavigationCPV(CPV):
         super().__init__(
             required_components=[
                 Camera(),
+                Serial(),
                 DeepLearningModel(),
                 PX4Controller(),
                 PWMChannel(),

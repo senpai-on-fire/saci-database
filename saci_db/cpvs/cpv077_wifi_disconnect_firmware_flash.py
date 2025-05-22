@@ -1,6 +1,6 @@
 
 from saci.modeling import CPV
-from saci.modeling.device import Controller, Motor, Wifi, Serial, PWMChannel, ESC
+from saci.modeling.device import Controller, Motor, Serial, PWMChannel, ESC, CANBus, CANTransceiver, CANShield
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
@@ -19,8 +19,11 @@ class ArduinoGigaFirmwareOverwriteCPV(CPV):
             required_components=[
                 Serial(),
                 Controller(),
-                Controller(), 
-                PWMChannel(),     
+                CANTransceiver(),
+                CANBus(),
+                CANShield(),                     
+                Controller(),     
+                PWMChannel(),    
                 ESC(),            
                 Motor(),  
             ],

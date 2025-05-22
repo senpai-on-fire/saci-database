@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import GCS, Telemetry, Controller, MultiCopterMotor, MultiCopterMotorAlgorithmic, PWMChannel, SikRadio, Mavlink, ESC
+from saci.modeling.device import GCS, Controller, MultiCopterMotor, MultiCopterMotorAlgorithmic, PWMChannel, SikRadio, Mavlink, ESC
 from saci.modeling.state import GlobalState
 
 from saci_db.vulns.mavlink_mitm_vuln import MavlinkMitmVuln
@@ -131,8 +131,8 @@ class MavlinkSiKCPV(CPV):
             elif isinstance(component, MultiCopterMotor):
                 if component != self.goal_motor_state:
                     return False
-            elif isinstance(component, TelemetryHigh) and not component.powered:
-                return False
+            # elif isinstance(component, TelemetryHigh) and not component.powered:
+            #     return False
             elif isinstance(component, Controller) and not component.powered:
                 return False
         return True

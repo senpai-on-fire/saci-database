@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import (Controller, ESC, Motor, Serial, PWMChannel, ESC, Telemetry)
+from saci.modeling.device import (Controller, ESC, Motor, Serial, PWMChannel, ESC, CANBus, CANTransceiver, CANShield)
 from saci.modeling.device.motor import Motor
 from saci.modeling.state import GlobalState
 
@@ -24,6 +24,9 @@ class SerialToneCPV(CPV):
             required_components=[
                 Serial(),
                 Controller(),
+                CANTransceiver(),
+                CANBus(),
+                CANShield(),
                 Controller(),
                 PWMChannel(), 
                 ESC(),

@@ -1,6 +1,6 @@
 from typing import List
 
-from saci.modeling.device import Controller, Serial, Telemetry, PWMChannel, Motor, ESC
+from saci.modeling.device import Controller, Serial, PWMChannel, Motor, ESC, CANBus, CANTransceiver, CANShield
 from saci.modeling import CPV
 from saci.modeling.state import GlobalState
 
@@ -21,6 +21,9 @@ class SerialArduinoControlCPV(CPV):
             required_components=[
                 Serial(),
                 Controller(),
+                CANTransceiver(),
+                CANBus(),
+                CANShield(),
                 Controller(),
                 PWMChannel(), 
                 ESC(),

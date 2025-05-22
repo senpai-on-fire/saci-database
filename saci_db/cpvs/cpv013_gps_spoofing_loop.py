@@ -1,6 +1,6 @@
 from typing import List
 
-from saci.modeling.device import Controller, Serial, Telemetry, GPSReceiver, Motor, PWMChannel, ESC
+from saci.modeling.device import Controller, Serial, GPSReceiver, Motor, PWMChannel, ESC, CANBus, CANTransceiver, CANShield
 from saci.modeling import CPV 
 
 from saci_db.vulns.gps_spoofing_vuln import GPSSpoofingVuln
@@ -26,6 +26,9 @@ class GPSSpoofingLoopCPV(CPV):
                 GPSReceiver(),
                 Serial(),
                 Controller(),
+                CANTransceiver(),
+                CANBus(),
+                CANShield(),
                 Controller(),
                 PWMChannel(), 
                 ESC(),

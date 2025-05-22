@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import (Controller, Telemetry, ESC, PWMChannel, Serial)
+from saci.modeling.device import (Controller, ESC, PWMChannel, Serial, CANBus, CANTransceiver, CANShield)
 from saci.modeling.device.motor import Motor
 from saci.modeling.state import GlobalState
 
@@ -23,6 +23,9 @@ class SerialThrottleCPV(CPV):
             required_components=[
                 Serial(),
                 Controller(),
+                CANTransceiver(),
+                CANBus(),
+                CANShield(),
                 Controller(),
                 PWMChannel(), 
                 ESC(),

@@ -1,5 +1,5 @@
 from saci.modeling import CPV
-from saci.modeling.device import LiDAR, PX4Controller, PWMChannel, ESC, MultiCopterMotor, Telemetry, Serial
+from saci.modeling.device import LiDAR, PX4Controller, PWMChannel, ESC, MultiCopterMotor, Serial
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.optical_attack_signal import OpticalAttackSignal

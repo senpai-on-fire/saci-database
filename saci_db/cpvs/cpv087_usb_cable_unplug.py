@@ -4,7 +4,7 @@ from saci.modeling.attack.base_attack_signal import BaseAttackSignal
 from saci.modeling.attack.base_attact_vector import BaseAttackVector
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
-from saci.modeling.device import Serial, Controller, ESC, PWMChannel, Motor
+from saci.modeling.device import Serial, Controller, ESC, PWMChannel, Motor, CANBus, CANTransceiver, CANShield
 from saci.modeling.state import GlobalState
 
 from saci_db.vulns import ExposedSerialConnectionVuln, LackFailsafeDisconnectionVuln
@@ -18,7 +18,10 @@ class UsbCableUnplugCPV(CPV):
             required_components=[
                 Serial(),
                 Controller(),
-                Controller(),
+                CANTransceiver(),
+                CANBus(),
+                CANShield(),                     
+                Controller(),     
                 PWMChannel(),
                 ESC(),
                 Motor()

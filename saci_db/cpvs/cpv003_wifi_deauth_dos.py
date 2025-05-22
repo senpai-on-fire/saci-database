@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import Controller, Wifi, Controller, Motor, WebClient, WebServer, PWMChannel, ESC
+from saci.modeling.device import Controller, Wifi, Controller, Motor, WebServer, PWMChannel, ESC, CANBus, CANTransceiver, CANShield
 
 from saci_db.vulns.wifi_deauthentication_vuln import WiFiDeauthVuln
 from saci_db.vulns.lack_wifi_auth_vuln import LackWifiAuthenticationVuln
@@ -24,6 +24,9 @@ class WiFiDeauthDosCPV(CPV):
                 Wifi(),
                 WebServer(),
                 Controller(),
+                CANTransceiver(),
+                CANBus(),
+                CANShield(),
                 Controller(),
                 PWMChannel(), 
                 ESC(),

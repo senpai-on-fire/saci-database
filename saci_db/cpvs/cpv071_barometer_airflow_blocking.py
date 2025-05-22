@@ -13,6 +13,8 @@ from saci.modeling.state import GlobalState
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
+from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
+
 class BarometerObstructionCPV(CPV):
     
     NAME = "The Obstruction Attack on Barometer Sensors"
@@ -22,7 +24,7 @@ class BarometerObstructionCPV(CPV):
             required_components=[
                 Barometer(),
                 Serial(),     
-                PX4Controller(),   
+                ArduPilotController(),  
                 PWMChannel(),  
                 ESC(),
                 MultiCopterMotor(), 

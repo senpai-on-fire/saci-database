@@ -1,6 +1,6 @@
 from typing import List
 
-from saci.modeling.device import Controller, Serial, GPSReceiver, Motor, PWMChannel, ESC, Telemetry
+from saci.modeling.device import Controller, Serial, GPSReceiver, Motor, PWMChannel, ESC, CANBus, CANTransceiver, CANShield
 from saci.modeling import CPV 
 
 from saci_db.vulns.gps_spoofing_vuln import GPSSpoofingVuln
@@ -27,9 +27,12 @@ class GPSJammingNoDriveCPV(CPV):
             required_components=[
                 GPSReceiver(),  
                 Serial(), 
+                Controller(),
+                CANTransceiver(),
+                CANBus(),
+                CANShield(),                     
                 Controller(),     
-                Controller(),     
-                PWMChannel(),     
+                PWMChannel(),   
                 ESC(),            
                 Motor(), 
             ],

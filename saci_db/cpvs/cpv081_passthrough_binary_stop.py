@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import PassThrough, Controller, GPS, Motor, PWMChannel, WebServer, WebClient, ESC
+from saci.modeling.device import PassThrough, Controller, GPS, CANBus, CANTransceiver, CANShield
 from saci.modeling.device.motor import Steering
 from saci.modeling.device.interface import Serial
 
@@ -28,6 +28,10 @@ class GPSPassthroughStopCPV(CPV):
                 Serial(),
                 PassThrough(),
                 Controller(),
+                CANTransceiver(),
+                CANBus(),
+                CANShield(),                     
+                Controller(), 
                 Steering(),
             ],
             entry_component= Serial(),
