@@ -3,11 +3,17 @@ from clorm import Predicate
 
 from saci.modeling import BaseVulnerability
 from saci.modeling.device import Device, Serial
-from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
+from saci.modeling.communication import (
+    AuthenticatedCommunication,
+    UnauthenticatedCommunication,
+    ExternalInput,
+)
+
 
 # Predicate to define formal reasoning logic for vulnerabilities caused by lack of authentication in serial communication
 class LackSerialAuthenticationPred(Predicate):
     pass
+
 
 class LackSerialAuthenticationVuln(BaseVulnerability):
     def __init__(self):
@@ -21,24 +27,27 @@ class LackSerialAuthenticationVuln(BaseVulnerability):
             # Predicate for reasoning about the lack of authentication in serial communication
             attack_ASP=LackSerialAuthenticationPred,
             # Logic rules for evaluating this vulnerability in formal reasoning
-            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'lack_serial_authentication.lp'),
+            rulefile=os.path.join(
+                os.path.dirname(os.path.realpath(__file__)),
+                "lack_serial_authentication.lp",
+            ),
             # List of Associated CWEs:
-            associated_cwe = [
+            associated_cwe=[
                 "CWE-287: Improper Authentication",
                 "CWE-294: Authentication Bypass by Capture-replay",
                 "CWE-306: Missing Authentication for Critical Function",
                 "CWE-345: Insufficient Verification of Data Authenticity",
                 "CWE-918: Server-Side Request Forgery (SSRF)",
-                "CWE-1188: Insecure Default Initialization of Resource"
+                "CWE-1188: Insecure Default Initialization of Resource",
             ],
-            attack_vectors_exploits = []
+            attack_vectors_exploits=[],
         )
-    
+
     def exists(self, device: Device) -> bool:
         # Iterate through all components of the device
         for comp in device.components:
             # Check if the component has supported protocols
-            if hasattr(comp, 'supported_protocols'):
+            if hasattr(comp, "supported_protocols"):
                 supported_protocols = comp.supported_protocols
                 # Iterate through the supported protocols
                 for protocol in supported_protocols:

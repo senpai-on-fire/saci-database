@@ -14,6 +14,7 @@ from saci.modeling.attack import BaseCompEffect
 class NavigationControlFailurePred(Predicate):
     pass
 
+
 class NavigationControlFailureVuln(BaseVulnerability):
     def __init__(self):
         super().__init__(
@@ -26,15 +27,18 @@ class NavigationControlFailureVuln(BaseVulnerability):
             # Predicate for reasoning about this vulnerability
             attack_ASP=NavigationControlFailurePred,
             # Logic rules for evaluating this vulnerability in formal reasoning
-            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'navigation_control_failure.lp'),
+            rulefile=os.path.join(
+                os.path.dirname(os.path.realpath(__file__)),
+                "navigation_control_failure.lp",
+            ),
             # List of Associated CWEs
             associated_cwe=[
                 "CWE-670: Always-Incorrect Control Flow",
                 "CWE-754: Improper Check for Unusual or Exceptional Conditions",
                 "CWE-1188: Insecure Default Initialization of Resource",
-                "CWE-20: Improper Input Validation"
+                "CWE-20: Improper Input Validation",
             ],
-            attack_vectors_exploits = [
+            attack_vectors_exploits=[
                 {
                     "attack_vector": [
                         BaseAttackVector(
@@ -55,7 +59,7 @@ class NavigationControlFailureVuln(BaseVulnerability):
                         category="Integrity",
                         description=(
                             "The faulty patch disrupts the navigation and control logic, causing mission failure through premature termination, stalling, or deviation from planned routes."
-                        )
+                        ),
                     ),
                     # Steps of exploiting this attack vector
                     "exploit_steps": [
@@ -68,14 +72,14 @@ class NavigationControlFailureVuln(BaseVulnerability):
                         # Steps directly related to observing navigation failure
                         "Prepare the simulator for the triggering condition.",
                         "Command the vehicle to execute a pre-planned mission.",
-                        "Monitor the vehicle's performance for signs of mission failure, such as premature stalling, inaccurate route following, or erratic behavior during obstacle avoidance."
+                        "Monitor the vehicle's performance for signs of mission failure, such as premature stalling, inaccurate route following, or erratic behavior during obstacle avoidance.",
                     ],
                     # List of related references
                     "reference_urls": [
                         "https://www.usenix.org/system/files/usenixsecurity23-kim-hyungsub.pdf"
-                    ]
+                    ],
                 }
-            ]
+            ],
         )
 
     def exists(self, device: Device) -> bool:
@@ -84,6 +88,6 @@ class NavigationControlFailureVuln(BaseVulnerability):
             # Check if the component is a PX4Controller
             if isinstance(comp, PX4Controller):
                 # If the controller has a control logic error
-                if hasattr(comp, 'mission_status') and comp.mission_status == 'failure':
+                if hasattr(comp, "mission_status") and comp.mission_status == "failure":
                     return True
         return False

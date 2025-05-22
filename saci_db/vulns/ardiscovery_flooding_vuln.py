@@ -4,12 +4,18 @@ from clorm import Predicate
 
 from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import Device, Wifi, ARDiscovery
-from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
+from saci.modeling.communication import (
+    AuthenticatedCommunication,
+    UnauthenticatedCommunication,
+    ExternalInput,
+)
 from saci.modeling.attack import BaseAttackVector, PacketAttackSignal, BaseCompEffect
+
 
 # Predicate to define formal reasoning logic for ARDiscovery flooding attacks
 class ARDiscoveryFloodPred(Predicate):
     pass
+
 
 class ARDiscoveryFloodVuln(PublicSecretVulnerability):
     def __init__(self):
@@ -23,37 +29,41 @@ class ARDiscoveryFloodVuln(PublicSecretVulnerability):
             # Predicate used for formal reasoning about the ARDiscovery flooding vulnerability
             attack_ASP=ARDiscoveryFloodPred,
             # Logic rules for reasoning about and detecting this vulnerability
-            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'ardisovery_flood.lp'),
+            rulefile=os.path.join(
+                os.path.dirname(os.path.realpath(__file__)), "ardisovery_flood.lp"
+            ),
             # List of associated CWEs
             associated_cwe=[
                 "CWE-770: Allocation of Resources Without Limits or Throttling",
                 "CWE-400: Uncontrolled Resource Consumption",
                 "CWE-406: Insufficient Control of Network Message Volume (Network Amplification)",
                 "CWE-661: Improper Handling of Overlapping or Conflicting Actions",
-                "CWE-693: Protection Mechanism Failure"
+                "CWE-693: Protection Mechanism Failure",
             ],
-            attack_vectors_exploits = [
+            attack_vectors_exploits=[
                 {
-                    "attack_vector": [BaseAttackVector(
-                        name="ARDiscovery DoS Flooding Attack",
-                        signal=PacketAttackSignal(
-                            src=ExternalInput(),
-                            dst=ARDiscovery(),
-                        ),
-                        required_access_level="Proximity",
-                        configuration={
-                            "target_protocol": "ARDiscovery",
-                            "flood_type": "Malformed/Excessive ARDiscovery Requests",
-                            "interface_name": "wireless",
-                            "attack_args": "--max_requests 1000/sec",
-                        },
-                    )],
-                    "related_cpv": [
-                        "ARDiscoveryDoSCPV"
+                    "attack_vector": [
+                        BaseAttackVector(
+                            name="ARDiscovery DoS Flooding Attack",
+                            signal=PacketAttackSignal(
+                                src=ExternalInput(),
+                                dst=ARDiscovery(),
+                            ),
+                            required_access_level="Proximity",
+                            configuration={
+                                "target_protocol": "ARDiscovery",
+                                "flood_type": "Malformed/Excessive ARDiscovery Requests",
+                                "interface_name": "wireless",
+                                "attack_args": "--max_requests 1000/sec",
+                            },
+                        )
                     ],
+                    "related_cpv": ["ARDiscoveryDoSCPV"],
                     "comp_attack_effect": [
-                        BaseCompEffect(category='Availability',
-                                       description='Flooding ARDiscovery requests can lead to denial of service, disrupting UAV communication and triggering fail-safe mechanisms.')
+                        BaseCompEffect(
+                            category="Availability",
+                            description="Flooding ARDiscovery requests can lead to denial of service, disrupting UAV communication and triggering fail-safe mechanisms.",
+                        )
                     ],
                     "exploit_steps": [
                         "Prepare the hardware: Ensure you have a Wi-Fi card capable of monitor mode and necessary tools (e.g., Scapy, Wireshark).",
@@ -63,13 +73,11 @@ class ARDiscoveryFloodVuln(PublicSecretVulnerability):
                         "Craft malicious packets with tools like Scapy to send excessive/malformed ARDiscovery requests to the UAV.",
                         "Flood the UAV with ARDiscovery packets by running a script that sends high-frequency requests.",
                         "Monitor the attack's effectiveness by checking if the UAV loses communication with the controller or enters fail-safe mode.",
-                        "Optional: Post-exploitation—use the disruption to perform further analysis or intercept other communications."
+                        "Optional: Post-exploitation—use the disruption to perform further analysis or intercept other communications.",
                     ],
-                    "reference_urls": [
-                        "https://ieeexplore.ieee.org/document/7795496"
-                    ]
+                    "reference_urls": ["https://ieeexplore.ieee.org/document/7795496"],
                 }
-            ]
+            ],
         )
 
     def exists(self, device: Device) -> bool:
@@ -78,7 +86,7 @@ class ARDiscoveryFloodVuln(PublicSecretVulnerability):
             # Check if the component is a Wifi module
             if isinstance(comp, Wifi):
                 # If the Wifi module supports specific protocols, check for ARDiscovery
-                if hasattr(comp, 'supported_protocols'):
+                if hasattr(comp, "supported_protocols"):
                     supported_protocols = comp.supported_protocols
                     for protocol in supported_protocols:
                         # If ARDiscovery is a supported protocol, the vulnerability exists

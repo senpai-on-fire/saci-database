@@ -14,6 +14,7 @@ from saci.modeling.attack import BaseCompEffect
 class ControlLoopInstabilityPred(Predicate):
     pass
 
+
 class ControlLoopInstabilityVuln(BaseVulnerability):
     def __init__(self):
         super().__init__(
@@ -26,15 +27,18 @@ class ControlLoopInstabilityVuln(BaseVulnerability):
             # Predicate for reasoning about this vulnerability
             attack_ASP=ControlLoopInstabilityPred,
             # Logic rules for evaluating this vulnerability in formal reasoning
-            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'control_loop_instability.lp'),
+            rulefile=os.path.join(
+                os.path.dirname(os.path.realpath(__file__)),
+                "control_loop_instability.lp",
+            ),
             # List of Associated CWEs
             associated_cwe=[
                 "CWE-670: Always-Incorrect Control Flow",
                 "CWE-754: Improper Check for Unusual or Exceptional Conditions",
                 "CWE-1188: Insecure Default Initialization of Resource",
-                "CWE-20: Improper Input Validation"
+                "CWE-20: Improper Input Validation",
             ],
-            attack_vectors_exploits = [
+            attack_vectors_exploits=[
                 {
                     "attack_vector": [
                         BaseAttackVector(
@@ -56,7 +60,7 @@ class ControlLoopInstabilityVuln(BaseVulnerability):
                         description=(
                             "The faulty patch causes the vehicle to exhibit erratic and unstable attitude control, "
                             "leading to unexpected tilting, erratic movement, or crashes."
-                        )
+                        ),
                     ),
                     # Steps of exploiting this attack vector
                     "exploit_steps": [
@@ -66,14 +70,14 @@ class ControlLoopInstabilityVuln(BaseVulnerability):
                         "        - If the current version is newer, revert (uncommit) the fixed patch.",
                         "        - If the current version is older, insert the buggy code snippet.",
                         "Derive the triggering condition by running PatchVerif, which provides the triggering unit test input.",
-                        "Report the identified triggering condition to TA3 for simulator verification."
+                        "Report the identified triggering condition to TA3 for simulator verification.",
                     ],
                     # List of related references
                     "reference_urls": [
                         "https://www.usenix.org/system/files/usenixsecurity23-kim-hyungsub.pdf"
-                    ]
+                    ],
                 }
-            ]
+            ],
         )
 
     def exists(self, device: Device) -> bool:
@@ -82,6 +86,9 @@ class ControlLoopInstabilityVuln(BaseVulnerability):
             # Check if the component is a PX4Controller
             if isinstance(comp, PX4Controller):
                 # If the controller's attitude control logic is disabled or unstable
-                if hasattr(comp, 'attitude_control_stable') and not comp.attitude_control_stable:
+                if (
+                    hasattr(comp, "attitude_control_stable")
+                    and not comp.attitude_control_stable
+                ):
                     return True
         return False

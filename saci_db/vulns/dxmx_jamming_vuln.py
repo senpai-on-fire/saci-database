@@ -3,7 +3,12 @@ from clorm import Predicate
 
 from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import Device, DSMx
-from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
+from saci.modeling.communication import (
+    AuthenticatedCommunication,
+    UnauthenticatedCommunication,
+    ExternalInput,
+)
+
 
 # Predicate to define formal reasoning logic for DSMx protocol vulnerabilities
 class DSMxJammingProtocolPred(Predicate):
@@ -22,7 +27,9 @@ class DSMxJammingProtocolVuln(PublicSecretVulnerability):
             # Predicate for reasoning about DSMx protocol vulnerabilities
             attack_ASP=DSMxJammingProtocolPred,
             # Optional rule file for logic-based reasoning about DSMx protocol weaknesses
-            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'dsmx_jamming_protocol.lp'),
+            rulefile=os.path.join(
+                os.path.dirname(os.path.realpath(__file__)), "dsmx_jamming_protocol.lp"
+            ),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-325: Missing Required Cryptographic Step",
@@ -30,13 +37,13 @@ class DSMxJammingProtocolVuln(PublicSecretVulnerability):
                 "CWE-640: Weak Password Recovery Mechanism for Forgotten Password",
                 "CWE-319: Cleartext Transmission of Sensitive Information",
                 "CWE-732: Incorrect Permission Assignment for Critical Resource",
-            ]
+            ],
         )
         # Human-readable description of the attack input scenario
-        #self.input = (
+        # self.input = (
         #    "Intercepted DSMx protocol communications, brute-forcing the shared secret, "
         #    "and injecting spoofed signals to hijack control of the UAV."
-        #)
+        # )
 
     def exists(self, device: Device) -> bool:
         """

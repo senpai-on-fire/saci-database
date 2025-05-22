@@ -1,5 +1,13 @@
 from typing import List
-from saci.modeling.device import OpticalFlowSensor, Serial, PWMChannel, ESC, MultiCopterMotor
+from saci.modeling.device import (
+    OpticalFlowSensor,
+    Serial,
+    PWMChannel,
+    ESC,
+    MultiCopterMotor,
+    Telemetry,
+    Serial,
+)
 from saci_db.devices.px4_quadcopter_device import PX4Controller
 from saci.modeling import CPV
 from saci_db.vulns.opticalflow_spoofing_vuln import OpticalFlowSpoofingVuln
@@ -14,25 +22,22 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 
 class ProjectorOpticalFlowCPV(CPV):
-    
     NAME = "The Projector Spoofing on Optical Flow Camera Sensors"
-    
+
     def __init__(self):
         super().__init__(
             required_components=[
                 OpticalFlowSensor(),
-                PX4Controller(),   
-                PWMChannel(),  
+                Serial(),
+                PX4Controller(),
+                PWMChannel(),
                 ESC(),
-                MultiCopterMotor(), 
+                MultiCopterMotor(),
             ],
             entry_component=OpticalFlowSensor(),
             exit_component=MultiCopterMotor(),
-            
             vulnerabilities=[OpticalFlowSpoofingVuln(), ControllerIntegrityVuln()],
-            
             goals=[],
-            
             initial_conditions={
                 "Position": "Any",
                 "Heading": "Any",
@@ -42,7 +47,6 @@ class ProjectorOpticalFlowCPV(CPV):
                 "CPSController": "None",
                 "OperatingMode": "Manual or Mission",
             },
-            
             attack_requirements=["Projector or Laser-based spoofing device"],
             attack_vectors=[
                 BaseAttackVector(
@@ -59,29 +63,29 @@ class ProjectorOpticalFlowCPV(CPV):
             attack_impacts=[
                 BaseAttackImpact(
                     category="Control Manipulation",
-                    description="CPS drifts uncontrollably or exhibits unintended lateral movement targeted by the attackers."
+                    description="CPS drifts uncontrollably or exhibits unintended lateral movement targeted by the attackers.",
                 )
             ],
-            
             exploit_steps=[
                 "TA1 Exploit Steps",
-                    "Identify the optical flow sensor model and parameters.",
+                "Identify the optical flow sensor model and parameters.",
                 "TA2 Exploit Steps",
-                    "Wait for the information from TA4 to setup the experiment.",
-                    "Simulate the optical flow sensor attack in the simulator.",
+                "Wait for the information from TA4 to setup the experiment.",
+                "Simulate the optical flow sensor attack in the simulator.",
                 "TA3 Exploit Steps",
-                    "Wait for the information from TA4 to setup the experiment.",
-                    "Position the spoofing device in the UAV's optical flow sensor field.",
-                    "Project high-contrast patterns using a laser or projector.",
-                    "Move the projected pattern to mislead corner detection algorithms.",
-                    "Observe the drone drift following the displacement of the projected pattern.",
+                "Wait for the information from TA4 to setup the experiment.",
+                "Position the spoofing device in the UAV's optical flow sensor field.",
+                "Project high-contrast patterns using a laser or projector.",
+                "Move the projected pattern to mislead corner detection algorithms.",
+                "Observe the drone drift following the displacement of the projected pattern.",
                 "TA4 Exploit Steps",
-                    "Identify the spoofing device setups to launch the attack, report the findings to TA2 and TA3."
+                "Identify the spoofing device setups to launch the attack, report the findings to TA2 and TA3.",
             ],
-            
             associated_files=[],
-            reference_urls=["https://www.usenix.org/system/files/conference/woot16/woot16-paper-davidson.pdf"],
+            reference_urls=[
+                "https://www.usenix.org/system/files/conference/woot16/woot16-paper-davidson.pdf"
+            ],
         )
-        
+
     def in_goal_state(self, state: GlobalState):
         pass

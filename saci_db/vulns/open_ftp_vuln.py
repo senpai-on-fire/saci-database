@@ -3,11 +3,17 @@ from clorm import Predicate
 
 from saci.modeling import BaseVulnerability
 from saci.modeling.device import Device, FTP
-from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
+from saci.modeling.communication import (
+    AuthenticatedCommunication,
+    UnauthenticatedCommunication,
+    ExternalInput,
+)
+
 
 # Predicate for FTP vulnerability logic
 class OpenFTPPred(Predicate):
     pass
+
 
 class OpenFTPVuln(BaseVulnerability):
     def __init__(self):
@@ -21,7 +27,9 @@ class OpenFTPVuln(BaseVulnerability):
             # Predicate for reasoning about open FTP vulnerabilities
             attack_ASP=OpenFTPPred,
             # Logic rules for evaluating this vulnerability
-            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'open_ftp_vuln.lp'),
+            rulefile=os.path.join(
+                os.path.dirname(os.path.realpath(__file__)), "open_ftp_vuln.lp"
+            ),
             # Associated CWEs
             associated_cwe=[
                 "CWE-319: Cleartext Transmission of Sensitive Information",
@@ -29,9 +37,9 @@ class OpenFTPVuln(BaseVulnerability):
                 "CWE-306: Missing Authentication for Critical Function",
                 "CWE-538: File and Directory Information Exposure",
                 "CWE-732: Incorrect Permission Assignment for Critical Resource",
-                "CWE-284: Improper Access Control"
+                "CWE-284: Improper Access Control",
             ],
-            attack_vectors_exploits = []
+            attack_vectors_exploits=[],
         )
 
     def exists(self, device: Device) -> bool:

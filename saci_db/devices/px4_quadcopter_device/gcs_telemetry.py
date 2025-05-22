@@ -1,11 +1,21 @@
 from saci.modeling.communication import AuthenticatedCommunication
-from saci.modeling.device import TelemetryHigh, TelemetryAlgorithmic, Telemetry, CyberComponentSourceCode, CyberComponentBinary
-from saci.modeling.device.component.cyber.cyber_abstraction_level import CyberAbstractionLevel
+from saci.modeling.device import (
+    TelemetryHigh,
+    TelemetryAlgorithmic,
+    Telemetry,
+    CyberComponentSourceCode,
+    CyberComponentBinary,
+)
+from saci.modeling.device.component.cyber.cyber_abstraction_level import (
+    CyberAbstractionLevel,
+)
 
 
 class GCSTelemetryHigh(TelemetryHigh):
     def __init__(self):
-        super().__init__(name="gcs_telemetry_high", parameters=dict(protocol_name="mavlink"))
+        super().__init__(
+            name="gcs_telemetry_high", parameters=dict(protocol_name="mavlink")
+        )
 
 
 class GCSTelemetryAlgo(TelemetryAlgorithmic):
@@ -19,7 +29,6 @@ class GCSTelemetryAlgo(TelemetryAlgorithmic):
 
 
 class GCSTelemetry(Telemetry):
-
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.ABSTRACTIONS = {

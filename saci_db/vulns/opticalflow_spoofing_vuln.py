@@ -3,13 +3,18 @@ from clorm import Predicate
 from saci.modeling import SpoofingVulnerability
 from saci.modeling.device import Device
 from saci.modeling.device.sensor import OpticalFlowSensor
-from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
+from saci.modeling.communication import (
+    AuthenticatedCommunication,
+    UnauthenticatedCommunication,
+    ExternalInput,
+)
 from saci.modeling.attack import BaseAttackVector, ImageAttackSignal, BaseCompEffect
 
 
 # Predicate to define formal reasoning logic for optical flow spoofing attacks
 class OpticalFlowSpoofingPred(Predicate):
     pass
+
 
 class OpticalFlowSpoofingVuln(SpoofingVulnerability):
     def __init__(self):
@@ -23,16 +28,18 @@ class OpticalFlowSpoofingVuln(SpoofingVulnerability):
             # Predicate for reasoning about optical flow spoofing vulnerabilities
             attack_ASP=OpticalFlowSpoofingPred,
             # Logic rules for evaluating optical flow spoofing vulnerabilities in formal reasoning
-            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'optical_flow_spoofing.lp'),
+            rulefile=os.path.join(
+                os.path.dirname(os.path.realpath(__file__)), "optical_flow_spoofing.lp"
+            ),
             # List of Associated CWEs:
-            associated_cwe = [
+            associated_cwe=[
                 "CWE-346: Origin Validation Error",
                 "CWE-290: Authentication Bypass by Capture-replay",
                 "CWE-20: Improper Input Validation",
                 "CWE-693: Protection Mechanism Failure",
-                "CWE-1188: Insecure Default Initialization of Resource"
+                "CWE-1188: Insecure Default Initialization of Resource",
             ],
-            attack_vectors_exploits = [
+            attack_vectors_exploits=[
                 {
                     "attack_vector": [
                         BaseAttackVector(
@@ -51,26 +58,24 @@ class OpticalFlowSpoofingVuln(SpoofingVulnerability):
                             },
                         )
                     ],
-                    "related_cpv": [
-                        "ProjectorOpticalFlowCPV"
-                    ],
+                    "related_cpv": ["ProjectorOpticalFlowCPV"],
                     "comp_attack_effect": [
                         BaseCompEffect(
-                            category='Integrity',
-                            description='Optical flow signal manipulation can cause unauthorized device movement and navigation deviation through image data tampering'
+                            category="Integrity",
+                            description="Optical flow signal manipulation can cause unauthorized device movement and navigation deviation through image data tampering",
                         )
                     ],
                     "exploit_steps": [
                         "Position the spoofing device in the UAV's optical flow sensor field.",
                         "Project high-contrast patterns using a laser or projector.",
                         "Move the projected pattern to mislead corner detection algorithms.",
-                        "Observe the drone drift following the displacement of the projected pattern."
+                        "Observe the drone drift following the displacement of the projected pattern.",
                     ],
                     "reference_urls": [
                         "https://www.usenix.org/system/files/conference/woot16/woot16-paper-davidson.pdf"
-                    ]
+                    ],
                 }
-            ]
+            ],
         )
 
     def exists(self, device: Device) -> bool:
