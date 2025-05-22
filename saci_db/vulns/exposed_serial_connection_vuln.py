@@ -4,7 +4,7 @@ from clorm import Predicate
 
 from saci.modeling import BaseVulnerability
 from saci.modeling.attack import BaseAttackVector, BaseAttackSignal, BaseCompEffect
-from saci.modeling.device import Serial, Controller
+from saci.modeling.device import Serial, Controller, Device
 from saci.modeling.communication import UnauthenticatedCommunication
 
 class ExposedSerialConnectionPred(Predicate):
@@ -51,3 +51,10 @@ class ExposedSerialConnectionVuln(BaseVulnerability):
             ]
 
         )
+
+    def exists(self, device: Device) -> bool:
+        for comp in device.components:
+            if isinstance(comp, Serial):
+                #Need to check for physical access
+                return True
+        return False

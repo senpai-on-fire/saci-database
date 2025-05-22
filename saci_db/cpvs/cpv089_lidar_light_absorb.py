@@ -59,10 +59,16 @@ class LiDARLightAbsorbCPV(CPV):
                     "Report the findings to TA3 to conduct the experiments on the physical CPS device.",
 
                 "TA3 Exploit Steps",
-                    "Use imaging tools and other techniques to catalog all LiDAR related hardware components on the CPS.",
-                    "Set up an experiment with the environmental interference for targeting a LiDAR sensor.",
-                    "Observe the LiDAR point cloud when it interacts with the region of environmental interference.",
-                    "Analyze the CPS's physical response to the incorrect LiDAR point cloud from the environmental interference."
+                    "Place a plywood ramp in front of the rover with an incline of approximately 20 degrees.",
+                    "Power on the rover using a hex wrench to rotate the power block counter-clockwise.",
+                    "Wait for the rover LEDs to indicate readiness, then press the safety button on the power block.",
+                    "Connect both operator and attacker computers to the rover's Wi-Fi network ('Arduino Wifi' using password 'TSWIZZLE1989').",
+                    "Open the rover web interface on the operator computer at http://10.0.0.1/.",
+                    "Start a mission for the rover and observe that it begins to drive.",
+                    "The rover should stop moving as it approaches the ramp.",
+                    "Line the bottom area of the ramp with a non-reflective material.",
+                    "Start a new mission for the rover and observe that it begins to drive.",
+                    "Observe that the rover does not stop as it approaches the ramp and continues to drive up the ramp."
             ],
 
             associated_files=[],
