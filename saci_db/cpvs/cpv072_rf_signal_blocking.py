@@ -3,7 +3,7 @@ from typing import List, Type
 from saci.modeling import CPV
 from saci.modeling.communication import ExternalInput
 
-from saci_db.vulns.wifi_rf_blocking_vuln import WifiRFBlockingVuln
+from saci_db.vulns.gcs_rf_blocking_vuln import GCSRFBlockingVuln
 from saci_db.vulns.lack_wifi_auth_vuln import LackWifiAuthenticationVuln
 from saci_db.vulns.lack_wifi_encryption_vuln import LackWifiEncryptionVuln
 
@@ -46,7 +46,7 @@ class RFBlockingCPV(CPV):
             ],
             entry_component=GCS(),
             exit_component=MultiCopterMotor(),
-            vulnerabilities=[WifiRFBlockingVuln()],
+            vulnerabilities=[GCSRFBlockingVuln()],
             initial_conditions={
                 "Position": "Any",
                 "Heading": "Any",
@@ -75,7 +75,7 @@ class RFBlockingCPV(CPV):
             attack_impacts=[
                 BaseAttackImpact(
                     category="Denial of Service",
-                    description="Disrupts telemetry and control signals, causing the CPS to lose communication with its controller.",
+                    description="Flight control enters land mode and overrides motor speed.",
                 )
             ],
             exploit_steps=[

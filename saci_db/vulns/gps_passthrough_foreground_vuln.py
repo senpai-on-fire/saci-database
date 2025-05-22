@@ -57,7 +57,7 @@ class GPSPassthroughForegroundVuln(PublicSecretVulnerability):
                     # List of associated component-level attack effects
                     "comp_attack_effect": BaseCompEffect(
                         category="Denial of Service",
-                        description="The passthrough process is terminated thus never updated location",
+                        description="The gps passthrough process is terminated thus the Controller never updates its location",
                     ),
                     # Steps of exploiting this attack vector
                     "exploit_steps": [

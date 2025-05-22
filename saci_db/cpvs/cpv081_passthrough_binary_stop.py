@@ -72,7 +72,7 @@ class GPSPassthroughStopCPV(CPV):
             attack_impacts=[
                 BaseAttackImpact(
                     category="Loss of control.",
-                    description="The Rover starts driving in a stright line without turning",
+                    description="The Rover will continue to drive stright and not turn or stop as expected",
                 )
             ],
             exploit_steps=[

@@ -74,14 +74,14 @@ class EMIPowerCableMagnetometerCPV(CPV):
                     required_access_level="Physical",
                     configuration={
                         "attack_method": "Move power cable near magnetometer to enhance potential EMI",
-                        "duration": "permanent",
+                        "duration": "temporary",
                     },
                 )
             ],
             attack_impacts=[
                 BaseAttackImpact(
                     category="Loss of Control",
-                    description="Causes the CPS to miscalculate its heading due to corrupted magnetometer data.",
+                    description="Rover drives past nominal turning point leading to undershoot or overshoot",
                 )
             ],
             exploit_steps=[
@@ -102,7 +102,7 @@ class EMIPowerCableMagnetometerCPV(CPV):
                 "1.Locate the magnetometer in the CPS.",
                 "2.Locate the power cables in close proximity to the magnetometer.",
                 "3.Position one of the power cables as close as possible to the magnetometer, securing it with a tape.",
-                "4.Monitor the CPS's behavior for signs of orientation miscalculation or navigation errors.",
+                "4.Do a test run on the CPS and monitor the CPS's behavior for signs of orientation miscalculation or navigation errors.",
                 "5.If no effect is observed, repeat steps 3 & 4 with other power cables in close proximity to magnetometer.",
             ],
             associated_files=[
