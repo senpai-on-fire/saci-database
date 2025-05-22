@@ -51,8 +51,8 @@ class CANPWMSchedulingVuln(PublicSecretVulnerability):
                     "attack_vector": [
                         BaseAttackVector(
                             name="Some form of input to increase the CAN message frequency",
-                            signal=PacketAttackSignal(
-                                src=Controller(), dst=Controller()
+                            signal=SerialAttackSignal(
+                                src=ExternalInput(), dst=Controller()
                             ),
                             required_access_level="Unknown",
                         )

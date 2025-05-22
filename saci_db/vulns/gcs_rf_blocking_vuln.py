@@ -3,7 +3,7 @@ import os.path
 from clorm import Predicate
 
 from saci.modeling import PublicSecretVulnerability
-from saci.modeling.device import Device, Wifi, SikRadio, Telemetry
+from saci.modeling.device import Device, GCS
 from saci.modeling.communication import (
     BaseAttackVector,
     AuthenticatedCommunication,
@@ -14,24 +14,24 @@ from saci.modeling.attack import BaseCompEffect
 
 
 # Predicate to define formal reasoning logic for RF interference vulnerabilities
-class TelemetryRFBlockingPred(Predicate):
+class GCSRFBlockingPred(Predicate):
     pass
 
 
-class TelemetryRFBlockingVuln(PublicSecretVulnerability):
+class GCSRFBlockingVuln(PublicSecretVulnerability):
     def __init__(self):
         super().__init__(
             # The vulnerable component is the Wi-Fi communication stack
-            component=Telemetry(),
+            component=GCS(),
             # Input: Shielded chamber to block the RF link
             _input=None,
             # Output: Disrupted communication leading to loss of control and telemetry
             output=UnauthenticatedCommunication(),
             # Predicate for reasoning about RF interference vulnerabilities
-            attack_ASP=TelemetryRFBlockingPred,
+            attack_ASP=GCSRFBlockingPred,
             # Optional rule file for logic-based reasoning about RF interference
             rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "telemetry_rf_blocking.lp"
+                os.path.dirname(os.path.realpath(__file__)), "gcs_rf_interference.lp"
             ),
             # List of Associated CWEs:
             associated_cwe=[
@@ -57,7 +57,7 @@ class TelemetryRFBlockingVuln(PublicSecretVulnerability):
                     "comp_attack_effect": [
                         BaseCompEffect(
                             category="Denial of Service",
-                            description="Blocks telemetry and control signals",
+                            description="Prevents GCS from communicating with the drone",
                         )
                     ],
                     "exploit_steps": [
@@ -78,6 +78,6 @@ class TelemetryRFBlockingVuln(PublicSecretVulnerability):
         # Iterate through all components of the device
         for comp in device.components:
             # Check if the component is a Wi-Fi stack. Note that RF interference protection would not be useful as all communication is blocked
-            if isinstance(comp, Telemetry):
-                return True  # Vulnerability exists if the component uses any kind of Radio channel
-        return False  # No vulnerability detected if no Wi-Fi
+            if isinstance(comp, GCS):
+                return True  # Vulnerability exists if the component uses any kind of Radio channel (GCS)
+        return False  # No vulnerability detected if no GCS
