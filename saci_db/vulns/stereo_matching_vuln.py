@@ -6,9 +6,11 @@ from saci.modeling.device import Device
 from saci.modeling.device.sensor import DepthCamera
 from saci.modeling.communication import UnauthenticatedCommunication, ExternalInput
 
+
 # Predicate to define formal reasoning logic for stereo vision spoofing attacks
 class StereoMatchingPred(Predicate):
     pass
+
 
 class StereoMatchingVuln(SpoofingVulnerability):
     def __init__(self):
@@ -22,16 +24,19 @@ class StereoMatchingVuln(SpoofingVulnerability):
             # Predicate for formal reasoning about stereo matching vulnerabilities
             attack_ASP=StereoMatchingPred,
             # Logic rules for evaluating this vulnerability in formal reasoning
-            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'stereo_matching_spoofing.lp'),
+            rulefile=os.path.join(
+                os.path.dirname(os.path.realpath(__file__)),
+                "stereo_matching_spoofing.lp",
+            ),
             # List of Associated CWEs:
-            associated_cwe = [
+            associated_cwe=[
                 "CWE-346: Origin Validation Error",
                 "CWE-290: Authentication Bypass by Capture-replay",
                 "CWE-20: Improper Input Validation",
                 "CWE-693: Protection Mechanism Failure",
-                "CWE-1254: Improper Handling of Transparent or Translucent Inputs"
+                "CWE-1254: Improper Handling of Transparent or Translucent Inputs",
             ],
-            attack_vectors_exploits = []
+            attack_vectors_exploits=[],
         )
 
     def exists(self, device: Device) -> bool:

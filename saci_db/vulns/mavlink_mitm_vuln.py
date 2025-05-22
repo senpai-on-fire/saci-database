@@ -3,10 +3,16 @@ from clorm import Predicate, IntegerField
 
 from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import TelemetryHigh, TelemetryAlgorithmic, Device, Mavlink
-from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
+from saci.modeling.communication import (
+    AuthenticatedCommunication,
+    UnauthenticatedCommunication,
+    ExternalInput,
+)
+
 
 class Attack_CPSV_Mavlink(Predicate):
     time = IntegerField()
+
 
 class MavlinkMitmVuln(PublicSecretVulnerability):
     def __init__(self):
@@ -17,18 +23,20 @@ class MavlinkMitmVuln(PublicSecretVulnerability):
             _input=UnauthenticatedCommunication(src=ExternalInput()),
             output=UnauthenticatedCommunication(),
             attack_ASP=Attack_CPSV_Mavlink,
-            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'mavlink_mitm.lp'),
+            rulefile=os.path.join(
+                os.path.dirname(os.path.realpath(__file__)), "mavlink_mitm.lp"
+            ),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-300: Channel Accessible by Non-Endpoint ('Man-in-the-Middle')",
                 "CWE-345: Insufficient Verification of Data Authenticity",
                 "CWE-441: Unintended Proxy or Intermediary ('Confused Deputy')",
                 "CWE-294: Authentication Bypass by Capture-replay",
-                "CWE-693: Protection Mechanism Failure"
+                "CWE-693: Protection Mechanism Failure",
             ],
-            attack_vectors_exploits = []
+            attack_vectors_exploits=[],
         )
-        #self.input = "launch a Mavlink MITM attack"
+        # self.input = "launch a Mavlink MITM attack"
 
     def exists(self, device: Device) -> bool:
         for comp in device.components:
@@ -47,8 +55,13 @@ class MavlinkMitmVuln(PublicSecretVulnerability):
                 # TODO: how to express these properties could be symbolic? We essentially need a way to check
                 #   that a telemetry can send an arbitrary constructed packet. For now, we just put a fake
                 #   two packets there (always true for now)
-                good_comm = AuthenticatedCommunication(src="192.168.1.2", dst="controller")
-                bad_comm = AuthenticatedCommunication(src="192.168.1.3", dst="controller")
-                if (good_comm.src != bad_comm.src) and (good_comm.identifier == bad_comm.identifier):
+                good_comm = AuthenticatedCommunication(
+                    src="192.168.1.2", dst="controller"
+                )
+                bad_comm = AuthenticatedCommunication(
+                    src="192.168.1.3", dst="controller"
+                )
+                if (good_comm.src != bad_comm.src) and (
+                    good_comm.identifier == bad_comm.identifier
+                ):
                     return True
-

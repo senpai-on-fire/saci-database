@@ -1,7 +1,15 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import Wifi, Telemetry, Telnet, FTP, ESC, PWMChannel, MultiCopterMotor
+from saci.modeling.device import (
+    Wifi,
+    Telemetry,
+    Telnet,
+    FTP,
+    ESC,
+    PWMChannel,
+    MultiCopterMotor,
+)
 
 from saci_db.vulns.wifi_deauthentication_vuln import WiFiDeauthVuln
 from saci_db.vulns.lack_wifi_auth_vuln import LackWifiAuthenticationVuln
@@ -17,8 +25,8 @@ from saci.modeling.state import GlobalState
 
 from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
-class FTPTelnetHijackCPV(CPV):
 
+class FTPTelnetHijackCPV(CPV):
     NAME = "Parrot Bebop 2 Drone Hijacking via FTP and Telnet"
 
     def __init__(self):
@@ -32,12 +40,15 @@ class FTPTelnetHijackCPV(CPV):
                 ESC(),
                 MultiCopterMotor(),
             ],
-
             entry_component=Wifi(),
             exit_component=MultiCopterMotor(),
-
-            vulnerabilities=[WiFiDeauthVuln(), LackWifiAuthenticationVuln(), LackWifiEncryptionVuln(), OpenTelnetVuln(), OpenFTPVuln()],
-
+            vulnerabilities=[
+                WiFiDeauthVuln(),
+                LackWifiAuthenticationVuln(),
+                LackWifiEncryptionVuln(),
+                OpenTelnetVuln(),
+                OpenFTPVuln(),
+            ],
             initial_conditions={
                 "WiFi": "Open Access (No WPA/WPA2)",
                 "Telnet": "Enabled (No Authentication)",
@@ -47,14 +58,12 @@ class FTPTelnetHijackCPV(CPV):
                 "Environment": "Urban Area",
                 "OperatingMode": "Manual or Mission",
             },
-
             attack_requirements=[
                 "Laptop or device capable of network scanning and packet injection",
                 "WiFi card with monitor mode",
                 "Aircrack-ng software",
                 "Proximity to the drone's WiFi range",
             ],
-
             attack_vectors=[
                 BaseAttackVector(
                     name="Deauthentication Attack to Hijack Control",
@@ -79,39 +88,36 @@ class FTPTelnetHijackCPV(CPV):
                     configuration={},
                 ),
             ],
-
             attack_impacts=[
                 BaseAttackImpact(
                     category="Denial of Control",
-                    description="The user cannot stop or control the drone after deauthentication."
+                    description="The user cannot stop or control the drone after deauthentication.",
                 ),
                 BaseAttackImpact(
                     category="Manipulation of Control",
-                    description="The attacker gains root access via Telnet, enabling system-level manipulations."
+                    description="The attacker gains root access via Telnet, enabling system-level manipulations.",
                 ),
             ],
-
             exploit_steps=[
                 "TA1 Exploit Steps",
-                    "Get the extracted CPS firmware from TA3.",
-                    "Check if the CPS uses an Telnet protocol for files transmission",
-                    "Reverse-engineer the CPS firmware to determine if the Wi-Fi implements security mechanisms",
-                
+                "Get the extracted CPS firmware from TA3.",
+                "Check if the CPS uses an Telnet protocol for files transmission",
+                "Reverse-engineer the CPS firmware to determine if the Wi-Fi implements security mechanisms",
                 "TA2 Exploit Steps",
-                    "Implement a simulation of a WiFi de-authentication attack to disconnet the CPS from the legitimate controller",
-                    "Implement a simulation of a Telnet session hijacking to get access to the CPS control files.",
-                    "Check with TA1 to determine the desired impact on control.",
-
+                "Implement a simulation of a WiFi de-authentication attack to disconnet the CPS from the legitimate controller",
+                "Implement a simulation of a Telnet session hijacking to get access to the CPS control files.",
+                "Check with TA1 to determine the desired impact on control.",
                 "TA3 Exploit Steps",
-                    "Set the Wi-Fi card into monitor mode and locate the drone's BSSID and channel.",
-                    "Send continuous deauthentication packets to disconnect the legitimate controller.",
-                    "Establish a Telnet session to gain root access to the drone.",
-                    "Access the FTP service to extract data or modify critical files.",
-                    "Optionally modify the drone's configuration to disrupt its operations or cause a crash."
+                "Set the Wi-Fi card into monitor mode and locate the drone's BSSID and channel.",
+                "Send continuous deauthentication packets to disconnect the legitimate controller.",
+                "Establish a Telnet session to gain root access to the drone.",
+                "Access the FTP service to extract data or modify critical files.",
+                "Optionally modify the drone's configuration to disrupt its operations or cause a crash.",
             ],
-
             associated_files=[],
-            reference_urls=["https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8326960"]
+            reference_urls=[
+                "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8326960"
+            ],
         )
 
         self.goal_state = []

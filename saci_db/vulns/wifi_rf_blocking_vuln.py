@@ -4,8 +4,15 @@ from clorm import Predicate
 
 from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import Device, Wifi, SikRadio, Telemetry
-from saci.modeling.communication import BaseAttackVector, AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
+from saci.modeling.communication import (
+    BaseAttackVector,
+    AuthenticatedCommunication,
+    UnauthenticatedCommunication,
+    ExternalInput,
+)
 from saci.modeling.attack import BaseCompEffect
+
+
 # Predicate to define formal reasoning logic for RF interference vulnerabilities
 class WifiRFBlockingPred(Predicate):
     pass
@@ -23,30 +30,34 @@ class WifiRFBlockingVuln(PublicSecretVulnerability):
             # Predicate for reasoning about RF interference vulnerabilities
             attack_ASP=WifiRFBlockingPred,
             # Optional rule file for logic-based reasoning about RF interference
-            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'wifi_rf_interference.lp'),
+            rulefile=os.path.join(
+                os.path.dirname(os.path.realpath(__file__)), "wifi_rf_interference.lp"
+            ),
             # List of Associated CWEs:
-            associated_cwe = [
+            associated_cwe=[
                 "CWE-770: Allocation of Resources Without Limits or Throttling",
                 "CWE-400: Uncontrolled Resource Consumption",
                 "CWE-693: Protection Mechanism Failure",
                 "CWE-661: Improper Handling of Overlapping or Conflicting Actions",
-                "CWE-1188: Insecure Default Initialization of Resource"
+                "CWE-1188: Insecure Default Initialization of Resource",
             ],
-            attack_vectors_exploits = [
-                {                    
-                    "attack_vector": [BaseAttackVector(
-                        name="RF Blocking Attack",
-                        required_access_level="Physical",
-                        configuration={
-                        "attack_method": "RF blocking",
-                        "target": "CPS communication channel",
-                    },
-                    )],
+            attack_vectors_exploits=[
+                {
+                    "attack_vector": [
+                        BaseAttackVector(
+                            name="RF Blocking Attack",
+                            required_access_level="Physical",
+                            configuration={
+                                "attack_method": "RF blocking",
+                                "target": "CPS communication channel",
+                            },
+                        )
+                    ],
                     "related_cpv": ["RFBlockingCPV"],
                     "comp_attack_effect": [
                         BaseCompEffect(
                             category="Denial of Service",
-                            description="Blocks telemetry and control signals"
+                            description="Blocks telemetry and control signals",
                         )
                     ],
                     "exploit_steps": [
@@ -56,9 +67,9 @@ class WifiRFBlockingVuln(PublicSecretVulnerability):
                     ],
                     "reference_urls": [
                         "https://github.com/senpai-on-fire/owlet-taskboard/blob/main/CPVs/IVV_Feedback/PASS/HII-GS0409380007-CPV008-202503061.docx"
-                    ]
+                    ],
                 }
-            ]     
+            ],
         )
         # Human-readable description of the attack input scenario
         self.input = "Deliberate RF blocking targeting the UAV's communication channel using a shielded chamber."

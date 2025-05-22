@@ -1,7 +1,14 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import (Controller, Serial, Motor, CANBus, CANTransceiver, CANShield)
+from saci.modeling.device import (
+    Controller,
+    Serial,
+    Motor,
+    CANBus,
+    CANTransceiver,
+    CANShield,
+)
 from saci.modeling.device.sensor import CompassSensor
 from saci.modeling.device.motor.steering import Steering
 from saci.modeling.state import GlobalState
@@ -15,10 +22,10 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 from saci.modeling.communication import ExternalInput
 
+
 class CompassTemporarySpoofingCPV(CPV):
-    
     NAME = "The Temporary Magnetic Interference on Compass"
-    
+
     def __init__(self):
         super().__init__(
             required_components=[
@@ -29,38 +36,44 @@ class CompassTemporarySpoofingCPV(CPV):
                 CANBus(),
                 CANShield(),
                 Controller(),
-                Steering(),],
-
+                Steering(),
+            ],
             entry_component=CompassSensor(),
             exit_component=Motor(),
-            
             vulnerabilities=[CompassSpoofingVuln(), ControllerIntegrityVuln],
-
-            goals = [],
-
+            goals=[],
             initial_conditions={
                 "Position": "Any",
                 "Heading": "Any",
-                "Speed": "Any", 
-                "Environment": "Any", 
-                "RemoteController": "On", 
+                "Speed": "Any",
+                "Environment": "Any",
+                "RemoteController": "On",
                 "CPSController": "Moving",
                 "Operating mode": "Mission",
-                },
-
-            attack_requirements = ["Magnet with adequate shapes and dimensions"],
-            attack_vectors = [BaseAttackVector(name="Magnetic Signals Interference", 
-                                               signal=MagneticAttackSignal(src=ExternalInput(), dst=CompassSensor()),
-                                               required_access_level="Physical",
-                                               configuration={"duration": "10 sec"},
-                                                )],  
-            attack_impacts = [BaseAttackImpact(category='Loss of control',
-                                               description='CPS drives in circles without stopping'),
-                              BaseAttackImpact(category='Loss of control',
-                                               description='over/under steer of the desired turning angle'),],
-
+            },
+            attack_requirements=["Magnet with adequate shapes and dimensions"],
+            attack_vectors=[
+                BaseAttackVector(
+                    name="Magnetic Signals Interference",
+                    signal=MagneticAttackSignal(
+                        src=ExternalInput(), dst=CompassSensor()
+                    ),
+                    required_access_level="Physical",
+                    configuration={"duration": "10 sec"},
+                )
+            ],
+            attack_impacts=[
+                BaseAttackImpact(
+                    category="Loss of control",
+                    description="CPS drives in circles without stopping",
+                ),
+                BaseAttackImpact(
+                    category="Loss of control",
+                    description="over/under steer of the desired turning angle",
+                ),
+            ],
             exploit_steps=[
-            "TA1 Exploit Steps",
+                "TA1 Exploit Steps",
                 "Reverse engineering the extracted firmware using a combination of standard software reverse engineering tools and Binsync.",
                 "Provide context for what the firmware is supposed to do when interacting with sensors (e.g., compass).",
                 "Check if the firmware accepts inputs from the compass sensor.",
@@ -68,15 +81,13 @@ class CompassTemporarySpoofingCPV(CPV):
                 "Check if the code implements any filtering mechanism for compass readings.",
                 "Create models for the following components: Compass, CPS control logic, ESC logic and output, CPS actuators (e.g., motors) controlled by the ESC.",
                 "Report to TA2 any required physical parameters to simulate the CPS dynamics"
-
-            "TA2 Exploit Steps",
+                "TA2 Exploit Steps",
                 "Simulate the impact of temporary heading mis-calculation on the CPS dynamics",
                 "Start the simulation by turning-on the CPS device.",
                 "At arbitrary time x, start injecting errors into the compass sensor for y seconds",
                 "Change the orientation of the CPS in the simulation and observe the impact on the compass readings"
                 "Report the findings to TA3 to conduct the experiments on the physical CPS device",
-
-            "TA3 Exploit Steps",
+                "TA3 Exploit Steps",
                 "Use Optical imaging tools to catalog all of the components on the CPS device.",
                 "Identify if the CPS device has a compass.",
                 "Prepare a powerful magnet with adequate shapes and dimensions.",
@@ -85,11 +96,12 @@ class CompassTemporarySpoofingCPV(CPV):
                 "Leave the magnet in place for at least 10 seconds.",
                 "Remove the magnet.",
                 "Rotate the CPS 45 degrees in either direction and observe that the compass readings do not significantly change as the CPS rotates."
-                "Rotate the CPS 180 degrees from the original heading. The compass readings should either not significantly change or not change until near 180 degrees."
+                "Rotate the CPS 180 degrees from the original heading. The compass readings should either not significantly change or not change until near 180 degrees.",
             ],
-
-            associated_files = [],
-            reference_urls = ["https://github.com/senpai-on-fire/NGC1B-rover-CPVs/tree/main/CPV007"],
+            associated_files=[],
+            reference_urls=[
+                "https://github.com/senpai-on-fire/NGC1B-rover-CPVs/tree/main/CPV007"
+            ],
         )
 
     def in_goal_state(self, state: GlobalState):

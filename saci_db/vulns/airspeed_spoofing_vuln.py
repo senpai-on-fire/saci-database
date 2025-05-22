@@ -14,6 +14,7 @@ from saci.modeling.attack import BaseAttackVector, AcousticAttackSignal, BaseCom
 class AirspeedSpoofingPred(Predicate):
     pass
 
+
 class AirspeedSpoofingVuln(SpoofingVulnerability):
     def __init__(self):
         super().__init__(
@@ -22,9 +23,9 @@ class AirspeedSpoofingVuln(SpoofingVulnerability):
             output=AuthenticatedCommunication(),
             attack_ASP=AirspeedSpoofingPred,
             #
-            #rulefile=os.path.join(
+            # rulefile=os.path.join(
             #    os.path.dirname(os.path.realpath(__file__)), "airspeed_spoofing.lp"
-            #),
+            # ),
             associated_cwe=[
                 "CWE-346: Origin Validation Error",
                 "CWE-20: Improper Input Validation",
@@ -62,7 +63,7 @@ class AirspeedSpoofingVuln(SpoofingVulnerability):
                         "Analyze the position control logic to assess how fluctuations in airspeed readings propagate to motor actuation.",
                         "Implement a simulation of airspeed sensor response to acoustic interference.",
                         "Inject synthetic acoustic noise into the control loop and measure controller response.",
-                        "Simulate how abnormal airspeed readings propagate through the CPS system.",     
+                        "Simulate how abnormal airspeed readings propagate through the CPS system.",
                         "Report the findings to TA3 to conduct the experiments on the physical CPS device",
                         "Use imaging tools and other techniques to catalog all components on the CPS.",
                         "Identify if an airspeed sensor is present.",
@@ -71,7 +72,7 @@ class AirspeedSpoofingVuln(SpoofingVulnerability):
                         "Identify the resonant frequency at the point of maximum deviation from the true value.",
                         "Position an ultrasonic transducer/speaker near the CPS and emit the resonant frequency.",
                         "Log airspeed sensor data before, during, and after the attack.",
-                        "Analyze the CPS's physical response using external tracking and onboard telemetry."
+                        "Analyze the CPS's physical response using external tracking and onboard telemetry.",
                     ],
                     "reference_urls": [
                         # No peer‑reviewed publications as of 2025‑05‑21
@@ -79,11 +80,9 @@ class AirspeedSpoofingVuln(SpoofingVulnerability):
                 }
             ],
         )
-   
 
     def exists(self, device: Device) -> bool:
         for comp in device.components:
             if isinstance(comp, AirspeedSensor):
                 return True
         return False
-        

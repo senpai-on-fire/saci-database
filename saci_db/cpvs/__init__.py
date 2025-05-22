@@ -131,5 +131,5 @@ CPVS = [
     LiDARSensorDenialCPV(),
     FlightParametersRewriteCPV(),
     UsbCableUnplugCPV(),
-    LiDARLightAbsorbCPV()
+    LiDARLightAbsorbCPV(),
 ]

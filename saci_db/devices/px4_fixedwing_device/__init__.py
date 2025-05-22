@@ -50,7 +50,9 @@ class Drone_Crash(Predicate):
 
 class PX4FixedWing(Device):
     crash_atom = Drone_Crash
-    description = os.path.join(os.path.dirname(os.path.realpath(__file__)), "device_fw.lp")
+    description = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)), "device_fw.lp"
+    )
 
     def __init__(self, state=None):
         gcs = GCS()
@@ -64,7 +66,7 @@ class PX4FixedWing(Device):
 
         airspeed = AirspeedSensor()
         airspeed_serial = Serial()
-        
+
         gps = GPSReceiver()
         gps_serial = Serial()
 

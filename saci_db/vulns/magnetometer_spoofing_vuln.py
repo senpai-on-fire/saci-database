@@ -5,13 +5,23 @@ from clorm import Predicate
 from saci.modeling import SpoofingVulnerability
 from saci.modeling.device import Device
 from saci.modeling.device.sensor import Magnetometer
-from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
-from saci.modeling.attack import BaseAttackVector, MagneticAttackSignal, AcousticAttackSignal, BaseCompEffect
+from saci.modeling.communication import (
+    AuthenticatedCommunication,
+    UnauthenticatedCommunication,
+    ExternalInput,
+)
+from saci.modeling.attack import (
+    BaseAttackVector,
+    MagneticAttackSignal,
+    AcousticAttackSignal,
+    BaseCompEffect,
+)
 
 
 # Predicate to define formal reasoning logic for magnetometer spoofing attacks
 class MagnetometerSpoofingPred(Predicate):
     pass
+
 
 class MagnetometerSpoofingVuln(SpoofingVulnerability):
     def __init__(self):
@@ -25,16 +35,18 @@ class MagnetometerSpoofingVuln(SpoofingVulnerability):
             # Predicate for reasoning about magnetometer spoofing vulnerabilities
             attack_ASP=MagnetometerSpoofingPred,
             # Logic rules for evaluating magnetometer spoofing vulnerabilities in formal reasoning
-            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'magnetometer_spoofing.lp'),
+            rulefile=os.path.join(
+                os.path.dirname(os.path.realpath(__file__)), "magnetometer_spoofing.lp"
+            ),
             # List of Associated CWEs:
-            associated_cwe = [
+            associated_cwe=[
                 "CWE-346: Origin Validation Error",
                 "CWE-290: Authentication Bypass by Capture-replay",
                 "CWE-20: Improper Input Validation",
                 "CWE-693: Protection Mechanism Failure",
-                "CWE-1188: Insecure Default Initialization of Resource"
+                "CWE-1188: Insecure Default Initialization of Resource",
             ],
-            attack_vectors_exploits = [
+            attack_vectors_exploits=[
                 {
                     "attack_vector": [
                         BaseAttackVector(
@@ -53,12 +65,12 @@ class MagnetometerSpoofingVuln(SpoofingVulnerability):
                     ],
                     "related_cpv": [
                         "EMISpoofingMagnetometerCPV",
-                        "MagnetometerEMIChannelDisruptionCPV"
+                        "MagnetometerEMIChannelDisruptionCPV",
                     ],
                     "comp_attack_effect": [
                         BaseCompEffect(
-                            category='Integrity',
-                            description='Electromagnetic interference can cause unauthorized device movement and navigation errors through signal data tampering'
+                            category="Integrity",
+                            description="Electromagnetic interference can cause unauthorized device movement and navigation errors through signal data tampering",
                         )
                     ],
                     "exploit_steps": [
@@ -66,12 +78,12 @@ class MagnetometerSpoofingVuln(SpoofingVulnerability):
                         "Acquire or construct a high-power EMI emitter capable of generating interference within the identified sensitivity range.",
                         "Position the EMI emitter in proximity to the UAV, ensuring line-of-sight to the magnetometer sensor or its communication channel.",
                         "Activate the EMI emitter to introduce interference, corrupting the magnetometer sensor's readings or its communication.",
-                        "Monitor the UAV's behavior for signs of orientation miscalculation or navigation errors."
+                        "Monitor the UAV's behavior for signs of orientation miscalculation or navigation errors.",
                     ],
                     "reference_urls": [
                         "https://ieeexplore.ieee.org/document/9245834",
-                        "https://www.ndss-symposium.org/wp-content/uploads/2023/02/ndss2023_f616_paper.pdf"
-                    ]
+                        "https://www.ndss-symposium.org/wp-content/uploads/2023/02/ndss2023_f616_paper.pdf",
+                    ],
                 },
                 {
                     "attack_vector": [
@@ -90,25 +102,23 @@ class MagnetometerSpoofingVuln(SpoofingVulnerability):
                             },
                         )
                     ],
-                    "related_cpv": [
-                        "AcousticSpoofingMagnetometerCPV"
-                    ],
+                    "related_cpv": ["AcousticSpoofingMagnetometerCPV"],
                     "comp_attack_effect": [
                         BaseCompEffect(
-                            category='Integrity',
-                            description='Acoustic interference can cause unauthorized device movement and navigation errors through signal data tampering'
+                            category="Integrity",
+                            description="Acoustic interference can cause unauthorized device movement and navigation errors through signal data tampering",
                         )
                     ],
                     "exploit_steps": [
                         "Determine the resonant frequency of the magnetometer sensor installed on the CPS.",
                         "Point the spoofing audio source device towards the CPS and play the sound noise.",
-                        "Observe the CPS's erratic movements in response to spoofed sensor readings."
+                        "Observe the CPS's erratic movements in response to spoofed sensor readings.",
                     ],
                     "reference_urls": [
                         "https://www.blackhat.com/docs/us-17/thursday/us-17-Wang-Sonic-Gun-To-Smart-Devices-Your-Devices-Lose-Control-Under-Ultrasound-Or-Sound.pdf"
-                    ]
-                }
-            ]
+                    ],
+                },
+            ],
         )
 
     def exists(self, device: Device) -> bool:

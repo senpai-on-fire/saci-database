@@ -1,7 +1,15 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import ESC, Telemetry, DNNTracking, Camera, PWMChannel, MultiCopterMotor, Serial
+from saci.modeling.device import (
+    ESC,
+    Telemetry,
+    DNNTracking,
+    Camera,
+    PWMChannel,
+    MultiCopterMotor,
+    Serial,
+)
 
 from saci.modeling.communication import ExternalInput
 from saci.modeling.state import GlobalState
@@ -15,8 +23,8 @@ from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
 from saci_db.devices.px4_quadcopter_device import PX4Controller
 
-class ObjectTrackCPV(CPV):
 
+class ObjectTrackCPV(CPV):
     NAME = "The Object Untracking Attack on AI models"
 
     def __init__(self):
@@ -26,7 +34,7 @@ class ObjectTrackCPV(CPV):
                 Serial(),
                 DNNTracking(),
                 PX4Controller(),
-                PWMChannel(), 
+                PWMChannel(),
                 ESC(),
                 MultiCopterMotor(),
             ],
@@ -69,17 +77,17 @@ class ObjectTrackCPV(CPV):
             ],
             exploit_steps=[
                 "TA1 Exploit Steps",
-                    "Decompile the DNN model from the CPS firmware.",
-                    "Dump the source code and model weight of the DNN model",
+                "Decompile the DNN model from the CPS firmware.",
+                "Dump the source code and model weight of the DNN model",
                 "TA2 Exploit Steps",
-                    "Simulate the adversarial attacks in the simulator.",
-                    "   - Simulate the DNN tracking algorithms.",
-                    "   - Based on the output of TA4, simulate the visual-based attack vector.",
+                "Simulate the adversarial attacks in the simulator.",
+                "   - Simulate the DNN tracking algorithms.",
+                "   - Based on the output of TA4, simulate the visual-based attack vector.",
                 "TA3 Exploit Steps",
-                    "Showcase the adversarial examples to the CPS camera for control manipulation."
+                "Showcase the adversarial examples to the CPS camera for control manipulation."
                 "TA4 Exploit Steps",
-                    "Wait for the dumped DNN model from TA1.",
-                    "Generate adversarial examples using adversarial machine learning-based optimization.",
+                "Wait for the dumped DNN model from TA1.",
+                "Generate adversarial examples using adversarial machine learning-based optimization.",
             ],
             associated_files=[],
             reference_urls=[],

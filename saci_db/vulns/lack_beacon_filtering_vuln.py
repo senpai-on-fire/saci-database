@@ -4,10 +4,16 @@ from clorm import Predicate
 
 from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import Device, Wifi
-from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
+from saci.modeling.communication import (
+    AuthenticatedCommunication,
+    UnauthenticatedCommunication,
+    ExternalInput,
+)
+
 
 class LackBeaconFilteringPred(Predicate):
     pass
+
 
 class LackBeaconFilteringVuln(PublicSecretVulnerability):
     def __init__(self):
@@ -21,7 +27,9 @@ class LackBeaconFilteringVuln(PublicSecretVulnerability):
             # No specific attack predicate is defined for this vulnerability
             attack_ASP=LackBeaconFilteringPred,
             # Optional rule file for formal logic (if needed)
-            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'lack_beacon_filtering.lp'),
+            rulefile=os.path.join(
+                os.path.dirname(os.path.realpath(__file__)), "lack_beacon_filtering.lp"
+            ),
             # List of Associated CWEs:
             # List of Associated CWEs
             associated_cwe=[
@@ -29,9 +37,9 @@ class LackBeaconFilteringVuln(PublicSecretVulnerability):
                 "CWE-400: Uncontrolled Resource Consumption",
                 "CWE-290: Authentication Bypass by Capture-replay",
                 "CWE-693: Protection Mechanism Failure",
-                "CWE-916: Use of an Insecure Protocol"
+                "CWE-916: Use of an Insecure Protocol",
             ],
-            attack_vectors_exploits = []
+            attack_vectors_exploits=[],
         )
         self.input = "Flood of malicious beacon frames targeting the UAV's Wi-Fi communication stack."
 

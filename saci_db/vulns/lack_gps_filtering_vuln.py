@@ -4,11 +4,17 @@ from clorm import Predicate
 from saci.modeling import BaseVulnerability
 from saci.modeling.device import Device
 from saci.modeling.device.sensor import GPSReceiver
-from saci.modeling.communication import AuthenticatedCommunication, UnauthenticatedCommunication, ExternalInput
+from saci.modeling.communication import (
+    AuthenticatedCommunication,
+    UnauthenticatedCommunication,
+    ExternalInput,
+)
+
 
 # Predicate to define formal reasoning logic for GPS filtering vulnerabilities
 class LackGPSFilteringPred(Predicate):
     pass
+
 
 class LackGPSFilteringVuln(BaseVulnerability):
     def __init__(self):
@@ -22,23 +28,25 @@ class LackGPSFilteringVuln(BaseVulnerability):
             # Predicate for reasoning about GPS filtering vulnerabilities
             attack_ASP=LackGPSFilteringPred,
             # Logic rules for evaluating this vulnerability in formal reasoning
-            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'lack_gps_filtering.lp'),
+            rulefile=os.path.join(
+                os.path.dirname(os.path.realpath(__file__)), "lack_gps_filtering.lp"
+            ),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-290: Authentication Bypass by Capture-replay",
                 "CWE-346: Origin Validation Error",
                 "CWE-20: Improper Input Validation",
                 "CWE-1188: Insecure Default Initialization of Resource",
-                "CWE-693: Protection Mechanism Failure"
+                "CWE-693: Protection Mechanism Failure",
             ],
-            attack_vectors_exploits = []
+            attack_vectors_exploits=[],
         )
-    
+
     def exists(self, device: Device) -> bool:
         # Iterate through all components of the device
         for comp in device.components:
             # Check if the component has supported protocols
-            if hasattr(comp, 'supported_protocols'):
+            if hasattr(comp, "supported_protocols"):
                 supported_protocols = comp.supported_protocols
                 # Iterate through the supported protocols
                 for protocol in supported_protocols:

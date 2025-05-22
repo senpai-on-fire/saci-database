@@ -7,7 +7,7 @@ from saci.modeling.device import Device
 devices = {}
 
 package_dir = Path(__file__).resolve().parent
-for (_, module_name, _) in iter_modules([str(package_dir)]):
+for _, module_name, _ in iter_modules([str(package_dir)]):
     module = import_module(f"{__name__}.{module_name}")
     for attribute_name in dir(module):
         attr = getattr(module, attribute_name)

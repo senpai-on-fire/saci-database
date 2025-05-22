@@ -14,6 +14,7 @@ from saci.modeling.attack import BaseCompEffect
 class ObstacleAvoidanceErrorPred(Predicate):
     pass
 
+
 class ObstacleAvoidanceErrorVuln(BaseVulnerability):
     def __init__(self):
         super().__init__(
@@ -26,15 +27,17 @@ class ObstacleAvoidanceErrorVuln(BaseVulnerability):
             # Predicate for reasoning about this vulnerability
             attack_ASP=ObstacleAvoidanceErrorPred,
             # Logic rules for evaluating this vulnerability in formal reasoning
-            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'avoidance_logic_error.lp'),
+            rulefile=os.path.join(
+                os.path.dirname(os.path.realpath(__file__)), "avoidance_logic_error.lp"
+            ),
             # List of Associated CWEs
             associated_cwe=[
                 "CWE-670: Always-Incorrect Control Flow",
                 "CWE-754: Improper Check for Unusual or Exceptional Conditions",
                 "CWE-1188: Insecure Default Initialization of Resource",
-                "CWE-20: Improper Input Validation"
+                "CWE-20: Improper Input Validation",
             ],
-            attack_vectors_exploits = [
+            attack_vectors_exploits=[
                 {
                     "attack_vector": [
                         BaseAttackVector(
@@ -56,7 +59,7 @@ class ObstacleAvoidanceErrorVuln(BaseVulnerability):
                         description=(
                             "The faulty patch causes the vehicle to fail in obstacle avoidance, resulting in direct collisions with objects or the ground, "
                             "which can damage the vehicle and its surroundings."
-                        )
+                        ),
                     ),
                     # Steps of exploiting this attack vector
                     "exploit_steps": [
@@ -70,14 +73,14 @@ class ObstacleAvoidanceErrorVuln(BaseVulnerability):
                         "Prepare the simulator for the triggering condition.",
                         "Command the vehicle to operate in a dynamic or obstacle-rich environment.",
                         "Monitor the vehicle’s behavior for failure to detect or avoid obstacles, leading to direct collisions.",
-                        "Record the physical consequences of crashes, including damage to the vehicle and its surroundings."
+                        "Record the physical consequences of crashes, including damage to the vehicle and its surroundings.",
                     ],
                     # List of related references
                     "reference_urls": [
                         "https://www.usenix.org/system/files/usenixsecurity23-kim-hyungsub.pdf"
-                    ]
+                    ],
                 }
-            ]
+            ],
         )
 
     def exists(self, device: Device) -> bool:
@@ -86,6 +89,6 @@ class ObstacleAvoidanceErrorVuln(BaseVulnerability):
             # Check if the component is a PX4Controller
             if isinstance(comp, PX4Controller):
                 # If the controller's obstacle avoidance is inaccurate
-                if hasattr(comp, 'obstacle avoidance') and not comp.obstacle_avoidant:
+                if hasattr(comp, "obstacle avoidance") and not comp.obstacle_avoidant:
                     return True
         return False

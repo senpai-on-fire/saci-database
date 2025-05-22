@@ -1,7 +1,14 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import (GPSReceiver, Serial, PWMChannel, ESC, MultiCopterMotor, Telemetry)
+from saci.modeling.device import (
+    GPSReceiver,
+    Serial,
+    PWMChannel,
+    ESC,
+    MultiCopterMotor,
+    Telemetry,
+)
 from saci.modeling.communication import ExternalInput
 from saci.modeling.state import GlobalState
 
@@ -15,8 +22,8 @@ from saci_db.vulns.lack_gps_filtering_vuln import LackGPSFilteringVuln
 
 from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
-class DirectionalManipulationCPV(CPV):
 
+class DirectionalManipulationCPV(CPV):
     NAME = "The Directional Manipulation Attack on Type I Drones"
 
     def __init__(self):
@@ -31,9 +38,11 @@ class DirectionalManipulationCPV(CPV):
             ],
             entry_component=GPSReceiver(),
             exit_component=MultiCopterMotor(),
-
-            vulnerabilities=[GPSSpoofingVuln(), LackGPSFilteringVuln(), ControllerIntegrityVuln()],
-            
+            vulnerabilities=[
+                GPSSpoofingVuln(),
+                LackGPSFilteringVuln(),
+                ControllerIntegrityVuln(),
+            ],
             goals=[],
             initial_conditions={
                 "Position": "Any",
@@ -45,14 +54,19 @@ class DirectionalManipulationCPV(CPV):
             },
             attack_requirements=[
                 "GPS signal jammer or spoofer (e.g., HackRF SDR).",
-                "Access to drone operating in Position Hold mode."
+                "Access to drone operating in Position Hold mode.",
             ],
             attack_vectors=[
                 BaseAttackVector(
                     name="GPS Spoofing for Directional Control",
-                    signal=GPSAttackSignal(src=ExternalInput(), dst=GPSReceiver(), modality="gps_signals"),
+                    signal=GPSAttackSignal(
+                        src=ExternalInput(), dst=GPSReceiver(), modality="gps_signals"
+                    ),
                     required_access_level="Remote",
-                    configuration={"spoofing_intensity": "Adaptive", "direction": "Any"},
+                    configuration={
+                        "spoofing_intensity": "Adaptive",
+                        "direction": "Any",
+                    },
                 ),
             ],
             attack_impacts=[
@@ -66,26 +80,24 @@ class DirectionalManipulationCPV(CPV):
             ],
             exploit_steps=[
                 "TA1 Exploit Steps",
-                    "Model the impact of spoofing into the GPS receiver on the CPS dynamics to verify the attack.",
-                        "The model must include:",
-                        "    - Controller attitude logic algorithm.",
-                        "    - GPS receiver sensor.",
-                        "    - Any required physical parameters to simulate CPS dynamics.",
-                        "    - Electronic speed controller logic and output.",
-                        "    - CPS actuators (e.g., motors) controlled by the ESC.",
-                
+                "Model the impact of spoofing into the GPS receiver on the CPS dynamics to verify the attack.",
+                "The model must include:",
+                "    - Controller attitude logic algorithm.",
+                "    - GPS receiver sensor.",
+                "    - Any required physical parameters to simulate CPS dynamics.",
+                "    - Electronic speed controller logic and output.",
+                "    - CPS actuators (e.g., motors) controlled by the ESC.",
                 "TA2 Exploit Steps",
-                    "Simulate the impact of spoofing into the CPS receiver to verify the validity of the attack.",
-                    "Start the simulation allow the CPS to start its intended operation.",
-                    "At arbitrary time x, start the GPS spoofing attack into and verify the attack impact.",
-                    "Report your findings to TA3.",
-
+                "Simulate the impact of spoofing into the CPS receiver to verify the validity of the attack.",
+                "Start the simulation allow the CPS to start its intended operation.",
+                "At arbitrary time x, start the GPS spoofing attack into and verify the attack impact.",
+                "Report your findings to TA3.",
                 "TA3 Exploit Steps",
-                    "Identify the target drone and confirm it is in Position Hold mode.",
-                    "Deploy GPS spoofing equipment in the drone’s vicinity.",
-                    "Gradually spoof the GPS position to simulate drifting in the desired direction.",
-                    "Observe the drone adjusting its trajectory to correct the perceived error.",
-                    "Continuously adjust the spoofed GPS position to guide the drone in the desired direction."
+                "Identify the target drone and confirm it is in Position Hold mode.",
+                "Deploy GPS spoofing equipment in the drone’s vicinity.",
+                "Gradually spoof the GPS position to simulate drifting in the desired direction.",
+                "Observe the drone adjusting its trajectory to correct the perceived error.",
+                "Continuously adjust the spoofed GPS position to guide the drone in the desired direction.",
             ],
             associated_files=[],
             reference_urls=["https://dl.acm.org/doi/10.1145/3309735"],

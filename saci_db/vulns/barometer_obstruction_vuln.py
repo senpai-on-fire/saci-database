@@ -2,7 +2,7 @@ import os.path
 
 from clorm import Predicate
 
-from saci.modeling import SpoofingVulnerability 
+from saci.modeling import SpoofingVulnerability
 
 from saci.modeling.device import Device
 from saci.modeling.device.sensor import Barometer
@@ -25,7 +25,9 @@ class BarometerObstructionVuln(SpoofingVulnerability):
     def __init__(self):
         super().__init__(
             component=Barometer(),
-            _input=AuthenticatedCommunication(src=ExternalInput()),  # physical access proxy
+            _input=AuthenticatedCommunication(
+                src=ExternalInput()
+            ),  # physical access proxy
             output=AuthenticatedCommunication(),
             attack_ASP=BarometerObstructionPred,
             # No dedicated rule file yet
@@ -68,8 +70,7 @@ class BarometerObstructionVuln(SpoofingVulnerability):
             ],
         )
 
-    def exists(self, device: Device) -> bool:  
-
+    def exists(self, device: Device) -> bool:
         for comp in device.components.values():
             if isinstance(comp, Barometer):
                 return True

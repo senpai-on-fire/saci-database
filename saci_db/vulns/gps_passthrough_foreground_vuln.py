@@ -9,9 +9,11 @@ from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.packet_attack_signal import SerialAttackSignal
 from saci.modeling.device.interface import Serial
 
+
 # Predicate to define formal reasoning logic for firmware overwrite attacks
 class GPSPassthroughForegroundPred(Predicate):
     pass
+
 
 class GPSPassthroughForegroundVuln(PublicSecretVulnerability):
     def __init__(self):
@@ -25,30 +27,37 @@ class GPSPassthroughForegroundVuln(PublicSecretVulnerability):
             # Predicate for reasoning about firmware overwrite attacks
             attack_ASP=GPSPassthroughForegroundPred,
             # Logic rules for evaluating firmware overwrite vulnerabilities
-            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'gps_passthrough_foreground.lp'),
+            rulefile=os.path.join(
+                os.path.dirname(os.path.realpath(__file__)),
+                "gps_passthrough_foreground.lp",
+            ),
             # List of Associated CWEs relevant to firmware overwrite attacks
             associated_cwe=[
                 "CWE-494: Download of Code Without Integrity Check",
                 "CWE-306: Missing Authentication for Critical Function",
                 "CWE-287: Improper Authentication",
                 "CWE-345: Insufficient Verification of Data Authenticity",
-                "CWE-347: Improper Verification of Cryptographic Signature"
+                "CWE-347: Improper Verification of Cryptographic Signature",
             ],
             attack_vectors_exploits=[
                 {
                     # Attack vector:
-                    "attack_vector": [BaseAttackVector(
-                        name="Terminate Passthrough Process", 
-                        signal=SerialAttackSignal(src=ExternalInput(), dst=Passthrough()),
-                        required_access_level="Physical",
-                        configuration={"duration": "temporary"},
-                    )],
+                    "attack_vector": [
+                        BaseAttackVector(
+                            name="Terminate Passthrough Process",
+                            signal=SerialAttackSignal(
+                                src=ExternalInput(), dst=Passthrough()
+                            ),
+                            required_access_level="Physical",
+                            configuration={"duration": "temporary"},
+                        )
+                    ],
                     # List of associated CPVs
                     "related_cpv": ["GPSPassthroughStopCPV"],
                     # List of associated component-level attack effects
                     "comp_attack_effect": BaseCompEffect(
-                        category='Denial of Service',
-                        description='The passthrough process is terminated thus never updated location'
+                        category="Denial of Service",
+                        description="The passthrough process is terminated thus never updated location",
                     ),
                     # Steps of exploiting this attack vector
                     "exploit_steps": [
@@ -67,9 +76,9 @@ class GPSPassthroughForegroundVuln(PublicSecretVulnerability):
                     # List of related references
                     "reference_urls": [
                         "https://github.com/senpai-on-fire/ngc2_taskboard/blob/main/CPVs/HII-NGP1AROV2ARR05-CPV007/HII-NGP1AROV2ARR05-CPV007-20250425.docx"
-                    ]
+                    ],
                 }
-            ]
+            ],
         )
 
     def exists(self, device: Device) -> bool:
@@ -77,7 +86,7 @@ class GPSPassthroughForegroundVuln(PublicSecretVulnerability):
         Checks if the device is vulnerable to firmware overwrite attacks.
         The vulnerability exists if:
         """
-        #Poor implementation :<
+        # Poor implementation :<
         for comp in device.components:
             if isinstance(comp, Passthrough):
                 return True
