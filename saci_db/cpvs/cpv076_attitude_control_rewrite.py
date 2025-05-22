@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import Controller, GCS, Wifi, Telemetry, PWMChannel, ESC, Motor, Mavlink
+from saci.modeling.device import Controller, GCS, Wifi, Telemetry, PWMChannel, ESC, Motor, Mavlink, ExpressLRSBackpack
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
@@ -9,6 +9,8 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci.modeling.state import GlobalState
 
 from saci_db.vulns.ardupilot_flip_param_overwrite import ExpressLRSFirmwareOverwriteVuln
+from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
+
 
 class AttitudeFlipParameterManipulation(CPV):
 
@@ -19,14 +21,15 @@ class AttitudeFlipParameterManipulation(CPV):
             required_components=[
                 GCS(),            
                 Mavlink(),        
-                Wifi(),           
-                Controller(),     
+                Wifi(),      
+                ExpressLRSBackpack(),     
+                ArduPilotController(),      
                 PWMChannel(),     
                 ESC(),            
                 Motor(),          
             ],
             entry_component=Wifi(),
-            exit_component=Controller(),
+            exit_component=ArduPilotController(),
 
             vulnerabilities=[
                 ExpressLRSFirmwareOverwriteVuln()

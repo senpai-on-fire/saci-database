@@ -18,7 +18,8 @@ class LiDARSpoofingStopCPV(CPV):
         super().__init__(
             required_components=[
                 LiDAR(),          
-                Serial(),     
+                Serial(),  
+                Controller(),    
                 Controller(),     
                 PWMChannel(),     
                 ESC(),            

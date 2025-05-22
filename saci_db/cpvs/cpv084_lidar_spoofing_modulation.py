@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import Controller, LiDAR, PWMChannel, ESC, Motor, Telemetry, Serial
+from saci.modeling.device import Controller, LiDAR, PWMChannel, ESC, Motor, Serial
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack_vector import OpticalAttackSignal
@@ -10,20 +10,20 @@ from saci.modeling.state import GlobalState
 
 from saci_db.vulns.lidar_spoofing_vuln import LiDARSpoofingVuln
 
-class LiDARBYPASSMirrorCPV(CPV):
+class LiDARSpoofingModulation(CPV):
 
-    NAME = "LiDAR Mirror Reflection Prevents Obstacle Detection, Allows Collision"
+    NAME = "LiDAR Spoofing with Modulation from identical LiDAR model"
 
     def __init__(self):
         super().__init__(
             required_components=[
-                LiDAR(),   
-                Serial(),       
+                LiDAR(),          
+                Serial(),  
+                Controller(),    
                 Controller(),     
-                Controller(), 
                 PWMChannel(),     
                 ESC(),            
-                Motor(),         
+                Motor(),          
             ],
             entry_component=LiDAR(),
             exit_component=Controller(),
@@ -36,62 +36,58 @@ class LiDARBYPASSMirrorCPV(CPV):
                 "Position": "Any",
                 "Heading": "Any",
                 "Speed": "Any (>0)",
-                "Environment": "Indoor or controlled outdoor",
+                "Environment": "Any",
                 "RemoteController": "On",
                 "CPSController": "Moving",
                 "OperatingMode": "Manual or Mission"
             },
 
             attack_requirements=[
-                "Physical access within LiDAR range (< 27 inches)",
-                "Mirror material (minimum 4x4 inches)",
-                "Ability to maintain stable 45° angle",
-                "Clear line-of-sight to LiDAR sensor",
-                "Understanding of LiDAR detection threshold"
+                "Line-of-sight access to LiDAR receiver",
+                "IR laser source",
+                "Identical Lidar model to the one used in the rover",
             ],
 
             attack_vectors=[
                 BaseAttackVector(
-                    name="Mirror-Based LiDAR Signal Redirection",
+                    name="Matched-Modulation LiDAR Injection",
                     signal=OpticalAttackSignal(
                         src=ExternalInput(),
-                        dst=LiDAR()
+                        dst=LiDAR(),
                     ),
-                    required_access_level="Physical",
+                    required_access_level="Remote",
                     configuration={
-                        "material": "Reflective mirror surface",
-                        "placement": "27 inches or closer to LiDAR",
-                        "angle": "45° relative to sensor plane",
-                        "goal": "Redirect LiDAR signal to create false distance reading",
-                        "effect": "Prevents obstacle detection"
+                        "methods": ["Replay sensor pulses"],
+                        "modality": "Laser pulses",
+                        "wavelength": "850nm",
+                        "target_effect": "False near obastacle injection",
                     }
                 )
             ],
 
             attack_impacts=[
                 BaseAttackImpact(
-                    category="Control Hijacking",
-                    description="Mirror-based LiDAR signal redirection causes the rover to fail to detect obstacles, potentially leading to collisions."
-                )
-            ],
+                    category="Loss of Control",
+                    description="Rover stops motion and ends mission"
+                ),],
 
             exploit_steps=[
                 "TA1 Exploit Steps",
-                    "Extract firmware from STM32H743 controller using EXPLODE tool",
-                    "Analyze firmware to identify LiDAR signal processing logic",
-                    "Locate 'LIDAR KILLED OBJECT TOO CLOSE' string reference",
+                    "Extract STM32H743 firmware using EXPLODE",
+                    "Analyze firmware to identify LiDAR signal verification logic",
                     "Map LiDAR data flow and threshold checks",
-                    "Document sensor parameters and timing requirements",
-                    "Model mirror reflection angles and detection thresholds",
+                    "Document sensor parameters from Benewake TFmini Plus datasheet",
                 
                 "TA2 Exploit Steps",
                     "Configure QEMU-based firmware simulation environment",
-                    "Simulate LiDAR signal reflection in Gazebo",
-                    "Test various mirror angles and distances",
-                    "Validate detection threshold bypass conditions",
+                    "Simulate LiDAR input signals in Gazebo co-simulation",
+                    "Inject crafted distance frames via virtual UART",
+                    "Validate detection thresholds trigger emergency stop",
+                    "Test different pulse patterns and timing configurations",
                     "Document successful attack parameters",
                 
-                "TA3 Initial Hardware Testing:",
+                "TA3 Exploit Steps",
+                    "Initial Hardware Testing:",
                     "Using hex wrench, rotate power block counter-clockwise to power on rover",
                     "Wait for system LEDs to light up",
                     "Press button on power block to remove safety",
@@ -102,20 +98,19 @@ class LiDARBYPASSMirrorCPV(CPV):
                     "Test baseline obstacle detection by placing object (>= LiDAR height) within 27\" of sensor",
                     "Verify rover stops automatically",
                     "Power off rover by rotating power block clockwise until LEDs turn off",
+                    "Attack Execution:",
                     "Repeat power-on sequence and initiate rover movement",
-                    "Position mirror at 45° angle in front of LiDAR sensor",
-                    "Ensure mirror surface is clean and properly aligned",
-                    "Place actual obstacle behind or beside mirror setup",
-                    "Observe rover continues movement despite obstacle presence",
-                    "Verify rover fails to detect obstacle at expected distance",
-                    "Document attack success and system behavior",
-                    "Use emergency stop via web interface if needed",
-                    "Power off rover using hex wrench (clockwise rotation until LEDs off)"
+                    "Align second TFmini LiDAR with the rover LiDAR",
+                    "Use non-IR blocking camera to assist with laser alignment if needed",
+                    "Verify rover stops after brief delay with no physical obstacles present",
+                    "Document response time and effectiveness",
+                    "Power off rover using hex wrench (clockwise rotation until LEDs off)",
+                    "Record all observations and system behavior",
             ],
 
             associated_files=[],
             reference_urls=[
-                "https://github.com/senpai-on-fire/ngc2_taskboard/blob/main/CPVs/HII-NGP1AROV2ARR05-CPV003/HII-NGP1AROV2ARR05-CPV003-20250419.docx"
+                "https://github.com/senpai-on-fire/ngc2_taskboard/blob/main/CPVs/HII-NGP1AROV2ARR05-CPV012/HII-NGP1AROV2ARR05-CPV012-20250512.docx"
             ]
         )
 

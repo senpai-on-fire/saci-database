@@ -1,6 +1,6 @@
 
 from saci.modeling import CPV
-from saci.modeling.device import Controller, Motor, Wifi, Serial
+from saci.modeling.device import Controller, Motor, Wifi, Serial, PWMChannel, ESC
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
@@ -17,10 +17,12 @@ class ArduinoGigaFirmwareOverwriteCPV(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
+                Serial(),
                 Controller(),
-                Wifi(),
-                Motor(),
-                Serial(),  # Represents USB communication interface.
+                Controller(), 
+                PWMChannel(),     
+                ESC(),            
+                Motor(),  
             ],
 
             entry_component=Serial(),
@@ -73,26 +75,26 @@ class ArduinoGigaFirmwareOverwriteCPV(CPV):
 
             exploit_steps=[
                 "TA1 Exploit Steps",
-                "No formal modeling was done for this CPV",
+                    "No formal modeling was done for this CPV",
                 "TA2 Exploit Steps",
-                "No formal modeling was done for this CPV",
+                    "No formal modeling was done for this CPV",
                 "TA3 Exploit Steps",
-                "Open “Arduino IDE”.",
-                "Select “File” -> ”New Sketch”.",
-                "A new sketch window should open with empty setup() and loop() functions defined.",
-                "Connect the Arduino Giga R1 to the computer with the USB-C cable.",
-                "Using the board selector at the top of the window, select “Arduino Giga R1”.",
-                "If “Arduino Giga R1” is not present, select “Select other board and port”.",
-                "A dialog titled “Select Other Board and Port” should appear.",
-                "Type in “Arduino Giga R1” into the “Boards” text box, and select “Arduino Giga R1” in the list box below.",
-                "Select the appropriate port in the “Ports” dialog box.",
-                "Press the “OK” button.",
-                "Save this sketch with the name “blank” or something appropriate.",
-                "Select “Sketch” -> “Upload” to compile and upload the sketch to the board.",
-                "Once the upload has finished, unplug the Arduino Giga R1 from the computer.",
-                "Repeat Steps #1-2 in the first section.",
-                "The “Arduino Wi-Fi” network will not be present and you will be unable to start a mission.",
-                "Using a hex wrench, rotate the power block clockwise until the LEDs turn off to power off the rover."
+                    "Open “Arduino IDE”.",
+                    "Select “File” -> ”New Sketch”.",
+                    "A new sketch window should open with empty setup() and loop() functions defined.",
+                    "Connect the Arduino Giga R1 to the computer with the USB-C cable.",
+                    "Using the board selector at the top of the window, select “Arduino Giga R1”.",
+                    "If “Arduino Giga R1” is not present, select “Select other board and port”.",
+                    "A dialog titled “Select Other Board and Port” should appear.",
+                    "Type in “Arduino Giga R1” into the “Boards” text box, and select “Arduino Giga R1” in the list box below.",
+                    "Select the appropriate port in the “Ports” dialog box.",
+                    "Press the “OK” button.",
+                    "Save this sketch with the name “blank” or something appropriate.",
+                    "Select “Sketch” -> “Upload” to compile and upload the sketch to the board.",
+                    "Once the upload has finished, unplug the Arduino Giga R1 from the computer.",
+                    "Repeat Steps #1-2 in the first section.",
+                    "The “Arduino Wi-Fi” network will not be present and you will be unable to start a mission.",
+                    "Using a hex wrench, rotate the power block clockwise until the LEDs turn off to power off the rover."
             ],
 
             associated_files=["original_giga_r1_firmware.bin"],
