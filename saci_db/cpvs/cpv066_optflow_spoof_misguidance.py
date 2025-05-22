@@ -68,11 +68,28 @@ class CPV066_OptflowSpoofMisguidance(CPV):
             ],
 
             exploit_steps=[
-                "Prepare spoofing device (laser grid or projector) near UAV test area",
-                "Wait for UAV to enter loiter mode using optical flow",
-                "Project dynamic light pattern into camera field-of-view",
-                "Induce perceived motion through modulation of the pattern",
-                "Observe lateral movement or course deviation in UAV",
+                "TA1 Exploit Steps",
+                    "Implement a Model to simulate the optical flow spoofing attack",
+                    "The model must include:",
+                        "    - Lucas-Kanade optical flow algorithm simulation",
+                        "    - Light pattern generation and modulation",
+                        "    - UAV motion response simulation",
+
+                "TA2 Exploit Steps",
+                    "Simulate the spoofing attack and its effects",
+                    "The simulation must include:",
+                        "    - Pattern optimization for different surfaces",
+                        "    - Light intensity and pattern speed analysis",
+                        "    - Impact analysis on UAV drift behavior",
+
+                "TA3 Exploit Steps",
+                    "Execute the physical attack in real environment",
+                    "Set up laser grid or pocket projector near UAV",
+                    "Position device within 3-10 feet of UAV",
+                    "Wait for UAV to enter loiter/position hold mode",
+                    "Project dynamic light pattern into camera field-of-view",
+                    "Modulate pattern to induce perceived motion",
+                    "Monitor and verify UAV drift response"
             ],
 
             associated_files=[],

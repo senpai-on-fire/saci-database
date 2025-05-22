@@ -69,11 +69,27 @@ class MLMisnavigationCPV(CPV):
             ],
 
             exploit_steps=[
-                "Generate physical adversarial patch using joint optimization (FASC+T)",
-                "Place patch on obstacle, floor, or wall in UAV's path",
-                "UAV camera captures adversarial examples",
-                "Navigation model outputs incorrect (steering angle, collision prob.)",
-                "UAV deviates from intended behavior (crash, yaw, halt)",
+                "TA1 Exploit Steps",
+                    "Implement a Model to simulate the adversarial patch attack",
+                    "The model must include:",
+                        "    - FASC+T joint optimization algorithm for patch generation",
+                        "    - Navigation model simulation and behavior prediction",
+                        "    - Camera sensor simulation for patch capture",
+                        "    - UAV control system response simulation",
+
+                "TA2 Exploit Steps",
+                    "Simulate the physical patch attack and its effects",
+                    "The simulation must include:",
+                        "    - Patch placement optimization in different environments",
+                        "    - Impact analysis on navigation decisions",
+                        "    - Verification of attack effectiveness",
+
+                "TA3 Exploit Steps",
+                    "Execute the physical attack in real environment",
+                    "Print the adversarial patch using the optimized design",
+                    "Place the patch on obstacle, floor, or wall in UAV's path",
+                    "Monitor UAV behavior for successful attack execution",
+                    "Verify attack impact"
             ],
 
             associated_files=[],

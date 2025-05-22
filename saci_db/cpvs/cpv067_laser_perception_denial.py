@@ -70,11 +70,30 @@ class LaserVisionAttackCPV(CPV):
             ],
 
             exploit_steps=[
-                "Align laser pointer with the drone's vision sensor from a distance (1.5-5m)",
-                "Project continuous or pulsed beam into the camera's field of view",
-                "Camera experiences saturation or false image patterns",
-                "Obstacle avoidance or positioning algorithms receive corrupted input",
-                "Drone exhibits unstable flight, drift, or collision behavior",
+                "TA1 Exploit Steps",
+                    "Implement a Model to simulate the laser-based vision attack",
+                    "The model must include:",
+                        "    - Camera sensor saturation simulation",
+                        "    - Laser beam propagation and intensity modeling",
+                        "    - Vision system response simulation",
+                        "    - Obstacle avoidance algorithm simulation",
+
+                "TA2 Exploit Steps",
+                    "Simulate the laser attack and its effects",
+                    "The simulation must include:",
+                        "    - Attack angle optimization",
+                        "    - Distance impact analysis",
+                        "    - Ambient light interference analysis",
+                        "    - Verification of attack effectiveness on different DJI models",
+
+                "TA3 Exploit Steps",
+                    "Execute the physical attack in real environment",
+                    "Set up 660-nm laser pointer with 10000 lux intensity",
+                    "Position attacker at optimal distance",
+                    "Align laser with drone's vision sensor",
+                    "Project continuous or pulsed beam into camera field of view",
+                    "Monitor camera saturation and false image patterns",
+                    "Observe and verify drone's unstable flight behavior"
             ],
 
             associated_files=[],

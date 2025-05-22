@@ -68,11 +68,30 @@ class AdvMLUndetectCPV(CPV):
             ],
 
             exploit_steps=[
-                "Optimize adversarial patch using objectness loss + NPS + TV losses",
-                "Print patch and place it physically in the target scene",
-                "Capture aerial images using drone or balcony-mounted camera",
-                "Run detector on patched scene and observe reduced objectness score",
-                "Target vehicles are no longer detected or assigned low scores",
+                "TA1 Exploit Steps",
+                    "Implement a Model to simulate the adversarial patch attack on object detection",
+                    "The model must include:",
+                        "    - Objectness loss optimization algorithm",
+                        "    - NPS (Non-Printability Score) calculation",
+                        "    - TV (Total Variation) loss computation",
+                        "    - YOLOv3 detector simulation with COWC-M dataset",
+
+                "TA2 Exploit Steps",
+                    "Simulate the physical patch attack and its effects",
+                    "The simulation must include:",
+                        "    - Patch optimization for different vehicle types",
+                        "    - Geometric and color-space augmentation effects",
+                        "    - Impact analysis on detection scores",
+                        "    - Verification of attack effectiveness in different environments",
+
+                "TA3 Exploit Steps",
+                    "Execute the physical attack in real environment",
+                    "Print optimized adversarial patches",
+                    "Place patches on vehicle roof or ground around target",
+                    "Deploy drone or balcony-mounted camera at 40/60m altitude",
+                    "Capture aerial images of patched scene",
+                    "Run YOLOv3 detector on captured images",
+                    "Verify successful suppression of car detection"
             ],
 
             associated_files=[],
