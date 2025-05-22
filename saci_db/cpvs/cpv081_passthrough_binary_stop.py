@@ -14,17 +14,12 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci.modeling.state import GlobalState
 
 from saci_db.vulns.lack_serial_auth_vuln import LackSerialAuthenticationVuln
-
-# -This needs the passthrough element to run a Linux OS
-# -It also needs the process to be a foreground process
-# -I did not include those in attack_requirements or required_components
-
-# "Mission or Manual" or "Mission" only ?
+from saci_db.vulns.gps_passthrough_foreground_vuln import GPSPassthroughForegroundVuln
 
 
 class GPSPassthroughStopCPV(CPV):
     
-    NAME = "Terminate GPS signal passthrough process "
+    NAME = "Terminate GPS signal passthrough process through the serial port"
 
     def __init__(self):
         super().__init__(
@@ -38,7 +33,7 @@ class GPSPassthroughStopCPV(CPV):
             entry_component= Serial(),
             exit_component= Steering(),
 
-            vulnerabilities=[LackSerialAuthenticationVuln()],
+            vulnerabilities=[LackSerialAuthenticationVuln(), GPSPassthroughForegroundVuln()],
             initial_conditions={
                 "Position": "Any",
                 "Heading": "Any",
@@ -46,7 +41,6 @@ class GPSPassthroughStopCPV(CPV):
                 "Environment": "Any",
                 "RemoteController": "Any",
                 "CPSController": "Idle",
-                #"GPS Lock" : "Acquired",
                 "Operating mode": "Mission"
             },
             attack_requirements=[
@@ -65,13 +59,13 @@ class GPSPassthroughStopCPV(CPV):
 
             exploit_steps=[
                 "TA1 Exploit Steps",
-                    "1-Wait for TA3 reporting whether verification was successful or not."
-                    "2-If successful : Analyze the passthrough element OS boot process and verify that the passthrough binary launches in the foreground before authentication",
-                    "3-Report findings to TA3",
+                    "1- Wait for TA3 reporting whether verification was successful or not."
+                    "2- If successful : Analyze the passthrough element OS boot process and verify that the passthrough binary launches in the foreground before authentication",
+                    "3- Report findings to TA3",
 
                 "TA2 Exploit Steps",
-                    "1-Simulate the effect of constant GPS signal on the rover mission to verify the impact",
-                    "2-Report the impact to TA3",
+                    "1- Simulate the effect of constant GPS signal on the rover mission to verify the impact",
+                    "2- Report the impact to TA3",
 
                 "TA3 Exploit Steps",
                     "A- Reverse Engineering"
@@ -93,7 +87,7 @@ class GPSPassthroughStopCPV(CPV):
                     "       5.	Open up a second terminal emulator for the serial device exposed by the serial adapter.",
                     "       6.	Using a hex wrench, rotate the power block counter-clockwise to power on the rover.",
                     "       7.	Quickly plug in the USB cable connected to the microcontroller into the computer.",
-                    "       8.	On the terminal emulator connected to the microcontroller you should see messages about creating the Wi-Fi interface and sensor initialization. Depending on how recently the GPS receiver has been powered on, it may immediately find a GPS lock. You will see a messages printed to the console indicating the coordinates. If a GPS lock is not established you will see messages with \"********\" printed. Wait until messages similar to Figure #2 appear.",
+                    "       8.	On the terminal emulator connected to the microcontroller you should see messages about creating the Wi-Fi interface and sensor initialization. Depending on how recently the GPS receiver has been powered on, it may immediately find a GPS lock. If the GPS lock is acquired, you will see a messages printed to the console indicating the coordinates. Otherwise, you will see messages with \"********\" printed. Wait until a GPS lock is acquired",
                     "       9.	Simultaneously, on the terminal emulator you will see the embedded Linux system boot sequence. This should continue until you see a bootup message and then output will stop. If you do not see this message stop the testing procedure as the rest of the test is unlikely to behave as expected.",
                     "       10.	Once the GPS lock messages are seen from Step #8, in the terminal emulator connected to the serial adapter enter “Ctrl-C”. This will cause the embedded Linux system to continue progressing through the boot process. You should see a login prompt.",
                     "       11.	Disconnect the USB cable from the microcontroller.",

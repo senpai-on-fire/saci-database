@@ -3,7 +3,7 @@ from typing import List, Type
 from saci.modeling import CPV
 from saci.modeling.communication import ExternalInput
 
-from saci_db.vulns.rf_blocking_vuln import RFBlockingVuln
+from saci_db.vulns.wifi_rf_blocking_vuln import WifiRFBlockingVuln
 from saci_db.vulns.lack_wifi_auth_vuln import LackWifiAuthenticationVuln
 from saci_db.vulns.lack_wifi_encryption_vuln import LackWifiEncryptionVuln
 
@@ -21,13 +21,13 @@ from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
 class RFBlockingCPV(CPV):
 
-    NAME = "The RF signal blocking via a shielded chamber"
+    NAME = "The RF signal blocking via a shielded chamber results in blocking the heartbeat signal, trigerring the fail safe mechanism"
 
     def __init__(self):
         super().__init__(
             required_components=[
                 GCS(),
-                SikRadio(),   
+                Wifi(),   
                 Mavlink(),  
                 TelemetryHigh(),            
                 ArduPilotController(), # DJI also + can work with PX4 potentially
@@ -38,7 +38,7 @@ class RFBlockingCPV(CPV):
             entry_component=GCS(),        
             exit_component=MultiCopterMotor(), 
 
-            vulnerabilities=[RFBlockingVuln()],
+            vulnerabilities=[WifiRFBlockingVuln()],
 
             initial_conditions={
                 "Position": "Any",
@@ -53,7 +53,7 @@ class RFBlockingCPV(CPV):
             attack_requirements=[
                 "Shielded Chamber. eg:Ramsey Faraday enclosure",
                 "Physical Access",
-                "Failsafe mechanism",
+                "Fail-safe mechanism",
                 "Drone is powered on and armed",
             ],
 
