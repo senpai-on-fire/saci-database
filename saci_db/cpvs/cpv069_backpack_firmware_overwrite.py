@@ -104,7 +104,8 @@ class BackpackFirmwareOverwriteCPV(CPV):
             ],
             associated_files=[],
             reference_urls=[
-                "https://github.com/senpai-on-fire/ngc2_taskboard/blob/main/CPVs/HII-NGP1AROV2ARR05-CPV003/HII-NGP1AROV2ARR05-CPV003-20250419.docx"
+                "https://github.com/senpai-on-fire/owlet-taskboard/blob/main/CPVs/HII-GS0409380007-CPV003/HII-GS0409380007-CPV003-20250303.docx",
+                "https://github.com/senpai-on-fire/owlet-taskboard/blob/main/CPVs/IVV_Feedback/PASS/HII-GS0409380007-CPV003-20250303.docx"
             ],
         )
 
