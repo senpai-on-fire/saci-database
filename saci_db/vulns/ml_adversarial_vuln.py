@@ -28,9 +28,10 @@ class DeepNeuralNetworkPred(Predicate):
 
 class DeepNeuralNetworkVuln(BaseVulnerability):
     def __init__(self):
+        dest_component = DNNTracking()
         super().__init__(
             # The DNN component, vulnerable to adversarial example attacks
-            component=DNNTracking(),
+            component=dest_component,
             # Input: Authenticated communication representing crafted adversarial inputs
             _input=AuthenticatedCommunication(),
             # Output: Authenticated communication leading to attacker-controlled or misclassified outputs
@@ -61,7 +62,7 @@ class DeepNeuralNetworkVuln(BaseVulnerability):
                             name="Adversarial Pattern Injection",
                             signal=ImageAttackSignal(
                                 src=ExternalInput(),
-                                dst=DeepNeuralNetworkVuln().component,
+                                dst=dest_component,
                                 modality="image",
                             ),
                             required_access_level="Remote",
