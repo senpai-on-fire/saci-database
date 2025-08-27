@@ -1,8 +1,6 @@
 from saci.modeling import CPV
 
-from saci.modeling.attack.base_attack_signal import BaseAttackSignal
-from saci.modeling.attack.base_attact_vector import BaseAttackVector
-from saci.modeling.attack.base_attack_impact import BaseAttackImpact
+from saci.modeling.attack import BaseAttackSignal, BaseAttackVector, BaseAttackImpact
 
 from saci.modeling.device import (
     Serial,
