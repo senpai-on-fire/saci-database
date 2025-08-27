@@ -9,6 +9,7 @@ from saci.modeling.device import (
     PWMChannel,
     MultiCopterMotor,
     Serial,
+    Motor,
 )
 
 from saci.modeling.communication import ExternalInput
@@ -17,6 +18,8 @@ from saci.modeling.state import GlobalState
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.image_attack_signal import ImageAttackSignal
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
+
+from saci.modeling.device import Controller
 
 from saci_db.vulns.ml_adversarial_vuln import DeepNeuralNetworkVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
@@ -30,18 +33,22 @@ class ObjectTrackCPV(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
-                Camera(),
-                Serial(),
-                DNNTracking(),
-                PX4Controller(),
-                PWMChannel(),
-                ESC(),
-                MultiCopterMotor(),
+                Camera(), # This is the entry component (Required)
+                # Serial(), # Removed considering that the camera is inherently connected to the Controller via Serial (Not Required)
+                # DNNTracking(), # Removed, assuming the DNNTracking model is part of the control system (Not Required)
+                Controller(), # Changed from PX4Controller() to Controller() for generalization (Required)
+                # PWMChannel(), # Removed since the PWMChannel is just a passthrough for the CPV (Not Required)
+                # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
+                Motor(), # This is the exit component + Changed to Motor() for generalization (Required)
             ],
+            
             entry_component=Camera(),
-            exit_component=MultiCopterMotor(),
+            exit_component=Motor(),
+            
             vulnerabilities=[DeepNeuralNetworkVuln(), ControllerIntegrityVuln()],
+            
             goals=[],
+            
             initial_conditions={
                 "Position": "Any",
                 "Heading": "Any",
@@ -51,10 +58,12 @@ class ObjectTrackCPV(CPV):
                 "CPSController": "Any",
                 "Operating mode": "Mission",
             },
+            
             attack_requirements=[
                 "Adversarial patches generated use adversarial machine learning",
                 "Decompiled DNN model from the firmware",
             ],
+            
             attack_vectors=[
                 BaseAttackVector(
                     name="Adversarial Pattern Injection",
@@ -67,6 +76,7 @@ class ObjectTrackCPV(CPV):
                     configuration={"duration": "Transient"},
                 )
             ],
+            
             attack_impacts=[
                 BaseAttackImpact(
                     category="Control Manipulation",
@@ -75,6 +85,7 @@ class ObjectTrackCPV(CPV):
                     ),
                 ),
             ],
+            
             exploit_steps=[
                 "TA1 Exploit Steps",
                 "Decompile the DNN model from the CPS firmware.",
@@ -89,6 +100,7 @@ class ObjectTrackCPV(CPV):
                 "Wait for the dumped DNN model from TA1.",
                 "Generate adversarial examples using adversarial machine learning-based optimization.",
             ],
+            
             associated_files=[],
             reference_urls=[],
         )

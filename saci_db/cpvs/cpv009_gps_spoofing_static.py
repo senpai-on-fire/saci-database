@@ -32,16 +32,16 @@ class GPSSpoofingStaticCPV(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
-                GPSReceiver(),
-                Serial(),
-                Controller(),
-                CANTransceiver(),
-                CANBus(),
-                CANShield(),
-                Controller(),
-                PWMChannel(),
-                ESC(),
-                Motor(),
+                GPSReceiver(), # This is the entry component (Required)
+                # Serial(), # Removed considering that the GPSReceiver is inherently connected to the Controller via Serial (Not Required)
+                Controller(), # This is the main controller where the firmware is hosted (Required)
+                # CANTransceiver(), # Removed for generalization since it's not required and too specific (Not required)
+                # CANTransceiver(), # Removed for generalization since it's not required and too specific (Not required)
+                # CANBus(), # Removed for generalization since it's not required and too specific (Not required)
+                # CANShield(), # Removed for generalization since it's not required and too specific (Not required)
+                # PWMChannel(), # Removed since the PWMChannel is just a passthrough for the CPV (Not Required)
+                # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
+                Motor(), # This is the exit component + Changed to Motor() for generalization (Required)
             ],
             entry_component=GPSReceiver(),
             exit_component=Motor(),

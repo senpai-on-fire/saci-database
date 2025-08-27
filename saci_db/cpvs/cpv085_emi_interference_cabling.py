@@ -23,6 +23,8 @@ from saci.modeling.device import (
     CANBus,
     CANTransceiver,
     CANShield,
+    CompassSensor,
+    Motor,
 )
 from saci.modeling.state import GlobalState
 
@@ -32,25 +34,30 @@ class EMIPowerCableMagnetometerCPV(CPV):
 
     def __init__(self):
         super().__init__(
+            
             required_components=[
-                PowerCable(),
-                Magnetometer(),
-                Serial(),
-                Controller(),
-                CANTransceiver(),
-                CANBus(),
-                CANShield(),
-                Controller(),
-                Steering(),
+                CompassSensor(), # This is the entry component (Required)
+                # Serial(), # Removed considering that the CompassSensor is inherently connected to the Controller via Serial (Not Required)
+                Controller(), # This is the controller hosting the firmware (Required)
+                # CANTransceiver(), # Removed for generalization since it's not required and too specific (Not required)
+                # CANTransceiver(), # Removed for generalization since it's not required and too specific (Not required)
+                # CANBus(), # Removed for generalization since it's not required and too specific (Not required)
+                # CANShield(), # Removed for generalization since it's not required and too specific (Not required)
+                # PWMChannel(), # Removed since the PWMChannel is just a passthrough for the CPV (Not Required)
+                # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
+                Steering(),  # This is the exit component (Required)
             ],
-            entry_component=Magnetometer(),
+            
+            entry_component=CompassSensor(),
             exit_component=Steering(),
+            
             vulnerabilities=[
                 MagnetometerSpoofingVuln(),
                 LackEMISensorShieldingVuln(),
                 LackEMIPowerCableShieldingVuln(),
                 ControllerIntegrityVuln(),
             ],
+            
             initial_conditions={
                 "Position": "Any",
                 "Heading": "Any",
@@ -60,16 +67,18 @@ class EMIPowerCableMagnetometerCPV(CPV):
                 "CPSController": "Active",
                 "OperatingMode": "Manual or Mission",
             },
+            
             attack_requirements=[
                 "Relative proximity between power cable and magnetometer",
                 "Physical access",
             ],
+            
             attack_vectors=[
                 BaseAttackVector(
                     name="Electromagnetic Signals Interference",
                     signal=MagneticAttackSignal(
                         src=PowerCable(),
-                        dst=Magnetometer(),
+                        dst=CompassSensor(),
                     ),
                     required_access_level="Physical",
                     configuration={
@@ -78,33 +87,36 @@ class EMIPowerCableMagnetometerCPV(CPV):
                     },
                 )
             ],
+            
             attack_impacts=[
                 BaseAttackImpact(
                     category="Loss of Control",
                     description="Rover drives past nominal turning point leading to undershoot or overshoot",
                 )
             ],
+            
             exploit_steps=[
                 "TA1 Exploit Steps",
-                "Model the impact of fault injection into the serial communication channel on the drone flight to verify the validity of the attack.",
-                "The model must include:",
-                "    - Controller attitude logic algorithm.",
-                "    - Magnetoemter sensor outputs at the bit level.",
-                "    - Any required physical parameters to simulate CPS operation.",
-                "    - Electronic speed controller logic and output.",
-                "    - CPS actuators (e.g., motors) controlled by the ESC.",
+                    "Model the impact of fault injection into the serial communication channel on the drone flight to verify the validity of the attack.",
+                    "The model must include:",
+                    "    - Controller attitude logic algorithm.",
+                    "    - Magnetoemter sensor outputs at the bit level.",
+                    "    - Any required physical parameters to simulate CPS operation.",
+                    "    - Electronic speed controller logic and output.",
+                    "    - CPS actuators (e.g., motors) controlled by the ESC.",
                 "TA2 Exploit Steps",
-                "Simulate the impact of fault injection into the magnetometer sensor readings.",
-                "At arbitrary time x, start the fault injection into the magnetometer sensor and verify the attack impact.",
-                "This simulation does not need to include any ElectroMagnetic Interference (EMI); instead, force random bits to be transmitted throughout the simulation.",
-                "Report your findings to TA3.",
+                    "Simulate the impact of fault injection into the magnetometer sensor readings.",
+                    "At arbitrary time x, start the fault injection into the magnetometer sensor and verify the attack impact.",
+                    "This simulation does not need to include any ElectroMagnetic Interference (EMI); instead, force random bits to be transmitted throughout the simulation.",
+                    "Report your findings to TA3.",
                 "TA3 Exploit Steps",
-                "1.Locate the magnetometer in the CPS.",
-                "2.Locate the power cables in close proximity to the magnetometer.",
-                "3.Position one of the power cables as close as possible to the magnetometer, securing it with a tape.",
-                "4.Do a test run on the CPS and monitor the CPS's behavior for signs of orientation miscalculation or navigation errors.",
-                "5.If no effect is observed, repeat steps 3 & 4 with other power cables in close proximity to magnetometer.",
+                    "1.Locate the magnetometer in the CPS.",
+                    "2.Locate the power cables in close proximity to the magnetometer.",
+                    "3.Position one of the power cables as close as possible to the magnetometer, securing it with a tape.",
+                    "4.Do a test run on the CPS and monitor the CPS's behavior for signs of orientation miscalculation or navigation errors.",
+                    "5.If no effect is observed, repeat steps 3 & 4 with other power cables in close proximity to magnetometer.",
             ],
+            
             associated_files=[
                 "https://github.com/senpai-on-fire/ngc2_taskboard/blob/main/CPVs/HII-NGP1AROV2ARR05-CPV014/CPV_video_clips_v2.compressed.mp4"
             ],

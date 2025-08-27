@@ -7,11 +7,14 @@ from saci.modeling.device import (
     MultiCopterMotor,
     Telemetry,
     Serial,
+    Motor,
 )
 from saci_db.devices.px4_quadcopter_device import PX4Controller
 from saci.modeling import CPV
 from saci_db.vulns.opticalflow_spoofing_vuln import OpticalFlowSpoofingVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
+
+from saci.modeling.device import Controller
 
 from saci.modeling.communication import ExternalInput
 from saci.modeling.state import GlobalState
@@ -27,17 +30,21 @@ class ProjectorOpticalFlowCPV(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
-                OpticalFlowSensor(),
-                Serial(),
-                PX4Controller(),
-                PWMChannel(),
-                ESC(),
-                MultiCopterMotor(),
+                OpticalFlowSensor(), # This is the entry component (Required)
+                # Serial(), # Removed considering that the OpticalFlowSensor is inherently connected to the Controller via Serial (Not Required)
+                Controller(), # This is the controller hosting the firmware (Required)
+                # PWMChannel(), # Removed since the PWMChannel is just a passthrough for the CPV (Not Required)
+                # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
+                Motor(), # This is the exit component + Changed to Motor() for generalization (Required)
             ],
+            
             entry_component=OpticalFlowSensor(),
-            exit_component=MultiCopterMotor(),
+            exit_component=Motor(),
+            
             vulnerabilities=[OpticalFlowSpoofingVuln(), ControllerIntegrityVuln()],
+            
             goals=[],
+            
             initial_conditions={
                 "Position": "Any",
                 "Heading": "Any",
@@ -47,7 +54,9 @@ class ProjectorOpticalFlowCPV(CPV):
                 "CPSController": "None",
                 "OperatingMode": "Manual or Mission",
             },
+            
             attack_requirements=["Projector or Laser-based spoofing device"],
+            
             attack_vectors=[
                 BaseAttackVector(
                     name="Optical Flow Spoofing Signal Injection",
@@ -60,27 +69,29 @@ class ProjectorOpticalFlowCPV(CPV):
                     configuration={"duration": "Permanent"},
                 )
             ],
+            
             attack_impacts=[
                 BaseAttackImpact(
                     category="Control Manipulation",
                     description="CPS drifts uncontrollably or exhibits unintended lateral movement targeted by the attackers.",
                 )
             ],
+            
             exploit_steps=[
                 "TA1 Exploit Steps",
-                "Identify the optical flow sensor model and parameters.",
+                    "Identify the optical flow sensor model and parameters.",
                 "TA2 Exploit Steps",
-                "Wait for the information from TA4 to setup the experiment.",
-                "Simulate the optical flow sensor attack in the simulator.",
+                    "Wait for the information from TA4 to setup the experiment.",
+                    "Simulate the optical flow sensor attack in the simulator.",
                 "TA3 Exploit Steps",
-                "Wait for the information from TA4 to setup the experiment.",
-                "Position the spoofing device in the UAV's optical flow sensor field.",
-                "Project high-contrast patterns using a laser or projector.",
-                "Move the projected pattern to mislead corner detection algorithms.",
-                "Observe the drone drift following the displacement of the projected pattern.",
-                "TA4 Exploit Steps",
-                "Identify the spoofing device setups to launch the attack, report the findings to TA2 and TA3.",
+                    "Wait for the information from TA4 to setup the experiment.",
+                    "Position the spoofing device in the UAV's optical flow sensor field.",
+                    "Project high-contrast patterns using a laser or projector.",
+                    "Move the projected pattern to mislead corner detection algorithms.",
+                    "Observe the drone drift following the displacement of the projected pattern.",
+                    "Identify the spoofing device setups to launch the attack, report the findings to TA2 and TA1.",
             ],
+            
             associated_files=[],
             reference_urls=[
                 "https://www.usenix.org/system/files/conference/woot16/woot16-paper-davidson.pdf"

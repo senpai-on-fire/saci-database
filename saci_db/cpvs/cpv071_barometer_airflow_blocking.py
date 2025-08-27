@@ -1,7 +1,7 @@
 from typing import List
 from saci.modeling import CPV
 
-from saci.modeling.device import Barometer, Serial, PWMChannel, ESC, MultiCopterMotor
+from saci.modeling.device import Barometer, Serial, PWMChannel, ESC, MultiCopterMotor, Controller, Motor
 from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 from saci_db.vulns.airspeed_spoofing_vuln import BarometerObstructionVuln
@@ -21,18 +21,23 @@ class BarometerObstructionCPV(CPV):
 
     def __init__(self):
         super().__init__(
+            
             required_components=[
-                Barometer(),
-                Serial(),
-                ArduPilotController(),
-                PWMChannel(),
-                ESC(),
-                MultiCopterMotor(),
+                Barometer(), # This is the entry component (Required)
+                # Serial(), # Removed considering that the Barometer is inherently connected to the Controller via Serial (Not Required)
+                Controller(), # This is the controller hosting the firmware (Required)
+                # PWMChannel(), # Removed since the PWMChannel is just a passthrough for the CPV (Not Required)
+                # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
+                Motor(), # This is the exit component + Changed to Motor() for generalization (Required)
             ],
+            
             entry_component=Barometer(),
-            exit_component=MultiCopterMotor(),
+            exit_component=Motor(),
+            
             vulnerabilities=[BarometerObstructionVuln(), ControllerIntegrityVuln()],
+            
             goals=[],
+            
             initial_conditions={
                 "Position": "Any",
                 "Heading": "Any",
@@ -42,7 +47,9 @@ class BarometerObstructionCPV(CPV):
                 "CPSController": "None",
                 "OperatingMode": "Stabilize",
             },
+            
             attack_requirements=["Piece of tape or similar material to block airflow."],
+            
             attack_vectors=[
                 BaseAttackVector(
                     name="Physical Port Obstruction",
@@ -54,27 +61,30 @@ class BarometerObstructionCPV(CPV):
                     },
                 )
             ],
+            
             attack_impacts=[
                 BaseAttackImpact(
                     category="Control Manipulation",
                     description="CPS is unable to maintain commanded altitude.",
                 )
             ],
+            
             exploit_steps=[
                 "TA1 Exploit Steps",
-                "Reverse-engineer the firmwaare to locate barometer driver and note any plausibility checks or sensor‑fusion fall‑backs.",
+                    "Reverse-engineer the firmware to locate barometer driver and note any plausibility checks or sensor‑fusion fall‑backs.",
                 "TA2 Exploit Steps",
-                "Implement a simulation of barometer sensor response to blocking.",
-                "Inject synthetic barometer signal into the control loop and measure controller response.",
-                "Observe altitude controller resposne.",
-                "Report the findings to TA3 to conduct the experiments on the physical CPS device",
+                    "Implement a simulation of barometer sensor response to blocking.",
+                    "Inject synthetic barometer signal into the control loop and measure controller response.",
+                    "Observe altitude controller response.",
+                    "Report the findings to TA3 to conduct the experiments on the physical CPS device",
                 "TA3 Exploit Steps",
-                "Use imaging tools and other techniques to catalog all components on the CPS.",
-                "Identify if a barometer sensor is present.",
-                "During steady flight/bench‑test, cover the barometer port with tape or a similar material to block airflow.",
-                "Log altitude estimate & motor RPM changes",
-                "Remove tape to verify recovery",
+                    "Use imaging tools and other techniques to catalog all components on the CPS.",
+                    "Identify if a barometer sensor is present.",
+                    "During steady flight/bench‑test, cover the barometer port with tape or a similar material to block airflow.",
+                    "Log altitude estimate & motor RPM changes",
+                    "Remove tape to verify recovery",
             ],
+            
             associated_files=[],
             reference_urls=[],
         )

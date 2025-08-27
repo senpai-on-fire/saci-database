@@ -6,6 +6,8 @@ from saci.modeling.device import (
     ESC,
     MultiCopterMotor,
     Serial,
+    Controller,
+    Motor,
 )
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
@@ -20,23 +22,28 @@ class LaserVisionAttackCPV(CPV):
 
     def __init__(self):
         super().__init__(
+            
             required_components=[
-                Camera(),
-                Serial(),
-                PX4Controller(),
-                PWMChannel(),
-                ESC(),
-                MultiCopterMotor(),
+                Camera(), # This is the entry component (Required)
+                # Serial(), # Removed considering that the Camera is inherently connected to the Controller via Serial (Not Required)
+                Controller(), # Changed from PX4Controller() to Controller() for generalization (Required)
+                # PWMChannel(), # Removed since the PWMChannel is just a passthrough for the CPV (Not Required)
+                # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
+                Motor(), # This is the exit component + Changed to Motor() for generalization (Required)
             ],
+            
             entry_component=Camera(),
-            exit_component=MultiCopterMotor(),
+            exit_component=Motor(),
+            
             vulnerabilities=[
                 VisionSensorLaserVuln(),
             ],
+            
             goals=[
                 "Disrupt the normal functioning of the drone's vision sensor",
                 "Cause misperception or failure in obstacle avoidance and positioning",
             ],
+            
             initial_conditions={
                 "TargetSensor": "DJI drones with one camera and at least one pair of binocular sensors",
                 "AttackTool": "Laser pointer (660-nm) with ~10000 lux intensity",
@@ -44,12 +51,14 @@ class LaserVisionAttackCPV(CPV):
                 "AttackDistance": "1.5m-5m",
                 "AttackAngle": "0°, 30°, 60°",
             },
+            
             attack_requirements=[
                 "No physical access to the drone required",
                 "No need to modify drone hardware or software",
                 "Line-of-sight to the camera sensor must be maintained",
                 "Drone operates autonomously and is out of operator's sight",
             ],
+            
             attack_vectors=[
                 BaseAttackVector(
                     name="Laser Projection to Camera",
@@ -63,36 +72,39 @@ class LaserVisionAttackCPV(CPV):
                     },
                 )
             ],
+            
             attack_impacts=[
                 BaseAttackImpact(
                     category="Sensor Disruption",
                     description="Laser injection reduces perception accuracy or causes visual module to fail, impacting autonomous control.",
                 )
             ],
+            
             exploit_steps=[
                 "TA1 Exploit Steps",
-                "Implement a Model to simulate the laser-based vision attack",
-                "The model must include:",
-                "    - Camera sensor saturation simulation",
-                "    - Laser beam propagation and intensity modeling",
-                "    - Vision system response simulation",
-                "    - Obstacle avoidance algorithm simulation",
+                    "Implement a Model to simulate the laser-based vision attack",
+                    "The model must include:",
+                    "    - Camera sensor saturation simulation",
+                    "    - Laser beam propagation and intensity modeling",
+                    "    - Vision system response simulation",
+                    "    - Obstacle avoidance algorithm simulation",
                 "TA2 Exploit Steps",
-                "Simulate the laser attack and its effects",
-                "The simulation must include:",
-                "    - Attack angle optimization",
-                "    - Distance impact analysis",
-                "    - Ambient light interference analysis",
-                "    - Verification of attack effectiveness on different DJI models",
+                    "Simulate the laser attack and its effects",
+                    "The simulation must include:",
+                    "    - Attack angle optimization",
+                    "    - Distance impact analysis",
+                    "    - Ambient light interference analysis",
+                    "    - Verification of attack effectiveness on different DJI models",
                 "TA3 Exploit Steps",
-                "Execute the physical attack in real environment",
-                "Set up 660-nm laser pointer with 10000 lux intensity",
-                "Position attacker at optimal distance",
-                "Align laser with drone's vision sensor",
-                "Project continuous or pulsed beam into camera field of view",
-                "Monitor camera saturation and false image patterns",
-                "Observe and verify drone's unstable flight behavior",
+                    "Execute the physical attack in real environment",
+                    "Set up 660-nm laser pointer with 10000 lux intensity",
+                    "Position attacker at optimal distance",
+                    "Align laser with drone's vision sensor",
+                    "Project continuous or pulsed beam into camera field of view",
+                    "Monitor camera saturation and false image patterns",
+                    "Observe and verify drone's unstable flight behavior",
             ],
+            
             associated_files=[],
             reference_urls=[
                 "https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9444889"

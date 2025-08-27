@@ -11,6 +11,7 @@ from saci.modeling.device import (
     MultiCopterMotor,
     Mavlink,
     ExpressLRSBackpack,
+    Motor,
 )
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
@@ -18,7 +19,8 @@ from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci.modeling.state import GlobalState
 
-from saci_db.vulns.ardupilot_flip_param_overwrite import ExpressLRSFirmwareOverwriteVuln
+from saci_db.vulns.mavlink_mitm_vuln import MavlinkMitmVuln
+from saci_db.vulns.wifi_knowncreds_vuln import WifiKnownCredsVuln
 from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
 
@@ -27,19 +29,21 @@ class AttitudeFlipParameterManipulation(CPV):
 
     def __init__(self):
         super().__init__(
+
             required_components=[
-                GCS(),
-                Mavlink(),
-                Wifi(),
-                ExpressLRSBackpack(),
-                ArduPilotController(),
-                PWMChannel(),
-                ESC(),
-                MultiCopterMotor(),
+                Wifi(), # This is the entry component (Required)
+                Mavlink(), # This is a vulnerable required component (Required)
+                Controller(), # Changed from PX4Controller() to Controller() for generalization (Required)
+                # PWMChannel(), # Removed since the PWMChannel is just a passthrough for the CPV (Not Required)
+                # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
+                Motor(), # This is the exit component + Changed to Motor() for generalization (Required)
             ],
+            
             entry_component=Wifi(),
-            exit_component=ArduPilotController(),
-            vulnerabilities=[ExpressLRSFirmwareOverwriteVuln()],
+            exit_component=Motor(),
+            
+            vulnerabilities=[WifiKnownCredsVuln(), MavlinkMitmVuln()],
+            
             initial_conditions={
                 "Position": "Any",
                 "Heading": "Any",
@@ -49,17 +53,19 @@ class AttitudeFlipParameterManipulation(CPV):
                 "CPSController": "Stationary",
                 "OperatingMode": "STABILIZE",
             },
+            
             attack_requirements=[
                 "Computer with network access",
                 "Local Wi-Fi access to target network",
                 "Access to parameter configuration interface",
                 "Knowledge of attitude control parameters",
             ],
+            
             attack_vectors=[
                 BaseAttackVector(
                     name="Parameter Manipulation via Network Interface",
                     signal=PacketAttackSignal(
-                        src=ExternalInput(), dst=Telemetry(), modality="network_packets"
+                        src=Wifi(), dst=Controller(), modality="network_packets"
                     ),
                     required_access_level="Remote",
                     configuration={
@@ -73,38 +79,41 @@ class AttitudeFlipParameterManipulation(CPV):
                     },
                 )
             ],
+            
             attack_impacts=[
                 BaseAttackImpact(
                     category="Loss of Control",
                     description="Manipulation of attitude control parameters combined with mode changes leads to unrecoverable flight instability and potential system failure.",
                 )
             ],
+            
             exploit_steps=[
                 "TA1 Exploit Steps",
-                "Extract firmware from target flight controller",
-                "Analyze attitude control parameter validation logic",
-                "Identify critical parameter ranges and dependencies",
-                "Model control system behavior under parameter manipulation",
-                "Map parameter impact on flight dynamics",
-                "Document potential unstable parameter combinations",
+                    "Extract firmware from target flight controller",
+                    "Analyze attitude control parameter validation logic",
+                    "Identify critical parameter ranges and dependencies",
+                    "Model control system behavior under parameter manipulation",
+                    "Map parameter impact on flight dynamics",
+                    "Document potential unstable parameter combinations",
                 "TA2 Exploit Steps",
-                "Configure software-in-the-loop simulation environment",
-                "Record baseline parameter values and flight behavior",
-                "Test parameter modifications in simulation",
-                "Validate flight instability scenarios",
-                "Document recovery procedures and failure modes",
-                "Analyze system logs during parameter changes",
-                "Verify attack persistence across flight modes",
+                    "Configure software-in-the-loop simulation environment",
+                    "Record baseline parameter values and flight behavior",
+                    "Test parameter modifications in simulation",
+                    "Validate flight instability scenarios",
+                    "Document recovery procedures and failure modes",
+                    "Analyze system logs during parameter changes",
+                    "Verify attack persistence across flight modes",
                 "TA3 Exploit Steps",
-                "Turn on controller and drone system",
-                "Connect to target network interface",
-                "Launch MAVProxy with appropriate connection parameters",
-                "Record original attitude control parameter values",
-                "Verify current flight mode and system status",
-                "Execute parameter modifications",
-                "Trigger mode change to induce instability",
-                "Document system response and behavior",
+                    "Turn on controller and drone system",
+                    "Connect to target network interface",
+                    "Launch MAVProxy with appropriate connection parameters",
+                    "Record original attitude control parameter values",
+                    "Verify current flight mode and system status",
+                    "Execute parameter modifications",
+                    "Trigger mode change to induce instability",
+                    "Document system response and behavior",
             ],
+            
             associated_files=[],
             reference_urls=[
                 "https://github.com/senpai-on-fire/owlet-taskboard/blob/main/CPVs/IVV_Feedback/PASS/HII-GS0409380007-CPV015.docx"

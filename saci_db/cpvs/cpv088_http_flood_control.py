@@ -34,21 +34,25 @@ class WifiWebCrashCPV(CPV):
 
     def __init__(self):
         super().__init__(
+            
             required_components=[
-                Wifi(),
-                WebServer(),
-                Controller(),
-                CANTransceiver(),
-                CANBus(),
-                CANShield(),
-                Controller(),
-                PWMChannel(),
-                ESC(),
-                Motor(),
+                Wifi(), # This is the entry component (Required)
+                WebServer(), # This is a required vulnerable component (Required)
+                # Controller(), # This is the Arduino Uno R4 WiFi which hosts the webserver (Not Required)
+                # CANTransceiver(), # Removed for generalization since it's not required and too specific (Not required)
+                # CANBus(), # Removed for generalization since it's not required and too specific (Not required)
+                # CANShield(), # Removed for generalization since it's not required and too specific (Not required)
+                Controller(), # This is the Arduino Uno R3 which hosts the firmware (Required)
+                # PWMChannel(), # Removed since the PWMChannel is just a passthrough for the CPV (Not Required)
+                # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
+                Motor(), # This is the exit component + Changed to Motor() for generalization (Required)
             ],
+           
             entry_component=Wifi(),
             exit_component=Motor(),
+            
             vulnerabilities=[WifiKnownCredsVuln(), WeakApplicationAuthVuln()],
+            
             initial_conditions={
                 "Position": "Stationary",
                 "Heading": "Any",
@@ -58,11 +62,13 @@ class WifiWebCrashCPV(CPV):
                 "CPSController": "Idle",
                 "Operating mode": "Manual",
             },
+            
             attack_requirements=[
                 "Two Computers",
                 "Hardcoded credentials",
                 "Hex wrench",
             ],
+            
             attack_vectors=[
                 BaseAttackVector(
                     name="HTTP Request Flooding DoS",
@@ -75,32 +81,35 @@ class WifiWebCrashCPV(CPV):
                     },
                 )
             ],
+            
             attack_impacts=[
                 BaseAttackImpact(
                     category="Loss of control",
                     description="Operator is unable to access the rover’s controls via web interface; attacker retains partial or full control.",
                 )
             ],
+            
             exploit_steps=[
                 "TA1 Exploit Steps",
-                "Perform software reverse engineering on rover firmware to identify the web interface loop operations.",
-                "Identify how HTTP GET requests are processed differently compared to previous rover firmware versions.",
-                "Determine the control variables relevant to request handling and their timing in the firmware logic.",
+                    "Perform software reverse engineering on rover firmware to identify the web interface loop operations.",
+                    "Identify how HTTP GET requests are processed differently compared to previous rover firmware versions.",
+                    "Determine the control variables relevant to request handling and their timing in the firmware logic.",
                 "TA2 Exploit Steps",
-                "Develop an attacker script (e.g., cprj2.py) to flood the webserver with HTTP GET requests continuously.",
-                "Test the script initially in a controlled environment to validate the continuous denial of service condition.",
-                "Ensure the attacker maintains control even when the operator is locked out.",
+                    "Develop an attacker script (e.g., cprj2.py) to flood the webserver with HTTP GET requests continuously.",
+                    "Test the script initially in a controlled environment to validate the continuous denial of service condition.",
+                    "Ensure the attacker maintains control even when the operator is locked out.",
                 "TA3 Exploit Steps",
-                "Power on the rover using a hex wrench to rotate the power block counter-clockwise.",
-                "Wait for the rover LEDs to indicate readiness, then press the safety button on the power block.",
-                "Connect both operator and attacker computers to the rover's Wi-Fi network ('Arduino Wifi' using password 'TSWIZZLE1989').",
-                "Open the rover web interface on the operator computer at http://10.0.0.1/.",
-                "Run attacker script to flood rover with HTTP GET requests.",
-                "Verify operator's web interface becomes non-responsive.",
-                "Confirm attacker control through initiation of rover drive mission despite operator lockout.",
-                "Terminate attacker script to verify immediate recovery of the operator web interface.",
-                "Power off rover by rotating the power block clockwise until LEDs turn off.",
+                    "Power on the rover using a hex wrench to rotate the power block counter-clockwise.",
+                    "Wait for the rover LEDs to indicate readiness, then press the safety button on the power block.",
+                    "Connect both operator and attacker computers to the rover's Wi-Fi network ('Arduino Wifi' using password 'TSWIZZLE1989').",
+                    "Open the rover web interface on the operator computer at http://10.0.0.1/.",
+                    "Run attacker script to flood rover with HTTP GET requests.",
+                    "Verify operator's web interface becomes non-responsive.",
+                    "Confirm attacker control through initiation of rover drive mission despite operator lockout.",
+                    "Terminate attacker script to verify immediate recovery of the operator web interface.",
+                    "Power off rover by rotating the power block clockwise until LEDs turn off.",
             ],
+            
             associated_files=["DOS with Attacker Commands-1.pdf", "cprj2.py"],
             reference_urls=[
                 "https://github.com/senpai-on-fire/ngc2_taskboard/blob/main/CPVs/HII-NGP1AROV2ARR05-CPV020/HII-NGP1AROV2ARR05-CPV020-20250514.docx"

@@ -7,6 +7,8 @@ from saci.modeling.device import (
     ESC,
     MultiCopterMotor,
     Serial,
+    Motor,
+    Controller,
 )
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
@@ -23,26 +25,30 @@ class LiDARPerceptionManipulationCPV(CPV):
 
     def __init__(self):
         super().__init__(
+            
             required_components=[
-                LiDAR(),
-                Serial(),
-                ObjectDetector3D(),
-                PX4Controller(),
-                PWMChannel(),
-                ESC(),
-                MultiCopterMotor(),
+                LiDAR(), # This is the entry component (Required)
+                # Serial(), # Removed considering that the LiDAR is inherently connected to the Controller via Serial (Not Required)
+                Controller(), # Changed from PX4Controller() to Controller() for generalization (Required)
+                # PWMChannel(), # Removed since the PWMChannel is just a passthrough for the CPV (Not Required)
+                # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
+                Motor(), # This is the exit component + Changed to Motor() for generalization (Required)
             ],
+            
             entry_component=LiDAR(),
-            exit_component=MultiCopterMotor(),
+            exit_component=Motor(),
+            
             vulnerabilities=[
                 LiDARSpoofingVuln(),
                 DeepNeuralNetworkVuln(),
             ],
+            
             goals=[
                 "Inject fake objects into 3D point cloud",
                 "Remove real objects from LiDAR-based detection",
                 "Manipulate obstacle perception to influence control decisions",
             ],
+            
             initial_conditions={
                 "TargetLiDAR": "First-gen or New-gen",
                 "Environment": "Urban/Outdoor",
@@ -50,11 +56,13 @@ class LiDARPerceptionManipulationCPV(CPV):
                 "VehicleSpeed": "Static to 60 km/h",
                 "DetectorModel": "PointPillars, PV-RCNN, etc.",
             },
+            
             attack_requirements=[
                 "Spoofer capable of synchronized or high-frequency laser pulses",
                 "IR tracking or photodetector (optional)",
                 "Laser beam alignment and pulse tuning",
             ],
+            
             attack_vectors=[
                 BaseAttackVector(
                     name="Synchronized Pattern Injection",
@@ -81,12 +89,14 @@ class LiDARPerceptionManipulationCPV(CPV):
                     configuration={"mode": "Relay", "timing": "delayed"},
                 ),
             ],
+            
             attack_impacts=[
                 BaseAttackImpact(
                     category="Manipulation of Perception",
                     description="Injected or removed point clouds mislead 3D object detector, affecting obstacle awareness and trajectory planning.",
                 )
             ],
+            
             exploit_steps=[
                 "TA1 Exploit Steps",
                 "Model timing synchronization, beam alignment, and response latency to simulate realistic signal injection/removal scenarios.",
@@ -97,6 +107,7 @@ class LiDARPerceptionManipulationCPV(CPV):
                 "For pattern injection: synchronize pulse emission with LiDAR return timing to inject crafted points into scan frame.",
                 "For object removal: emit high-frequency laser pulses asynchronously to overwrite or suppress legitimate returns.",
             ],
+            
             associated_files=[],
             reference_urls=[
                 "https://www.ndss-symposium.org/ndss-paper/lidar-spoofing-meets-the-new-gen/",
@@ -104,6 +115,7 @@ class LiDARPerceptionManipulationCPV(CPV):
                 "https://eprint.iacr.org/2017/613",
             ],
         )
+        
         self.goal_state = ["ObjectDetection" == "MisledBySpoofedPoints"]
 
     def in_goal_state(self, state):

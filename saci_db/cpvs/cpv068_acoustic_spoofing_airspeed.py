@@ -7,7 +7,8 @@ from saci.modeling.device import (
     PWMChannel,
     ESC,
     FixedWingMotor,
-    FixedWingMotor,
+    Motor,
+    Controller,
 )  # Need to confirm model for AirspeedSensor & FixedWingMotor device
 from saci_db.devices.px4_fixedwing_device import PX4FixedWingController
 
@@ -27,18 +28,23 @@ class AcousticSpoofingAirspeedCPV(CPV):
 
     def __init__(self):
         super().__init__(
+            
             required_components=[
-                AirspeedSensor(),
-                Serial(),
-                PX4FixedWingController(),
-                PWMChannel(),  # In the future, model a MotorSignalChannel that contains both dshot and pwm signals
-                ESC(),
-                FixedWingMotor(),
+                AirspeedSensor(), # This is the entry component (Required)
+                # Serial(), # Removed considering that the AirspeedSensor is inherently connected to the Controller via Serial (Not Required)
+                Controller(), # This is the controller hosting the firmware (Required)
+                # PWMChannel(), # Removed since the PWMChannel is just a passthrough for the CPV (Not Required)
+                # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
+                Motor(), # This is the exit component + Changed to Motor() for generalization (Required)
             ],
+            
             entry_component=AirspeedSensor(),
-            exit_component=FixedWingMotor(),
+            exit_component=Motor(),
+            
             vulnerabilities=[AirspeedSpoofingVuln(), ControllerIntegrityVuln()],
+            
             goals=[],
+            
             initial_conditions={
                 "Position": "Any",
                 "Heading": "Any",
@@ -48,7 +54,9 @@ class AcousticSpoofingAirspeedCPV(CPV):
                 "CPSController": "None",
                 "OperatingMode": "Mission",
             },
+            
             attack_requirements=["Speaker or Ultrasonic Sound Source"],
+            
             attack_vectors=[
                 BaseAttackVector(
                     name="Acoustic Spoofing Signal Injection",
@@ -64,31 +72,34 @@ class AcousticSpoofingAirspeedCPV(CPV):
                     },
                 )
             ],
+            
             attack_impacts=[
                 BaseAttackImpact(
                     category="Control Manipulation",
                     description="CPS is unable to maintain commanded altitude.",
                 )
             ],
+            
             exploit_steps=[
                 "TA1 Exploit Steps",
-                "Reverse-engineer the CPS firmware to determine if sensor fusion or filtering mechanisms exist for airspeed data.",
-                "Analyze the position control logic to assess how fluctuations in airspeed readings propagate to motor actuation.",
+                    "Reverse-engineer the CPS firmware to determine if sensor fusion or filtering mechanisms exist for airspeed data.",
+                    "Analyze the position control logic to assess how fluctuations in airspeed readings propagate to motor actuation.",
                 "TA2 Exploit Steps",
-                "Implement a simulation of airspeed sensor response to acoustic interference.",
-                "Inject synthetic acoustic noise into the control loop and measure controller response.",
-                "Simulate how abnormal airspeed readings propagate through the CPS system.",
-                "Report the findings to TA3 to conduct the experiments on the physical CPS device",
+                    "Implement a simulation of airspeed sensor response to acoustic interference.",
+                    "Inject synthetic acoustic noise into the control loop and measure controller response.",
+                    "Simulate how abnormal airspeed readings propagate through the CPS system.",
+                    "Report the findings to TA3 to conduct the experiments on the physical CPS device",
                 "TA3 Exploit Steps",
-                "Use imaging tools and other techniques to catalog all components on the CPS.",
-                "Identify if an airspeed sensor is present.",
-                "Mount the airspeed sensor (or CPS) in a vibration-free environment and measure output when exposed to an acoustic frequency sweep (e.g., 20Hz to 30kHz).",
-                "Observe airspeed sensor output for spikes and increased standard deviation to detect resonance-induced errors.",
-                "Identify the resonant frequency at the point of maximum deviation from the true value.",
-                "Position an ultrasonic transducer/speaker near the CPS and emit the resonant frequency.",
-                "Log airspeed sensor data before, during, and after the attack.",
-                "Analyze the CPS's physical response using external tracking and onboard telemetry.",
+                    "Use imaging tools and other techniques to catalog all components on the CPS.",
+                    "Identify if an airspeed sensor is present.",
+                    "Mount the airspeed sensor (or CPS) in a vibration-free environment and measure output when exposed to an acoustic frequency sweep (e.g., 20Hz to 30kHz).",
+                    "Observe airspeed sensor output for spikes and increased standard deviation to detect resonance-induced errors.",
+                    "Identify the resonant frequency at the point of maximum deviation from the true value.",
+                    "Position an ultrasonic transducer/speaker near the CPS and emit the resonant frequency.",
+                    "Log airspeed sensor data before, during, and after the attack.",
+                    "Analyze the CPS's physical response using external tracking and onboard telemetry.",
             ],
+            
             associated_files=[],
             reference_urls=[],
         )

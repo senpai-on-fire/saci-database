@@ -8,6 +8,7 @@ from saci.modeling.device import (
     ESC,
     MultiCopterMotor,
     Telemetry,
+    Motor,
 )
 from saci.modeling.communication import ExternalInput
 from saci.modeling.state import GlobalState
@@ -22,30 +23,36 @@ from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
 from saci_db.devices.propriety_quadcopter_device import ProprietyController
 
+from saci.modeling.device import Controller
 
 class GNSSFlightModeSpoofingCPV(CPV):
     NAME = "The GNSS Spoofing in Flight Mode for Path Deviation"
 
     def __init__(self):
         super().__init__(
+            
             required_components=[
-                GNSSReceiver(),
-                Serial(),
-                ProprietyController(),
-                PWMChannel(),
-                ESC(),
-                MultiCopterMotor(),
+                GNSSReceiver(), # This is the entry component (Required)
+                # Serial(), # Removed considering that the GNSSReceiver is inherently connected to the Controller via Serial (Not Required)
+                Controller(), # This is the main controller where the firmware is hosted (Required)
+                # PWMChannel(), # Removed since the PWMChannel is just a passthrough for the CPV (Not Required)
+                # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
+                Motor(), # This is the exit component + Changed to Motor() for generalization (Required)
             ],
+            
             entry_component=GNSSReceiver(),
-            exit_component=MultiCopterMotor(),
+            exit_component=Motor(),
+            
             vulnerabilities=[
                 GNSSSpoofingVuln(),
                 LackGNSSFilteringVuln(),
                 ControllerIntegrityVuln(),
             ],
+            
             goals=[
                 "Redirect CPS from its flight trajectory to an attacker-defined location"
             ],
+            
             initial_conditions={
                 "Position": "Any",
                 "Heading": "In Flight",
@@ -53,10 +60,12 @@ class GNSSFlightModeSpoofingCPV(CPV):
                 "Environment": "Open Field or Urban Area",
                 "OperatingMode": "Manual or Mission",
             },
+            
             attack_requirements=[
                 "GNSS spoofer (e.g., HackRF SDR)",
                 "Access to the CPS's operational trajectory",
             ],
+            
             attack_vectors=[
                 BaseAttackVector(
                     name="GNSS Signal Injection for Flight Path Deviation",
@@ -69,6 +78,7 @@ class GNSSFlightModeSpoofingCPV(CPV):
                     configuration={"path_modification": "Dynamic"},
                 )
             ],
+            
             attack_impacts=[
                 BaseAttackImpact(
                     category="Manipulation of Control",
@@ -78,26 +88,28 @@ class GNSSFlightModeSpoofingCPV(CPV):
                     ),
                 ),
             ],
+            
             exploit_steps=[
                 "TA1 Exploit Steps",
-                "Model the impact of spoofing into the GNSS receiver on the CPS dynamics to verify the attack.",
-                "The model must include:",
-                "    - Control logic algorithm.",
-                "    - GNSS receiver sensor.",
-                "    - Any required physical parameters to simulate CPS dynamics.",
-                "    - Electronic speed controller logic and output.",
-                "    - CPS actuators (e.g., motors) controlled by the ESC.",
+                    "Model the impact of spoofing into the GNSS receiver on the CPS dynamics to verify the attack.",
+                    "The model must include:",
+                    "    - Control logic algorithm.",
+                    "    - GNSS receiver sensor.",
+                    "    - Any required physical parameters to simulate CPS dynamics.",
+                    "    - Electronic speed controller logic and output.",
+                    "    - CPS actuators (e.g., motors) controlled by the ESC.",
                 "TA2 Exploit Steps",
-                "Simulate the impact of GNSS spoofing into the CPS receiver to verify the validity of the attack.",
-                "Start the simulation by allowing the CPS to start its intended operation.",
-                "At arbitrary time x, start the GNSS spoofing attack into and verify the attack impact.",
-                "Report your findings to TA3.",
+                    "Simulate the impact of GNSS spoofing into the CPS receiver to verify the validity of the attack.",
+                    "Start the simulation by allowing the CPS to start its intended operation.",
+                    "At arbitrary time x, start the GNSS spoofing attack into and verify the attack impact.",
+                    "Report your findings to TA3.",
                 "TA3 Exploit Steps",
-                "Deploy GNSS spoofer near the CPS’s operational trajectory.",
-                "Inject spoofed GNSS signals to alter the CPS's perceived position.",
-                "Gradually manipulate the trajectory by sending dynamically adjusted GNSS data.",
-                "Redirect the CPS to a target location without triggering safety mechanisms.",
+                    "Deploy GNSS spoofer near the CPS’s operational trajectory.",
+                    "Inject spoofed GNSS signals to alter the CPS's perceived position.",
+                    "Gradually manipulate the trajectory by sending dynamically adjusted GNSS data.",
+                    "Redirect the CPS to a target location without triggering safety mechanisms.",
             ],
+            
             associated_files=[],
             reference_urls=[
                 "https://ieeexplore.ieee.org/abstract/document/8535083",

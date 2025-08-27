@@ -1,7 +1,7 @@
 from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import EmergencyStopLogic, PWMChannel, ESC, MultiCopterMotor
+from saci.modeling.device import EmergencyStopLogic, PWMChannel, ESC, MultiCopterMotor, Motor, Serial
 
 from saci.modeling.communication import ExternalInput
 from saci.modeling.state import GlobalState
@@ -14,6 +14,8 @@ from saci_db.vulns.emergency_stop_vuln import EmergencyStopVuln
 from saci_db.vulns.patch_misconfiguration_vuln import PatchMisconfigurationVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
+from saci.modeling.device import Controller
+
 from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
 
@@ -22,21 +24,27 @@ class PatchEmergencyStopFailureCPV(CPV):
 
     def __init__(self):
         super().__init__(
+            
             required_components=[
-                ArduPilotController(),
-                EmergencyStopLogic(),
-                PWMChannel(),
-                ESC(),
-                MultiCopterMotor(),
+                Serial(), # This is the entry component (Required)
+                Controller(), # This is the main controller where the firmware is hosted (Required)
+                # EmergencyStopLogic(), # Removed since it's too specific for now (Not Required) 
+                # PWMChannel(), # Removed since the PWMChannel is just a passthrough for the CPV (Not Required)
+                # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
+                Motor(), # This is the exit component + Changed to Motor() for generalization (Required)
             ],
-            entry_component=ArduPilotController(),
-            exit_component=MultiCopterMotor(),
+            
+            entry_component=Serial(),
+            exit_component=Motor(),
+            
             vulnerabilities=[
                 EmergencyStopVuln(),
                 PatchMisconfigurationVuln(),
                 ControllerIntegrityVuln(),
             ],
+            
             goals=[],
+            
             initial_conditions={
                 "Position": "Any",
                 "Heading": "Any",
@@ -46,11 +54,13 @@ class PatchEmergencyStopFailureCPV(CPV):
                 "CPSController": "Active",
                 "OperatingMode": "Manual or Mission",
             },
+            
             attack_requirements=[
                 "A deployed faulty patch targeting emergency stop functionality.",
                 "`PatchVerif` codebase",
                 "Simulator",
             ],
+            
             attack_vectors=[
                 BaseAttackVector(
                     name="Faulty Emergency Stop Patch",
@@ -63,6 +73,7 @@ class PatchEmergencyStopFailureCPV(CPV):
                     configuration={"patch_version": "Faulty emergency stop logic"},
                 ),
             ],
+            
             attack_impacts=[
                 BaseAttackImpact(
                     category="Safety Mechanism Failure",
@@ -72,33 +83,35 @@ class PatchEmergencyStopFailureCPV(CPV):
                     ),
                 ),
             ],
+            
             exploit_steps=[
                 "TA1 Exploit Steps",
-                "Deploy the faulty patch onto the drone's flight controller via direct access or remote update mechanisms.",
-                "Revisit the ArduPilot Git commit history to identify a version containing the bug.",
-                "Modify the firmware accordingly:",
-                "    - If the current version is newer, revert the fixed patch (uncommit the fix).",
-                "    - If the current version is older, inject the buggy code snippet.",
-                "Derive the triggering condition using PatchVerif, which provides the triggering unit test input.",
-                "Report the identified triggering condition to TA3 for simulator verification.",
+                    "Deploy the faulty patch onto the drone's flight controller via direct access or remote update mechanisms.",
+                    "Revisit the ArduPilot Git commit history to identify a version containing the bug.",
+                    "Modify the firmware accordingly:",
+                    "    - If the current version is newer, revert the fixed patch (uncommit the fix).",
+                    "    - If the current version is older, inject the buggy code snippet.",
+                    "Derive the triggering condition using PatchVerif, which provides the triggering unit test input.",
+                    "Report the identified triggering condition to TA3 for simulator verification.",
                 "TA2 Exploit Steps",
-                "Prepare the simulator for the triggering condition reported by TA1.",
-                "Verify that the emergency stop feature has been disabled through simulator testing.",
-                "Trigger a real-world scenario requiring an emergency stop by:",
-                "    - Introducing obstacles into the drone’s flight path.",
-                "    - Simulating hardware faults or critical alerts that would normally activate the stop command.",
-                "Observe the drone's behavior and confirm that it does not respond to the emergency stop command.",
-                "Allow the drone to continue its operation unchecked, leading to potential consequences such as:",
-                "    - Collision with physical obstacles.",
-                "    - Entry into restricted or hazardous zones.",
-                "    - Loss of control resulting in a crash.",
-                "Analyze the impact of the failure and document the consequences to refine future attack strategies.",
+                    "Prepare the simulator for the triggering condition reported by TA1.",
+                    "Verify that the emergency stop feature has been disabled through simulator testing.",
+                    "Trigger a real-world scenario requiring an emergency stop by:",
+                    "    - Introducing obstacles into the drone’s flight path.",
+                    "    - Simulating hardware faults or critical alerts that would normally activate the stop command.",
+                    "Observe the drone's behavior and confirm that it does not respond to the emergency stop command.",
+                    "Allow the drone to continue its operation unchecked, leading to potential consequences such as:",
+                    "    - Collision with physical obstacles.",
+                    "    - Entry into restricted or hazardous zones.",
+                    "    - Loss of control resulting in a crash.",
+                    "Analyze the impact of the failure and document the consequences to refine future attack strategies.",
                 "TA3 Exploit Steps",
-                "Use optical imaging tools to catalog all components on the CPS.",
-                "Identify components that contain memory that might store firmware.",
-                "Extract the firmware from the identified memory component.",
-                "Determine the firmware type and version for further analysis.",
+                    "Use optical imaging tools to catalog all components on the CPS.",
+                    "Identify components that contain memory that might store firmware.",
+                    "Extract the firmware from the identified memory component.",
+                    "Determine the firmware type and version for further analysis.",
             ],
+            
             associated_files=[],
             reference_urls=[
                 "https://www.usenix.org/system/files/usenixsecurity23-kim-hyungsub.pdf"

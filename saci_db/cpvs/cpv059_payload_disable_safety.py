@@ -1,5 +1,5 @@
 from saci.modeling import CPV
-from saci.modeling.device import PWMChannel, ESC, MultiCopterMotor
+from saci.modeling.device import PWMChannel, ESC, MultiCopterMotor, Serial, Motor
 from saci.modeling.communication import ExternalInput
 
 from saci.modeling.attack.payload_firmware_attack import PayloadFirmwareAttack
@@ -10,24 +10,34 @@ from saci_db.vulns.payload_firmware_vuln import FirmwarePayloadVuln
 
 from saci_db.devices.propriety_quadcopter_device import ProprietyController
 
+from saci.modeling.device import Controller
 
 class PayloadDisableSafetyCPV(CPV):
     NAME = "The Disable Safety Features for Unauthorized Drone Operation"
 
     def __init__(self):
         super().__init__(
+            
             required_components=[
-                ProprietyController(),
-                PWMChannel(),
-                ESC(),
-                MultiCopterMotor(),
+                Serial(), # This is the entry component (Required)
+                Controller(), # This is the main controller where the firmware is hosted (Required)
+                # PWMChannel(), # Removed since the PWMChannel is just a passthrough for the CPV (Not Required)
+                # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
+                Motor(), # This is the exit component + Changed to Motor() for generalization (Required)
             ],
+            
+            entry_component=Serial(),
+            exit_component=Motor(),
+            
             entry_component=ProprietyController(),
             exit_component=MultiCopterMotor(),
+            
             vulnerabilities=[FirmwarePayloadVuln()],
+            
             goals=[
                 "Disable geofencing and altitude restrictions to enable unauthorized flight"
             ],
+            
             initial_conditions={
                 "Drone State": "On Ground or In Flight",
                 "GNSS Connection": "Active",
