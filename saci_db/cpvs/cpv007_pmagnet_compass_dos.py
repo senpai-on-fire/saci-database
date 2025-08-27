@@ -45,7 +45,7 @@ class CompassPermanentSpoofingCPV(CPV):
             ],
             
             entry_component=CompassSensor(),
-            exit_component=Motor(),
+            exit_component=Steering(),
             
             vulnerabilities=[CompassSpoofingVuln(), ControllerIntegrityVuln()],
             
