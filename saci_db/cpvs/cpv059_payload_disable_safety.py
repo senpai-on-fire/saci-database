@@ -29,9 +29,6 @@ class PayloadDisableSafetyCPV(CPV):
             entry_component=Serial(),
             exit_component=Motor(),
             
-            entry_component=ProprietyController(),
-            exit_component=MultiCopterMotor(),
-            
             vulnerabilities=[FirmwarePayloadVuln()],
             
             goals=[
@@ -70,7 +67,7 @@ class PayloadDisableSafetyCPV(CPV):
             ],
             exploit_steps=[
                 "TA1 Exploit Steps",
-                "Implement a model to simulate a firmware paayload attack on the CPS dynamic."
+                "Implement a model to simulate a firmware paayload attack on the CPS dynamic.",
                 "The model must include:",
                 "    - Control logic algorithm.",
                 "    - GPS receiver sensor.",
