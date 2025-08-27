@@ -59,11 +59,11 @@ from .cpv058_payload_command_crash import *
 from .cpv059_payload_disable_safety import *
 from .cpv060_payload_spoof_id import *
 from .cpv061_serial_motor_tone import *
-from .cpv062_lidar_perception_manipulation import *
-from .cpv063_lidar_sensor_denial import *
+# from .cpv062_lidar_perception_manipulation import *
+# from .cpv063_lidar_sensor_denial import *
 from .cpv070_flight_parameters_rewrite import *
 from .cpv087_usb_cable_unplug import *
-from .cpv089_lidar_light_absorb import *
+# from .cpv089_lidar_light_absorb import *
 
 CPVS = [
     MavlinkSiKCPV(),
@@ -127,9 +127,9 @@ CPVS = [
     PayloadDisableSafetyCPV(),
     PayloadSpoofDroneIDCPV(),
     SerialToneCPV(),
-    LiDARPerceptionManipulationCPV(),
-    LiDARSensorDenialCPV(),
+    # LiDARPerceptionManipulationCPV(),
+    # LiDARSensorDenialCPV(),
     FlightParametersRewriteCPV(),
     UsbCableUnplugCPV(),
-    LiDARLightAbsorbCPV(),
+    # LiDARLightAbsorbCPV(),
 ]

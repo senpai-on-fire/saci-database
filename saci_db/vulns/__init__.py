@@ -27,7 +27,7 @@ from .lack_gps_filtering_vuln import *
 from .lack_serial_auth_vuln import *
 from .lack_wifi_auth_vuln import *
 from .lack_wifi_encryption_vuln import *
-from .lidar_spoofing_vuln import *
+# from .lidar_spoofing_vuln import *
 from .magnetometer_spoofing_vuln import *
 from .mavlink_mitm_vuln import *
 from .mavlink_overflow_vuln import *
