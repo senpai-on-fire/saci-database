@@ -37,7 +37,7 @@ class ObstacleAvoidanceErrorVuln(BaseVulnerability):
                 "CWE-1188: Insecure Default Initialization of Resource",
                 "CWE-20: Improper Input Validation",
             ],
-            attack_vectors_exploits=[
+            attack_vectors=[
                 {
                     "attack_vector": [
                         BaseAttackVector(

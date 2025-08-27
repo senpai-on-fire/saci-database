@@ -39,7 +39,7 @@ class LackBeaconFilteringVuln(PublicSecretVulnerability):
                 "CWE-693: Protection Mechanism Failure",
                 "CWE-916: Use of an Insecure Protocol",
             ],
-            attack_vectors_exploits=[],
+            attack_vectors=[],
         )
         self.input = "Flood of malicious beacon frames targeting the UAV's Wi-Fi communication stack."
 

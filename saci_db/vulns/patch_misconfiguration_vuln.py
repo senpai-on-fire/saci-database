@@ -38,7 +38,7 @@ class PatchMisconfigurationVuln(BaseVulnerability):
                 "CWE-693: Protection Mechanism Failure",
                 "CWE-1188: Insecure Default Initialization of Resource",
             ],
-            attack_vectors_exploits=[],
+            attack_vectors=[],
         )
 
     def exists(self, device: Device) -> bool:

@@ -45,7 +45,7 @@ class CANPWMSchedulingVuln(PublicSecretVulnerability):
                 "CWE-345: Insufficient Verification of Data Authenticity",
                 "CWE-347: Improper Verification of Cryptographic Signature",
             ],
-            attack_vectors_exploits=[
+            attack_vectors=[
                 {
                     # Attack vector:
                     "attack_vector": [

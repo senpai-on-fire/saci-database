@@ -37,7 +37,7 @@ class ControllerIntegrityVuln(BaseVulnerability):
                 "CWE-693: Protection Mechanism Failure",
                 "CWE-925: Improper Verification of Integrity Check Value",
             ],
-            attack_vectors_exploits=[],
+            attack_vectors=[],
         )
 
     def exists(self, device: Device) -> bool:

@@ -52,7 +52,7 @@ class WifiKnownCredsVuln(PublicSecretVulnerability):
                 "CWE-345: Insufficient Verification of Data Authenticity",
                 "CWE-308: Use of Single-factor Authentication",
             ],
-            attack_vectors_exploits=[
+            attack_vectors=[
                 {
                     # List of related attack vectors and their exploitation information
                     "attack_vector": [

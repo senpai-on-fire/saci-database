@@ -41,7 +41,7 @@ class GCSRFBlockingVuln(PublicSecretVulnerability):
                 "CWE-661: Improper Handling of Overlapping or Conflicting Actions",
                 "CWE-1188: Insecure Default Initialization of Resource",
             ],
-            attack_vectors_exploits=[
+            attack_vectors=[
                 {
                     "attack_vector": [
                         BaseAttackVector(

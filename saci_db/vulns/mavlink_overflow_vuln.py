@@ -36,7 +36,7 @@ class MavlinkOverflow(PublicSecretVulnerability):
                 "CWE-20: Improper Input Validation",
                 "CWE-400: Uncontrolled Resource Consumption",
             ],
-            attack_vectors_exploits=[],
+            attack_vectors=[],
         )
         # self.input = "overflow the mavlink protocol"
 

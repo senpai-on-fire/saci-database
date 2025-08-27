@@ -52,7 +52,7 @@ class GPSJammingVuln(BaseVulnerability):
                 "CWE-693: Protection Mechanism Failure",
                 "CWE-755: Improper Handling of Exceptional Conditions",
             ],
-            attack_vectors_exploits=[
+            attack_vectors=[
                 {
                     # Attack vectors related to GPS signal jamming:
                     "attack_vector": [

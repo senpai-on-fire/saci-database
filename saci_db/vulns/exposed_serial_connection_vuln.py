@@ -24,7 +24,7 @@ class ExposedSerialConnectionVuln(BaseVulnerability):
                 "exposed_serial_connection.lp",
             ),
             associated_cwe=[],
-            attack_vectors_exploits=[
+            attack_vectors=[
                 {
                     "attack_vector": [
                         BaseAttackVector(

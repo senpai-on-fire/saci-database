@@ -40,7 +40,7 @@ class ARDiscoveryMitmVuln(PublicSecretVulnerability):
                 "CWE-294: Authentication Bypass by Capture-replay",
                 "CWE-693: Protection Mechanism Failure",
             ],
-            attack_vectors_exploits=[
+            attack_vectors=[
                 {
                     "attack_vector": [
                         BaseAttackVector(

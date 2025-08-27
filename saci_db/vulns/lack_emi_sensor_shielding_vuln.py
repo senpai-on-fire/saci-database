@@ -39,7 +39,7 @@ class LackEMISensorShieldingVuln(BaseVulnerability):
                 "CWE-770: Allocation of Resources Without Limits or Throttling",
                 "CWE-400: Uncontrolled Resource Consumption",
             ],
-            attack_vectors_exploits=[],
+            attack_vectors=[],
         )
 
     def exists(self, device: Device) -> bool:

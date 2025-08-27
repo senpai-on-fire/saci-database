@@ -37,7 +37,7 @@ class FirmwareOverwriteVuln(PublicSecretVulnerability):
                 "CWE-345: Insufficient Verification of Data Authenticity",
                 "CWE-347: Improper Verification of Cryptographic Signature",
             ],
-            attack_vectors_exploits=[
+            attack_vectors=[
                 {
                     # Attack vector: Firmware Overwrite via Arduino IDE USB upload
                     "attack_vector": [

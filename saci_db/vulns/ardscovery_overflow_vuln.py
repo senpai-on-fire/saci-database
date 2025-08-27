@@ -41,7 +41,7 @@ class ARDiscoveryOverflowVuln(PublicSecretVulnerability):
                 "CWE-20: Improper Input Validation",
                 "CWE-400: Uncontrolled Resource Consumption",
             ],
-            attack_vectors_exploits=[
+            attack_vectors=[
                 {
                     "attack_vector": [
                         BaseAttackVector(

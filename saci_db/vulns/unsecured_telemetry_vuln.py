@@ -40,7 +40,7 @@ class UnsecuredTelemetryVuln(PublicSecretVulnerability):
                 "CWE-20: Improper Input Validation",
                 "CWE-1188: Insecure Default Initialization of Resource",
             ],
-            attack_vectors_exploits=[],
+            attack_vectors=[],
         )
         # Description of the attack scenario
         # self.input = "Intercept and spoof telemetry data due to lack of encryption or authentication."

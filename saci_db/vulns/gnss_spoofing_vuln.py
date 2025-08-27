@@ -42,7 +42,7 @@ class GNSSSpoofingVuln(SpoofingVulnerability):
                 "CWE-1188: Insecure Default Initialization of Resource",
                 "CWE-354: Improper Validation of Integrity Check Value",
             ],
-            attack_vectors_exploits=[
+            attack_vectors=[
                 {
                     "attack_vector": [
                         BaseAttackVector(

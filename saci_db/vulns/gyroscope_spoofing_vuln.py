@@ -50,7 +50,7 @@ class GyroscopeSpoofingVuln(SpoofingVulnerability):
                 "CWE-119: Improper Restriction of Operations within the Bounds of a Memory Buffer",
                 "CWE-662: Improper Synchronization",
             ],
-            attack_vectors_exploits=[
+            attack_vectors=[
                 {
                     "attack_vector": [
                         BaseAttackVector(

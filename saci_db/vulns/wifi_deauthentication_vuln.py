@@ -57,7 +57,7 @@ class WiFiDeauthVuln(PublicSecretVulnerability):
                 "CWE-1188: Insecure Default Initialization of Resource",
                 "CWE-693: Protection Mechanism Failure",
             ],
-            attack_vectors_exploits=[
+            attack_vectors=[
                 {
                     # List of related attack vectors and their exploitation information”
                     "attack_vector": [

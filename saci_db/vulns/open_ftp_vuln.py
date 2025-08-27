@@ -39,7 +39,7 @@ class OpenFTPVuln(BaseVulnerability):
                 "CWE-732: Incorrect Permission Assignment for Critical Resource",
                 "CWE-284: Improper Access Control",
             ],
-            attack_vectors_exploits=[],
+            attack_vectors=[],
         )
 
     def exists(self, device: Device) -> bool:

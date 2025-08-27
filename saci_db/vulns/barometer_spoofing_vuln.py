@@ -46,7 +46,7 @@ class BarometerSpoofingVuln(SpoofingVulnerability):
                 "CWE-693: Protection Mechanism Failure",
                 "CWE-1188: Insecure Default Initialization of Resource",
             ],
-            attack_vectors_exploits=[
+            attack_vectors=[
                 {
                     "attack_vector": [
                         BaseAttackVector(

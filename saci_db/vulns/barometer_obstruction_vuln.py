@@ -36,7 +36,7 @@ class BarometerObstructionVuln(SpoofingVulnerability):
                 "CWE-20: Improper Input Validation",
                 "CWE-693: Protection Mechanism Failure",
             ],
-            attack_vectors_exploits=[
+            attack_vectors=[
                 {
                     "attack_vector": [
                         BaseAttackVector(

@@ -42,7 +42,7 @@ class WeakApplicationAuthVuln(BaseVulnerability):
                 "CWE-1188: Insecure Default Initialization of Resource",
                 "CWE-295: Improper Certificate Validation",
             ],
-            attack_vectors_exploits=[],
+            attack_vectors=[],
         )
 
     def exists(self, device: Device) -> bool:

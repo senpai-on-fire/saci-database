@@ -23,7 +23,7 @@ class LackFailsafeDisconnectionVuln(BaseVulnerability):
                 "lack_failsafe_disconnection.lp",
             ),
             associated_cwe=[],
-            attack_vectors_exploits=[
+            attack_vectors=[
                 {
                     "attack_vector": [
                         BaseAttackVector(

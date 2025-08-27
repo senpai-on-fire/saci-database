@@ -34,7 +34,7 @@ class MavlinkMitmVuln(PublicSecretVulnerability):
                 "CWE-294: Authentication Bypass by Capture-replay",
                 "CWE-693: Protection Mechanism Failure",
             ],
-            attack_vectors_exploits=[],
+            attack_vectors=[],
         )
         # self.input = "launch a Mavlink MITM attack"
 

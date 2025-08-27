@@ -42,7 +42,7 @@ class DebugInterfaceVuln(SpoofingVulnerability):
                 "CWE-20: Improper Input Validation",
                 "CWE-693: Protection Mechanism Failure",
             ],
-            attack_vectors_exploits=[
+            attack_vectors=[
                 {
                     # List of related attack vectors and their exploitation information:
                     "attack_vector": [

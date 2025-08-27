@@ -53,7 +53,7 @@ class DeepNeuralNetworkVuln(BaseVulnerability):
                 "CWE-1188: Insecure Default Initialization of Resource",
                 "CWE-489: Active Debug Code",
             ],
-            attack_vectors_exploits=[
+            attack_vectors=[
                 {
                     # List of related attack vectors and their exploitation information
                     "attack_vector": [

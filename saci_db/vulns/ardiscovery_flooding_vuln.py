@@ -40,7 +40,7 @@ class ARDiscoveryFloodVuln(PublicSecretVulnerability):
                 "CWE-661: Improper Handling of Overlapping or Conflicting Actions",
                 "CWE-693: Protection Mechanism Failure",
             ],
-            attack_vectors_exploits=[
+            attack_vectors=[
                 {
                     "attack_vector": [
                         BaseAttackVector(
