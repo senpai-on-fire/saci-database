@@ -26,9 +26,7 @@ class DSMxJammingProtocolVuln(PublicSecretVulnerability):
             # Predicate for reasoning about DSMx protocol vulnerabilities
             attack_ASP=DSMxJammingProtocolPred,
             # Optional rule file for logic-based reasoning about DSMx protocol weaknesses
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "dsmx_jamming_protocol.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "dsmx_jamming_protocol.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-325: Missing Required Cryptographic Step",

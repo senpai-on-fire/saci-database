@@ -1,8 +1,5 @@
 from saci.modeling import CPV
-from saci.modeling.device import (
-    DepthCamera,
-    Motor
-)
+from saci.modeling.device import DepthCamera, Motor
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.optical_attack_signal import OpticalAttackSignal
@@ -21,30 +18,23 @@ class MLDepthEstimationAttackCPV(CPV):
 
     def __init__(self):
         super().__init__(
-            
             required_components=[
-                DepthCamera(), # This is the entry component (Required)
+                DepthCamera(),  # This is the entry component (Required)
                 # Serial(), # Removed considering that the DepthCamera is inherently connected to the Controller via Serial (Not Required)
                 # ObjectAvoidanceDNN(), # Removed assuming that The ObjectAvoidanceDNN is part of the Control system (Not Required)
-                Controller(), # Changed from PX4Controller() to Controller() for generalization (Required)
+                Controller(),  # Changed from PX4Controller() to Controller() for generalization (Required)
                 # PWMChannel(), # Removed since the PWMChannel is just a passthrough for the CPV (Not Required)
                 # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
-                Motor(), # This is the exit component + Changed to Motor() for generalization (Required)
+                Motor(),  # This is the exit component + Changed to Motor() for generalization (Required)
             ],
-            
             entry_component=DepthCamera(),
             exit_component=Motor(),
-            
             vulnerabilities=[
                 DepthCameraSpoofingVuln(),
                 DeepNeuralNetworkVuln(),
                 StereoMatchingVuln(),
             ],
-            
-            goals=[
-                "Manipulate ML-based depth estimation to induce false obstacle perception"
-            ],
-            
+            goals=["Manipulate ML-based depth estimation to induce false obstacle perception"],
             initial_conditions={
                 "Position": "Any",
                 "Heading": "Any",
@@ -57,12 +47,10 @@ class MLDepthEstimationAttackCPV(CPV):
                 "DistanceToTarget": "Within effective range",
                 "DepthEstimationModel": "DispNet, PSMNet, or AANet",
             },
-            
             attack_requirements=[
                 "Access to projectors capable of emitting adversarial light patterns",
                 "Knowledge of the target's ML-based depth estimation model parameters",
             ],
-            
             attack_vectors=[
                 BaseAttackVector(
                     name="Adversarial Light Pattern Injection",
@@ -75,7 +63,6 @@ class MLDepthEstimationAttackCPV(CPV):
                     configuration={"pattern": "Adversarial light patterns"},
                 )
             ],
-            
             attack_impacts=[
                 BaseAttackImpact(
                     category="Manipulation of Control",
@@ -84,40 +71,34 @@ class MLDepthEstimationAttackCPV(CPV):
                     ),
                 ),
             ],
-            
             exploit_steps=[
                 "TA1 Exploit Steps",
-                    "Analyze the target's ML-based depth estimation model to understand its vulnerability to specific input perturbations.",
-                    "Decompile the DNN model from the CPS firmware.",
-                    "Dump the source code and model weight of the DNN model",
-                    "Report the DNN model and source code to TA4.",
+                "Analyze the target's ML-based depth estimation model to understand its vulnerability to specific input perturbations.",
+                "Decompile the DNN model from the CPS firmware.",
+                "Dump the source code and model weight of the DNN model",
+                "Report the DNN model and source code to TA4.",
                 "TA2 Exploit Steps",
-                    "Wait for the experimental setup from TA4.",
-                    "Simulate the adversarial attacks in the simulator.",
-                    "   - Simulate the DNN depth estimation algorithms.",
-                    "   - Based on the output of TA4, simulate the visual-based attack vector.",
+                "Wait for the experimental setup from TA4.",
+                "Simulate the adversarial attacks in the simulator.",
+                "   - Simulate the DNN depth estimation algorithms.",
+                "   - Based on the output of TA4, simulate the visual-based attack vector.",
                 "TA3 Exploit Steps",
-                    "Wait for the experimental setup from TA4.",
-                    "Set up projectors to emit the adversarial light patterns aimed at the stereo camera lenses.",
-                    "Project the adversarial patterns during the autonomous system's operation.",
-                    "The ML-based depth estimation model processes the perturbed images, resulting in incorrect depth predictions.",
-                    "The obstacle avoidance system reacts based on the erroneous depth information, causing unintended or unsafe maneuvers.",
-                    "TA4 Exploit Steps",
-                    "Wait for the dumped DNN model from TA1.",
-                    "Generate adversarial light patterns tailored to exploit the model's weaknesses.",
-                    "Report the adversarial pattern and experimental setups to TA2 and TA4.",
+                "Wait for the experimental setup from TA4.",
+                "Set up projectors to emit the adversarial light patterns aimed at the stereo camera lenses.",
+                "Project the adversarial patterns during the autonomous system's operation.",
+                "The ML-based depth estimation model processes the perturbed images, resulting in incorrect depth predictions.",
+                "The obstacle avoidance system reacts based on the erroneous depth information, causing unintended or unsafe maneuvers.",
+                "TA4 Exploit Steps",
+                "Wait for the dumped DNN model from TA1.",
+                "Generate adversarial light patterns tailored to exploit the model's weaknesses.",
+                "Report the adversarial pattern and experimental setups to TA2 and TA4.",
             ],
-            
             associated_files=[],
             reference_urls=[
                 "https://www.usenix.org/system/files/sec22-zhou-ce.pdf",
             ],
         )
-        self.goal_state = [
-            "Obstacle avoidance system responds to manipulated depth information"
-        ]
+        self.goal_state = ["Obstacle avoidance system responds to manipulated depth information"]
 
     def in_goal_state(self, state):
-        return (
-            state.get("ObstacleAvoidanceResponse") == "ActivatedDueToManipulatedDepth"
-        )
+        return state.get("ObstacleAvoidanceResponse") == "ActivatedDueToManipulatedDepth"

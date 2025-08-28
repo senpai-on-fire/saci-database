@@ -7,7 +7,6 @@ from saci.modeling.state.operation_mode import OperationMode
 from saci.modeling.communication import AuthenticatedCommunication
 
 
-
 # Predicate to define formal reasoning for controller integrity attacks
 class ControllerIntegrityPred(Predicate):
     pass
@@ -25,9 +24,7 @@ class ControllerIntegrityVuln(BaseVulnerability):
             # Predicate for formal reasoning about controller integrity vulnerabilities
             attack_ASP=ControllerIntegrityPred,
             # Logic rules for evaluating the controller integrity vulnerability
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "controller_integrity.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "controller_integrity.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-20: Improper Input Validation",
@@ -51,29 +48,19 @@ class ControllerIntegrityVuln(BaseVulnerability):
                     return True
 
                 # What should we add to describe Lack of Sensor Consistency Checks or Lack of Sensor Filtering?
-                filter_type = comp.parameters.get(
-                    "sensor_filter_type", "none"
-                )  # Could be 'none', 'low_pass', or 'EKF'
-                cross_sensor_consistency_checks = comp.parameters.get(
-                    "cross_sensor_consistency_checks", False
-                )
+                filter_type = comp.parameters.get("sensor_filter_type", "none")  # Could be 'none', 'low_pass', or 'EKF'
+                cross_sensor_consistency_checks = comp.parameters.get("cross_sensor_consistency_checks", False)
 
                 # Define vulnerability conditions
                 no_filtering = filter_type == "none"
                 weak_filtering = filter_type == "low_pass"
-                lacks_cross_sensor_consistency_checks = (
-                    not cross_sensor_consistency_checks
-                )
+                lacks_cross_sensor_consistency_checks = not cross_sensor_consistency_checks
 
                 # Controller is vulnerable if:
                 # 1. It lacks integrity checks entirely
                 # 2. It has weak or no filtering, allowing injected sensor noise to propagate
                 # 3. It does not perform cross-sensor consistency checks
-                if (
-                    no_filtering
-                    or weak_filtering
-                    or lacks_cross_sensor_consistency_checks
-                ):
+                if no_filtering or weak_filtering or lacks_cross_sensor_consistency_checks:
                     return True
 
         return False

@@ -32,9 +32,7 @@ class FirmwarePayloadVuln(BaseVulnerability):
             # Predicate for reasoning about firmware vulnerabilities
             attack_ASP=FirmwareVulnerabilityPred,
             # Logic rules for evaluating firmware vulnerabilities in formal reasoning
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "firmware_payload_vuln.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "firmware_payload_vuln.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-306: Missing Authentication for Critical Function",
@@ -161,9 +159,7 @@ class FirmwarePayloadVuln(BaseVulnerability):
                                 modality="fimware payload",
                             ),
                             required_access_level="Physical Access",
-                            configuration={
-                                "modifications": "Modify Drone Serial Number"
-                            },
+                            configuration={"modifications": "Modify Drone Serial Number"},
                         )
                     ],
                     "related_cpv": ["PayloadSpoofDroneIDCPV"],

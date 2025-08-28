@@ -28,9 +28,7 @@ class SMBusVuln(SpoofingVulnerability):
             # Predicate for formal reasoning about SMBus vulnerabilities
             attack_ASP=SMBusVulnPred,
             # Logic rules for evaluating this vulnerability in formal reasoning
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "smbus_vuln.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "smbus_vuln.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-346: Origin Validation Error",

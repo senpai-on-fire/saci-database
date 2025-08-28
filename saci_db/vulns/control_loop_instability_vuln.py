@@ -73,9 +73,7 @@ class ControlLoopInstabilityVuln(BaseVulnerability):
                         "Report the identified triggering condition to TA3 for simulator verification.",
                     ],
                     # List of related references
-                    "reference_urls": [
-                        "https://www.usenix.org/system/files/usenixsecurity23-kim-hyungsub.pdf"
-                    ],
+                    "reference_urls": ["https://www.usenix.org/system/files/usenixsecurity23-kim-hyungsub.pdf"],
                 }
             ],
         )
@@ -86,9 +84,6 @@ class ControlLoopInstabilityVuln(BaseVulnerability):
             # Check if the component is a PX4Controller
             if isinstance(comp, PX4Controller):
                 # If the controller's attitude control logic is disabled or unstable
-                if (
-                    hasattr(comp, "attitude_control_stable")
-                    and not comp.attitude_control_stable
-                ):
+                if hasattr(comp, "attitude_control_stable") and not comp.attitude_control_stable:
                     return True
         return False

@@ -34,9 +34,7 @@ class MagnetometerSpoofingVuln(SpoofingVulnerability):
             # Predicate for reasoning about magnetometer spoofing vulnerabilities
             attack_ASP=MagnetometerSpoofingPred,
             # Logic rules for evaluating magnetometer spoofing vulnerabilities in formal reasoning
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "magnetometer_spoofing.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "magnetometer_spoofing.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-346: Origin Validation Error",

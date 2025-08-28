@@ -42,9 +42,7 @@ class GPSJammingVuln(BaseVulnerability):
             # Predicate for reasoning about GPS jamming vulnerabilities
             attack_ASP=GPSJammingPred,
             # Logic rules for evaluating this vulnerability
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "gps_jamming.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "gps_jamming.lp"),
             # List of Associated CWEs relevant to GPS jamming:
             associated_cwe=[
                 "CWE-400: Uncontrolled Resource Consumption",

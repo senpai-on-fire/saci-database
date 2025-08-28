@@ -24,9 +24,7 @@ class DepthCameraSpoofingVuln(SpoofingVulnerability):
             # Predicate for formal reasoning about depth camera spoofing
             attack_ASP=DepthCameraSpoofingPred,
             # Logic rules for evaluating this vulnerability in formal reasoning
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "depth_camera_spoofing.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "depth_camera_spoofing.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-346: Origin Validation Error",
@@ -45,9 +43,7 @@ class DepthCameraSpoofingVuln(SpoofingVulnerability):
                                 dst=DepthCamera(),
                             ),
                             required_access_level="Remote",
-                            configuration={
-                                "pattern": "Adversarial or Complementary light patterns"
-                            },
+                            configuration={"pattern": "Adversarial or Complementary light patterns"},
                         )
                     ],
                     "related_cpv": [

@@ -30,9 +30,7 @@ class IcmpFloodVuln(PublicSecretVulnerability):
             # Predicate for reasoning about ICMP flood vulnerabilities
             attack_ASP=IcmpFloodPred,
             # Logic rules for evaluating this vulnerability in formal reasoning
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "icmp_flood.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "icmp_flood.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-770: Allocation of Resources Without Limits or Throttling",
@@ -69,9 +67,7 @@ class IcmpFloodVuln(PublicSecretVulnerability):
                         "Flood the CPS with TCP SYN on port UDP 5556",
                     ],
                     # List of related references
-                    "reference_urls": [
-                        "https://link.springer.com/article/10.1007/s11416-011-0158-4"
-                    ],
+                    "reference_urls": ["https://link.springer.com/article/10.1007/s11416-011-0158-4"],
                 }
             ],
         )

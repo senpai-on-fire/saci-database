@@ -31,9 +31,7 @@ class DebugInterfaceVuln(SpoofingVulnerability):
             # Predicate for reasoning about Debug interface vulnerabilities
             attack_ASP=DebugInterfacePred,
             # Logic rules for evaluating this vulnerability in formal reasoning
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "debug_interface.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "debug_interface.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-287: Improper Authentication",
@@ -90,9 +88,6 @@ class DebugInterfaceVuln(SpoofingVulnerability):
             # Check if the component is a Debug interface
             if isinstance(comp, Debug):
                 # Verify if the Debug interface supports unauthenticated access
-                if (
-                    hasattr(comp, "supports_unauthenticated_access")
-                    and comp.supports_unauthenticated_access
-                ):
+                if hasattr(comp, "supports_unauthenticated_access") and comp.supports_unauthenticated_access:
                     return True  # Vulnerability detected
         return False  # No vulnerability detected if no matching conditions are met

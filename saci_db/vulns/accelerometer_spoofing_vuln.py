@@ -37,9 +37,7 @@ class AccelerometerSpoofingVuln(SpoofingVulnerability):
             # Predicate for reasoning about accelerometer spoofing attacks
             attack_ASP=AccelerometerSpoofingPred,
             # Logic rules for evaluating this vulnerability
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "accelerometer_spoofing.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "accelerometer_spoofing.lp"),
             # List of associated CWEs
             associated_cwe=[
                 "CWE-346: Origin Validation Error",
@@ -153,13 +151,9 @@ class AccelerometerSpoofingVuln(SpoofingVulnerability):
                     return True
 
                 # 3) Check resonant frequency (should be within acoustic attack range)
-                if (comp.resonant_frequency is not None) and (
-                    comp.resonant_frequency < 40000
-                ):
+                if (comp.resonant_frequency is not None) and (comp.resonant_frequency < 40000):
                     # 4) Check damping ratio (lower means sharper resonance, more vulnerable)
-                    damping_ok = (
-                        comp.damping_ratio is not None and comp.damping_ratio < 0.1
-                    )
+                    damping_ok = comp.damping_ratio is not None and comp.damping_ratio < 0.1
 
                     # 5) Check if there's no acoustic isolation
                     if not comp.acoustic_isolation and damping_ok:

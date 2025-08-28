@@ -26,9 +26,7 @@ class UnsecuredTelemetryVuln(PublicSecretVulnerability):
             # Predicate for reasoning about vulnerabilities in unsecured telemetry
             attack_ASP=Attack_CPSV_UnsecuredTelemetry,
             # Logic rules for evaluating vulnerabilities in unsecured telemetry systems
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "unsecured_telemetry.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "unsecured_telemetry.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-311: Missing Encryption of Sensitive Data",

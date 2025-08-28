@@ -36,9 +36,7 @@ class GyroscopeSpoofingVuln(SpoofingVulnerability):
             # Predicate for formal reasoning about Gyroscope spoofing
             attack_ASP=GyroscopeSpoofingPred,
             # Logic rules for evaluating the Gyroscope spoofing vulnerability
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "gyroscope_spoofing.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "gyroscope_spoofing.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-346: Origin Validation Error",

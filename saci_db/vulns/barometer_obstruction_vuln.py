@@ -1,4 +1,3 @@
-
 from clorm import Predicate
 
 from saci.modeling import SpoofingVulnerability
@@ -24,9 +23,7 @@ class BarometerObstructionVuln(SpoofingVulnerability):
     def __init__(self):
         super().__init__(
             component=Barometer(),
-            _input=AuthenticatedCommunication(
-                src=ExternalInput()
-            ),  # physical access proxy
+            _input=AuthenticatedCommunication(src=ExternalInput()),  # physical access proxy
             output=AuthenticatedCommunication(),
             attack_ASP=BarometerObstructionPred,
             # No dedicated rule file yet

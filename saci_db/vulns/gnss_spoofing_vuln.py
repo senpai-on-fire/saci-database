@@ -29,9 +29,7 @@ class GNSSSpoofingVuln(SpoofingVulnerability):
             # Predicate for reasoning about GNSS spoofing vulnerabilities
             attack_ASP=GNSSSpoofingPred,
             # Logic rules for evaluating this vulnerability in formal reasoning
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "gnss_spoofing.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "gnss_spoofing.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-290: Authentication Bypass by Capture-replay",
@@ -76,9 +74,7 @@ class GNSSSpoofingVuln(SpoofingVulnerability):
                         "Gradually manipulate the trajectory by sending dynamically adjusted GNSS data.",
                         "Redirect the UAV to a target location without triggering safety mechanisms.",
                     ],
-                    "reference_urls": [
-                        "https://ieeexplore.ieee.org/abstract/document/8535083"
-                    ],
+                    "reference_urls": ["https://ieeexplore.ieee.org/abstract/document/8535083"],
                 }
             ],
         )

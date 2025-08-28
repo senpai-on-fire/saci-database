@@ -1,4 +1,3 @@
-
 from saci.modeling import CPV
 from saci.modeling.device import (
     GPSReceiver,
@@ -17,32 +16,27 @@ from saci_db.vulns.lack_gps_filtering_vuln import LackGPSFilteringVuln
 from saci.modeling.device import Controller
 
 
-
 class FailSafeAvoidanceCPV(CPV):
     NAME = "The Fail-Safe Avoidance Attack on Type III Drones"
 
     def __init__(self):
         super().__init__(
             required_components=[
-                GPSReceiver(), # This is the entry component (Required)
+                GPSReceiver(),  # This is the entry component (Required)
                 # Serial(), # Removed considering that the GPSReceiver is inherently connected to the Controller via Serial (Not Required)
-                Controller(), # This is the main controller where the firmware is hosted (Required)
+                Controller(),  # This is the main controller where the firmware is hosted (Required)
                 # PWMChannel(), # Removed since the PWMChannel is just a passthrough for the CPV (Not Required)
                 # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
-                Motor(), # This is the exit component + Changed to Motor() for generalization (Required)
+                Motor(),  # This is the exit component + Changed to Motor() for generalization (Required)
             ],
-            
             entry_component=GPSReceiver(),
             exit_component=Motor(),
-            
             vulnerabilities=[
                 GPSSpoofingVuln(),
                 LackGPSFilteringVuln(),
                 ControllerIntegrityVuln(),
             ],
-            
             goals=[],
-            
             initial_conditions={
                 "Position": "Any",
                 "Heading": "Any",
@@ -51,18 +45,14 @@ class FailSafeAvoidanceCPV(CPV):
                 "Failsafe Mode": "Enabled",
                 "OperatingMode": "Manual or Mission",
             },
-            
             attack_requirements=[
                 "GPS spoofing device with fine-grained control over signal deviations.",
                 "Knowledge of the drone's GPS fail-safe mechanism.",
             ],
-            
             attack_vectors=[
                 BaseAttackVector(
                     name="Soft GPS Spoofing to Avoid Fail-Safe Triggers",
-                    signal=GPSAttackSignal(
-                        src=ExternalInput(), dst=GPSReceiver(), modality="gps_signals"
-                    ),
+                    signal=GPSAttackSignal(src=ExternalInput(), dst=GPSReceiver(), modality="gps_signals"),
                     required_access_level="Remote",
                     configuration={
                         "spoofing_intensity": "Minimal",
@@ -70,7 +60,6 @@ class FailSafeAvoidanceCPV(CPV):
                     },
                 ),
             ],
-            
             attack_impacts=[
                 BaseAttackImpact(
                     category="Fail-Safe Exploitation",
@@ -80,29 +69,27 @@ class FailSafeAvoidanceCPV(CPV):
                     ),
                 ),
             ],
-            
             exploit_steps=[
                 "TA1 Exploit Steps",
-                    "Model the impact of spoofing into the GPS receiver on the CPS dynamics to verify the attack.",
-                    "The model must include:",
-                    "    - Controller attitude logic algorithm.",
-                    "    - GPS receiver sensor.",
-                    "    - Any required physical parameters to simulate CPS dynamics.",
-                    "    - Electronic speed controller logic and output.",
-                    "    - CPS actuators (e.g., motors) controlled by the ESC.",
+                "Model the impact of spoofing into the GPS receiver on the CPS dynamics to verify the attack.",
+                "The model must include:",
+                "    - Controller attitude logic algorithm.",
+                "    - GPS receiver sensor.",
+                "    - Any required physical parameters to simulate CPS dynamics.",
+                "    - Electronic speed controller logic and output.",
+                "    - CPS actuators (e.g., motors) controlled by the ESC.",
                 "TA2 Exploit Steps",
-                    "Simulate the impact of spoofing into the CPS receiver to verify the validity of the attack.",
-                    "Start the simulation allow the CPS to start its intended operation.",
-                    "At arbitrary time x, start the GPS spoofing attack into and verify the attack impact.",
-                    "Report your findings to TA3.",
+                "Simulate the impact of spoofing into the CPS receiver to verify the validity of the attack.",
+                "Start the simulation allow the CPS to start its intended operation.",
+                "At arbitrary time x, start the GPS spoofing attack into and verify the attack impact.",
+                "Report your findings to TA3.",
                 "TA3 Exploit Steps",
-                    "Identify the drone model and its GPS fail-safe mechanism behavior.",
-                    "Deploy soft GPS spoofing equipment to introduce gradual deviations in the GPS signal.",
-                    "Ensure the spoofed signals remain consistent with the drone’s expected GPS data.",
-                    "Monitor the drone’s response to verify that fail-safe mechanisms are not triggered.",
-                    "Redirect the drone to the attacker’s desired location while avoiding safety interruptions.",
+                "Identify the drone model and its GPS fail-safe mechanism behavior.",
+                "Deploy soft GPS spoofing equipment to introduce gradual deviations in the GPS signal.",
+                "Ensure the spoofed signals remain consistent with the drone’s expected GPS data.",
+                "Monitor the drone’s response to verify that fail-safe mechanisms are not triggered.",
+                "Redirect the drone to the attacker’s desired location while avoiding safety interruptions.",
             ],
-            
             associated_files=[],
             reference_urls=["https://dl.acm.org/doi/10.1145/3309735"],
         )

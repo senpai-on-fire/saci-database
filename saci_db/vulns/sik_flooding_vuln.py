@@ -35,9 +35,7 @@ class SiKFloodingVuln(PublicSecretVulnerability):
             # Predicate for formal reasoning about the SiK radio attack
             attack_ASP=SiKFloodingPred,
             # Logic rules for formal reasoning about vulnerabilities in SiK radios
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "sik.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "sik.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-287: Improper Authentication",
@@ -92,9 +90,6 @@ class SiKFloodingVuln(PublicSecretVulnerability):
         # Iterate through all components of the device
         for comp in device.components:
             # Check if the component is TelemetryHigh or TelemetryAlgorithmic using the SiK protocol
-            if (
-                isinstance(comp, (TelemetryHigh, TelemetryAlgorithmic))
-                and comp.protocol_name == "sik"
-            ):
+            if isinstance(comp, (TelemetryHigh, TelemetryAlgorithmic)) and comp.protocol_name == "sik":
                 return True  # Vulnerability exists for components using SiK
         return False  # No vulnerability detected

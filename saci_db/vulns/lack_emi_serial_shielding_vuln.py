@@ -26,9 +26,7 @@ class LackEMISerialShieldingVuln(BaseVulnerability):
             # Predicate for reasoning about EMI shielding vulnerabilities in serial components
             attack_ASP=LackEMISerialShieldingPred,
             # Logic rules for evaluating this vulnerability in formal reasoning
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "lack_emi_shielding.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "lack_emi_shielding.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-346: Origin Validation Error",
@@ -47,8 +45,6 @@ class LackEMISerialShieldingVuln(BaseVulnerability):
             # Check if the component is a Serial communication line and lacks EMI shielding
             if isinstance(comp, Serial):
                 # Assuming there is an attribute 'has_emi_shielding' to indicate if the serial line is shielded
-                if not getattr(
-                    comp, "has_emi_shielding", False
-                ):  # Default to False if the attribute is missing
+                if not getattr(comp, "has_emi_shielding", False):  # Default to False if the attribute is missing
                     return True  # Vulnerability exists if shielding is not present
         return False  # No vulnerability detected if all Serial components are properly shielded

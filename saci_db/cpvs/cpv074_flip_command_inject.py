@@ -1,4 +1,3 @@
-
 from saci.modeling import CPV
 from saci.modeling.device import (
     Wifi,
@@ -20,21 +19,17 @@ class FlipAtLowAltitudeCPV(CPV):
 
     def __init__(self):
         super().__init__(
-            
             required_components=[
-                Wifi(), # This is the entry component (Required)
-                Mavlink(), # This is a vulnerable required component (Required)
-                Controller(), # Changed from PX4Controller() to Controller() for generalization (Required)
+                Wifi(),  # This is the entry component (Required)
+                Mavlink(),  # This is a vulnerable required component (Required)
+                Controller(),  # Changed from PX4Controller() to Controller() for generalization (Required)
                 # PWMChannel(), # Removed since the PWMChannel is just a passthrough for the CPV (Not Required)
                 # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
-                Motor(), # This is the exit component + Changed to Motor() for generalization (Required)
+                Motor(),  # This is the exit component + Changed to Motor() for generalization (Required)
             ],
-            
             entry_component=Wifi(),
             exit_component=Motor(),
-            
             vulnerabilities=[WifiKnownCredsVuln(), MavlinkMitmVuln()],
-            
             initial_conditions={
                 "Position": "Any",
                 "Altitude": "< 10 meters",
@@ -43,20 +38,16 @@ class FlipAtLowAltitudeCPV(CPV):
                 "RemoteController": "Connected",
                 "Safety": "Off",
             },
-            
             attack_requirements=[
                 "Attacker laptop with MAVProxy installed",
                 "Access to ExpressLRS TX Backpack Wi-Fi (default password: 'expresslrs')",
                 "Knowledge of MAVLink protocol",
                 "Armed and airborne drone in STABILIZE mode under 10m altitude",
             ],
-            
             attack_vectors=[
                 BaseAttackVector(
                     name="FLIP Mode Command Injection via MAVLink",
-                    signal=PacketAttackSignal(
-                        src=Wifi(), dst=Controller(),  modality="network_packets"
-                    ),
+                    signal=PacketAttackSignal(src=Wifi(), dst=Controller(), modality="network_packets"),
                     required_access_level="Remote",
                     configuration={
                         "payload": {"mavlink_command": "mode FLIP"},
@@ -65,29 +56,26 @@ class FlipAtLowAltitudeCPV(CPV):
                     },
                 )
             ],
-            
             attack_impacts=[
                 BaseAttackImpact(
                     category="Loss of Control",
                     description="Drone attempts a flip maneuver while flying below the safe altitude, resulting in crash or system damage.",
                 )
             ],
-            
             exploit_steps=[
                 "TA1 Exploit Steps",
-                    "Analyze firmware using Taveren to generate state machine",
-                    "Verify altitude safety check is missing before FLIP mode entry",
+                "Analyze firmware using Taveren to generate state machine",
+                "Verify altitude safety check is missing before FLIP mode entry",
                 "TA2 Exploit Steps",
-                    "Simulate flip behavior below 10m in Gazebo; observe crash",
+                "Simulate flip behavior below 10m in Gazebo; observe crash",
                 "TA3 Exploit Steps",
-                    "Extract firmware from STM32H743 chip using EXPLODE tool",
-                    "Confirm firmware is based on outdated ArduPilot release",
-                    "Power on drone and transmitter, ensure STABILIZE mode is set",
-                    "Connect attacker laptop to ExpressLRS Wi-Fi ('expresslrs')",
-                    "Use MAVProxy to connect to drone and execute: mode FLIP",
-                    "Observe motor oscillation consistent with flip behavior",
+                "Extract firmware from STM32H743 chip using EXPLODE tool",
+                "Confirm firmware is based on outdated ArduPilot release",
+                "Power on drone and transmitter, ensure STABILIZE mode is set",
+                "Connect attacker laptop to ExpressLRS Wi-Fi ('expresslrs')",
+                "Use MAVProxy to connect to drone and execute: mode FLIP",
+                "Observe motor oscillation consistent with flip behavior",
             ],
-            
             associated_files=[],
             reference_urls=[
                 "https://github.com/senpai-on-fire/owlet-taskboard/blob/main/CPVs/IVV_Feedback/PASS/HII-GS0409380007-CPV013.docx"

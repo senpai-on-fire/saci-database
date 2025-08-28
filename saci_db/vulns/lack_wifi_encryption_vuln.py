@@ -30,9 +30,7 @@ class LackWifiEncryptionVuln(BaseVulnerability):
             # Predicate for reasoning about vulnerabilities caused by a lack of WiFi integrity or encryption
             attack_ASP=LackWifiIntegrityPred,
             # Logic rules for evaluating this vulnerability in formal reasoning
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "lack_wifi_integrity.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "lack_wifi_integrity.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-311: Missing Encryption of Sensitive Data",
@@ -226,9 +224,7 @@ class LackWifiEncryptionVuln(BaseVulnerability):
                         ),
                         BaseAttackVector(
                             name="Telnet Access for Root Control",
-                            signal=PacketAttackSignal(
-                                src=ExternalInput(), dst=Telnet()
-                            ),
+                            signal=PacketAttackSignal(src=ExternalInput(), dst=Telnet()),
                             required_access_level="Proximity",
                             configuration={},
                         ),
@@ -257,9 +253,7 @@ class LackWifiEncryptionVuln(BaseVulnerability):
                         "Access the FTP service to extract data or modify critical files.",
                         "Optionally modify the drone's configuration to disrupt its operations or cause a crash.",
                     ],
-                    "reference_urls": [
-                        "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8326960"
-                    ],
+                    "reference_urls": ["https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8326960"],
                 },
             ],
         )

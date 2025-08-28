@@ -27,9 +27,7 @@ class OpticalFlowSpoofingVuln(SpoofingVulnerability):
             # Predicate for reasoning about optical flow spoofing vulnerabilities
             attack_ASP=OpticalFlowSpoofingPred,
             # Logic rules for evaluating optical flow spoofing vulnerabilities in formal reasoning
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "optical_flow_spoofing.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "optical_flow_spoofing.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-346: Origin Validation Error",

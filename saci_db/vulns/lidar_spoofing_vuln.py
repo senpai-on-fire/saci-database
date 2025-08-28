@@ -23,9 +23,7 @@ class LiDARSpoofingVuln(PublicSecretVulnerability):
             _input=UnauthenticatedCommunication(src=ExternalInput()),
             output=UnauthenticatedCommunication(),
             attack_ASP=LiDARSpoofingPred,
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "lidar_spoofing.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "lidar_spoofing.lp"),
             associated_cwe=[
                 "CWE-346: Origin Validation Error",
                 "CWE-290: Authentication Bypass by Capture-replay",
@@ -149,11 +147,7 @@ class LiDARSpoofingVuln(PublicSecretVulnerability):
                     ],
                 },
                 {
-                    "attack_vector": [
-                        EnvironmentalInterference(
-                            dst=LiDAR(), modality="non-reflective material"
-                        )
-                    ],
+                    "attack_vector": [EnvironmentalInterference(dst=LiDAR(), modality="non-reflective material")],
                     "related_cpv": ["LiDARLightAbsorbCPV"],
                     "com_attack_effect": [
                         BaseCompEffect(

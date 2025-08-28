@@ -33,9 +33,7 @@ class BarometerSpoofingVuln(SpoofingVulnerability):
             # Predicate for formal reasoning about barometer spoofing
             attack_ASP=BarometerSpoofingPred,
             # Logic rules for reasoning about the barometer spoofing vulnerability
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "barometer_spoofing.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "barometer_spoofing.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-346: Origin Validation Error",
@@ -97,9 +95,6 @@ class BarometerSpoofingVuln(SpoofingVulnerability):
                 if hasattr(comp, "chip_name") and comp.chip_name in vuln_sensor_list:
                     return True  # This in the future could be 100%
                 if hasattr(comp, "chip_type") and comp.chip_type == "MEMS":
-                    if (
-                        not hasattr(comp, "acoustic_isolation")
-                        or not comp.acoustic_isolation
-                    ):
+                    if not hasattr(comp, "acoustic_isolation") or not comp.acoustic_isolation:
                         return True  # If it doesn't have the acoustic isolation attribute, it is assumed it doesnt have it. If it has the attribute and specified as false, then it is vulnrable
         return False  # No vulnerability detected if no barometer is found, and it is not MEMS

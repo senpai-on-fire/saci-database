@@ -27,9 +27,7 @@ class RFInterferenceVuln(PublicSecretVulnerability):
             # Predicate for reasoning about RF interference vulnerabilities
             attack_ASP=RFInterferencePred,
             # Optional rule file for logic-based reasoning about RF interference
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "rf_interference.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "rf_interference.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-770: Allocation of Resources Without Limits or Throttling",
@@ -41,9 +39,7 @@ class RFInterferenceVuln(PublicSecretVulnerability):
             attack_vectors=[],
         )
         # Human-readable description of the attack input scenario
-        self.input = (
-            "Deliberate RF interference targeting the UAV's communication frequencies."
-        )
+        self.input = "Deliberate RF interference targeting the UAV's communication frequencies."
 
     def exists(self, device: Device) -> bool:
         # Iterate through all components of the device

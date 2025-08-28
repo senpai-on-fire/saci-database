@@ -75,9 +75,7 @@ class NavigationControlFailureVuln(BaseVulnerability):
                         "Monitor the vehicle's performance for signs of mission failure, such as premature stalling, inaccurate route following, or erratic behavior during obstacle avoidance.",
                     ],
                     # List of related references
-                    "reference_urls": [
-                        "https://www.usenix.org/system/files/usenixsecurity23-kim-hyungsub.pdf"
-                    ],
+                    "reference_urls": ["https://www.usenix.org/system/files/usenixsecurity23-kim-hyungsub.pdf"],
                 }
             ],
         )

@@ -25,9 +25,7 @@ class LackBeaconFilteringVuln(PublicSecretVulnerability):
             # No specific attack predicate is defined for this vulnerability
             attack_ASP=LackBeaconFilteringPred,
             # Optional rule file for formal logic (if needed)
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "lack_beacon_filtering.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "lack_beacon_filtering.lp"),
             # List of Associated CWEs:
             # List of Associated CWEs
             associated_cwe=[

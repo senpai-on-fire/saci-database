@@ -26,9 +26,7 @@ class FirmwareOverwriteVuln(PublicSecretVulnerability):
             # Predicate for reasoning about firmware overwrite attacks
             attack_ASP=FirmwareOverwritePred,
             # Logic rules for evaluating firmware overwrite vulnerabilities
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "firmware_overwrite.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "firmware_overwrite.lp"),
             # List of Associated CWEs relevant to firmware overwrite attacks
             associated_cwe=[
                 "CWE-494: Download of Code Without Integrity Check",
@@ -43,9 +41,7 @@ class FirmwareOverwriteVuln(PublicSecretVulnerability):
                     "attack_vector": [
                         BaseAttackVector(
                             name="Firmware Overwrite via USB-C Interface",
-                            signal=FirmwareAttackSignal(
-                                src=ExternalInput(), dst=ArduinoGigaR1()
-                            ),
+                            signal=FirmwareAttackSignal(src=ExternalInput(), dst=ArduinoGigaR1()),
                             required_access_level="Physical",
                             configuration={
                                 "method": "Arduino IDE USB Upload",

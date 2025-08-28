@@ -75,9 +75,7 @@ class SpeedControlMisbehaviorVuln(BaseVulnerability):
                         "Derive the triggering condition by running PatchVerif, which provides the triggering unit test input.",
                     ],
                     # List of related references
-                    "reference_urls": [
-                        "https://www.usenix.org/system/files/usenixsecurity23-kim-hyungsub.pdf"
-                    ],
+                    "reference_urls": ["https://www.usenix.org/system/files/usenixsecurity23-kim-hyungsub.pdf"],
                 }
             ],
         )
@@ -88,10 +86,7 @@ class SpeedControlMisbehaviorVuln(BaseVulnerability):
             # Check if the component is a PX4Controller
             if isinstance(comp, PX4Controller):
                 # Verify high-level properties of PX4Controller
-                if (
-                    hasattr(comp, "emergency_stop_enabled")
-                    and not comp.emergency_stop_enabled
-                ):
+                if hasattr(comp, "emergency_stop_enabled") and not comp.emergency_stop_enabled:
                     return True  # Vulnerability detected
 
                 # Check if the PX4Controller has a binary abstraction level

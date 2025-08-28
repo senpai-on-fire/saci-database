@@ -26,9 +26,7 @@ class OpenTelnetVuln(BaseVulnerability):
             # Predicate for reasoning about open Telnet vulnerabilities
             attack_ASP=OpenTelnetPred,
             # Logic rules for evaluating this vulnerability
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "open_telnet_vuln.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "open_telnet_vuln.lp"),
             # Associated CWEs
             associated_cwe=[
                 "CWE-319: Cleartext Transmission of Sensitive Information",

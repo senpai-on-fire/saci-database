@@ -28,9 +28,7 @@ class LackEMIControllerShieldingVuln(BaseVulnerability):
             # Predicate for reasoning about EMI shielding vulnerabilities in Controllers
             attack_ASP=LackEMIControllerShieldingPred,
             # Logic rules for evaluating this vulnerability in formal reasoning
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "lack_emi_shielding.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "lack_emi_shielding.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-346: Origin Validation Error",
@@ -49,12 +47,6 @@ class LackEMIControllerShieldingVuln(BaseVulnerability):
             # Check if the component is a Controller and lacks proper EMI shielding
             if isinstance(comp, Controller):
                 # Assuming there is an attribute 'has_emi_shielding' indicating if the Controller is shielded
-                if not getattr(
-                    comp, "has_emi_shielding", False
-                ):  # Default to False if the attribute is missing
-                    return (
-                        True  # Vulnerability exists if the Controller lacks shielding
-                    )
-        return (
-            False  # No vulnerability detected if all Controllers are properly shielded
-        )
+                if not getattr(comp, "has_emi_shielding", False):  # Default to False if the attribute is missing
+                    return True  # Vulnerability exists if the Controller lacks shielding
+        return False  # No vulnerability detected if all Controllers are properly shielded

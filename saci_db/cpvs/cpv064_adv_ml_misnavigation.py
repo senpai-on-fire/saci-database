@@ -17,27 +17,22 @@ class MLMisnavigationCPV(CPV):
 
     def __init__(self):
         super().__init__(
-            
             required_components=[
-                Camera(), # This is the entry component (Required)
+                Camera(),  # This is the entry component (Required)
                 # Serial(), # Removed considering that the Camera is inherently connected to the Controller via Serial (Not Required)
-                Controller(), # Changed from PX4Controller() to Controller() for generalization (Required)
+                Controller(),  # Changed from PX4Controller() to Controller() for generalization (Required)
                 # PWMChannel(), # Removed since the PWMChannel is just a passthrough for the CPV (Not Required)
                 # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
-                Motor(), # This is the exit component + Changed to Motor() for generalization (Required)
+                Motor(),  # This is the exit component + Changed to Motor() for generalization (Required)
             ],
-            
             entry_component=Camera(),
             exit_component=Motor(),
-            
             vulnerabilities=[
                 MLMisnavigationPatchVuln(),
             ],
-            
             goals=[
                 "Mislead the UAV to crash into an obstacle, to change direction, or to stop moving",
             ],
-            
             initial_conditions={
                 "TargetModel": "Navigation-Avoidance CNN",
                 "Camera": "Monocular, 30Hz, RGB",
@@ -45,19 +40,15 @@ class MLMisnavigationCPV(CPV):
                 "AttackerKnowledge": "White-box model access",
                 "PatchSize": "50cm x 50cm",
             },
-            
             attack_requirements=[
                 "White-box access to victim model",
                 "Ability to place physical patch in UAV field-of-view",
                 "No interference with UAV hardware/software directly",
             ],
-            
             attack_vectors=[
                 BaseAttackVector(
                     name="Physical Adversarial Patch",
-                    signal=OpticalAttackSignal(
-                        src=ExternalInput(), dst=Camera(), modality="visual-pattern"
-                    ),
+                    signal=OpticalAttackSignal(src=ExternalInput(), dst=Camera(), modality="visual-pattern"),
                     required_access_level="Physical",
                     configuration={
                         "mode": "PatchPlacement",
@@ -65,40 +56,35 @@ class MLMisnavigationCPV(CPV):
                     },
                 )
             ],
-            
             attack_impacts=[
                 BaseAttackImpact(
                     category="Navigation Misbehavior",
                     description="UAV crashes into obstacles, deflects from path, or halts unnecessarily",
                 )
             ],
-            
             exploit_steps=[
                 "TA1 Exploit Steps",
-                    "Implement a Model to simulate the adversarial patch attack",
-                    "The model must include:",
-                    "    - FASC+T joint optimization algorithm for patch generation",
-                    "    - Navigation model simulation and behavior prediction",
-                    "    - Camera sensor simulation for patch capture",
-                    "    - UAV control system response simulation",
+                "Implement a Model to simulate the adversarial patch attack",
+                "The model must include:",
+                "    - FASC+T joint optimization algorithm for patch generation",
+                "    - Navigation model simulation and behavior prediction",
+                "    - Camera sensor simulation for patch capture",
+                "    - UAV control system response simulation",
                 "TA2 Exploit Steps",
-                    "Simulate the physical patch attack and its effects",
-                    "The simulation must include:",
-                    "    - Patch placement optimization in different environments",
-                    "    - Impact analysis on navigation decisions",
-                    "    - Verification of attack effectiveness",
+                "Simulate the physical patch attack and its effects",
+                "The simulation must include:",
+                "    - Patch placement optimization in different environments",
+                "    - Impact analysis on navigation decisions",
+                "    - Verification of attack effectiveness",
                 "TA3 Exploit Steps",
-                    "Execute the physical attack in real environment",
-                    "Print the adversarial patch using the optimized design",
-                    "Place the patch on obstacle, floor, or wall in UAV's path",
-                    "Monitor UAV behavior for successful attack execution",
-                    "Verify attack impact",
+                "Execute the physical attack in real environment",
+                "Print the adversarial patch using the optimized design",
+                "Place the patch on obstacle, floor, or wall in UAV's path",
+                "Monitor UAV behavior for successful attack execution",
+                "Verify attack impact",
             ],
-            
             associated_files=[],
-            reference_urls=[
-                "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10265297"
-            ],
+            reference_urls=["https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10265297"],
         )
 
         self.goal_state = [

@@ -82,8 +82,6 @@ class LackEMIPowerCableShieldingVuln(BaseVulnerability):
             # Check if the component is a Sensor and lacks proper EMI shielding
             if isinstance(comp, PowerCable):
                 # Assuming there is an attribute 'has_emi_shielding' indicating if the sensor is shielded
-                if not getattr(
-                    comp, "has_emi_shielding", False
-                ):  # Default to False if the attribute is missing
+                if not getattr(comp, "has_emi_shielding", False):  # Default to False if the attribute is missing
                     return True  # Vulnerability exists if the sensor lacks shielding
         return False  # No vulnerability detected if all sensors are properly shielded

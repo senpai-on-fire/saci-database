@@ -58,9 +58,7 @@ class LackWifiAuthenticationVuln(BaseVulnerability):
                     "attack_vector": [
                         BaseAttackVector(
                             name="MavLink Packets Injection",
-                            signal=PacketAttackSignal(
-                                src=ExternalInput(), dst=TelemetryHigh()
-                            ),
+                            signal=PacketAttackSignal(src=ExternalInput(), dst=TelemetryHigh()),
                             required_access_level="Proximity",
                         )
                     ],
@@ -125,9 +123,7 @@ class LackWifiAuthenticationVuln(BaseVulnerability):
                         "Send a deauthentication packet to the Wi-Fi interface.",
                     ],
                     # List of related references
-                    "reference_urls": [
-                        "https://github.com/senpai-on-fire/NGC1B-rover-CPVs/blob/main/CPV001"
-                    ],
+                    "reference_urls": ["https://github.com/senpai-on-fire/NGC1B-rover-CPVs/blob/main/CPV001"],
                 },
                 {
                     # List of related attack vectors and their exploitation information
@@ -152,18 +148,14 @@ class LackWifiAuthenticationVuln(BaseVulnerability):
                         "Flood the CPS with TCP SYN on UDP port 5556.",
                     ],
                     # List of related references
-                    "reference_urls": [
-                        "https://link.springer.com/article/10.1007/s11416-011-0158-4"
-                    ],
+                    "reference_urls": ["https://link.springer.com/article/10.1007/s11416-011-0158-4"],
                 },
                 {
                     # List of related attack vectors and their exploitation information
                     "attack_vector": [
                         BaseAttackVector(
                             name="ARDiscovery DoS Flooding Attack",
-                            signal=PacketAttackSignal(
-                                src=ExternalInput(), dst=ARDiscovery()
-                            ),
+                            signal=PacketAttackSignal(src=ExternalInput(), dst=ARDiscovery()),
                             required_access_level="Proximity",
                         )
                     ],
@@ -193,9 +185,7 @@ class LackWifiAuthenticationVuln(BaseVulnerability):
                     "attack_vector": [
                         BaseAttackVector(
                             name="ARDiscovery Buffer Overflow Attack",
-                            signal=PacketAttackSignal(
-                                src=ExternalInput(), dst=ARDiscovery()
-                            ),
+                            signal=PacketAttackSignal(src=ExternalInput(), dst=ARDiscovery()),
                             required_access_level="Proximity",
                         )
                     ],
@@ -282,9 +272,7 @@ class LackWifiAuthenticationVuln(BaseVulnerability):
         # Iterate through all components of the device
         for comp_id, comp in device.components.items():
             # Check if the component has supported protocols
-            if (
-                supported_protocols := comp.parameters.get("supported_protocols")
-            ) is not None:
+            if (supported_protocols := comp.parameters.get("supported_protocols")) is not None:
                 # Iterate through the supported protocols
                 for protocol in supported_protocols:
                     # Check if any protocol is unauthenticated, indicating a vulnerability

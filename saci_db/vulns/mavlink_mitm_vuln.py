@@ -23,9 +23,7 @@ class MavlinkMitmVuln(PublicSecretVulnerability):
             _input=UnauthenticatedCommunication(src=ExternalInput()),
             output=UnauthenticatedCommunication(),
             attack_ASP=Attack_CPSV_Mavlink,
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "mavlink_mitm.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "mavlink_mitm.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-300: Channel Accessible by Non-Endpoint ('Man-in-the-Middle')",
@@ -55,13 +53,7 @@ class MavlinkMitmVuln(PublicSecretVulnerability):
                 # TODO: how to express these properties could be symbolic? We essentially need a way to check
                 #   that a telemetry can send an arbitrary constructed packet. For now, we just put a fake
                 #   two packets there (always true for now)
-                good_comm = AuthenticatedCommunication(
-                    src="192.168.1.2", dst="controller"
-                )
-                bad_comm = AuthenticatedCommunication(
-                    src="192.168.1.3", dst="controller"
-                )
-                if (good_comm.src != bad_comm.src) and (
-                    good_comm.identifier == bad_comm.identifier
-                ):
+                good_comm = AuthenticatedCommunication(src="192.168.1.2", dst="controller")
+                bad_comm = AuthenticatedCommunication(src="192.168.1.3", dst="controller")
+                if (good_comm.src != bad_comm.src) and (good_comm.identifier == bad_comm.identifier):
                     return True

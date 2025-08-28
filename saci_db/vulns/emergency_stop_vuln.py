@@ -30,9 +30,7 @@ class EmergencyStopVuln(BaseVulnerability):
             # Predicate for reasoning about Emergency Stop vulnerabilities
             attack_ASP=EmergencyStopPred,
             # Logic rules for evaluating this vulnerability in formal reasoning
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "emergency_stop.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "emergency_stop.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-617: Reachable Assertion",
@@ -53,9 +51,7 @@ class EmergencyStopVuln(BaseVulnerability):
                                 modality="binary patch",
                             ),
                             required_access_level="Local or Remote",
-                            configuration={
-                                "patch_version": "Faulty emergency stop logic"
-                            },
+                            configuration={"patch_version": "Faulty emergency stop logic"},
                         )
                     ],
                     # List of associated CPVs
@@ -75,9 +71,7 @@ class EmergencyStopVuln(BaseVulnerability):
                         "Derive the triggering condition using PatchVerif, which provides the triggering unit test input.",
                     ],
                     # List of related references
-                    "reference_urls": [
-                        "https://www.usenix.org/system/files/usenixsecurity23-kim-hyungsub.pdf"
-                    ],
+                    "reference_urls": ["https://www.usenix.org/system/files/usenixsecurity23-kim-hyungsub.pdf"],
                 }
             ],
         )
@@ -88,10 +82,7 @@ class EmergencyStopVuln(BaseVulnerability):
             # Check if the component is a PX4Controller
             if isinstance(comp, PX4Controller):
                 # Verify high-level properties of PX4Controller
-                if (
-                    hasattr(comp, "emergency_stop_enabled")
-                    and not comp.emergency_stop_enabled
-                ):
+                if hasattr(comp, "emergency_stop_enabled") and not comp.emergency_stop_enabled:
                     return True  # Vulnerability detected at a higher abstraction level
 
                 # Check if the PX4Controller has a binary abstraction level

@@ -43,9 +43,7 @@ class WiFiDeauthVuln(PublicSecretVulnerability):
             # Predicate for reasoning about WiFi deauthentication attacks
             attack_ASP=WiFiDeauthPred,
             # Logic rules for evaluating vulnerabilities to deauthentication attacks
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "wifi_deauth.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "wifi_deauth.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-770: Allocation of Resources Without Limits or Throttling",
@@ -106,18 +104,14 @@ class WiFiDeauthVuln(PublicSecretVulnerability):
                         "Send continuous deauthentication packets to disconnect the legitimate controller.",
                     ],
                     # List of related references
-                    "reference_urls": [
-                        "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8326960"
-                    ],
+                    "reference_urls": ["https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8326960"],
                 },
                 {
                     # Attack vector: Telnet Access for Root Control
                     "attack_vector": [
                         BaseAttackVector(
                             name="Telnet Access for Root Control",
-                            signal=PacketAttackSignal(
-                                src=ExternalInput(), dst=Telnet()
-                            ),
+                            signal=PacketAttackSignal(src=ExternalInput(), dst=Telnet()),
                             required_access_level="Proximity",
                         )
                     ],
@@ -136,9 +130,7 @@ class WiFiDeauthVuln(PublicSecretVulnerability):
                         "Modify system files or settings to maintain persistent access.",
                     ],
                     # List of related references
-                    "reference_urls": [
-                        "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8326960"
-                    ],
+                    "reference_urls": ["https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8326960"],
                 },
                 {
                     # Attack vector: FTP Exploitation to Extract Data
@@ -163,9 +155,7 @@ class WiFiDeauthVuln(PublicSecretVulnerability):
                         "Extract sensitive logs, flight data, or modify configuration files.",
                     ],
                     # List of related references
-                    "reference_urls": [
-                        "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8326960"
-                    ],
+                    "reference_urls": ["https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8326960"],
                 },
             ],
         )
@@ -182,9 +172,6 @@ class WiFiDeauthVuln(PublicSecretVulnerability):
             if isinstance(comp, Wifi):
                 if comp.encryption_type in [None, "WEP", "Open"]:
                     return True  # Open or weak encryption = vulnerable
-                if (
-                    comp.encryption_type == "WPA2"
-                    and not comp.has_management_frame_protection
-                ):
+                if comp.encryption_type == "WPA2" and not comp.has_management_frame_protection:
                     return True  # WPA2 without MFP = vulnerable
         return False

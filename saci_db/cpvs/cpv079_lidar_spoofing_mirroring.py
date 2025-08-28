@@ -1,4 +1,3 @@
-
 from saci.modeling import CPV
 from saci.modeling.device import (
     Controller,
@@ -19,25 +18,21 @@ class LiDARBYPASSMirrorCPV(CPV):
 
     def __init__(self):
         super().__init__(
-            
             required_components=[
-                LiDAR(), # This is the entry component (Required)
+                LiDAR(),  # This is the entry component (Required)
                 # Serial(), # Removed considering that the LiDAR is inherently connected to the Controller via Serial (Not Required)
-                Controller(), # This is the controller hosting the firmware (Required)
+                Controller(),  # This is the controller hosting the firmware (Required)
                 # CANTransceiver(), # Removed for generalization since it's not required and too specific (Not required)
                 # CANTransceiver(), # Removed for generalization since it's not required and too specific (Not required)
                 # CANBus(), # Removed for generalization since it's not required and too specific (Not required)
                 # CANShield(), # Removed for generalization since it's not required and too specific (Not required)
                 # PWMChannel(), # Removed since the PWMChannel is just a passthrough for the CPV (Not Required)
                 # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
-                Motor(), # This is the exit component + Changed to Motor() for generalization (Required)
+                Motor(),  # This is the exit component + Changed to Motor() for generalization (Required)
             ],
-            
             entry_component=LiDAR(),
             exit_component=Motor(),
-            
             vulnerabilities=[LiDARSpoofingVuln()],
-            
             initial_conditions={
                 "Position": "Any",
                 "Heading": "Any",
@@ -47,7 +42,6 @@ class LiDARBYPASSMirrorCPV(CPV):
                 "CPSController": "Moving",
                 "OperatingMode": "Manual or Mission",
             },
-            
             attack_requirements=[
                 "Physical access within LiDAR range (< 27 inches)",
                 "Mirror material (minimum 4x4 inches)",
@@ -55,7 +49,6 @@ class LiDARBYPASSMirrorCPV(CPV):
                 "Clear line-of-sight to LiDAR sensor",
                 "Understanding of LiDAR detection threshold",
             ],
-            
             attack_vectors=[
                 BaseAttackVector(
                     name="Mirror-Based LiDAR Signal Redirection",
@@ -70,50 +63,47 @@ class LiDARBYPASSMirrorCPV(CPV):
                     },
                 )
             ],
-            
             attack_impacts=[
                 BaseAttackImpact(
                     category="Control Hijacking",
                     description="Mirror-based LiDAR signal redirection causes the rover to fail to detect obstacles, potentially leading to collisions.",
                 )
             ],
-            
             exploit_steps=[
                 "TA1 Exploit Steps",
-                    "Extract firmware from STM32H743 controller using EXPLODE tool",
-                    "Analyze firmware to identify LiDAR signal processing logic",
-                    "Locate 'LIDAR KILLED OBJECT TOO CLOSE' string reference",
-                    "Map LiDAR data flow and threshold checks",
-                    "Document sensor parameters and timing requirements",
-                    "Model mirror reflection angles and detection thresholds",
+                "Extract firmware from STM32H743 controller using EXPLODE tool",
+                "Analyze firmware to identify LiDAR signal processing logic",
+                "Locate 'LIDAR KILLED OBJECT TOO CLOSE' string reference",
+                "Map LiDAR data flow and threshold checks",
+                "Document sensor parameters and timing requirements",
+                "Model mirror reflection angles and detection thresholds",
                 "TA2 Exploit Steps",
-                    "Configure QEMU-based firmware simulation environment",
-                    "Simulate LiDAR signal reflection in Gazebo",
-                    "Test various mirror angles and distances",
-                    "Validate detection threshold bypass conditions",
-                    "Document successful attack parameters",
+                "Configure QEMU-based firmware simulation environment",
+                "Simulate LiDAR signal reflection in Gazebo",
+                "Test various mirror angles and distances",
+                "Validate detection threshold bypass conditions",
+                "Document successful attack parameters",
                 "TA3 Initial Hardware Testing:",
-                    "Using hex wrench, rotate power block counter-clockwise to power on rover",
-                    "Wait for system LEDs to light up",
-                    "Press button on power block to remove safety",
-                    "Connect to 'Arduino Wifi' network using password 'TSWIZZLE1989'",
-                    "Navigate to http://10.0.0.1/ in web browser",
-                    "Verify web interface shows 'START LEFT TURN' and 'START RIGHT TURN' buttons",
-                    "Press either button to initiate rover movement",
-                    'Test baseline obstacle detection by placing object (>= LiDAR height) within 27" of sensor',
-                    "Verify rover stops automatically",
-                    "Power off rover by rotating power block clockwise until LEDs turn off",
-                    "Repeat power-on sequence and initiate rover movement",
-                    "Position mirror at 45° angle in front of LiDAR sensor",
-                    "Ensure mirror surface is clean and properly aligned",
-                    "Place actual obstacle behind or beside mirror setup",
-                    "Observe rover continues movement despite obstacle presence",
-                    "Verify rover fails to detect obstacle at expected distance",
-                    "Document attack success and system behavior",
-                    "Use emergency stop via web interface if needed",
-                    "Power off rover using hex wrench (clockwise rotation until LEDs off)",
+                "Using hex wrench, rotate power block counter-clockwise to power on rover",
+                "Wait for system LEDs to light up",
+                "Press button on power block to remove safety",
+                "Connect to 'Arduino Wifi' network using password 'TSWIZZLE1989'",
+                "Navigate to http://10.0.0.1/ in web browser",
+                "Verify web interface shows 'START LEFT TURN' and 'START RIGHT TURN' buttons",
+                "Press either button to initiate rover movement",
+                'Test baseline obstacle detection by placing object (>= LiDAR height) within 27" of sensor',
+                "Verify rover stops automatically",
+                "Power off rover by rotating power block clockwise until LEDs turn off",
+                "Repeat power-on sequence and initiate rover movement",
+                "Position mirror at 45° angle in front of LiDAR sensor",
+                "Ensure mirror surface is clean and properly aligned",
+                "Place actual obstacle behind or beside mirror setup",
+                "Observe rover continues movement despite obstacle presence",
+                "Verify rover fails to detect obstacle at expected distance",
+                "Document attack success and system behavior",
+                "Use emergency stop via web interface if needed",
+                "Power off rover using hex wrench (clockwise rotation until LEDs off)",
             ],
-            
             associated_files=[],
             reference_urls=[
                 "https://github.com/senpai-on-fire/ngc2_taskboard/blob/main/CPVs/HII-NGP1AROV2ARR05-CPV003/HII-NGP1AROV2ARR05-CPV003-20250419.docx"

@@ -22,9 +22,7 @@ class MavlinkOverflow(PublicSecretVulnerability):
             _input=UnauthenticatedCommunication(src=ExternalInput()),
             output=UnauthenticatedCommunication(),
             attack_ASP=Attack_CPSV_Overflow,
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "mavlink_overflow.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "mavlink_overflow.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-120: Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')",

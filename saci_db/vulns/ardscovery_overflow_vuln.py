@@ -28,9 +28,7 @@ class ARDiscoveryOverflowVuln(PublicSecretVulnerability):
             # Predicate for reasoning about the buffer overflow vulnerability
             attack_ASP=ARDiscoveryOverflowPred,
             # Logic rules for evaluating this vulnerability through formal reasoning
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "ardiscovery_overflow.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "ardiscovery_overflow.lp"),
             associated_cwe=[
                 "CWE-120: Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')",
                 "CWE-125: Out-of-Bounds Read",

@@ -25,8 +25,6 @@ from saci.modeling.device.motor.motor import Motor
 from saci.modeling.device.motor.multi_copter_motor import MultiCopterMotor
 
 
-
-
 from saci.modeling.device.battery.bms import BMSHardware
 
 from saci.modeling.device.battery.battery import Battery
@@ -49,12 +47,7 @@ from saci.modeling.device.telemetry import Telemetry
 from saci.modeling.device.component.hardware.component_hw_circuit import HardwareCircuit
 
 
-
-
-
 from saci.modeling.device.battery.bms import BMS
-
-
 
 
 class owletCrash(Predicate):

@@ -23,23 +23,18 @@ class AcousticSpoofingGyroscopeCPV(CPV):
 
     def __init__(self):
         super().__init__(
-            
             required_components=[
-                Gyroscope(), # This is the entry component (Required)
+                Gyroscope(),  # This is the entry component (Required)
                 # Serial(), # Removed considering that the Gyroscope is inherently connected to the Controller via Serial (Not Required)
-                Controller(), # This is the controller hosting the firmware (Required)
+                Controller(),  # This is the controller hosting the firmware (Required)
                 # PWMChannel(), # Removed since the PWMChannel is just a passthrough for the CPV (Not Required)
                 # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
-                Motor(), # This is the exit component + Changed to Motor() for generalization (Required)
+                Motor(),  # This is the exit component + Changed to Motor() for generalization (Required)
             ],
-            
             entry_component=Gyroscope(),
             exit_component=Motor(),
-            
             vulnerabilities=[GyroscopeSpoofingVuln(), ControllerIntegrityVuln()],
-            
             goals=[],
-            
             initial_conditions={
                 "Position": "Any",
                 "Heading": "Any",
@@ -49,9 +44,7 @@ class AcousticSpoofingGyroscopeCPV(CPV):
                 "CPSController": "None",
                 "OperatingMode": "Manual or Mission",
             },
-            
             attack_requirements=["Speaker or Ultrasonic Sound Source"],
-            
             attack_vectors=[
                 BaseAttackVector(
                     name="Acoustic Spoofing Signal Injection",
@@ -67,35 +60,32 @@ class AcousticSpoofingGyroscopeCPV(CPV):
                     },
                 )
             ],
-            
             attack_impacts=[
                 BaseAttackImpact(
                     category="Control Manipulation",
                     description="CPS moves erratically.",
                 )
             ],
-            
             exploit_steps=[
                 "TA1 Exploit Steps",
-                    "Reverse-engineer the CPS firmware to determine if sensor fusion or filtering mechanisms exist for gyroscope data.",
-                    "Identify whether the firmware fully trusts the raw gyroscope data or applies any verification before use.",
-                    "Analyze the PID control logic to assess how fluctuations in gyroscope readings propagate to motor actuation.",
+                "Reverse-engineer the CPS firmware to determine if sensor fusion or filtering mechanisms exist for gyroscope data.",
+                "Identify whether the firmware fully trusts the raw gyroscope data or applies any verification before use.",
+                "Analyze the PID control logic to assess how fluctuations in gyroscope readings propagate to motor actuation.",
                 "TA2 Exploit Steps",
-                    "Implement a simulation of MEMS gyroscope response to acoustic interference.",
-                    "Inject synthetic acoustic noise into the control loop and measure PID controller response.",
-                    "Simulate how abnormal gyroscope outputs propagate through the CPS system.",
-                    "Report the findings to TA3 to conduct the experiments on the physical CPS device",
+                "Implement a simulation of MEMS gyroscope response to acoustic interference.",
+                "Inject synthetic acoustic noise into the control loop and measure PID controller response.",
+                "Simulate how abnormal gyroscope outputs propagate through the CPS system.",
+                "Report the findings to TA3 to conduct the experiments on the physical CPS device",
                 "TA3 Exploit Steps",
-                    "Use imaging tools and other techniques to catalog all components on the CPS.",
-                    "Identify if an IMU containing a gyroscope is present.",
-                    "Mount the MEMS gyroscope (or CPS) in a vibration-free environment and measure output when exposed to an acoustic frequency sweep (e.g., 20Hz to 30kHz).",
-                    "Observe gyroscope sensor output for spikes and increased standard deviation to detect resonance-induced errors.",
-                    "Identify the resonant frequency at the point of maximum deviation from the true value.",
-                    "Position an ultrasonic transducer/speaker near the CPS and emit the resonant frequency.",
-                    "Log gyroscope sensor data before, during, and after the attack.",
-                    "Analyze the CPS's physical response using external tracking and onboard telemetry.",
+                "Use imaging tools and other techniques to catalog all components on the CPS.",
+                "Identify if an IMU containing a gyroscope is present.",
+                "Mount the MEMS gyroscope (or CPS) in a vibration-free environment and measure output when exposed to an acoustic frequency sweep (e.g., 20Hz to 30kHz).",
+                "Observe gyroscope sensor output for spikes and increased standard deviation to detect resonance-induced errors.",
+                "Identify the resonant frequency at the point of maximum deviation from the true value.",
+                "Position an ultrasonic transducer/speaker near the CPS and emit the resonant frequency.",
+                "Log gyroscope sensor data before, during, and after the attack.",
+                "Analyze the CPS's physical response using external tracking and onboard telemetry.",
             ],
-            
             associated_files=[],
             reference_urls=[
                 "https://www.usenix.org/system/files/conference/usenixsecurity15/sec15-paper-son.pdf",

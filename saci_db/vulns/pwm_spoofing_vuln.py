@@ -28,9 +28,7 @@ class PWMSpoofingVuln(SpoofingVulnerability):
             # Predicate for reasoning about PWM spoofing vulnerabilities
             attack_ASP=PWMSpoofingPred,
             # Logic rules for evaluating PWM spoofing vulnerabilities in formal reasoning
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "pwm_spoofing.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "pwm_spoofing.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-346: Origin Validation Error",
@@ -44,9 +42,7 @@ class PWMSpoofingVuln(SpoofingVulnerability):
                     "attack_vector": [
                         BaseAttackVector(
                             name="Electromagnetic Signals Interference",
-                            signal=MagneticAttackSignal(
-                                src=ExternalInput(), dst=PWMChannel()
-                            ),
+                            signal=MagneticAttackSignal(src=ExternalInput(), dst=PWMChannel()),
                             required_access_level="Remote",
                             configuration={"duration": "permanent"},
                         )
@@ -68,9 +64,7 @@ class PWMSpoofingVuln(SpoofingVulnerability):
                         "Simulate Attack Effects: Simulate the effects of continuous wave (CW) signals interfering with legitimate PWM control signals. Observe system behavior under varying interference power levels and determine the minimum power required to block the PWM signal.",
                         "Evaluate and Validate: Evaluate the effectiveness of the attack and identify potential mitigation strategies, such as signal filtering or shielding. Validate findings by cross-referencing with theoretical models and prior research.",
                     ],
-                    "reference_urls": [
-                        "https://www.usenix.org/system/files/sec22-dayanikli.pdf"
-                    ],
+                    "reference_urls": ["https://www.usenix.org/system/files/sec22-dayanikli.pdf"],
                 }
             ],
         )

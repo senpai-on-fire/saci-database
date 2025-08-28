@@ -27,9 +27,7 @@ class WeakApplicationAuthVuln(BaseVulnerability):
             # Predicate for reasoning about weak application authentication vulnerabilities
             attack_ASP=WeakApplicationAuthPred,
             # Logic rules for evaluating vulnerabilities in weak application authentication
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "weak_application_auth.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "weak_application_auth.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-287: Improper Authentication",

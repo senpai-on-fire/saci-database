@@ -1,4 +1,3 @@
-
 from clorm import Predicate
 
 from saci.modeling import SpoofingVulnerability

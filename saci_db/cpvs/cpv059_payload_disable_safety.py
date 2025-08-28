@@ -12,29 +12,23 @@ from saci_db.devices.propriety_quadcopter_device import ProprietyController
 
 from saci.modeling.device import Controller
 
+
 class PayloadDisableSafetyCPV(CPV):
     NAME = "The Disable Safety Features for Unauthorized Drone Operation"
 
     def __init__(self):
         super().__init__(
-            
             required_components=[
-                Serial(), # This is the entry component (Required)
-                Controller(), # This is the main controller where the firmware is hosted (Required)
+                Serial(),  # This is the entry component (Required)
+                Controller(),  # This is the main controller where the firmware is hosted (Required)
                 # PWMChannel(), # Removed since the PWMChannel is just a passthrough for the CPV (Not Required)
                 # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
-                Motor(), # This is the exit component + Changed to Motor() for generalization (Required)
+                Motor(),  # This is the exit component + Changed to Motor() for generalization (Required)
             ],
-            
             entry_component=Serial(),
             exit_component=Motor(),
-            
             vulnerabilities=[FirmwarePayloadVuln()],
-            
-            goals=[
-                "Disable geofencing and altitude restrictions to enable unauthorized flight"
-            ],
-            
+            goals=["Disable geofencing and altitude restrictions to enable unauthorized flight"],
             initial_conditions={
                 "Drone State": "On Ground or In Flight",
                 "GNSS Connection": "Active",
@@ -90,9 +84,7 @@ class PayloadDisableSafetyCPV(CPV):
             ],
         )
 
-        self.goal_state = [
-            "Safety features are disabled, allowing unrestricted drone operation"
-        ]
+        self.goal_state = ["Safety features are disabled, allowing unrestricted drone operation"]
 
     def in_goal_state(self, state):
         return state.get("SafetyFeatures") == "Disabled"

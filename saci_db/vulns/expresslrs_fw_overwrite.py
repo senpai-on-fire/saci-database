@@ -32,9 +32,7 @@ class ExpressLRSFirmwareOverwriteVuln(PublicSecretVulnerability):
             # Predicate for reasoning about firmware overwrite attacks
             attack_ASP=FirmwareOverwritePred,
             # Logic rules for evaluating firmware update vulnerabilities
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "firmware_overwrite.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "firmware_overwrite.lp"),
             # List of Associated CWEs
             associated_cwe=[
                 "CWE-494: Download of Code Without Integrity Check",
@@ -49,9 +47,7 @@ class ExpressLRSFirmwareOverwriteVuln(PublicSecretVulnerability):
                     "attack_vector": [
                         BaseAttackVector(
                             name="Firmware Overwrite via Network Interface",
-                            signal=PacketAttackSignal(
-                                src=ExternalInput(), dst=Telemetry()
-                            ),
+                            signal=PacketAttackSignal(src=ExternalInput(), dst=Telemetry()),
                             required_access_level="Remote",
                         )
                     ],
@@ -80,9 +76,7 @@ class ExpressLRSFirmwareOverwriteVuln(PublicSecretVulnerability):
                     "attack_vector": [
                         BaseAttackVector(
                             name="MavLink Packets Injection",
-                            signal=PacketAttackSignal(
-                                src=Mavlink(), dst=ExpressLRSBackpack()
-                            ),
+                            signal=PacketAttackSignal(src=Mavlink(), dst=ExpressLRSBackpack()),
                             required_access_level="Proximity",
                             configuration={
                                 "protocol": "UDP",

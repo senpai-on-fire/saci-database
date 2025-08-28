@@ -1,10 +1,5 @@
 from saci.modeling import CPV
-from saci.modeling.device import (
-    GCS,
-    SikRadio,
-    DSMx,
-    Motor
-)
+from saci.modeling.device import GCS, SikRadio, DSMx, Motor
 from saci.modeling.communication import ExternalInput
 from saci.modeling.state import GlobalState
 
@@ -19,35 +14,29 @@ from saci_db.vulns.dxmx_jamming_vuln import DSMxJammingProtocolVuln
 
 from saci.modeling.device import Controller
 
+
 class DSMxJammingHijackCPV(CPV):
     NAME = "The Icarus DSMx Protocol Hijacking Attack"
 
     def __init__(self):
         super().__init__(
-            
             required_components=[
-                GCS(), # This is the entry component (Required)
+                GCS(),  # This is the entry component (Required)
                 # SikRadio(), # Removed since it's a passthrough (Not Required)
-                DSMx(), # DSMx is a required vulnerable component (Required)
-                Controller(), # Changed from PX4Controller() to Controller() for generalization (Required)
+                DSMx(),  # DSMx is a required vulnerable component (Required)
+                Controller(),  # Changed from PX4Controller() to Controller() for generalization (Required)
                 # PWMChannel(), # Removed since the PWMChannel is just a passthrough for the CPV (Not Required)
                 # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
-                Motor(), # This is the exit component + Changed to Motor() for generalization (Required)
+                Motor(),  # This is the exit component + Changed to Motor() for generalization (Required)
             ],
-            
             entry_component=GCS(),
             exit_component=Motor(),
-            
             vulnerabilities=[
                 RFInterferenceVuln(),
                 DSMxJammingProtocolVuln(),
                 ControllerIntegrityVuln(),
             ],
-            
-            goals=[
-                "Hijack the CPS mid-flight by assuming control over DSMx communication"
-            ],
-            
+            goals=["Hijack the CPS mid-flight by assuming control over DSMx communication"],
             initial_conditions={
                 "Position": "Any",
                 "Heading": "Any",
@@ -57,12 +46,10 @@ class DSMxJammingHijackCPV(CPV):
                 "CPSController": "Active",
                 "OperatingMode": "Manual or Mission",
             },
-            
             attack_requirements=[
                 "DSMX signal hijacker (e.g., SDR device or custom hardware)",
                 "Ability to observe DSMx communication (e.g., proximity to CPS)",
             ],
-            
             attack_vectors=[
                 BaseAttackVector(
                     name="DSMx Protocol Hijacking",
@@ -78,7 +65,6 @@ class DSMxJammingHijackCPV(CPV):
                     },
                 )
             ],
-            
             attack_impacts=[
                 BaseAttackImpact(
                     category="Control Hijacking",
@@ -88,23 +74,21 @@ class DSMxJammingHijackCPV(CPV):
                     ),
                 ),
             ],
-            
             exploit_steps=[
                 "TA1 Exploit Steps",
-                    "Get the extracted CPS firmware from TA3.",
-                    "Reverse-engineer the CPS firmware to determine if the DSMX protocol is used",
-                    "Reverse-engineer the CPS firmware to determine if the Radio Transmitter implements security mechanisms",
+                "Get the extracted CPS firmware from TA3.",
+                "Reverse-engineer the CPS firmware to determine if the DSMX protocol is used",
+                "Reverse-engineer the CPS firmware to determine if the Radio Transmitter implements security mechanisms",
                 "TA2 Exploit Steps",
-                    "Implement a simulation of an ARDiscovery flooding attack over Wi-Fi in the CPS model.",
-                    "Run the simulation to analyze how loss of communication translates to control failure in the CPS device.",
-                    "Check with TA1 to determine the desired impact on control.",
+                "Implement a simulation of an ARDiscovery flooding attack over Wi-Fi in the CPS model.",
+                "Run the simulation to analyze how loss of communication translates to control failure in the CPS device.",
+                "Check with TA1 to determine the desired impact on control.",
                 "TA3 Exploit Steps",
-                    "Deploy a device capable of intercepting DSMx protocol communication in the CPS's vicinity.",
-                    "Observe and record DSMx signals to brute-force the shared secret between the CPS and its controller.",
-                    "Send timing-based spoofed DSMx signals to override the original transmitter’s control.",
-                    "Assume full control of the CPS, disregarding the legitimate controller’s commands.",
+                "Deploy a device capable of intercepting DSMx protocol communication in the CPS's vicinity.",
+                "Observe and record DSMx signals to brute-force the shared secret between the CPS and its controller.",
+                "Send timing-based spoofed DSMx signals to override the original transmitter’s control.",
+                "Assume full control of the CPS, disregarding the legitimate controller’s commands.",
             ],
-            
             associated_files=[],
             reference_urls=[
                 "https://www.engadget.com/2016-10-28-icarus-hijack-dmsx-drones.html",
@@ -112,16 +96,12 @@ class DSMxJammingHijackCPV(CPV):
             ],
         )
 
-        self.goal_state = [
-            "Attacker successfully overrides legitimate DSMx control and takes full command of the CPS"
-        ]
+        self.goal_state = ["Attacker successfully overrides legitimate DSMx control and takes full command of the CPS"]
 
     def in_goal_state(self, state: GlobalState) -> bool:
         """
         Check if the attacker has successfully hijacked the CPS's control.
         """
         attacker_control = state.get("AttackerControl", False)
-        original_controller_disconnected = state.get(
-            "OriginalControllerDisconnected", False
-        )
+        original_controller_disconnected = state.get("OriginalControllerDisconnected", False)
         return attacker_control and original_controller_disconnected

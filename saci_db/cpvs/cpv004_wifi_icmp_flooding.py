@@ -1,4 +1,3 @@
-
 from saci.modeling import CPV
 from saci.modeling.device import (
     Wifi,
@@ -19,26 +18,22 @@ from saci_db.vulns.lack_wifi_auth_vuln import LackWifiAuthenticationVuln
 from saci_db.vulns.icmp_flooding_vuln import IcmpFloodVuln
 
 
-
 class WiFiICMPFloodingCPV(CPV):
     NAME = "The ICMP Flooding Attack via Wifi"
 
     def __init__(self):
         super().__init__(
             required_components=[
-                Wifi(), # This is the entry component (Required)
-                ICMP(), # The ICMP Protocol is a required vulnerable component (Required)
-                Controller(), # Changed from PX4Controller() to Controller() for generalization (Required)
+                Wifi(),  # This is the entry component (Required)
+                ICMP(),  # The ICMP Protocol is a required vulnerable component (Required)
+                Controller(),  # Changed from PX4Controller() to Controller() for generalization (Required)
                 # PWMChannel(), # Removed since the PWMChannel is just a passthrough for the CPV (Not Required)
                 # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
-                Motor(), # This is the exit component + Changed to Motor() for generalization (Required)
+                Motor(),  # This is the exit component + Changed to Motor() for generalization (Required)
             ],
-            
             entry_component=Wifi(),
             exit_component=Motor(),
-            
             vulnerabilities=[LackWifiAuthenticationVuln(), IcmpFloodVuln()],
-            
             initial_conditions={
                 "Position": "Any",
                 "Heading": "Any",
@@ -48,11 +43,9 @@ class WiFiICMPFloodingCPV(CPV):
                 "CPSController": "Moving",
                 "Operating mode": "Manual",
             },
-            
             attack_requirements=[
                 "ComputerWIFI card with monitor modeAircrack-ng software",
             ],
-            
             attack_vectors=[
                 BaseAttackVector(
                     name="ICMP Packets Injection",
@@ -64,35 +57,30 @@ class WiFiICMPFloodingCPV(CPV):
                     configuration={"protocol": "UDP", "port": "5556"},
                 )
             ],
-            
             attack_impacts=[
                 BaseAttackImpact(
                     category="Denial of control",
                     description="The user can not control the CPS",
                 )
             ],
-            
             exploit_steps=[
                 "TA1 Exploit Steps",
-                    "Reverse-engineer the CPS firmware to determine if the Wi-Fi implements security mechanisms such as Management Frame Protection (MFP).",
-                    "Reverse-engineer the CPS firmware to determine if the ICMP protocol is used",
-                    "Identify if the firmware has failsafe mechanisms to recover from ICMP packets flooding attack.",
-                    "Analyze the CPS control logic to assess how disconnection impacts CPS dynamics.",
+                "Reverse-engineer the CPS firmware to determine if the Wi-Fi implements security mechanisms such as Management Frame Protection (MFP).",
+                "Reverse-engineer the CPS firmware to determine if the ICMP protocol is used",
+                "Identify if the firmware has failsafe mechanisms to recover from ICMP packets flooding attack.",
+                "Analyze the CPS control logic to assess how disconnection impacts CPS dynamics.",
                 "TA2 Exploit Steps",
-                    "Implement a simulation of an ICMP flooding attack on the CPS network.",
-                    "Run the simulation to analyze how loss of communication translates to control failure in the CPS device.",
-                    "Check with TA1 to determine the desired impact on control.",
-                    "Report the findings to TA3 to conduct the experiments on the physical CPS device",
+                "Implement a simulation of an ICMP flooding attack on the CPS network.",
+                "Run the simulation to analyze how loss of communication translates to control failure in the CPS device.",
+                "Check with TA1 to determine the desired impact on control.",
+                "Report the findings to TA3 to conduct the experiments on the physical CPS device",
                 "TA3 Exploit Steps",
-                    "Set the Wi-Fi card into monitor mode and find the BSSID and channel number for the CPS's Wi-Fi network.",
-                    "join the network",
-                    "Flood the CPS with TCP SYN on port UDP 5556",
+                "Set the Wi-Fi card into monitor mode and find the BSSID and channel number for the CPS's Wi-Fi network.",
+                "join the network",
+                "Flood the CPS with TCP SYN on port UDP 5556",
             ],
-            
             associated_files=[],
-            reference_urls=[
-                "https://link.springer.com/article/10.1007/s11416-011-0158-4"
-            ],
+            reference_urls=["https://link.springer.com/article/10.1007/s11416-011-0158-4"],
         )
 
     def in_goal_state(self, state: GlobalState):

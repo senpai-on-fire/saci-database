@@ -30,9 +30,7 @@ class SerialSpoofingVuln(SpoofingVulnerability):
             # Predicate for reasoning about serial spoofing vulnerabilities
             attack_ASP=SerialSpoofingPred,
             # Logic rules for evaluating serial spoofing vulnerabilities in formal reasoning
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "serial_spoofing.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "serial_spoofing.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-287: Improper Authentication",
@@ -47,13 +45,9 @@ class SerialSpoofingVuln(SpoofingVulnerability):
                     "attack_vector": [
                         BaseAttackVector(
                             name="Serial DSHOT and Arduino Command Injection",
-                            signal=SerialAttackSignal(
-                                src=ExternalInput(), dst=Serial(), data="any"
-                            ),
+                            signal=SerialAttackSignal(src=ExternalInput(), dst=Serial(), data="any"),
                             required_access_level="Physical",
-                            configuration={
-                                "command_types": ["DSHOT", "Arduino", "Settings"]
-                            },
+                            configuration={"command_types": ["DSHOT", "Arduino", "Settings"]},
                         )
                     ],
                     # List of associated CPVs
@@ -88,9 +82,7 @@ class SerialSpoofingVuln(SpoofingVulnerability):
                     "attack_vector": [
                         BaseAttackVector(
                             name="Serial ESC Command Injection",
-                            signal=SerialAttackSignal(
-                                src=ExternalInput(), dst=Serial()
-                            ),
+                            signal=SerialAttackSignal(src=ExternalInput(), dst=Serial()),
                             required_access_level="Physical",
                         )
                     ],

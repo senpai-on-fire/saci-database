@@ -31,9 +31,7 @@ class CANPWMSchedulingVuln(PublicSecretVulnerability):
             # Predicate for reasoning about firmware overwrite attacks
             attack_ASP=CANPWMSchedulingPred,
             # Logic rules for evaluating firmware overwrite vulnerabilities
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "can_pwm_scheduling.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "can_pwm_scheduling.lp"),
             # List of Associated CWEs relevant to firmware overwrite attacks
             associated_cwe=[
                 "CWE-494: Download of Code Without Integrity Check",
@@ -48,9 +46,7 @@ class CANPWMSchedulingVuln(PublicSecretVulnerability):
                     "attack_vector": [
                         BaseAttackVector(
                             name="Some form of input to increase the CAN message frequency",
-                            signal=SerialAttackSignal(
-                                src=ExternalInput(), dst=Controller()
-                            ),
+                            signal=SerialAttackSignal(src=ExternalInput(), dst=Controller()),
                             required_access_level="Unknown",
                         )
                     ],

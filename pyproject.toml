@@ -39,8 +39,15 @@ find = {namespaces = false}
 [tool.setuptools.dynamic]
 version = {attr = "saci_db.__version__"}
 
+[tool.ruff]
+line-length = 120 # this is too long. let's bring it down in the future
+
 [tool.ruff.lint]
+select = [
+    "E",
+    "F",
+]
 ignore = [
     # Long lines. This should be fixed in the future
-    "E501",
+    # "E501",
 ]

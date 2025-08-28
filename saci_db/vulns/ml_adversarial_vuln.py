@@ -38,9 +38,7 @@ class DeepNeuralNetworkVuln(BaseVulnerability):
             # Predicate for reasoning about adversarial vulnerabilities in DNNs
             attack_ASP=DeepNeuralNetworkPred,
             # Logic rules for evaluating adversarial attacks in formal reasoning
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "adversarial_ml.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "adversarial_ml.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-20: Improper Input Validation",
@@ -111,9 +109,7 @@ class DeepNeuralNetworkVuln(BaseVulnerability):
                         "The ML-based depth estimation model processes the perturbed images, resulting in incorrect depth predictions.",
                         "The obstacle avoidance system reacts based on the erroneous depth information, causing unintended or unsafe maneuvers.",
                     ],
-                    "reference_urls": [
-                        "https://www.usenix.org/system/files/sec22-zhou-ce.pdf"
-                    ],
+                    "reference_urls": ["https://www.usenix.org/system/files/sec22-zhou-ce.pdf"],
                 },
             ],
         )

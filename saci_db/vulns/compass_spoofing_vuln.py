@@ -31,9 +31,7 @@ class CompassSpoofingVuln(SpoofingVulnerability):
             # Predicate for formal reasoning about compass spoofing
             attack_ASP=CompassSpoofingPred,
             # Logic rules for evaluating the compass spoofing vulnerability
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "compass_spoofing.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "compass_spoofing.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-346: Origin Validation Error",
@@ -48,9 +46,7 @@ class CompassSpoofingVuln(SpoofingVulnerability):
                     "attack_vector": [
                         BaseAttackVector(
                             name="Magnetic Signals Interference",
-                            signal=MagneticAttackSignal(
-                                src=ExternalInput(), dst=CompassSensor()
-                            ),
+                            signal=MagneticAttackSignal(src=ExternalInput(), dst=CompassSensor()),
                             required_access_level="Physical",
                         )
                     ],

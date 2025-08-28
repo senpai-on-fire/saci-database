@@ -27,9 +27,7 @@ class LackGNSSFilteringVuln(BaseVulnerability):
             # Predicate for reasoning about GNSS filtering vulnerabilities
             attack_ASP=LackGNSSFilteringPred,
             # Logic rules for evaluating this vulnerability in formal reasoning
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "lack_gnss_filtering.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "lack_gnss_filtering.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-290: Authentication Bypass by Capture-replay",

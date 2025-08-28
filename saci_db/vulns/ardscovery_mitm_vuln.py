@@ -28,9 +28,7 @@ class ARDiscoveryMitmVuln(PublicSecretVulnerability):
             # Predicate for reasoning about ARDiscovery MITM attacks
             attack_ASP=ARDiscoveryMitmPred,
             # Logic rules for evaluating this vulnerability in formal reasoning
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "ardiscovery_mitm.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "ardiscovery_mitm.lp"),
             # List of associated CWEs
             associated_cwe=[
                 "CWE-300: Channel Accessible by Non-Endpoint ('Man-in-the-Middle')",

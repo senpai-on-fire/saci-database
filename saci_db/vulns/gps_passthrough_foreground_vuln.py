@@ -44,9 +44,7 @@ class GPSPassthroughForegroundVuln(PublicSecretVulnerability):
                     "attack_vector": [
                         BaseAttackVector(
                             name="Terminate Passthrough Process",
-                            signal=SerialAttackSignal(
-                                src=ExternalInput(), dst=Passthrough()
-                            ),
+                            signal=SerialAttackSignal(src=ExternalInput(), dst=Passthrough()),
                             required_access_level="Physical",
                             configuration={"duration": "temporary"},
                         )

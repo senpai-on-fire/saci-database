@@ -28,9 +28,7 @@ class ARDiscoveryFloodVuln(PublicSecretVulnerability):
             # Predicate used for formal reasoning about the ARDiscovery flooding vulnerability
             attack_ASP=ARDiscoveryFloodPred,
             # Logic rules for reasoning about and detecting this vulnerability
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "ardisovery_flood.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "ardisovery_flood.lp"),
             # List of associated CWEs
             associated_cwe=[
                 "CWE-770: Allocation of Resources Without Limits or Throttling",

@@ -1,4 +1,3 @@
-
 from saci.modeling.device import (
     Controller,
     GPSReceiver,
@@ -24,16 +23,16 @@ class GPSSpoofingStaticCPV(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
-                GPSReceiver(), # This is the entry component (Required)
+                GPSReceiver(),  # This is the entry component (Required)
                 # Serial(), # Removed considering that the GPSReceiver is inherently connected to the Controller via Serial (Not Required)
-                Controller(), # This is the main controller where the firmware is hosted (Required)
+                Controller(),  # This is the main controller where the firmware is hosted (Required)
                 # CANTransceiver(), # Removed for generalization since it's not required and too specific (Not required)
                 # CANTransceiver(), # Removed for generalization since it's not required and too specific (Not required)
                 # CANBus(), # Removed for generalization since it's not required and too specific (Not required)
                 # CANShield(), # Removed for generalization since it's not required and too specific (Not required)
                 # PWMChannel(), # Removed since the PWMChannel is just a passthrough for the CPV (Not Required)
                 # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
-                Motor(), # This is the exit component + Changed to Motor() for generalization (Required)
+                Motor(),  # This is the exit component + Changed to Motor() for generalization (Required)
             ],
             entry_component=GPSReceiver(),
             exit_component=Motor(),
@@ -79,8 +78,7 @@ class GPSSpoofingStaticCPV(CPV):
                 "Identify if the firmware has failsafe mechanisms to prevent GPS spoofing.",
                 "Analyze the CPS control logic to assess how a static spoofed GPS readings affects the CPS’s operation.",
                 "Create models for the following components: GPS receiver, CPS control logic, ESC logic and output, CPS actuators (e.g., motors) controlled by the ESC.",
-                "Report to TA2 any required physical parameters to simulate the CPS dynamics"
-                "TA2 Exploit Steps",
+                "Report to TA2 any required physical parameters to simulate the CPS dynamicsTA2 Exploit Steps",
                 "Simulate the impact of the GPS spoofing to verifty the impact on the CPS.",
                 "Start the simulation by turning-on the CPS and start its intended operation."
                 "At arbitrary time x, start the GPS spoofing attack into and verify if the CPS remains at static position.",
@@ -95,9 +93,7 @@ class GPSSpoofingStaticCPV(CPV):
                 "Observe the manipulated localization output.",
             ],
             associated_files=[],
-            reference_urls=[
-                "https://github.com/senpai-on-fire/NGC1B-rover-CPVs/tree/main/CPV007"
-            ],
+            reference_urls=["https://github.com/senpai-on-fire/NGC1B-rover-CPVs/tree/main/CPV007"],
         )
 
     def in_goal_state(self, state: GlobalState):

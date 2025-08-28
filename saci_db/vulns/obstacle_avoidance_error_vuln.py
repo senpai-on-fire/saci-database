@@ -27,9 +27,7 @@ class ObstacleAvoidanceErrorVuln(BaseVulnerability):
             # Predicate for reasoning about this vulnerability
             attack_ASP=ObstacleAvoidanceErrorPred,
             # Logic rules for evaluating this vulnerability in formal reasoning
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "avoidance_logic_error.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "avoidance_logic_error.lp"),
             # List of Associated CWEs
             associated_cwe=[
                 "CWE-670: Always-Incorrect Control Flow",
@@ -76,9 +74,7 @@ class ObstacleAvoidanceErrorVuln(BaseVulnerability):
                         "Record the physical consequences of crashes, including damage to the vehicle and its surroundings.",
                     ],
                     # List of related references
-                    "reference_urls": [
-                        "https://www.usenix.org/system/files/usenixsecurity23-kim-hyungsub.pdf"
-                    ],
+                    "reference_urls": ["https://www.usenix.org/system/files/usenixsecurity23-kim-hyungsub.pdf"],
                 }
             ],
         )

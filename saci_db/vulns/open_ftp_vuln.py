@@ -26,9 +26,7 @@ class OpenFTPVuln(BaseVulnerability):
             # Predicate for reasoning about open FTP vulnerabilities
             attack_ASP=OpenFTPPred,
             # Logic rules for evaluating this vulnerability
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "open_ftp_vuln.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "open_ftp_vuln.lp"),
             # Associated CWEs
             associated_cwe=[
                 "CWE-319: Cleartext Transmission of Sensitive Information",

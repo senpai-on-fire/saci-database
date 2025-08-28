@@ -36,9 +36,7 @@ class WifiKnownCredsVuln(PublicSecretVulnerability):
             # Predicate for reasoning about vulnerabilities caused by known credentials
             attack_ASP=KnownCredsPred,
             # Logic rules for reasoning about known credentials vulnerabilities
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "known_creds.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "known_creds.lp"),
             # List of Associated CWEs:
             associated_cwe=[
                 "CWE-798: Use of Hard-coded Credentials",
@@ -111,9 +109,7 @@ class WifiKnownCredsVuln(PublicSecretVulnerability):
                     "attack_vector": [
                         BaseAttackVector(
                             name="MavLink Packets Injection",
-                            signal=PacketAttackSignal(
-                                src=Mavlink(), dst=ExpressLRSBackpack()
-                            ),
+                            signal=PacketAttackSignal(src=Mavlink(), dst=ExpressLRSBackpack()),
                             required_access_level="Proximity",
                             configuration={
                                 "protocol": "UDP",
@@ -146,10 +142,7 @@ class WifiKnownCredsVuln(PublicSecretVulnerability):
             # Check if the component is a TelemetryHigh module using WiFi
             if isinstance(comp, TelemetryHigh) and comp.protocol_name == "wifi":
                 # Check if the credentials are known or weak (optional enhancement)
-                if (
-                    hasattr(comp, "credentials")
-                    and comp.credentials in self.known_credentials()
-                ):
+                if hasattr(comp, "credentials") and comp.credentials in self.known_credentials():
                     return True  # Vulnerability exists if credentials are weak or known
             # Check if the component is a WiFi module
             if isinstance(comp, Wifi):

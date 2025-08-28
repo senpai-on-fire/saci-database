@@ -23,13 +23,8 @@ class NoAPSVuln(BaseVulnerability):
             # The output is...?
             output=None,
             attack_ASP=NoAPSPred,
-            rulefile=os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "noaps.lp"
-            ),
+            rulefile=os.path.join(os.path.dirname(os.path.realpath(__file__)), "noaps.lp"),
         )
 
     def exists(self, device: Device) -> bool:
-        return any(
-            isinstance(comp, Steering) and not comp.has_aps
-            for comp in device.components
-        )
+        return any(isinstance(comp, Steering) and not comp.has_aps for comp in device.components)
