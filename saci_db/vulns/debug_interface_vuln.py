@@ -7,7 +7,6 @@ from saci.modeling.attack import BaseCompEffect
 from saci.modeling.device import Device
 from saci.modeling.device import Debug
 from saci.modeling.communication import (
-    AuthenticatedCommunication,
     UnauthenticatedCommunication,
     ExternalInput,
 )

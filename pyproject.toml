@@ -12,7 +12,7 @@ classifiers = [
 ]
 license = {text = "BSD 2 Clause"}
 description = "Software-Aware CPV Identifier"
-requires-python = ">= 3.8"
+requires-python = ">= 3.11"
 dependencies = [
     "saci",
     "networkx",
@@ -38,3 +38,9 @@ find = {namespaces = false}
 
 [tool.setuptools.dynamic]
 version = {attr = "saci_db.__version__"}
+
+[tool.ruff.lint]
+ignore = [
+    # Long lines. This should be fixed in the future
+    "E501",
+]

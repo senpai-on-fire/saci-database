@@ -1,11 +1,6 @@
-from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import Controller, LiDAR, PWMChannel, ESC, Motor, Serial
-from saci.modeling.communication import ExternalInput
-from saci.modeling.attack.base_attack_vector import BaseAttackVector
-from saci.modeling.attack_vector import OpticalAttackSignal
-from saci.modeling.attack.base_attack_impact import BaseAttackImpact
+from saci.modeling.device import Controller, LiDAR, Motor
 from saci.modeling.state import GlobalState
 
 from saci_db.vulns.lack_serial_auth_vuln import (

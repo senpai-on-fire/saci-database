@@ -2,13 +2,11 @@ import os.path
 
 from clorm import Predicate
 
-from saci.modeling import BaseVulnerability
 from saci.modeling import SpoofingVulnerability
 from saci.modeling.device import Device
 from saci.modeling.device.sensor.barometer import Barometer, BarometerHWPackage
 from saci.modeling.communication import (
     AuthenticatedCommunication,
-    UnauthenticatedCommunication,
     ExternalInput,
 )
 from saci.modeling.attack import (

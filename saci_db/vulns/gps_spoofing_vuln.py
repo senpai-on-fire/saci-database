@@ -7,13 +7,11 @@ from saci.modeling.attack import BaseCompEffect
 from saci.modeling.device import Device
 from saci.modeling.device.sensor import GPSReceiver
 from saci.modeling.communication import (
-    AuthenticatedCommunication,
     UnauthenticatedCommunication,
     ExternalInput,
 )
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.gps_attack_signal import GPSAttackSignal
-from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 
 # Predicate to define formal reasoning logic for GPS spoofing attacks

@@ -1,14 +1,7 @@
-from typing import List
 from saci.modeling.device import (
-    ESC,
     CompassSensor,
-    Serial,
-    PWMChannel,
-    ESC,
-    MultiCopterMotor,
     Motor
 )
-from saci_db.devices.px4_quadcopter_device import PX4Controller
 from saci.modeling import CPV
 
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln

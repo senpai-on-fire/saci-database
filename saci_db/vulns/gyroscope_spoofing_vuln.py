@@ -9,7 +9,6 @@ from saci.modeling.device.sensor import Gyroscope, GyroscopeHWPackage
 
 from saci.modeling.communication import (
     AuthenticatedCommunication,
-    UnauthenticatedCommunication,
     ExternalInput,
 )
 from saci.modeling.attack import (

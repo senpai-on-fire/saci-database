@@ -1,4 +1,3 @@
-from typing import List, Type
 
 from saci.modeling import CPV
 from saci.modeling.device import BMS, Battery, ESC, Serial

@@ -2,12 +2,10 @@ import os.path
 
 from clorm import Predicate
 
-from saci.modeling import PublicSecretVulnerability, BaseVulnerability
-from saci.modeling.device import Device, TelemetryHigh
+from saci.modeling import BaseVulnerability
+from saci.modeling.device import Device
 from saci.modeling.communication import (
-    AuthenticatedCommunication,
     UnauthenticatedCommunication,
-    ExternalInput,
 )
 from saci.modeling.device.motor.steering import Steering
 

@@ -1,14 +1,8 @@
-from typing import List, Type
 
 from saci.modeling import CPV
 from saci.modeling.device import (
-    GCS,
     Wifi,
     ICMP,
-    Telemetry,
-    PWMChannel,
-    ESC,
-    MultiCopterMotor,
     Motor,
 )
 
@@ -22,10 +16,8 @@ from saci.modeling.communication import ExternalInput
 from saci.modeling.device import Controller
 
 from saci_db.vulns.lack_wifi_auth_vuln import LackWifiAuthenticationVuln
-from saci_db.vulns.lack_wifi_encryption_vuln import LackWifiEncryptionVuln
 from saci_db.vulns.icmp_flooding_vuln import IcmpFloodVuln
 
-from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 
 class WiFiICMPFloodingCPV(CPV):

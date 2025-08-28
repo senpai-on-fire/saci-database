@@ -7,7 +7,6 @@ from saci.modeling.device import Device
 from saci.modeling.device.sensor import Magnetometer
 from saci.modeling.communication import (
     AuthenticatedCommunication,
-    UnauthenticatedCommunication,
     ExternalInput,
 )
 from saci.modeling.attack import (

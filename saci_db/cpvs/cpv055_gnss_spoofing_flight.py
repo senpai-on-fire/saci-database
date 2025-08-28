@@ -1,13 +1,7 @@
-from typing import List, Type
 
 from saci.modeling import CPV
 from saci.modeling.device import (
     GNSSReceiver,
-    Serial,
-    PWMChannel,
-    ESC,
-    MultiCopterMotor,
-    Telemetry,
     Motor,
 )
 from saci.modeling.communication import ExternalInput
@@ -21,7 +15,6 @@ from saci_db.vulns.gnss_spoofing_vuln import GNSSSpoofingVuln
 from saci_db.vulns.lack_gnss_filtering_vuln import LackGNSSFilteringVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
-from saci_db.devices.propriety_quadcopter_device import ProprietyController
 
 from saci.modeling.device import Controller
 

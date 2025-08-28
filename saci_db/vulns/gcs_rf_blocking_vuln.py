@@ -6,9 +6,7 @@ from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import Device, GCS
 from saci.modeling.communication import (
     BaseAttackVector,
-    AuthenticatedCommunication,
     UnauthenticatedCommunication,
-    ExternalInput,
 )
 from saci.modeling.attack import BaseCompEffect
 

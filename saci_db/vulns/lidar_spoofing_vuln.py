@@ -1,6 +1,5 @@
 import os
 from clorm import Predicate
-from typing import List, Type
 
 from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import Device, LiDAR

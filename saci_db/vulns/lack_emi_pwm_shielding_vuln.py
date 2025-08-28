@@ -5,7 +5,6 @@ from saci.modeling import BaseVulnerability
 from saci.modeling.device import Device, PWMChannel
 from saci.modeling.communication import (
     AuthenticatedCommunication,
-    UnauthenticatedCommunication,
     ExternalInput,
 )
 

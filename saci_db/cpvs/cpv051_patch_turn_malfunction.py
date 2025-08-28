@@ -1,9 +1,7 @@
-from pathlib import Path
 from saci.modeling import CPV
-from saci.modeling.device import SpeedControlLogic, MultiCopterMotor, PWMChannel, ESC, Motor, Serial
+from saci.modeling.device import SpeedControlLogic, Motor, Serial
 
 from saci.modeling.communication import ExternalInput
-from saci.modeling.state import GlobalState
 
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
@@ -15,7 +13,6 @@ from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
 from saci.modeling.device import Controller
 
-from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
 
 class PatchPivotTurnMalfunctionCPV(CPV):

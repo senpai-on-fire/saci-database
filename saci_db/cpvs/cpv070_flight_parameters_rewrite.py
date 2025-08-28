@@ -9,15 +9,9 @@ from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
-from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 from saci.modeling.device import (
     Wifi,
     Mavlink,
-    ESC,
-    PWMChannel,
-    MultiCopterMotor,
-    ExpressLRSBackpack,
-    GCS,
     Controller,
     Motor,
 )

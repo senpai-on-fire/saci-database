@@ -7,12 +7,10 @@ from saci.modeling.device import (
     Device,
     Wifi,
     TelemetryHigh,
-    Telemetry,
     ExpressLRSBackpack,
     Mavlink,
 )
 from saci.modeling.communication import (
-    AuthenticatedCommunication,
     UnauthenticatedCommunication,
     ExternalInput,
 )

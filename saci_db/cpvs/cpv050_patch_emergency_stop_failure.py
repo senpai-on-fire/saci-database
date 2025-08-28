@@ -1,7 +1,6 @@
-from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import EmergencyStopLogic, PWMChannel, ESC, MultiCopterMotor, Motor, Serial
+from saci.modeling.device import EmergencyStopLogic, Motor, Serial
 
 from saci.modeling.communication import ExternalInput
 from saci.modeling.state import GlobalState
@@ -16,7 +15,6 @@ from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
 from saci.modeling.device import Controller
 
-from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
 
 class PatchEmergencyStopFailureCPV(CPV):

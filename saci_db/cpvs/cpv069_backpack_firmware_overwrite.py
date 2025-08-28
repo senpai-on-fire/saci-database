@@ -1,15 +1,7 @@
-from typing import List, Type
 
 from saci.modeling import CPV
 from saci.modeling.device import (
-    Controller,
-    GCS,
     Wifi,
-    Telemetry,
-    PWMChannel,
-    ESC,
-    MultiCopterMotor,
-    Mavlink,
     ExpressLRSBackpack,
     Motor,
 )
@@ -20,7 +12,6 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci.modeling.state import GlobalState
 
 from saci_db.vulns.expresslrs_fw_overwrite import ExpressLRSFirmwareOverwriteVuln
-from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
 
 class BackpackFirmwareOverwriteCPV(CPV):

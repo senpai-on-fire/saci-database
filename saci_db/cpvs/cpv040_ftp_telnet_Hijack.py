@@ -1,14 +1,9 @@
-from typing import List, Type
 
 from saci.modeling import CPV
 from saci.modeling.device import (
     Wifi,
-    Telemetry,
     Telnet,
     FTP,
-    ESC,
-    PWMChannel,
-    MultiCopterMotor,
     Motor,
 )
 
@@ -26,7 +21,6 @@ from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci.modeling.state import GlobalState
 
-from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
 
 class FTPTelnetHijackCPV(CPV):

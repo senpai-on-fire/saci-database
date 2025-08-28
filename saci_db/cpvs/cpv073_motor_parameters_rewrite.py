@@ -1,19 +1,11 @@
-from typing import List, Type
 
 from saci.modeling import CPV
 from saci.modeling.device import (
-    GCS,
     Wifi,
-    Telemetry,
-    PWMChannel,
-    ESC,
-    MultiCopterMotor,
     Mavlink,
-    ExpressLRSBackpack,
     Motor,
     Controller,
 )
-from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
@@ -21,7 +13,6 @@ from saci.modeling.state import GlobalState
 
 from saci_db.vulns.wifi_knowncreds_vuln import WifiKnownCredsVuln
 from ..vulns.mavlink_mitm_vuln import MavlinkMitmVuln
-from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
 
 class RC3ParameterManipulationCPV(CPV):

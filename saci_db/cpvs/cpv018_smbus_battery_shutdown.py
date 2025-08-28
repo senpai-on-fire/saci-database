@@ -1,7 +1,6 @@
-from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import ESC, SMBus, Battery, BMS
+from saci.modeling.device import ESC, SMBus, BMS
 
 from saci_db.vulns.lack_serial_auth_vuln import LackSerialAuthenticationVuln
 

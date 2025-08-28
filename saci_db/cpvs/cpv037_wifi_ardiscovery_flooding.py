@@ -1,11 +1,9 @@
-from typing import List, Type
 
 from saci.modeling import CPV
 from saci.modeling.communication import ExternalInput
 
 from saci_db.vulns.ardiscovery_flooding_vuln import ARDiscoveryFloodVuln
 from saci_db.vulns.lack_wifi_auth_vuln import LackWifiAuthenticationVuln
-from saci_db.vulns.lack_wifi_encryption_vuln import LackWifiEncryptionVuln
 
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
@@ -15,16 +13,11 @@ from saci.modeling.device import Controller
 
 from saci.modeling.device import (
     Wifi,
-    Telemetry,
     ARDiscovery,
-    PWMChannel,
-    ESC,
-    MultiCopterMotor,
     Motor
 )
 from saci.modeling.state import GlobalState
 
-from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
 
 class ARDiscoveryDoSCPV(CPV):

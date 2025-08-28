@@ -1,17 +1,10 @@
-from typing import List, Type
 
 from saci.modeling import CPV
 from saci.modeling.device import (
     GPSReceiver,
-    Serial,
-    PWMChannel,
-    ESC,
-    MultiCopterMotor,
-    Telemetry,
     Motor,
 )
 from saci.modeling.communication import ExternalInput
-from saci.modeling.state import GlobalState
 
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.gps_attack_signal import GPSAttackSignal
@@ -23,7 +16,6 @@ from saci_db.vulns.lack_gps_filtering_vuln import LackGPSFilteringVuln
 
 from saci.modeling.device import Controller
 
-from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
 
 class PathManipulationCPV(CPV):

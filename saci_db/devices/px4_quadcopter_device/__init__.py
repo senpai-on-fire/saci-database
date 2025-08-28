@@ -19,7 +19,6 @@ from saci.modeling.device import (
     DNNTracking,
     Wifi,
     ObstacleAvoidanceLogic,
-    ARDiscovery,
     EmergencyStopLogic,
     SpeedControlLogic,
     AttitudeControlLogic,

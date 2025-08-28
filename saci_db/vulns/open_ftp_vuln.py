@@ -4,7 +4,6 @@ from clorm import Predicate
 from saci.modeling import BaseVulnerability
 from saci.modeling.device import Device, FTP
 from saci.modeling.communication import (
-    AuthenticatedCommunication,
     UnauthenticatedCommunication,
     ExternalInput,
 )

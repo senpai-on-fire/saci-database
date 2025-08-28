@@ -1,14 +1,7 @@
-from typing import List, Type
 
 from saci.modeling import CPV
 from saci.modeling.device import (
-    ESC,
-    Telemetry,
-    DNNTracking,
     Camera,
-    PWMChannel,
-    MultiCopterMotor,
-    Serial,
     Motor,
 )
 
@@ -24,7 +17,6 @@ from saci.modeling.device import Controller
 from saci_db.vulns.ml_adversarial_vuln import DeepNeuralNetworkVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
-from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 
 class ObjectTrackCPV(CPV):

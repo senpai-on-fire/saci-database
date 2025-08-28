@@ -1,14 +1,9 @@
-from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.communication import ExternalInput
 
 from saci_db.vulns.gcs_rf_blocking_vuln import GCSRFBlockingVuln
-from saci_db.vulns.lack_wifi_auth_vuln import LackWifiAuthenticationVuln
-from saci_db.vulns.lack_wifi_encryption_vuln import LackWifiEncryptionVuln
 
 
-from saci.modeling.attack.radio_attack_signal import RadioAttackSignal
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
@@ -16,19 +11,11 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci.modeling.device import (
     GCS,
     Mavlink,
-    Wifi,
-    TelemetryHigh,
-    SikRadio,
-    ESC,
-    PWMChannel,
-    MultiCopterMotor,
-    ExpressLRSBackpack,
     Motor,
     Controller
 )
 from saci.modeling.state import GlobalState
 
-from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
 
 class RFBlockingCPV(CPV):

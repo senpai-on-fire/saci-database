@@ -5,7 +5,6 @@ from clorm import Predicate
 from saci.modeling.vulnerability import BaseVulnerability
 from saci.modeling.device import Device, WebServer
 from saci.modeling.communication import (
-    AuthenticatedCommunication,
     UnauthenticatedCommunication,
     ExternalInput,
 )

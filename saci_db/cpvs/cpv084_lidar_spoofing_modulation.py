@@ -1,16 +1,9 @@
-from typing import List, Type
 
 from saci.modeling import CPV
 from saci.modeling.device import (
     Controller,
     LiDAR,
-    PWMChannel,
-    ESC,
     Motor,
-    Serial,
-    CANBus,
-    CANTransceiver,
-    CANShield,
 )
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector

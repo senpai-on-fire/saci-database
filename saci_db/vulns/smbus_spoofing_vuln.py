@@ -4,7 +4,6 @@ from clorm import Predicate
 from saci.modeling import SpoofingVulnerability
 from saci.modeling.device import Device, SMBus
 from saci.modeling.communication import (
-    AuthenticatedCommunication,
     UnauthenticatedCommunication,
     ExternalInput,
 )

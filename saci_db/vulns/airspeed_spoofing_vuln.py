@@ -1,4 +1,3 @@
-import os.path
 
 from clorm import Predicate
 

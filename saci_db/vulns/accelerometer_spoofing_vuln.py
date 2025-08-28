@@ -2,7 +2,6 @@ import os.path
 
 from clorm import Predicate
 
-from saci.modeling import BaseVulnerability
 from saci.modeling import SpoofingVulnerability
 from saci.modeling.device import Device
 from saci.modeling.device.sensor.accelerometer import (
@@ -10,7 +9,6 @@ from saci.modeling.device.sensor.accelerometer import (
     AccelerometerHardware,
 )
 from saci.modeling.communication import (
-    UnauthenticatedCommunication,
     AuthenticatedCommunication,
     ExternalInput,
 )

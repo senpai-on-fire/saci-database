@@ -1,7 +1,3 @@
-import os.path
-
-from clorm import Predicate
-
 """
 Modeling the deauthentication attack described in the research article:
 https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8658279
@@ -14,11 +10,14 @@ Modeled impact:
 - Emergency landing procedure triggered after WiFi disconnection.
 """
 
+import os.path
+
+from clorm import Predicate
+
 from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import Device, Telnet, FTP
-from saci.modeling.device import CyberComponentBase, Wifi
+from saci.modeling.device import Wifi
 from saci.modeling.communication import (
-    AuthenticatedCommunication,
     UnauthenticatedCommunication,
     ExternalInput,
 )

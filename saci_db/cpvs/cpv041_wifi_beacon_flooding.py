@@ -1,4 +1,3 @@
-from typing import List, Type
 
 from saci.modeling import CPV
 from saci.modeling.communication import ExternalInput
@@ -15,8 +14,7 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 from saci.modeling.device import Controller
 
-from saci_db.devices.px4_quadcopter_device import PX4Controller
-from saci.modeling.device import Wifi, Telemetry, ESC, PWMChannel, MultiCopterMotor, Motor
+from saci.modeling.device import Wifi, Motor
 from saci.modeling.state import GlobalState
 
 

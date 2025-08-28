@@ -14,7 +14,6 @@ from saci.modeling.device import (
     TelemetryHigh,
     ICMP,
     ARDiscovery,
-    Telnet,
 )
 from saci.modeling.communication import UnauthenticatedCommunication, ExternalInput
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal

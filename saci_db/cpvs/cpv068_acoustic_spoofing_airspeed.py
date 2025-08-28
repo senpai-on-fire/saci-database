@@ -1,16 +1,10 @@
-from typing import List
 from saci.modeling import CPV
 
 from saci.modeling.device import (
     AirspeedSensor,
-    Serial,
-    PWMChannel,
-    ESC,
-    FixedWingMotor,
     Motor,
     Controller,
 )  # Need to confirm model for AirspeedSensor & FixedWingMotor device
-from saci_db.devices.px4_fixedwing_device import PX4FixedWingController
 
 from saci_db.vulns.airspeed_spoofing_vuln import AirspeedSpoofingVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln

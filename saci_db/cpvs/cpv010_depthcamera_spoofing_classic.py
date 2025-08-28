@@ -1,12 +1,6 @@
 from saci.modeling import CPV
 from saci.modeling.device import (
-    ObstacleAvoidanceLogic,
-    Telemetry,
     DepthCamera,
-    PWMChannel,
-    ESC,
-    MultiCopterMotor,
-    Serial,
     Motor,
 )
 from saci.modeling.communication import ExternalInput
@@ -14,7 +8,6 @@ from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.optical_attack_signal import OpticalAttackSignal
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
-from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 from saci.modeling.device import Controller
 

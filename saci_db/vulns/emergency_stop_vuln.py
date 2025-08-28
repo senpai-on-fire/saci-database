@@ -4,7 +4,7 @@ from clorm import Predicate
 from saci.modeling import BaseVulnerability
 from saci.modeling.device import Device, EmergencyStopLogic
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
-from saci.modeling.communication import AuthenticatedCommunication, ExternalInput
+from saci.modeling.communication import ExternalInput
 from saci.modeling.device.component.cyber.cyber_abstraction_level import (
     CyberAbstractionLevel,
 )

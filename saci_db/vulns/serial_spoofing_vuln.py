@@ -5,15 +5,12 @@ from saci.modeling import SpoofingVulnerability
 from saci.modeling.attack import BaseCompEffect
 from saci.modeling.device import Device, Serial
 from saci.modeling.communication import (
-    AuthenticatedCommunication,
     UnauthenticatedCommunication,
     ExternalInput,
 )
 from saci.modeling.communication.protocol import UARTProtocol, I2CProtocol, SPIProtocol
 from saci.modeling.attack.serial_attack_signal import SerialAttackSignal
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
-from saci.modeling.attack.base_attack_impact import BaseAttackImpact
-from saci.modeling.communication import ExternalInput
 
 
 # Predicate to define formal reasoning logic for serial spoofing attacks

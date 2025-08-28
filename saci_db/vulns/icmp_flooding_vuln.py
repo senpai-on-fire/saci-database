@@ -8,7 +8,6 @@ from saci.modeling.device import Device, Wifi, ICMP
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.communication import (
-    AuthenticatedCommunication,
     UnauthenticatedCommunication,
     ExternalInput,
 )

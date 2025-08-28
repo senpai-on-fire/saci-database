@@ -6,7 +6,6 @@ from saci.modeling.device import (
     Device,
     Wifi,
     Telemetry,
-    TelemetryHigh,
     Mavlink,
     ExpressLRSBackpack,
 )

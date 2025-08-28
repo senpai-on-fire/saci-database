@@ -3,10 +3,6 @@ from saci.modeling.device import (
     GCS,
     SikRadio,
     DSMx,
-    Telemetry,
-    PWMChannel,
-    ESC,
-    MultiCopterMotor,
     Motor
 )
 from saci.modeling.communication import ExternalInput
@@ -20,7 +16,6 @@ from saci_db.vulns.rf_interference_vuln import RFInterferenceVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 from saci_db.vulns.dxmx_jamming_vuln import DSMxJammingProtocolVuln
 
-from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 from saci.modeling.device import Controller
 

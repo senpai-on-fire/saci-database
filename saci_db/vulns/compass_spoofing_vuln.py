@@ -3,7 +3,6 @@ import os.path
 from clorm import Predicate
 
 from saci.modeling.attack import BaseCompEffect
-from saci.modeling import BaseVulnerability
 from saci.modeling import SpoofingVulnerability
 from saci.modeling.device import Device
 from saci.modeling.device.sensor.compass import CompassSensor
@@ -11,7 +10,6 @@ from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.magnetic_attack_signal import MagneticAttackSignal
 from saci.modeling.communication import (
     AuthenticatedCommunication,
-    UnauthenticatedCommunication,
     ExternalInput,
 )
 

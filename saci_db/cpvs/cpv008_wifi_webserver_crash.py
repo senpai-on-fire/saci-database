@@ -1,16 +1,9 @@
-from typing import List, Type
 from saci.modeling import CPV
 from saci.modeling.device import (
-    Controller,
     Wifi,
     Controller,
     Motor,
     WebServer,
-    PWMChannel,
-    ESC,
-    CANBus,
-    CANTransceiver,
-    CANShield,
 )
 
 from saci_db.vulns.wifi_knowncreds_vuln import WifiKnownCredsVuln

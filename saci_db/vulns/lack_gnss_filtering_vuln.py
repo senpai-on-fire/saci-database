@@ -5,7 +5,6 @@ from saci.modeling import BaseVulnerability
 from saci.modeling.device import Device
 from saci.modeling.device.sensor import GNSSReceiver
 from saci.modeling.communication import (
-    AuthenticatedCommunication,
     UnauthenticatedCommunication,
     ExternalInput,
 )

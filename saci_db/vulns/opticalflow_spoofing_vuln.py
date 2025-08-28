@@ -5,7 +5,6 @@ from saci.modeling.device import Device
 from saci.modeling.device.sensor import OpticalFlowSensor
 from saci.modeling.communication import (
     AuthenticatedCommunication,
-    UnauthenticatedCommunication,
     ExternalInput,
 )
 from saci.modeling.attack import BaseAttackVector, ImageAttackSignal, BaseCompEffect

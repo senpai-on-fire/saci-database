@@ -19,7 +19,6 @@ from saci.modeling.device import (
     ObstacleAvoidanceLogic,
     Servo,
     FixedWingMotor,
-    SpeedControlLogic,
     EmergencyStopLogic,
     SpeedControlLogic,
     AttitudeControlLogic,

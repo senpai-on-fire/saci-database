@@ -1,4 +1,3 @@
-from typing import List, Type
 
 from saci.modeling import CPV
 from saci.modeling.communication import ExternalInput
@@ -17,17 +16,11 @@ from saci.modeling.device import Controller
 from saci.modeling.device import (
     GCS,
     Mavlink,
-    Wifi,
-    Telemetry,
     SikRadio,
-    ESC,
-    PWMChannel,
-    MultiCopterMotor,
     Motor,
 )
 from saci.modeling.state import GlobalState
 
-from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
 
 class RFJammingCPV(CPV):

@@ -1,4 +1,3 @@
-from typing import List, Type
 
 from saci.modeling import CPV
 from saci.modeling.device import (
@@ -6,11 +5,6 @@ from saci.modeling.device import (
     Controller,
     Motor,
     WebServer,
-    PWMChannel,
-    ESC,
-    CANBus,
-    CANTransceiver,
-    CANShield,
 )
 
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal

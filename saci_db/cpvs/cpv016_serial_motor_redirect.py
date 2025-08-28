@@ -1,21 +1,12 @@
-from typing import List, Type
 
 from saci.modeling import CPV
 from saci.modeling.device import (
     Controller,
-    ESC,
     Motor,
     Serial,
-    PWMChannel,
-    ESC,
-    CANBus,
-    CANTransceiver,
-    CANShield,
 )
-from saci.modeling.device.motor import Motor
 from saci.modeling.state import GlobalState
 
-from saci_db.vulns.noaps import NoAPSVuln
 from saci_db.vulns.lack_serial_auth_vuln import LackSerialAuthenticationVuln
 
 from saci.modeling.attack.serial_attack_signal import SerialAttackSignal

@@ -5,7 +5,6 @@ from clorm import Predicate
 from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import Device, Wifi
 from saci.modeling.communication import (
-    AuthenticatedCommunication,
     UnauthenticatedCommunication,
     ExternalInput,
 )

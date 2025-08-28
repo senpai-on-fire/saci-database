@@ -6,12 +6,10 @@ from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import (
     TelemetryHigh,
     TelemetryAlgorithmic,
-    Telemetry,
     Device,
     SikRadio,
 )
 from saci.modeling.communication import (
-    AuthenticatedCommunication,
     UnauthenticatedCommunication,
     ExternalInput,
 )

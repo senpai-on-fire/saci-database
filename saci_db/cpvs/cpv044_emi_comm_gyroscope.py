@@ -1,16 +1,9 @@
-from typing import List, Type
 
 from saci.modeling import CPV
 from saci.modeling.device import (
-    Serial,
     Gyroscope,
-    PWMChannel,
-    ESC,
-    MultiCopterMotor,
-    Telemetry,
     Motor,
 )
-from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 from saci.modeling.device import Controller
 

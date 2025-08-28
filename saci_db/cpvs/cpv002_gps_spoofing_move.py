@@ -1,13 +1,8 @@
-from typing import List, Type
 
 from saci.modeling import CPV
 from saci.modeling.device import (
     GPSReceiver,
-    Serial,
-    PWMChannel,
-    ESC,
     Motor,
-    MultiCopterMotor,
 )
 from saci.modeling.communication import ExternalInput
 from saci.modeling.state import GlobalState
@@ -22,7 +17,6 @@ from saci_db.vulns.gps_spoofing_vuln import GPSSpoofingVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 from saci_db.vulns.lack_gps_filtering_vuln import LackGPSFilteringVuln
 
-from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 
 class GPSSpoofingMoveCPV(CPV):

@@ -4,9 +4,8 @@ from clorm import Predicate
 from saci.modeling import BaseVulnerability
 from saci.modeling.device import Device, Controller
 from saci.modeling.state.operation_mode import OperationMode
-from saci.modeling.communication import AuthenticatedCommunication, ExternalInput
+from saci.modeling.communication import AuthenticatedCommunication
 
-from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 
 # Predicate to define formal reasoning for controller integrity attacks

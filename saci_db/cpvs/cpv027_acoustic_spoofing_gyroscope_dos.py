@@ -1,16 +1,9 @@
-from typing import List
 from saci.modeling import CPV
 
 from saci.modeling.device import (
     Gyroscope,
-    Serial,
-    PWMChannel,
-    ESC,
-    MultiCopterMotor,
     Motor,
-    Telemetry,
 )
-from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 from saci_db.vulns.gyroscope_spoofing_vuln import GyroscopeSpoofingVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln

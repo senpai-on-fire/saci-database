@@ -1,5 +1,5 @@
 from saci.modeling import CPV
-from saci.modeling.device import PWMChannel, ESC, MultiCopterMotor, Serial, Motor
+from saci.modeling.device import Serial, Motor
 from saci.modeling.communication import ExternalInput
 
 from saci.modeling.attack.payload_firmware_attack import PayloadFirmwareAttack

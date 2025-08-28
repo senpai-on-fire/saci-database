@@ -5,12 +5,7 @@ from saci.modeling.attack import BaseAttackSignal, BaseAttackVector, BaseAttackI
 from saci.modeling.device import (
     Serial,
     Controller,
-    ESC,
-    PWMChannel,
     Motor,
-    CANBus,
-    CANTransceiver,
-    CANShield,
 )
 from saci.modeling.state import GlobalState
 

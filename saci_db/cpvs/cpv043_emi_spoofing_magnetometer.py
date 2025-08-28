@@ -1,4 +1,3 @@
-from typing import List, Type
 
 from saci.modeling import CPV
 from saci.modeling.communication import ExternalInput
@@ -13,14 +12,8 @@ from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
 from saci.modeling.device import Controller
 
-from saci_db.devices.px4_quadcopter_device import PX4Controller
 from saci.modeling.device import (
-    Serial,
     CompassSensor,
-    PWMChannel,
-    ESC,
-    MultiCopterMotor,
-    Telemetry,
     Motor,
 )
 from saci.modeling.state import GlobalState

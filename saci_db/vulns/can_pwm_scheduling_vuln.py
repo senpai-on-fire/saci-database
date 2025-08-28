@@ -4,7 +4,6 @@ from clorm import Predicate
 from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import Device, Controller
 from saci.modeling.communication import (
-    UnauthenticatedCommunication,
     AuthenticatedCommunication,
     ExternalInput,
 )
@@ -12,9 +11,7 @@ from saci.modeling.attack import BaseCompEffect
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.packet_attack_signal import (
     SerialAttackSignal,
-    PacketAttackSignal,
 )
-from saci.modeling.device.interface import Serial
 
 
 # Predicate to define formal reasoning logic for firmware overwrite attacks

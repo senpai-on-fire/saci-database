@@ -1,15 +1,7 @@
-from typing import List
 from saci.modeling.device import (
     OpticalFlowSensor,
-    Serial,
-    PWMChannel,
-    ESC,
-    MultiCopterMotor,
-    Telemetry,
-    Serial,
     Motor,
 )
-from saci_db.devices.px4_quadcopter_device import PX4Controller
 from saci.modeling import CPV
 from saci_db.vulns.opticalflow_spoofing_vuln import OpticalFlowSpoofingVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln

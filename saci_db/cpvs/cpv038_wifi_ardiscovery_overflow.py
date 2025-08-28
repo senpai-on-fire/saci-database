@@ -1,4 +1,3 @@
-from typing import List, Type
 
 from saci.modeling import CPV
 from saci.modeling.communication import ExternalInput
@@ -13,18 +12,13 @@ from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 from saci.modeling.device import (
     Wifi,
-    Telemetry,
     ARDiscovery,
-    PWMChannel,
-    ESC,
-    MultiCopterMotor,
     Motor,
 )
 from saci.modeling.state import GlobalState
 
 from saci.modeling.device import Controller
 
-from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
 
 class ARDiscoveryBufferOverflowCPV(CPV):

@@ -6,7 +6,6 @@ from saci.modeling.device import (
     ComponentID,
     Device,
     Motor,
-    Controller,
     Debug,
     Serial,
     ESC,
@@ -14,7 +13,6 @@ from saci.modeling.device import (
     BMS,
     Battery,
 )
-from saci.modeling.device.motor.steering import Steering
 from saci.modeling.state import GlobalState
 
 

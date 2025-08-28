@@ -1,13 +1,8 @@
-from typing import List, Type
 
 from saci.modeling import CPV
 from saci.modeling.device import (
     Controller,
-    Serial,
     Motor,
-    CANBus,
-    CANTransceiver,
-    CANShield,
 )
 from saci.modeling.device.sensor import CompassSensor
 from saci.modeling.device.motor.steering import Steering

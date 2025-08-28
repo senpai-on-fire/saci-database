@@ -5,7 +5,6 @@ from saci.modeling import BaseVulnerability
 from saci.modeling.device import Device, Sensor
 from saci.modeling.communication import (
     AuthenticatedCommunication,
-    UnauthenticatedCommunication,
     ExternalInput,
 )
 

@@ -1,14 +1,8 @@
-from typing import List, Type
 
 from saci.modeling import CPV
 from saci.modeling.device import (
     Controller,
-    PWMChannel,
-    ESC,
     Serial,
-    CANBus,
-    CANTransceiver,
-    CANShield,
 )
 from saci.modeling.device.motor import Motor
 from saci.modeling.state import GlobalState

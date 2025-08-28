@@ -1,19 +1,15 @@
-from typing import List
 from saci.modeling import CPV
 
-from saci.modeling.device import Barometer, Serial, PWMChannel, ESC, MultiCopterMotor, Controller, Motor
-from saci_db.devices.px4_quadcopter_device import PX4Controller
+from saci.modeling.device import Barometer, Controller, Motor
 
 from saci_db.vulns.airspeed_spoofing_vuln import BarometerObstructionVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
-from saci.modeling.communication import ExternalInput
 from saci.modeling.state import GlobalState
 
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
-from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
 
 class BarometerObstructionCPV(CPV):

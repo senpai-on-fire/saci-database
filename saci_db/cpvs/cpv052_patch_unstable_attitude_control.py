@@ -1,9 +1,7 @@
-from pathlib import Path
 from saci.modeling import CPV
-from saci.modeling.device import AttitudeControlLogic, MultiCopterMotor, PWMChannel, ESC, Motor, Serial
+from saci.modeling.device import AttitudeControlLogic, Motor, Serial
 
 from saci.modeling.communication import ExternalInput
-from saci.modeling.state import GlobalState
 
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
@@ -13,7 +11,6 @@ from saci_db.vulns.patch_misconfiguration_vuln import PatchMisconfigurationVuln
 from saci_db.vulns.control_loop_instability_vuln import ControlLoopInstabilityVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
-from saci_db.devices.ardupilot_quadcopter_device import ArduPilotController
 
 from saci.modeling.device import Controller
 

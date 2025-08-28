@@ -1,14 +1,7 @@
-from typing import List, Type
 from saci.modeling import CPV
 from saci.modeling.device import (
     Controller,
-    Wifi,
     Motor,
-    PWMChannel,
-    ESC,
-    CANBus,
-    CANTransceiver,
-    CANShield,
 )
 
 

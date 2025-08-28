@@ -4,7 +4,6 @@ from clorm import Predicate
 from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import Device, DSMx
 from saci.modeling.communication import (
-    AuthenticatedCommunication,
     UnauthenticatedCommunication,
     ExternalInput,
 )

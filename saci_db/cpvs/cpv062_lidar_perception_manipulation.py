@@ -1,12 +1,6 @@
 from saci.modeling import CPV
 from saci.modeling.device import (
     LiDAR,
-    ObjectDetector3D,
-    PX4Controller,
-    PWMChannel,
-    ESC,
-    MultiCopterMotor,
-    Serial,
     Motor,
     Controller,
 )
@@ -15,7 +9,6 @@ from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.optical_attack_signal import OpticalAttackSignal
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
-from saci_db.devices.px4_quadcopter_device import PX4Controller
 from saci_db.vulns.lidar_spoofing_vuln import LiDARSpoofingVuln
 from saci_db.vulns.ml_adversarial_vuln import DeepNeuralNetworkVuln
 

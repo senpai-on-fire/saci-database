@@ -6,7 +6,6 @@ from saci.modeling import SpoofingVulnerability
 from saci.modeling.device import PWMChannel, Device
 from saci.modeling.communication import (
     AuthenticatedCommunication,
-    UnauthenticatedCommunication,
     ExternalInput,
 )
 from saci.modeling.attack import BaseAttackVector, MagneticAttackSignal, BaseCompEffect

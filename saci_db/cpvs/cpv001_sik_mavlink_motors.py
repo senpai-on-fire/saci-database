@@ -1,14 +1,10 @@
-from typing import List, Type
 
 from saci.modeling import CPV
 from saci.modeling.device import (
     GCS,
     Controller,
     Motor,
-    PWMChannel,
-    SikRadio,
     Mavlink,
-    ESC,
 )
 from saci.modeling.state import GlobalState
 
@@ -17,7 +13,6 @@ from saci_db.vulns.sik_flooding_vuln import SiKFloodingVuln
 
 #from saci_db.devices.px4_quadcopter_device import PX4Controller
 
-from saci.modeling.device import Controller
 
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.radio_attack_signal import RadioAttackSignal

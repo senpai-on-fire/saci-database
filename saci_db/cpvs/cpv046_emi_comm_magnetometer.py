@@ -1,17 +1,9 @@
-from typing import List, Type
 
 from saci.modeling import CPV
 from saci.modeling.device import (
-    Magnetometer,
     CompassSensor,
-    Serial,
-    PWMChannel,
-    ESC,
-    MultiCopterMotor,
     Motor,
-    Telemetry,
 )
-from saci_db.devices.px4_quadcopter_device import PX4Controller
 
 from saci.modeling.device import Controller
 
@@ -25,7 +17,6 @@ from saci.modeling.attack.magnetic_attack_signal import MagneticAttackSignal
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
 from saci.modeling.communication import ExternalInput
-from saci.modeling.device import Serial
 from saci.modeling.state import GlobalState
 
 

@@ -1,11 +1,11 @@
-import os.path
-
-from clorm import Predicate
-
 """
 Modeling the adversarial examples attack
 The modeled impact is: attackers can control the output of DNN models by exploiting known model parameters.
 """
+
+import os.path
+
+from clorm import Predicate
 
 from saci.modeling import BaseVulnerability
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
@@ -16,7 +16,6 @@ from saci.modeling.attack import BaseCompEffect
 from saci.modeling.device import Device, DNNTracking, DepthCamera
 from saci.modeling.communication import (
     AuthenticatedCommunication,
-    UnauthenticatedCommunication,
     ExternalInput,
 )
 
@@ -123,7 +122,7 @@ class DeepNeuralNetworkVuln(BaseVulnerability):
         # Iterate through all components of the device
         for comp in device.components:
             # Check if the component is a DNN model
-            if isinstance(comp, DNN):
+            if isinstance(comp, DNNTracking):
                 # Verify if the DNN model's source code and weights are known
                 if comp.known_source and comp.known_weight:
                     # If both the source and weights are accessible, the model is vulnerable

@@ -3,11 +3,6 @@ from saci.modeling.device import (
     Controller,
     Motor,
     Serial,
-    PWMChannel,
-    ESC,
-    CANBus,
-    CANTransceiver,
-    CANShield,
 )
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector

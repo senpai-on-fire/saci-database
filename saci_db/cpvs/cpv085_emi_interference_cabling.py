@@ -1,7 +1,5 @@
-from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.communication import ExternalInput
 
 from saci.modeling.attack.magnetic_attack_signal import MagneticAttackSignal
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
@@ -16,15 +14,9 @@ from saci_db.vulns.lack_emi_powercable_shielding_vuln import (
 
 from saci.modeling.device import (
     Controller,
-    Serial,
-    Magnetometer,
     Steering,
     PowerCable,
-    CANBus,
-    CANTransceiver,
-    CANShield,
     CompassSensor,
-    Motor,
 )
 from saci.modeling.state import GlobalState
 

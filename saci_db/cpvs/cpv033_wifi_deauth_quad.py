@@ -1,7 +1,6 @@
-from typing import List, Type
 
 from saci.modeling import CPV
-from saci.modeling.device import Wifi, Telemetry, PWMChannel, ESC, MultiCopterMotor, Motor
+from saci.modeling.device import Wifi, Motor
 
 from saci_db.vulns.wifi_deauthentication_vuln import WiFiDeauthVuln
 from saci_db.vulns.lack_wifi_auth_vuln import LackWifiAuthenticationVuln
@@ -15,7 +14,6 @@ from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
-from saci_db.devices.px4_quadcopter_device import PX4Controller
 from saci.modeling.state import GlobalState
 
 
