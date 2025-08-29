@@ -5,10 +5,9 @@ from clorm import Predicate
 from saci.modeling import PublicSecretVulnerability
 from saci.modeling.device import Device, GCS
 from saci.modeling.communication import (
-    BaseAttackVector,
     UnauthenticatedCommunication,
 )
-from saci.modeling.attack import BaseCompEffect
+from saci.modeling.attack import BaseCompEffect, BaseAttackVector
 
 
 # Predicate to define formal reasoning logic for RF interference vulnerabilities
