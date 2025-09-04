@@ -50,6 +50,7 @@ class RFBlockingCPV(CPV):
                         "attack_method": "RF blocking",
                         "target": "CPS communication channel",
                     },
+                    signal=None,
                 )
             ],
             attack_impacts=[

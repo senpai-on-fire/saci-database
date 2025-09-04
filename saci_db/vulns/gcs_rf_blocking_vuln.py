@@ -46,6 +46,7 @@ class GCSRFBlockingVuln(PublicSecretVulnerability):
                                 "attack_method": "RF blocking",
                                 "target": "CPS communication channel",
                             },
+                            signal=None,
                         )
                     ],
                     "related_cpv": ["RFBlockingCPV"],
