@@ -1,8 +1,10 @@
 from saci.modeling import CPV
+from saci.modeling.communication import ExternalInput
 
 from saci.modeling.device import Barometer, Controller, Motor
 
-from saci_db.vulns.airspeed_spoofing_vuln import BarometerObstructionVuln
+from saci.modeling.attack.environmental_attack_signal import EnvironmentalInterference
+from saci_db.vulns.barometer_obstruction_vuln import BarometerObstructionVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln
 
 from saci.modeling.state import GlobalState
@@ -41,7 +43,10 @@ class BarometerObstructionCPV(CPV):
             attack_vectors=[
                 BaseAttackVector(
                     name="Physical Port Obstruction",
-                    signal=None,
+                    signal=EnvironmentalInterference(
+                        src=ExternalInput(),
+                        dst=Barometer(),
+                    ),
                     required_access_level="close proximity or physical",
                     configuration={
                         "duration": "Permanent",

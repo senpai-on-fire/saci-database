@@ -1,12 +1,15 @@
 import os.path
 
 from clorm import Predicate
+from saci.modeling.communication import ExternalInput
 
 from saci.modeling import PublicSecretVulnerability
-from saci.modeling.device import Device, GCS
+from saci.modeling.device import Device, GCS, Mavlink
 from saci.modeling.communication import (
     UnauthenticatedCommunication,
 )
+
+from saci.modeling.attack.radio_attack_signal import RadioAttackSignal
 from saci.modeling.attack import BaseCompEffect, BaseAttackVector
 
 
@@ -42,11 +45,14 @@ class GCSRFBlockingVuln(PublicSecretVulnerability):
                         BaseAttackVector(
                             name="RF Blocking Attack",
                             required_access_level="Physical",
+                            signal=RadioAttackSignal(
+                                src=ExternalInput(),
+                                dst=Mavlink(),
+                            ),
                             configuration={
                                 "attack_method": "RF blocking",
                                 "target": "CPS communication channel",
                             },
-                            signal=None,
                         )
                     ],
                     "related_cpv": ["RFBlockingCPV"],

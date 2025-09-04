@@ -1,8 +1,11 @@
 from .accelerometer_spoofing_vuln import AccelerometerSpoofingVuln
+from .airspeed_spoofing_vuln import AirspeedSpoofingVuln
 from .ardiscovery_flooding_vuln import ARDiscoveryFloodVuln
 from .ardscovery_mitm_vuln import ARDiscoveryMitmVuln
 from .ardscovery_overflow_vuln import ARDiscoveryOverflowVuln
+from .barometer_obstruction_vuln import BarometerObstructionVuln
 from .barometer_spoofing_vuln import BarometerSpoofingVuln
+from .can_pwm_scheduling_vuln import CANPWMSchedulingVuln
 from .compass_spoofing_vuln import CompassSpoofingVuln
 from .control_loop_instability_vuln import ControlLoopInstabilityVuln
 from .controller_integerity_vuln import ControllerIntegrityVuln
@@ -11,12 +14,18 @@ from .depthcamera_spoofing_vuln import DepthCameraSpoofingVuln
 from .dxmx_jamming_vuln import DSMxJammingProtocolVuln
 from .emergency_stop_vuln import EmergencyStopVuln
 from .exposed_serial_connection_vuln import ExposedSerialConnectionVuln
+from .expresslrs_fw_overwrite import ExpressLRSFirmwareOverwriteVuln
+from .firmware_overwrite_vuln import FirmwareOverwriteVuln
+from .gcs_rf_blocking_vuln import GCSRFBlockingVuln
 from .gnss_spoofing_vuln import GNSSSpoofingVuln
+from .gps_jamming_vuln import GPSJammingVuln
+from .gps_passthrough_foreground_vuln import GPSPassthroughForegroundVuln
 from .gps_spoofing_vuln import GPSSpoofingVuln
 from .gyroscope_spoofing_vuln import GyroscopeSpoofingVuln
 from .icmp_flooding_vuln import IcmpFloodVuln
 from .lack_beacon_filtering_vuln import LackBeaconFilteringVuln
 from .lack_emi_controller_shielding_vuln import LackEMIControllerShieldingVuln
+from .lack_emi_powercable_shielding_vuln import LackEMIPowerCableShieldingVuln
 from .lack_emi_pwm_shielding_vuln import LackEMIPWMShieldingVuln
 from .lack_emi_sensor_shielding_vuln import LackEMISensorShieldingVuln
 from .lack_emi_serial_shielding_vuln import LackEMISerialShieldingVuln
@@ -26,8 +35,7 @@ from .lack_gps_filtering_vuln import LackGPSFilteringVuln
 from .lack_serial_auth_vuln import LackSerialAuthenticationVuln
 from .lack_wifi_auth_vuln import LackWifiAuthenticationVuln
 from .lack_wifi_encryption_vuln import LackWifiEncryptionVuln
-
-# from .lidar_spoofing_vuln import LiDARSpoofingVuln
+from .lidar_spoofing_vuln import LiDARSpoofingVuln
 from .magnetometer_spoofing_vuln import MagnetometerSpoofingVuln
 from .mavlink_mitm_vuln import MavlinkMitmVuln
 from .mavlink_overflow_vuln import MavlinkOverflow
@@ -54,25 +62,33 @@ from .wifi_knowncreds_vuln import WifiKnownCredsVuln
 
 __all__ = [
     "AccelerometerSpoofingVuln",
+    "AirspeedSpoofingVuln",
     "ARDiscoveryFloodVuln",
     "ARDiscoveryMitmVuln",
     "ARDiscoveryOverflowVuln",
+    "BarometerObstructionVuln",
     "BarometerSpoofingVuln",
+    "CANPWMSchedulingVuln",
     "CompassSpoofingVuln",
     "ControlLoopInstabilityVuln",
     "ControllerIntegrityVuln",
     "DebugInterfaceVuln",
     "DepthCameraSpoofingVuln",
     "DSMxJammingProtocolVuln",
-    "DebugInterfaceVuln",
     "EmergencyStopVuln",
     "ExposedSerialConnectionVuln",
+    "ExpressLRSFirmwareOverwriteVuln",
+    "FirmwareOverwriteVuln",
+    "GCSRFBlockingVuln",
     "GNSSSpoofingVuln",
+    "GPSJammingVuln",
+    "GPSPassthroughForegroundVuln",
     "GPSSpoofingVuln",
     "GyroscopeSpoofingVuln",
     "IcmpFloodVuln",
     "LackBeaconFilteringVuln",
     "LackEMIControllerShieldingVuln",
+    "LackEMIPowerCableShieldingVuln",
     "LackEMIPWMShieldingVuln",
     "LackEMISensorShieldingVuln",
     "LackEMISerialShieldingVuln",
@@ -82,7 +98,7 @@ __all__ = [
     "LackSerialAuthenticationVuln",
     "LackWifiAuthenticationVuln",
     "LackWifiEncryptionVuln",
-    # "LiDARSpoofingVuln",
+    "LiDARSpoofingVuln",
     "MagnetometerSpoofingVuln",
     "MavlinkMitmVuln",
     "MavlinkOverflow",
