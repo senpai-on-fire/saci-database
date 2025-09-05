@@ -2,7 +2,7 @@ import os.path
 
 from clorm import Predicate
 
-from saci.modeling import BaseVulnerability
+from saci.modeling.vulnerability import BaseVulnerability
 from saci.modeling.attack import BaseAttackVector, BaseAttackSignal, BaseCompEffect
 from saci.modeling.device import Serial, Controller, Device
 from saci.modeling.communication import UnauthenticatedCommunication

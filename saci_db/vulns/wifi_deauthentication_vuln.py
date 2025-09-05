@@ -14,7 +14,7 @@ import os.path
 
 from clorm import Predicate
 
-from saci.modeling import PublicSecretVulnerability
+from saci.modeling.vulnerability import PublicSecretVulnerability
 from saci.modeling.device import Device, Telnet, FTP
 from saci.modeling.device import Wifi
 from saci.modeling.communication import (

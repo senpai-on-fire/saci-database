@@ -1,7 +1,7 @@
 import os.path
 from clorm import Predicate
 
-from saci.modeling import SpoofingVulnerability
+from saci.modeling.vulnerability import SpoofingVulnerability
 from saci.modeling.attack import BaseCompEffect
 from saci.modeling.device import Device, Serial
 from saci.modeling.communication import (

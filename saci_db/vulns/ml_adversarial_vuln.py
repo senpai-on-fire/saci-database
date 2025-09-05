@@ -7,7 +7,7 @@ import os.path
 
 from clorm import Predicate
 
-from saci.modeling import BaseVulnerability
+from saci.modeling.vulnerability import BaseVulnerability
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.image_attack_signal import ImageAttackSignal
 from saci.modeling.attack.optical_attack_signal import OpticalAttackSignal

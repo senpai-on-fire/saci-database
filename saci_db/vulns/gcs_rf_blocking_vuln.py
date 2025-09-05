@@ -3,7 +3,7 @@ import os.path
 from clorm import Predicate
 from saci.modeling.communication import ExternalInput
 
-from saci.modeling import PublicSecretVulnerability
+from saci.modeling.vulnerability import PublicSecretVulnerability
 from saci.modeling.device import Device, GCS, Mavlink
 from saci.modeling.communication import (
     UnauthenticatedCommunication,

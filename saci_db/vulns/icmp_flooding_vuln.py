@@ -3,7 +3,7 @@ import os.path
 from clorm import Predicate
 
 from saci.modeling.attack import BaseCompEffect
-from saci.modeling import PublicSecretVulnerability
+from saci.modeling.vulnerability import PublicSecretVulnerability
 from saci.modeling.device import Device, Wifi, ICMP
 from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
 from saci.modeling.attack.base_attack_vector import BaseAttackVector

@@ -1,7 +1,7 @@
 import os.path
 from clorm import Predicate
 
-from saci.modeling import BaseVulnerability
+from saci.modeling.vulnerability import BaseVulnerability
 from saci.modeling.communication import ExternalInput
 from saci.modeling.device import Device, NavigationControlLogic
 from saci.modeling.attack.binary_patching_attack import BinaryPatchingAttack
