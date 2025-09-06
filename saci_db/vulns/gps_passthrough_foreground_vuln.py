@@ -2,7 +2,7 @@ import os.path
 from clorm import Predicate
 
 from saci.modeling.vulnerability import PublicSecretVulnerability
-from saci.modeling.device import Device, Passthrough
+from saci.modeling.device import Device, GPSReceiver
 from saci.modeling.communication import UnauthenticatedCommunication, ExternalInput
 from saci.modeling.attack import BaseCompEffect
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
@@ -18,7 +18,7 @@ class GPSPassthroughForegroundVuln(PublicSecretVulnerability):
     def __init__(self):
         super().__init__(
             # The vulnerable component is the Arduino Giga R1 programmable memory
-            component=Passthrough(),
+            component=GPSReceiver(),
             # Input: Direct unauthenticated communication via USB-C firmware upload
             _input=None,
             # Output: Unauthenticated termination of process
@@ -44,7 +44,7 @@ class GPSPassthroughForegroundVuln(PublicSecretVulnerability):
                     "attack_vector": [
                         BaseAttackVector(
                             name="Terminate Passthrough Process",
-                            signal=SerialAttackSignal(src=ExternalInput(), dst=Passthrough()),
+                            signal=SerialAttackSignal(src=ExternalInput(), dst=GPSReceiver()),
                             required_access_level="Physical",
                             configuration={"duration": "temporary"},
                         )
@@ -85,6 +85,6 @@ class GPSPassthroughForegroundVuln(PublicSecretVulnerability):
         """
         # Poor implementation :<
         for comp in device.components:
-            if isinstance(comp, Passthrough):
+            if isinstance(comp, GPSReceiver):
                 return True
         return False

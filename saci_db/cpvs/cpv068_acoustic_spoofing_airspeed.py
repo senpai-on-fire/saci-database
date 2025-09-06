@@ -4,7 +4,7 @@ from saci.modeling.device import (
     AirspeedSensor,
     Motor,
     Controller,
-)  # Need to confirm model for AirspeedSensor & FixedWingMotor device
+)  
 
 from saci_db.vulns.airspeed_spoofing_vuln import AirspeedSpoofingVuln
 from saci_db.vulns.controller_integerity_vuln import ControllerIntegrityVuln

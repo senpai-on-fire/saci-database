@@ -59,13 +59,13 @@ from .cpv058_payload_command_crash import PayloadCrashCommandCPV
 from .cpv059_payload_disable_safety import PayloadDisableSafetyCPV
 from .cpv060_payload_spoof_id import PayloadSpoofDroneIDCPV
 from .cpv061_serial_motor_tone import SerialToneCPV
-# from .cpv062_lidar_perception_manipulation import LiDARPerceptionManipulationCPV
-# from .cpv063_lidar_sensor_denial import LiDARSensorDenialCPV
-# from .cpv064_adv_ml_misnavigation import MLMisnavigationCPV
-# from .cpv065_adv_ml_undetect import AdvMLUndetectCPV
+from .cpv062_lidar_perception_manipulation import LiDARPerceptionManipulationCPV
+from .cpv063_lidar_sensor_denial import LiDARSensorDenialCPV
+from .cpv064_adv_ml_misnavigation import MLMisnavigationCPV
+from .cpv065_adv_ml_undetect import AdvMLUndetectCPV
 from .cpv066_optflow_spoof_misguidance import CPV066_OptflowSpoofMisguidance
 # from .cpv067_laser_perception_denial import LaserVisionAttackCPV
-# from .cpv068_acoustic_spoofing_airspeed import AcousticSpoofingAirspeedCPV
+from .cpv068_acoustic_spoofing_airspeed import AcousticSpoofingAirspeedCPV
 from .cpv069_backpack_firmware_overwrite import BackpackFirmwareOverwriteCPV
 from .cpv070_flight_parameters_rewrite import FlightParametersRewriteCPV
 from .cpv071_barometer_airflow_blocking import BarometerObstructionCPV
@@ -74,19 +74,19 @@ from .cpv073_motor_parameters_rewrite import RC3ParameterManipulationCPV
 from .cpv074_flip_command_inject import FlipAtLowAltitudeCPV
 from .cpv075_throttle_command_inject import RCMotorJitterCPV
 from .cpv076_attitude_control_rewrite import AttitudeFlipParameterManipulation
-# from .cpv077_wifi_disconnect_firmware_flash import ArduinoGigaFirmwareOverwriteCPV
-# from .cpv078_wifi_modifty_firmware_flash import ArduinoUnoFirmwareOverwriteCPV
-# from .cpv079_lidar_spoofing_mirroring import LiDARBYPASSMirrorCPV
-# from .cpv080_lidar_spoofing_laser import LiDARSpoofingStopCPV
-# from .cpv081_passthrough_binary_stop import GPSPassthroughStopCPV
-# from .cpv082_gps_signal_jamming import GPSJammingNoDriveCPV
-# from .cpv083_lidar_data_corrupt import LiDARDataDesynchronization
-# from .cpv084_lidar_spoofing_modulation import LiDARSpoofingModulation
-# from .cpv085_emi_interference_cabling import EMIPowerCableMagnetometerCPV
-# from .cpv086_can_messages_delay import CANMessagesDelayCPV
+from .cpv077_wifi_disconnect_firmware_flash import ArduinoGigaFirmwareOverwriteCPV
+from .cpv078_wifi_modifty_firmware_flash import ArduinoUnoFirmwareOverwriteCPV
+from .cpv079_lidar_spoofing_mirroring import LiDARBYPASSMirrorCPV
+from .cpv080_lidar_spoofing_laser import LiDARSpoofingStopCPV
+from .cpv081_passthrough_binary_stop import GPSPassthroughStopCPV
+from .cpv082_gps_signal_jamming import GPSJammingNoDriveCPV
+from .cpv083_lidar_data_corrupt import LiDARDataDesynchronization
+from .cpv084_lidar_spoofing_modulation import LiDARSpoofingModulation
+from .cpv085_emi_interference_cabling import EMIPowerCableMagnetometerCPV
+from .cpv086_can_messages_delay import CANMessagesDelayCPV
 from .cpv087_usb_cable_unplug import UsbCableUnplugCPV
 from .cpv088_http_flood_control import WifiWebCrashCPV
-# from .cpv089_lidar_light_absorb import LiDARLightAbsorbCPV
+from .cpv089_lidar_light_absorb import LiDARLightAbsorbCPV
 
 CPVS = [
     MavlinkSiKCPV(),
@@ -150,13 +150,13 @@ CPVS = [
     PayloadDisableSafetyCPV(),
     PayloadSpoofDroneIDCPV(),
     SerialToneCPV(),
-    # LiDARPerceptionManipulationCPV(),
-    # LiDARSensorDenialCPV(),
-    # MLMisnavigationCPV(),
-    # AdvMLUndetectCPV(),
+    LiDARPerceptionManipulationCPV(),
+    LiDARSensorDenialCPV(),
+    MLMisnavigationCPV(),
+    AdvMLUndetectCPV(),
     CPV066_OptflowSpoofMisguidance(),
     # LaserVisionAttackCPV(),
-    # AcousticSpoofingAirspeedCPV(),
+    AcousticSpoofingAirspeedCPV(),
     BackpackFirmwareOverwriteCPV(),
     FlightParametersRewriteCPV(),
     BarometerObstructionCPV(),
@@ -165,16 +165,16 @@ CPVS = [
     FlipAtLowAltitudeCPV(),
     RCMotorJitterCPV(),
     AttitudeFlipParameterManipulation(),
-    # ArduinoGigaFirmwareOverwriteCPV(),
-    # ArduinoUnoFirmwareOverwriteCPV(),
-    # LiDARBYPASSMirrorCPV(),
-    # LiDARSpoofingStopCPV(),
-    # GPSPassthroughStopCPV(),
-    # GPSJammingNoDriveCPV(),
-    # LiDARDataDesynchronization(),
-    # LiDARSpoofingModulation(),
-    # EMIPowerCableMagnetometerCPV(),
-    # CANMessagesDelayCPV(),
+    ArduinoGigaFirmwareOverwriteCPV(),
+    ArduinoUnoFirmwareOverwriteCPV(),
+    LiDARBYPASSMirrorCPV(),
+    LiDARSpoofingStopCPV(),
+    GPSPassthroughStopCPV(),
+    GPSJammingNoDriveCPV(),
+    LiDARDataDesynchronization(),
+    LiDARSpoofingModulation(),
+    EMIPowerCableMagnetometerCPV(),
+    CANMessagesDelayCPV(),
     UsbCableUnplugCPV(),
-    # LiDARLightAbsorbCPV(),
+    LiDARLightAbsorbCPV(),
 ]

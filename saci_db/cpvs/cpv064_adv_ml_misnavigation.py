@@ -9,7 +9,7 @@ from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.optical_attack_signal import OpticalAttackSignal
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
-from saci_db.vulns.ml_misnavigation_patch_vuln import MLMisnavigationPatchVuln
+from saci_db.vulns.ml_adversarial_vuln import DeepNeuralNetworkVuln
 
 
 class MLMisnavigationCPV(CPV):
@@ -28,7 +28,7 @@ class MLMisnavigationCPV(CPV):
             entry_component=Camera(),
             exit_component=Motor(),
             vulnerabilities=[
-                MLMisnavigationPatchVuln(),
+                DeepNeuralNetworkVuln(),
             ],
             goals=[
                 "Mislead the UAV to crash into an obstacle, to change direction, or to stop moving",

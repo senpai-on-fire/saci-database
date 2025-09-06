@@ -1,7 +1,6 @@
 from saci.modeling import CPV
 from saci.modeling.device import (
     LiDAR,
-    MultiCopterMotor,
     Controller,
     Motor,
 )
@@ -27,7 +26,7 @@ class LiDARSensorDenialCPV(CPV):
                 Motor(),  # This is the exit component + Changed to Motor() for generalization (Required)
             ],
             entry_component=LiDAR(),
-            exit_component=MultiCopterMotor(),
+            exit_component=Motor(),
             vulnerabilities=[
                 LiDARSpoofingVuln(),
             ],

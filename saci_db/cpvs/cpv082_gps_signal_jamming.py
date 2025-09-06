@@ -39,7 +39,8 @@ class GPSJammingNoDriveCPV(CPV):
             ],
             entry_component=GPSReceiver(),
             exit_component=Motor(),
-            vulnerabilities=[GPSSpoofingVuln(), LackGPSFilteringVuln(), ControllerIntegrityVuln(), GPSJammingVuln()],
+            vulnerabilities=[GPSSpoofingVuln(), LackGPSFilteringVuln(), 
+                             ControllerIntegrityVuln(), GPSJammingVuln()],
             initial_conditions={
                 "Position": "Any",
                 "Heading": "Any",

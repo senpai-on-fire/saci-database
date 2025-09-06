@@ -2,11 +2,11 @@ import os.path
 from clorm import Predicate
 
 from saci.modeling.vulnerability import PublicSecretVulnerability
-from saci.modeling.device import Device, ArduinoGigaR1
+from saci.modeling.device import Device, Controller
 from saci.modeling.communication import UnauthenticatedCommunication, ExternalInput
 from saci.modeling.attack import BaseCompEffect
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
-from saci.modeling.attack.firmware_attack_signal import FirmwareAttackSignal
+from saci.modeling.attack.packet_attack_signal import PacketAttackSignal
 
 
 # Predicate to define formal reasoning logic for firmware overwrite attacks
@@ -17,8 +17,8 @@ class FirmwareOverwritePred(Predicate):
 class FirmwareOverwriteVuln(PublicSecretVulnerability):
     def __init__(self):
         super().__init__(
-            # The vulnerable component is the Arduino Giga R1 programmable memory
-            component=ArduinoGigaR1(),
+            # The vulnerable component is the Controller with Programmable Memory
+            component=Controller(),
             # Input: Direct unauthenticated communication via USB-C firmware upload
             _input=UnauthenticatedCommunication(src=ExternalInput()),
             # Output: Compromised component state due to overwritten firmware
@@ -40,11 +40,12 @@ class FirmwareOverwriteVuln(PublicSecretVulnerability):
                     # Attack vector: Firmware Overwrite via Arduino IDE USB upload
                     "attack_vector": [
                         BaseAttackVector(
-                            name="Firmware Overwrite via USB-C Interface",
-                            signal=FirmwareAttackSignal(src=ExternalInput(), dst=ArduinoGigaR1()),
+                            name="Firmware Overwrite via USB-C Port",
+                            signal=PacketAttackSignal(src=ExternalInput(), dst=Serial(), modality="firmware_overwrite"),
                             required_access_level="Physical",
                             configuration={
                                 "method": "Arduino IDE USB Upload",
+                                "firmware": "Blank Sketch",
                                 "interface": "USB-C",
                             },
                         )
@@ -83,6 +84,6 @@ class FirmwareOverwriteVuln(PublicSecretVulnerability):
         - The firmware update lacks proper authentication/verification
         """
         for comp in device.components:
-            if isinstance(comp, ArduinoGigaR1) and comp.has_programmable_flash:
+            if isinstance(comp, Controller) and comp.has_programmable_flash:
                 return not device.has_firmware_verification
         return False

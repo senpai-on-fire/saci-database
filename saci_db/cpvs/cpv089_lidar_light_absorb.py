@@ -12,7 +12,7 @@ from saci.modeling.attack.environmental_attack_signal import EnvironmentalInterf
 
 from saci.modeling.state import GlobalState
 
-from saci_db.vulns import LiDARSpoofingVuln
+from saci_db.vulns.lidar_spoofing_vuln import LiDARSpoofingVuln
 
 
 class LiDARLightAbsorbCPV(CPV):
