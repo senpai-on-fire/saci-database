@@ -88,6 +88,10 @@ from .cpv087_usb_cable_unplug import UsbCableUnplugCPV
 from .cpv088_http_flood_control import WifiWebCrashCPV
 from .cpv089_lidar_light_absorb import LiDARLightAbsorbCPV
 
+from .cpv090_parameter_arithmetic_overflow import ParameterArithmeticOverflowCPV
+from .cpv091_alt_hold_param_misimplementation import AltHoldParamMisimplementation
+from .cpv092_gps_input_arithmetic_overflow import GPSInputArithmeticOverflow
+
 CPVS = [
     MavlinkSiKCPV(),
     GPSSpoofingMoveCPV(),
@@ -176,5 +180,8 @@ CPVS = [
     EMIPowerCableMagnetometerCPV(),
     CANMessagesDelayCPV(),
     UsbCableUnplugCPV(),
+    ParameterArithmeticOverflowCPV(),
+    AltHoldParamMisimplementation(),
+    GPSInputArithmeticOverflow(),
     LiDARLightAbsorbCPV(),
 ]
