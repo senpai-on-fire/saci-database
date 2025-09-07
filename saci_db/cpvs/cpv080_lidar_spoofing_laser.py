@@ -6,7 +6,7 @@ from saci.modeling.device import (
 )
 from saci.modeling.communication import ExternalInput
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
-from saci.modeling.attack_vector import OpticalAttackSignal
+from saci.modeling.attack import OpticalAttackSignal
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci.modeling.state import GlobalState
 

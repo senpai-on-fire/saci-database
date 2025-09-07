@@ -9,7 +9,7 @@ from saci.modeling.communication import (
 )
 from saci.modeling.attack import BaseCompEffect
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
-from saci.modeling.attack.packet_attack_signal import (
+from saci.modeling.attack.serial_attack_signal import (
     SerialAttackSignal,
 )
 

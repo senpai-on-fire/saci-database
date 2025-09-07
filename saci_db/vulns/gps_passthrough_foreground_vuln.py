@@ -6,7 +6,7 @@ from saci.modeling.device import Device, GPSReceiver
 from saci.modeling.communication import UnauthenticatedCommunication, ExternalInput
 from saci.modeling.attack import BaseCompEffect
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
-from saci.modeling.attack.packet_attack_signal import SerialAttackSignal
+from saci.modeling.attack.serial_attack_signal import SerialAttackSignal
 
 
 # Predicate to define formal reasoning logic for firmware overwrite attacks

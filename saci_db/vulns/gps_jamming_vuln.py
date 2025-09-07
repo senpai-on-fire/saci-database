@@ -7,9 +7,8 @@ from saci.modeling.device.sensor import GPSReceiver
 from saci.modeling.communication import (
     UnauthenticatedCommunication,
     ExternalInput,
-    LossOfSignal,
 )
-from saci.modeling.attack_vector import (
+from saci.modeling.attack import (
     BaseAttackVector,
     BaseCompEffect,
     GPSAttackSignal,
