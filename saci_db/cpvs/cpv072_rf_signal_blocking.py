@@ -1,8 +1,9 @@
 from saci.modeling import CPV
+from saci.modeling.communication import ExternalInput
 
 from saci_db.vulns.gcs_rf_blocking_vuln import GCSRFBlockingVuln
 
-
+from saci.modeling.attack.radio_attack_signal import RadioAttackSignal
 from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
@@ -46,6 +47,10 @@ class RFBlockingCPV(CPV):
                 BaseAttackVector(
                     name="RF Blocking Attack",
                     required_access_level="Physical",
+                    signal=RadioAttackSignal(
+                        src=ExternalInput(),
+                        dst=Mavlink(),
+                    ),
                     configuration={
                         "attack_method": "RF blocking",
                         "target": "CPS communication channel",

@@ -1,16 +1,18 @@
 from saci.modeling import CPV
+from saci.modeling.communication import ExternalInput
 
 from saci.modeling.device import (
     LiDAR,
     Controller,
     Motor,
 )
+from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 from saci.modeling.attack.environmental_attack_signal import EnvironmentalInterference
 
 from saci.modeling.state import GlobalState
 
-from saci_db.vulns import LiDARSpoofingVuln
+from saci_db.vulns.lidar_spoofing_vuln import LiDARSpoofingVuln
 
 
 class LiDARLightAbsorbCPV(CPV):
@@ -43,7 +45,21 @@ class LiDARLightAbsorbCPV(CPV):
                 "Operating mode": "Mission",
             },
             attack_requirements=["Non-reflective material capable of dissipating LiDAR beam"],
-            attack_vectors=[EnvironmentalInterference(dst=LiDAR(), modality="non-reflective material")],
+            
+            attack_vectors=[
+                BaseAttackVector(
+                    name="Non Reflective Material",
+                    signal=EnvironmentalInterference(
+                        src=ExternalInput(),
+                        dst=LiDAR(),
+                    ),
+                    required_access_level="remote access",
+                    configuration={
+                        "duration": "Temporary",
+                        "tool": "non-reflective material",
+                    },
+                )
+            ],
             attack_impacts=[
                 BaseAttackImpact(
                     category="Manipulation of Control",

@@ -2,7 +2,7 @@ import os.path
 from clorm import Predicate
 
 from saci.modeling.attack import BaseCompEffect
-from saci.modeling import BaseVulnerability
+from saci.modeling.vulnerability import BaseVulnerability
 from saci.modeling.device import Device, Wifi, ARDiscovery, SikRadio, Telnet, FTP
 from saci.modeling.attack.radio_attack_signal import RadioAttackSignal
 from saci.modeling.communication import (

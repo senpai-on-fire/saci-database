@@ -11,10 +11,11 @@ from saci_db.vulns.lack_emi_powercable_shielding_vuln import (
     LackEMIPowerCableShieldingVuln,
 )
 
+from saci.modeling.communication import ExternalInput
+
 from saci.modeling.device import (
     Controller,
     Steering,
-    PowerCable,
     CompassSensor,
 )
 from saci.modeling.state import GlobalState
@@ -62,7 +63,7 @@ class EMIPowerCableMagnetometerCPV(CPV):
                 BaseAttackVector(
                     name="Electromagnetic Signals Interference",
                     signal=MagneticAttackSignal(
-                        src=PowerCable(),
+                        src=ExternalInput(),
                         dst=CompassSensor(),
                     ),
                     required_access_level="Physical",

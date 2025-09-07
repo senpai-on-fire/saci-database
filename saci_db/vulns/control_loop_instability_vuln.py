@@ -1,7 +1,7 @@
 import os.path
 from clorm import Predicate
 
-from saci.modeling import BaseVulnerability
+from saci.modeling.vulnerability import BaseVulnerability
 from saci.modeling.device import Device, AttitudeControlLogic
 from saci_db.devices.px4_quadcopter_device import PX4Controller
 from saci.modeling.attack.base_attack_vector import BaseAttackVector

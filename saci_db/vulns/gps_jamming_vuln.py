@@ -1,15 +1,14 @@
 import os.path
 from clorm import Predicate
 
-from saci.modeling import BaseVulnerability
+from saci.modeling.vulnerability import BaseVulnerability
 from saci.modeling.device import Device
 from saci.modeling.device.sensor import GPSReceiver
 from saci.modeling.communication import (
     UnauthenticatedCommunication,
     ExternalInput,
-    LossOfSignal,
 )
-from saci.modeling.attack_vector import (
+from saci.modeling.attack import (
     BaseAttackVector,
     BaseCompEffect,
     GPSAttackSignal,
@@ -29,16 +28,7 @@ class GPSJammingVuln(BaseVulnerability):
             # Input: Unauthenticated noise/interference signals from external jammer
             _input=UnauthenticatedCommunication(src=ExternalInput),
             # Output: Loss of GPS signal resulting in failure to acquire valid positioning
-            output=LossOfSignal(),
-            # Halima: modeling discussion
-            ###################
-            # class LossOfSignal(BaseCommunication):
-            #         def __init__(self, src=None, dst=None, reason="Jamming Interference", identifier=None, seq=0):
-            #             super().__init__(src=src, dst=dst, data=None)
-            #             self.identifier = identifier
-            #             self.seq = seq
-            #             self.reason = reason
-            ####################
+            output=UnauthenticatedCommunication(),
             # Predicate for reasoning about GPS jamming vulnerabilities
             attack_ASP=GPSJammingPred,
             # Logic rules for evaluating this vulnerability

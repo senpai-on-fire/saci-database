@@ -9,7 +9,7 @@ from saci.modeling.attack.base_attack_vector import BaseAttackVector
 from saci.modeling.attack.optical_attack_signal import OpticalAttackSignal
 from saci.modeling.attack.base_attack_impact import BaseAttackImpact
 
-from saci_db.vulns.adv_ml_undetect_patch_vuln import AdvMLUndetectPatchVuln
+from saci_db.vulns.ml_adversarial_vuln import DeepNeuralNetworkVuln
 
 
 class AdvMLUndetectCPV(CPV):
@@ -28,7 +28,7 @@ class AdvMLUndetectCPV(CPV):
             entry_component=Camera(),
             exit_component=Motor(),
             vulnerabilities=[
-                AdvMLUndetectPatchVuln(),
+                DeepNeuralNetworkVuln(),
             ],
             goals=[
                 "Prevent aerial object detector from recognizing target vehicles",

@@ -1,7 +1,7 @@
 import os
 from clorm import Predicate
 
-from saci.modeling import PublicSecretVulnerability
+from saci.modeling.vulnerability import PublicSecretVulnerability
 from saci.modeling.device import Device, LiDAR
 from saci.modeling.communication import UnauthenticatedCommunication, ExternalInput
 from saci.modeling.attack import (

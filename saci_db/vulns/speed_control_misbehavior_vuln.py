@@ -2,7 +2,7 @@ import os.path
 from clorm import Predicate
 
 from saci.modeling.device import Device, SpeedControlLogic
-from saci.modeling import BaseVulnerability
+from saci.modeling.vulnerability import BaseVulnerability
 from saci.modeling.communication import ExternalInput
 from saci.modeling.device.component.cyber.cyber_abstraction_level import (
     CyberAbstractionLevel,

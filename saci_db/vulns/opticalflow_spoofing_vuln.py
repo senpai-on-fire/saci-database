@@ -1,6 +1,6 @@
 import os.path
 from clorm import Predicate
-from saci.modeling import SpoofingVulnerability
+from saci.modeling.vulnerability import SpoofingVulnerability
 from saci.modeling.device import Device
 from saci.modeling.device.sensor import OpticalFlowSensor
 from saci.modeling.communication import (

@@ -1,9 +1,10 @@
 from clorm import Predicate
 
-from saci.modeling import SpoofingVulnerability
+from saci.modeling.vulnerability import SpoofingVulnerability
 
 from saci.modeling.device import Device
 from saci.modeling.device.sensor import Barometer
+from saci.modeling.attack.environmental_attack_signal import EnvironmentalInterference
 
 from saci.modeling.communication import AuthenticatedCommunication, ExternalInput
 from saci.modeling.attack import BaseAttackVector, BaseCompEffect
@@ -37,7 +38,10 @@ class BarometerObstructionVuln(SpoofingVulnerability):
                     "attack_vector": [
                         BaseAttackVector(
                             name="Static‑Port Blockage",
-                            signal=None,
+                            signal=EnvironmentalInterference(
+                                src=ExternalInput(),
+                                dst=Barometer(),
+                            ),
                             required_access_level="close physical",
                             configuration={
                                 "tool": "tape / putty / dust",

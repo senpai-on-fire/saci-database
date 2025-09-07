@@ -1,7 +1,7 @@
 import os.path
 from clorm import Predicate
 
-from saci.modeling import BaseVulnerability
+from saci.modeling.vulnerability import BaseVulnerability
 from saci.modeling.device import Device, Telnet
 from saci.modeling.communication import (
     UnauthenticatedCommunication,

@@ -32,7 +32,7 @@ class ArduinoGigaFirmwareOverwriteCPV(CPV):
             ],
             entry_component=Serial(),
             exit_component=Motor(),  # Exit component is Motor because the final impact is motor inactivity due to firmware overwrite.
-            vulnerabilities=[FirmwareOverwriteVuln(component=Controller())],
+            vulnerabilities=[FirmwareOverwriteVuln()],
             initial_conditions={
                 "Position": "Any",
                 "Heading": "Any",
