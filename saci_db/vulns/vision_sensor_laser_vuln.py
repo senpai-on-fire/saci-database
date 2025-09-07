@@ -34,23 +34,19 @@ class VisionSensorLaserVuln(SpoofingVulnerability):
                 "CWE-1188: Insecure Default Initialization of Resource",
             ],
             attack_vectors=[
-                {
-                    "name": "Laser Interference Attack",
-                    "description": "Using laser pointer to disrupt camera vision sensor",
-                    "attacks": [
-                        BaseAttackVector(
-                            impact=BaseCompEffect(
-                                primary="Camera",
-                                secondary="Controller",
-                                effect="Disrupted vision perception leading to navigation errors",
-                            ),
-                            signal=OpticalAttackSignal(
-                                src=ExternalInput(),
-                                dst=Camera(),
-                                data="660nm laser ~10000 lux"
-                            ),
-                        )
-                    ],
-                }
+                BaseAttackVector(
+                    name="Laser Interference Attack",
+                    signal=OpticalAttackSignal(
+                        src=ExternalInput(),
+                        dst=Camera(),
+                        data="660nm laser ~10000 lux"
+                    ),
+                    required_access_level="Remote",
+                    configuration={
+                        "wavelength": "660nm",
+                        "intensity": "~10000 lux",
+                        "description": "Using laser pointer to disrupt camera vision sensor"
+                    }
+                )
             ],
         )

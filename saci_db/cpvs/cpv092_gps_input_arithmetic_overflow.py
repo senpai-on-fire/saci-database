@@ -1,7 +1,7 @@
 from saci.modeling import CPV
 
 from saci_db.vulns.wifi_knowncreds_vuln import WifiKnownCredsVuln
-from ..vulns.mavlink_mitm_vuln import MavlinkMitmVuln
+from saci_db.vulns.mavlink_mitm_vuln import MavlinkMitmVuln
 
 # need model for TXBackpack
 
