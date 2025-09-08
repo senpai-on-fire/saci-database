@@ -1,6 +1,6 @@
 from saci.modeling import CPV
 from saci.modeling.device import (
-    LiDAR,
+    Lidar,
     Motor,
     Controller,
 )
@@ -19,14 +19,14 @@ class LiDARPerceptionManipulationCPV(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
-                LiDAR(),  # This is the entry component (Required)
+                Lidar(),  # This is the entry component (Required)
                 # Serial(), # Removed considering that the LiDAR is inherently connected to the Controller via Serial (Not Required)
                 Controller(),  # Changed from PX4Controller() to Controller() for generalization (Required)
                 # PWMChannel(), # Removed since the PWMChannel is just a passthrough for the CPV (Not Required)
                 # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
                 Motor(),  # This is the exit component + Changed to Motor() for generalization (Required)
             ],
-            entry_component=LiDAR(),
+            entry_component=Lidar(),
             exit_component=Motor(),
             vulnerabilities=[
                 LiDARSpoofingVuln(),
@@ -52,19 +52,19 @@ class LiDARPerceptionManipulationCPV(CPV):
             attack_vectors=[
                 BaseAttackVector(
                     name="Synchronized Pattern Injection",
-                    signal=OpticalAttackSignal(src=ExternalInput(), dst=LiDAR(), modality="laser"),
+                    signal=OpticalAttackSignal(src=ExternalInput(), dst=Lidar(), modality="laser"),
                     required_access_level="Physical",
                     configuration={"pattern": "Car/Person", "timing": "synchronized"},
                 ),
                 BaseAttackVector(
                     name="Adaptive High-Frequency Removal",
-                    signal=OpticalAttackSignal(src=ExternalInput(), dst=LiDAR(), modality="laser"),
+                    signal=OpticalAttackSignal(src=ExternalInput(), dst=Lidar(), modality="laser"),
                     required_access_level="Physical",
                     configuration={"mode": "A-HFR", "frequency": ">1MHz"},
                 ),
                 BaseAttackVector(
                     name="Relay Injection Closer Than Attacker",
-                    signal=OpticalAttackSignal(src=ExternalInput(), dst=LiDAR(), modality="laser"),
+                    signal=OpticalAttackSignal(src=ExternalInput(), dst=Lidar(), modality="laser"),
                     required_access_level="Physical",
                     configuration={"mode": "Relay", "timing": "delayed"},
                 ),

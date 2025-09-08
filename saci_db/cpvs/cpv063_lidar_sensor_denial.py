@@ -1,6 +1,6 @@
 from saci.modeling import CPV
 from saci.modeling.device import (
-    LiDAR,
+    Lidar,
     Controller,
     Motor,
 )
@@ -18,14 +18,14 @@ class LiDARSensorDenialCPV(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
-                LiDAR(),  # This is the entry component (Required)
+                Lidar(),  # This is the entry component (Required)
                 # Serial(), # Removed considering that the LiDAR is inherently connected to the Controller via Serial (Not Required)
                 Controller(),  # Changed from PX4Controller() to Controller() for generalization (Required)
                 # PWMChannel(), # Removed since the PWMChannel is just a passthrough for the CPV (Not Required)
                 # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
                 Motor(),  # This is the exit component + Changed to Motor() for generalization (Required)
             ],
-            entry_component=LiDAR(),
+            entry_component=Lidar(),
             exit_component=Motor(),
             vulnerabilities=[
                 LiDARSpoofingVuln(),
@@ -48,13 +48,13 @@ class LiDARSensorDenialCPV(CPV):
             attack_vectors=[
                 BaseAttackVector(
                     name="LED Blinding",
-                    signal=OpticalAttackSignal(src=ExternalInput(), dst=LiDAR(), modality="light"),
+                    signal=OpticalAttackSignal(src=ExternalInput(), dst=Lidar(), modality="light"),
                     required_access_level="Physical",
                     configuration={"mode": "Flooding", "wavelength": "Visible/IR"},
                 ),
                 BaseAttackVector(
                     name="Replay Attack",
-                    signal=OpticalAttackSignal(src=ExternalInput(), dst=LiDAR(), modality="laser"),
+                    signal=OpticalAttackSignal(src=ExternalInput(), dst=Lidar(), modality="laser"),
                     required_access_level="Physical",
                     configuration={"mode": "Recorded pulses", "delay": "ms-scale"},
                 ),

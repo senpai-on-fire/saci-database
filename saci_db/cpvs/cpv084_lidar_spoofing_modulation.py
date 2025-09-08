@@ -1,7 +1,7 @@
 from saci.modeling import CPV
 from saci.modeling.device import (
     Controller,
-    LiDAR,
+    Lidar,
     Motor,
 )
 from saci.modeling.communication import ExternalInput
@@ -19,7 +19,7 @@ class LiDARSpoofingModulation(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
-                LiDAR(),  # This is the entry component (Required)
+                Lidar(),  # This is the entry component (Required)
                 # Serial(), # Removed considering that the LiDAR is inherently connected to the Controller via Serial (Not Required)
                 Controller(),  # This is the controller hosting the firmware (Required)
                 # CANTransceiver(), # Removed for generalization since it's not required and too specific (Not required)
@@ -30,7 +30,7 @@ class LiDARSpoofingModulation(CPV):
                 # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
                 Motor(),  # This is the exit component + Changed to Motor() for generalization (Required)
             ],
-            entry_component=LiDAR(),
+            entry_component=Lidar(),
             exit_component=Motor(),
             vulnerabilities=[LiDARSpoofingVuln()],
             initial_conditions={
@@ -52,7 +52,7 @@ class LiDARSpoofingModulation(CPV):
                     name="Matched-Modulation LiDAR Injection",
                     signal=OpticalAttackSignal(
                         src=ExternalInput(),
-                        dst=LiDAR(),
+                        dst=Lidar(),
                     ),
                     required_access_level="Remote",
                     configuration={

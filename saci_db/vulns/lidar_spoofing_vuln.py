@@ -2,7 +2,7 @@ import os
 from clorm import Predicate
 
 from saci.modeling.vulnerability import PublicSecretVulnerability
-from saci.modeling.device import Device, LiDAR
+from saci.modeling.device import Device, Lidar
 from saci.modeling.communication import UnauthenticatedCommunication, ExternalInput
 from saci.modeling.attack import (
     BaseAttackVector,
@@ -19,7 +19,7 @@ class LiDARSpoofingPred(Predicate):
 class LiDARSpoofingVuln(PublicSecretVulnerability):
     def __init__(self):
         super().__init__(
-            component=LiDAR(),
+            component=Lidar(),
             _input=UnauthenticatedCommunication(src=ExternalInput()),
             output=UnauthenticatedCommunication(),
             attack_ASP=LiDARSpoofingPred,
@@ -38,7 +38,7 @@ class LiDARSpoofingVuln(PublicSecretVulnerability):
                             name="Direct LiDAR Laser Injection",
                             signal=OpticalAttackSignal(
                                 src=ExternalInput(),
-                                dst=LiDAR(),
+                                dst=Lidar(),
                             ),
                             required_access_level="Physical",
                             configuration={
@@ -77,7 +77,7 @@ class LiDARSpoofingVuln(PublicSecretVulnerability):
                             name="Mirror-Based LiDAR Signal Redirection",
                             signal=OpticalAttackSignal(
                                 src=ExternalInput(),
-                                dst=LiDAR(),
+                                dst=Lidar(),
                             ),
                             required_access_level="Physical",
                             configuration={
@@ -116,7 +116,7 @@ class LiDARSpoofingVuln(PublicSecretVulnerability):
                             name="LiDAR Sensor Denial Attack",
                             signal=OpticalAttackSignal(
                                 src=ExternalInput(),
-                                dst=LiDAR(),
+                                dst=Lidar(),
                             ),
                             required_access_level="Physical",
                             configuration={
@@ -147,7 +147,7 @@ class LiDARSpoofingVuln(PublicSecretVulnerability):
                     ],
                 },
                 {
-                    "attack_vector": [EnvironmentalInterference(dst=LiDAR(), modality="non-reflective material")],
+                    "attack_vector": [EnvironmentalInterference(dst=Lidar(), modality="non-reflective material")],
                     "related_cpv": ["LiDARLightAbsorbCPV"],
                     "com_attack_effect": [
                         BaseCompEffect(
@@ -170,7 +170,7 @@ class LiDARSpoofingVuln(PublicSecretVulnerability):
 
     def exists(self, device: Device) -> bool:
         for comp in device.components:
-            if isinstance(comp, LiDAR):
+            if isinstance(comp, Lidar):
                 if not comp.has_signal_validation():
                     return True
         return False

@@ -1,5 +1,5 @@
 from saci.modeling import CPV
-from saci.modeling.device import Controller, LiDAR, Motor
+from saci.modeling.device import Controller, Lidar, Motor
 from saci.modeling.state import GlobalState
 
 from saci_db.vulns.lack_serial_auth_vuln import (
@@ -13,7 +13,7 @@ class LiDARDataDesynchronization(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
-                LiDAR(),  # This is the entry component (Required)
+                Lidar(),  # This is the entry component (Required)
                 # Serial(), # Removed considering that the LiDAR is inherently connected to the Controller via Serial (Not Required)
                 Controller(),  # This is the controller hosting the firmware (Required)
                 # CANTransceiver(), # Removed for generalization since it's not required and too specific (Not required)
@@ -24,7 +24,7 @@ class LiDARDataDesynchronization(CPV):
                 # ESC(), # Removed since the ESC is just a passthrough for the CPV (Not Required)
                 Motor(),  # This is the exit component + Changed to Motor() for generalization (Required)
             ],
-            entry_component=LiDAR(),
+            entry_component=Lidar(),
             exit_component=Motor(),
             vulnerabilities=[
                 LackSerialAuthenticationVuln()  # needs updating
