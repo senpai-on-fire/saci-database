@@ -20,29 +20,37 @@ class BluetoothJammingCPV(CPV):
         super().__init__(
             required_components=[
                 Bluetooth(
-                    roles=["peripheral"],
-                    supported_protocols=["BLE"],
-                    bt_version="v4.2",
-                    frequency_band="2.4 GHz ISM",
+                    parameters={
+                        "roles": ["peripheral"],
+                        "supported_protocols": ["BLE"],
+                        "bt_version": "v4.2",
+                        "frequency_band": "2.4 GHz ISM",
+                    }
                 ),
                 Bluetooth(
-                    roles=["central"],
-                    supported_protocols=["BLE"],
-                    bt_version="v4.2",
-                    frequency_band="2.4 GHz ISM",
+                    parameters={
+                        "roles": ["central"],
+                        "supported_protocols": ["BLE"],
+                        "bt_version": "v4.2",
+                        "frequency_band": "2.4 GHz ISM",
+                    }
                 ),
             ],
             entry_component=Bluetooth(
-                    roles=["peripheral"],
-                    supported_protocols=["BLE"],
-                    bt_version="v4.2",
-                    frequency_band="2.4 GHz ISM",
+                    parameters={
+                        "roles": ["peripheral"],
+                        "supported_protocols": ["BLE"],
+                        "bt_version": "v4.2",
+                        "frequency_band": "2.4 GHz ISM",
+                    }
                 ),
             exit_component=Bluetooth(
-                    roles=["central"],
-                    supported_protocols=["BLE"],
-                    bt_version="v4.2",
-                    frequency_band="2.4 GHz ISM",
+                    parameters={
+                        "roles": ["central"],
+                        "supported_protocols": ["BLE"],
+                        "bt_version": "v4.2",
+                        "frequency_band": "2.4 GHz ISM",
+                    }
                 ),
             vulnerabilities=[BLEJammingVuln()],
             initial_conditions={
@@ -66,10 +74,12 @@ class BluetoothJammingCPV(CPV):
                     signal=RadioAttackSignal(
                         src=ExternalInput(), 
                         dst=Bluetooth(
-                            roles=["central"], 
-                            supported_protocols=["BLE"], 
-                            bt_version="v4.2", 
-                            frequency_band="2.4 GHz ISM"
+                            parameters={
+                                "roles": ["central"], 
+                                "supported_protocols": ["BLE"], 
+                                "bt_version": "v4.2", 
+                                "frequency_band": "2.4 GHz ISM"
+                            }
                         ),
                     ),
                     required_access_level="Proximity",

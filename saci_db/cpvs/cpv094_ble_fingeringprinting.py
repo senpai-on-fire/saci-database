@@ -18,11 +18,11 @@ class BLEFingeringPrintingCPV(CPV):
     def __init__(self):
         super().__init__(
             required_components=[
-                Bluetooth(roles=["peripheral"], supported_protocols=["BLE"]),
-                Bluetooth(roles=["central"], supported_protocols=["BLE"]),
+                Bluetooth(parameters={"roles": ["peripheral"], "supported_protocols": ["BLE"]}),
+                Bluetooth(parameters={"roles": ["central"], "supported_protocols": ["BLE"]}),
             ],
-            entry_component=Bluetooth(roles=["peripheral"], supported_protocols=["BLE"]),
-            exit_component=Bluetooth(roles=["central"], supported_protocols=["BLE"]),
+            entry_component=Bluetooth(parameters={"roles": ["peripheral"], "supported_protocols": ["BLE"]}),
+            exit_component=Bluetooth(parameters={"roles": ["central"], "supported_protocols": ["BLE"]}),
             vulnerabilities=[BLEFingeringPrintingVuln()],
             initial_conditions={
                 "Position": "Within communication range of the target BLE device",
@@ -43,7 +43,7 @@ class BLEFingeringPrintingCPV(CPV):
                     name="Passive BLE Fingerprinting",
                     signal=RadioAttackSignal(
                         src=ExternalInput(), 
-                        dst=Bluetooth(roles=["peripheral"], supported_protocols=["BLE"])),
+                        dst=Bluetooth(parameters={"roles": ["peripheral"], "supported_protocols": ["BLE"]})),
                     required_access_level="Proximity",
                     configuration={
                         "attack_method": "Sniff advertisement UUIDs",
@@ -65,16 +65,16 @@ class BLEFingeringPrintingCPV(CPV):
                 "TA2 Exploit Steps",
                 "Simulate BLE sniffer (e.g., Raspberry-PI and BLE Antenna)",
                 "Capture advertisement packets and extract static UUIDs",
-                "Simulate different authentication levels (e.g., Just Works)"
+                "Simulate different authentication levels (e.g., Just Works)",
                 "TA3 Exploit Steps",
                 "Use the UUID-to-device database to identify the CPS device",
                 "Connect to the CPS device and verify the authentication level",
             ],
+            associated_files=[],
+            reference_urls=[
+                "https://dl.acm.org/doi/10.1145/3319535.3354240",
+            ],
         )
-        associated_files=[],
-        reference_urls=[
-            "https://dl.acm.org/doi/10.1145/3319535.3354240",
-        ],
 
 
     def in_goal_state(self, state):
