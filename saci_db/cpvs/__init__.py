@@ -87,10 +87,15 @@ from .cpv086_can_messages_delay import CANMessagesDelayCPV
 from .cpv087_usb_cable_unplug import UsbCableUnplugCPV
 from .cpv088_http_flood_control import WifiWebCrashCPV
 from .cpv089_lidar_light_absorb import LiDARLightAbsorbCPV
-
 from .cpv090_parameter_arithmetic_overflow import ParameterArithmeticOverflowCPV
 from .cpv091_alt_hold_param_misimplementation import AltHoldParamMisimplementation
 from .cpv092_gps_input_arithmetic_overflow import GPSInputArithmeticOverflow
+from .cpv_096_lidar_camera_fusion_spoofing import LiDARCameraFusionSpoofingCPV
+from .cpv_097_lidar_traj_pred_manipulation import LiDARTrajectoryPredictionManipulationCPV
+from .cpv_098_lidar_shadow_materials import LiDARShadowMaterialCPV
+from .cpv_099_lidar_camera_invisible_obj import LiDARCameraInvisibleObjectCPV
+from .cpv_100_lidar_arbitray_obj import LiDARArbitraryObjectCPV
+from .cpv_101_lidar_invisible_vehicle import LiDARInvisibleVehicleCPV
 
 CPVS = [
     MavlinkSiKCPV(),
@@ -184,4 +189,10 @@ CPVS = [
     AltHoldParamMisimplementation(),
     GPSInputArithmeticOverflow(),
     LiDARLightAbsorbCPV(),
+    LiDARCameraFusionSpoofingCPV(),
+    LiDARTrajectoryPredictionManipulationCPV(),
+    LiDARShadowMaterialCPV(),
+    LiDARCameraInvisibleObjectCPV(),
+    LiDARArbitraryObjectCPV(),
+    LiDARInvisibleVehicleCPV(),
 ]

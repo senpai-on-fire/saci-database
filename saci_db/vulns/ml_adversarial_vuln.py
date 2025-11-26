@@ -13,7 +13,7 @@ from saci.modeling.attack.image_attack_signal import ImageAttackSignal
 from saci.modeling.attack.optical_attack_signal import OpticalAttackSignal
 from saci.modeling.attack import BaseCompEffect
 
-from saci.modeling.device import Device, DNNTracking, DepthCamera
+from saci.modeling.device import Device, DNNTracking, DepthCamera, Camera, Lidar
 from saci.modeling.communication import (
     AuthenticatedCommunication,
     ExternalInput,
@@ -110,6 +110,53 @@ class DeepNeuralNetworkVuln(BaseVulnerability):
                         "The obstacle avoidance system reacts based on the erroneous depth information, causing unintended or unsafe maneuvers.",
                     ],
                     "reference_urls": ["https://www.usenix.org/system/files/sec22-zhou-ce.pdf"],
+                },
+                {
+                    "attack_vector": [
+                        BaseAttackVector(
+                            name="Adversarial 3D Mesh LiDAR Detection Bypass",
+                            signal=OpticalAttackSignal(
+                                src=ExternalInput(),
+                                dst=Lidar(),
+                            ),
+                            required_access_level="Physical",
+                            configuration={
+                                "object": "3D-printed adversarial object with stealth-constrained vertices",
+                                "placement": "Centered in the CPS lane at braking distance to corrupt LiDAR voxels",
+                                "goal": "Fail to detect the object",
+                                "effect": "Prevents the CPS from braking",
+                            },
+                        ),
+                        BaseAttackVector(
+                            name="Adversarial 3D Mesh MSF Detection Bypass",
+                            signal=OpticalAttackSignal(
+                                src=ExternalInput(),
+                                dst=Camera(),
+                            ),
+                            required_access_level="Physical",
+                            configuration={
+                                "object": "Same 3D-printed adversarial object with stealth-constrained vertices",
+                                "placement": "Center of the CPS lane and 7 m ahead so camera and LiDAR view the object simultaneously",
+                                "goal": "Fail to detect the object",
+                                "effect": "Prevents the CPS from braking",
+                            },
+                        ),
+                    ],
+                    "related_cpv": ["LiDARCameraInvisibleObjectCPV"],
+                    "comp_attack_effect": BaseCompEffect(
+                        category="Control Hijacking",
+                        description="3D printed adversarial objects simultaneously evade LiDAR and camera detections, potentially leading to collisions.",
+                    ),
+                    "exploit_steps": [
+                        "Collect synchronized LiDAR/camera datasets with calibration matrices for the target CPS route.",
+                        "Run the MSF-ADV optimization (≥1000 iterations + EoT sampling) to minimize detection confidence across both modalities.",
+                        "Deploy the object mid-lane and align it with both LiDAR and camera fields-of-view",
+                        "Monitor real sensor feeds to verify detection confidence while the rover keeps its commanded speed into the obstacle",
+                        "Vertify the attack is successful"
+                    ],
+                    "reference_urls": [
+                        "https://arxiv.org/abs/2106.09249",
+                    ],
                 },
             ],
         )
