@@ -90,12 +90,15 @@ from .cpv089_lidar_light_absorb import LiDARLightAbsorbCPV
 from .cpv090_parameter_arithmetic_overflow import ParameterArithmeticOverflowCPV
 from .cpv091_alt_hold_param_misimplementation import AltHoldParamMisimplementation
 from .cpv092_gps_input_arithmetic_overflow import GPSInputArithmeticOverflow
-from .cpv_096_lidar_camera_fusion_spoofing import LiDARCameraFusionSpoofingCPV
-from .cpv_097_lidar_traj_pred_manipulation import LiDARTrajectoryPredictionManipulationCPV
-from .cpv_098_lidar_shadow_materials import LiDARShadowMaterialCPV
-from .cpv_099_lidar_camera_invisible_obj import LiDARCameraInvisibleObjectCPV
-from .cpv_100_lidar_arbitray_obj import LiDARArbitraryObjectCPV
-from .cpv_101_lidar_invisible_vehicle import LiDARInvisibleVehicleCPV
+from .cpv093_bluetooth_jamming import BluetoothJammingCPV
+from .cpv094_ble_fingeringprinting import BLEFingeringPrintingCPV
+from .cpv095_battery_enhaustion import BatteryEnhaustionCPV
+from .cpv096_lidar_camera_fusion_spoofing import LiDARCameraFusionSpoofingCPV
+from .cpv097_lidar_traj_pred_manipulation import LiDARTrajectoryPredictionManipulationCPV
+from .cpv098_lidar_shadow_materials import LiDARShadowMaterialCPV
+from .cpv099_lidar_camera_invisible_obj import LiDARCameraInvisibleObjectCPV
+from .cpv100_lidar_arbitray_obj import LiDARArbitraryObjectCPV
+from .cpv101_lidar_invisible_vehicle import LiDARInvisibleVehicleCPV
 
 CPVS = [
     MavlinkSiKCPV(),
@@ -188,6 +191,9 @@ CPVS = [
     ParameterArithmeticOverflowCPV(),
     AltHoldParamMisimplementation(),
     GPSInputArithmeticOverflow(),
+    BluetoothJammingCPV(),
+    BLEFingeringPrintingCPV(),
+    BatteryEnhaustionCPV(),
     LiDARLightAbsorbCPV(),
     LiDARCameraFusionSpoofingCPV(),
     LiDARTrajectoryPredictionManipulationCPV(),
