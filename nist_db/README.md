@@ -114,7 +114,7 @@ nist/
 
 ## Troubleshooting
 
-**Rate limit errors (429):**
+**Rate limit errors:**
 - Get an API key to increase limits
 - Increase `RATE_LIMIT_DELAY` in `config.py`
 - Reduce `DEFAULT_MAX_RESULTS`
